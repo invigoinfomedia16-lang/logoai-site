@@ -24,7 +24,7 @@ export default function Footer() {
           </div>
 
           {/* Link columns */}
-          <div className="flex flex-wrap gap-8 md:gap-[80px]">
+          <div className="flex flex-wrap gap-6 md:gap-10 lg:gap-[80px]">
             {FOOTER_LINKS.map((group) => (
               <div key={group.title} className="flex flex-col gap-4">
                 <span className="font-bricolage font-bold text-sm leading-5 text-white">

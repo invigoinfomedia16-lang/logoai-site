@@ -31,7 +31,7 @@ function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
           {q}
         </span>
 
-        <div className="flex-shrink-0 w-7 h-7 rounded-full bg-white/[0.06] flex items-center justify-center">
+        <div className="flex-shrink-0 w-9 h-9 rounded-full bg-white/[0.06] flex items-center justify-center">
           <svg
             width="14"
             height="14"
@@ -75,7 +75,7 @@ export default function FAQ() {
       <div className="max-w-[1120px] mx-auto flex flex-col gap-8 md:gap-[60px]">
         <div className="flex flex-col gap-2.5">
           <Badge icon="question" text="FAQ" />
-          <h2 className="font-bricolage font-medium text-[36px] sm:text-[48px] lg:text-[56px] leading-[1.1em] tracking-[-0.04em] m-0">
+          <h2 className="font-bricolage font-medium leading-[1.1em] tracking-[-0.04em] m-0" style={{ fontSize: 'clamp(28px, 5vw, 56px)' }}>
             Got questions? We've got answers
           </h2>
           <p className="font-bricolage font-medium text-base sm:text-lg leading-7 tracking-[-0.02em] text-white/50 m-0">

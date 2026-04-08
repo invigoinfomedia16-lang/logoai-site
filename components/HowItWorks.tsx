@@ -28,7 +28,7 @@ export default function HowItWorks() {
         {/* Heading */}
         <div className="flex flex-col gap-2.5">
           <Badge icon="monitor" text="Simple as 1-2-3" />
-          <h2 className="font-bricolage font-medium text-[36px] sm:text-[48px] lg:text-[56px] leading-[1.1em] tracking-[-0.04em] m-0">
+          <h2 className="font-bricolage font-medium leading-[1.1em] tracking-[-0.04em] m-0" style={{ fontSize: 'clamp(28px, 5vw, 56px)' }}>
             From idea to logo in seconds
           </h2>
           <p className="font-bricolage font-medium text-base sm:text-lg leading-7 tracking-[-0.02em] text-white/50 m-0">

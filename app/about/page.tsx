@@ -1,6 +1,7 @@
 import PageWrapper from '@/components/PageWrapper'
 import ScrollReveal from '@/components/ScrollReveal'
 import { COMPARISON_ROWS } from '@/data'
+import Badge from '@/components/ui/Badge'
 
 const BLUE = 'rgb(0,0,255)'
 
@@ -93,9 +94,7 @@ export default function AboutPage() {
       {/* ── Hero ── */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
         <div className="max-w-[1120px] mx-auto flex flex-col gap-6">
-          <p className="font-bricolage text-sm font-medium text-white/40 uppercase tracking-[2px] m-0">
-            Why LOGO.AI
-          </p>
+          <Badge icon="lightning" text="Why LOGO.AI" />
           <h1
             className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[860px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
@@ -121,9 +120,7 @@ export default function AboutPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-4 max-w-[640px]">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                Why choose LOGO.AI
-              </p>
+              <Badge icon="sparkle" text="Why choose LOGO.AI" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
                 LOGO.AI replaces manual design with fast, consistent results.
               </h2>
@@ -154,9 +151,7 @@ export default function AboutPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-4 max-w-[640px]">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                How LOGO.AI compares
-              </p>
+              <Badge icon="trophy" text="How LOGO.AI compares" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
                 See how LOGO.AI compares to designers and other AI logo makers.
               </h2>
@@ -164,7 +159,7 @@ export default function AboutPage() {
 
             {/* Table — horizontally scrollable on mobile */}
             <div className="w-full overflow-x-auto scrollbar-hide -mx-5 px-5 md:mx-0 md:px-0">
-              <div style={{ minWidth: 560 }}>
+              <div style={{ minWidth: 480 }}>
                 {/* Header */}
                 <div
                   className="grid pb-4 border-b font-bricolage"
@@ -218,9 +213,7 @@ export default function AboutPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-4 max-w-[580px]">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                See it in action
-              </p>
+              <Badge icon="monitor" text="See it in action" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
                 Name to logo. Without the process.
               </h2>
@@ -293,9 +286,7 @@ export default function AboutPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-8 max-w-[760px]">
             <div className="flex flex-col gap-4">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                Built for real use
-              </p>
+              <Badge icon="shield" text="Built for real use" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[44px] leading-[1.1em] tracking-[-0.04em] m-0">
                 Not just something that looks good — but something that works everywhere your brand appears.
               </h2>

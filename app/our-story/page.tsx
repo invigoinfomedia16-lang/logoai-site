@@ -1,6 +1,7 @@
 import PageWrapper from '@/components/PageWrapper'
 import ScrollReveal from '@/components/ScrollReveal'
 import Link from 'next/link'
+import Badge from '@/components/ui/Badge'
 
 const BLUE = 'rgb(0,0,255)'
 
@@ -77,9 +78,7 @@ export default function OurStoryPage() {
       {/* ── Hero ── */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
         <div className="max-w-[1120px] mx-auto flex flex-col gap-7">
-          <p className="font-bricolage text-sm font-medium text-white/40 uppercase tracking-[2px] m-0">
-            Our Story
-          </p>
+          <Badge icon="book" text="Our Story" />
           <h1
             className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[860px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
@@ -103,9 +102,7 @@ export default function OurStoryPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24 items-start">
             <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                The Problem
-              </p>
+              <Badge icon="shield" text="The Problem" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 The wall every founder hits
               </h2>
@@ -180,9 +177,7 @@ export default function OurStoryPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                The Turning Point
-              </p>
+              <Badge icon="clock" text="The Turning Point" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Late 2023.
               </h2>
@@ -245,9 +240,7 @@ export default function OurStoryPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-4 max-w-[680px]">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                How We Built It
-              </p>
+              <Badge icon="cpu" text="How We Built It" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Teaching AI to design
               </h2>
@@ -297,9 +290,7 @@ export default function OurStoryPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                The Team
-              </p>
+              <Badge icon="users" text="The Team" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Small team. High standards.
               </h2>
@@ -369,9 +360,7 @@ export default function OurStoryPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24 items-center">
             <div className="flex-1 flex flex-col gap-5">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                The Name
-              </p>
+              <Badge icon="trophy" text="The Name" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Earned, not bought.
               </h2>
@@ -410,9 +399,7 @@ export default function OurStoryPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                Why Now
-              </p>
+              <Badge icon="lightning" text="Why Now" />
               <div className="flex flex-col gap-3">
                 <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
                   For years, this wasn&apos;t possible.
@@ -450,9 +437,7 @@ export default function OurStoryPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[320px] flex-shrink-0">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                What This Unlocks
-              </p>
+              <Badge icon="rocket" text="What This Unlocks" />
             </div>
             <div className="flex-1 flex flex-col gap-3">
               <p className="font-bricolage font-medium text-lg md:text-2xl leading-[1.5em] tracking-[-0.02em] text-white m-0">
@@ -477,9 +462,7 @@ export default function OurStoryPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                What Comes Next
-              </p>
+              <Badge icon="rocket" text="What Comes Next" />
               <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
                 We&apos;re not just building a logo tool.
                 We&apos;re building systems that:

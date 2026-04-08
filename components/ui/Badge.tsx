@@ -7,6 +7,15 @@ type IconName =
   | 'trendup'
   | 'question'
   | 'article'
+  | 'book'
+  | 'users'
+  | 'newspaper'
+  | 'lightning'
+  | 'buildings'
+  | 'cpu'
+  | 'rocket'
+  | 'shield'
+  | 'clock'
 
 const BLUE = 'rgb(0,0,255)'
 
@@ -68,6 +77,73 @@ const ICONS: Record<IconName, JSX.Element> = {
       <line x1="76" y1="96" x2="180" y2="96" />
       <line x1="76" y1="128" x2="180" y2="128" />
       <line x1="76" y1="160" x2="148" y2="160" />
+    </svg>
+  ),
+  book: (
+    <svg width="18" height="18" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M48,216a24,24,0,0,1,24-24H208V32H72A24,24,0,0,0,48,56Z" />
+      <path d="M48,216a24,24,0,0,0,24,24H208V192H72A24,24,0,0,0,48,216Z" />
+      <line x1="96" y1="88" x2="160" y2="88" />
+      <line x1="96" y1="120" x2="160" y2="120" />
+    </svg>
+  ),
+  users: (
+    <svg width="18" height="18" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="80" cy="104" r="40" />
+      <path d="M16,200a80,80,0,0,1,128-64" />
+      <circle cx="176" cy="144" r="40" />
+      <path d="M136,200a80,80,0,0,1,80,0" />
+    </svg>
+  ),
+  newspaper: (
+    <svg width="18" height="18" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M64,208H200a16,16,0,0,0,16-16V48H64V208Z" />
+      <path d="M64,208a16,16,0,0,1-32,0V80H64" />
+      <line x1="112" y1="96" x2="168" y2="96" />
+      <line x1="112" y1="128" x2="168" y2="128" />
+      <rect x="96" y="152" width="88" height="32" rx="4" fill={BLUE} stroke="none" opacity="0.4" />
+    </svg>
+  ),
+  lightning: (
+    <svg width="18" height="18" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="152,16 72,144 128,144 104,240 184,112 128,112 152,16" />
+    </svg>
+  ),
+  buildings: (
+    <svg width="18" height="18" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="16,224 240,224" />
+      <rect x="128" y="48" width="96" height="176" rx="8" />
+      <path d="M40,224V112a8,8,0,0,1,8-8H96a8,8,0,0,1,8,8v112" />
+      <rect x="152" y="184" width="24" height="40" />
+    </svg>
+  ),
+  cpu: (
+    <svg width="18" height="18" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="88" y="88" width="80" height="80" rx="8" />
+      <path d="M112,88V64" /><path d="M144,88V64" />
+      <path d="M112,192v-24" /><path d="M144,192v-24" />
+      <path d="M88,112H64" /><path d="M88,144H64" />
+      <path d="M192,112H168" /><path d="M192,144H168" />
+      <rect x="40" y="40" width="176" height="176" rx="16" />
+    </svg>
+  ),
+  rocket: (
+    <svg width="18" height="18" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M105.06,135.06l-37.47,37.47a24,24,0,0,1-34,0,24,24,0,0,1,0-34l37.47-37.47" />
+      <path d="M200.56,55.44,153,80.29a87.81,87.81,0,0,0-41.38,41.38L83.43,172.57,83,173a24,24,0,0,0,0,34,24,24,0,0,0,34,0l50.9-28.19A87.81,87.81,0,0,0,209.71,137l24.85-47.56C238.81,78.59,221.41,61.19,200.56,55.44Z" />
+      <circle cx="168" cy="88" r="16" />
+    </svg>
+  ),
+  shield: (
+    <svg width="18" height="18" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M40,114.79V56a8,8,0,0,1,8-8H208a8,8,0,0,1,8,8v58.79c0,84.18-71.78,111.19-85.54,116a7.83,7.83,0,0,1-4.92,0C111.78,225.98,40,198.97,40,114.79Z" />
+      <polyline points="88,128 112,152 168,100" />
+    </svg>
+  ),
+  clock: (
+    <svg width="18" height="18" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="128" cy="128" r="96" />
+      <polyline points="128,72 128,128 176,128" />
     </svg>
   ),
 }

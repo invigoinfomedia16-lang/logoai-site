@@ -35,7 +35,7 @@ export default function Navbar({ onCTAClick }: NavbarProps) {
           backgroundColor:
             scrolled || mobileOpen ? 'rgba(0,0,0,0.8)' : 'transparent',
           borderBottom: '1px solid rgba(255,255,255,0.06)',
-          padding: '18px 40px',
+          padding: 'clamp(14px, 2vw, 18px) clamp(16px, 4vw, 40px)',
           opacity: visible ? 1 : 0,
           transform: visible ? 'translateY(0)' : 'translateY(-20px)',
           transition: 'opacity 0.6s ease, transform 0.6s ease, background-color 0.3s ease, backdrop-filter 0.3s ease',

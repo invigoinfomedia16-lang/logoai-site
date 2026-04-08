@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import PageWrapper from '@/components/PageWrapper'
 import ScrollReveal from '@/components/ScrollReveal'
+import Badge from '@/components/ui/Badge'
 
 const FAQS = [
   {
@@ -108,7 +109,7 @@ export default function FAQPage() {
       {/* ── Hero ── */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
         <div className="max-w-[1120px] mx-auto flex flex-col gap-6">
-          <p className="font-bricolage text-sm font-medium text-white/40 uppercase tracking-[2px]">FAQ</p>
+          <Badge icon="question" text="FAQ" />
           <h1
             className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[760px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}

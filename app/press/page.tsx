@@ -1,5 +1,6 @@
 import PageWrapper from '@/components/PageWrapper'
 import ScrollReveal from '@/components/ScrollReveal'
+import Badge from '@/components/ui/Badge'
 
 const BLUE = 'rgb(0,0,255)'
 
@@ -82,7 +83,7 @@ export default function PressPage() {
       {/* ── Hero ── */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
         <div className="max-w-[1120px] mx-auto flex flex-col gap-6">
-          <p className="font-bricolage text-sm font-medium text-white/40 uppercase tracking-[2px]">Press & Media</p>
+          <Badge icon="newspaper" text="Press & Media" />
           <h1
             className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[800px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
@@ -110,7 +111,7 @@ export default function PressPage() {
           style={{ borderTop: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.015)' }}
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-8">
-            <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">Company Overview</p>
+            <Badge icon="buildings" text="Company Overview" />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {STATS.map((s) => (
                 <div key={s.label} className="flex flex-col gap-1.5">
@@ -131,7 +132,7 @@ export default function PressPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-3">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">Press Releases</p>
+              <Badge icon="newspaper" text="Press Releases" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Upcoming announcements
               </h2>
@@ -177,7 +178,7 @@ export default function PressPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-3">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">For Journalists</p>
+              <Badge icon="article" text="For Journalists" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Copy-paste descriptions
               </h2>
@@ -237,7 +238,7 @@ export default function PressPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-3">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">Usage Guidelines</p>
+              <Badge icon="shield" text="Usage Guidelines" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
                 How to use our brand
               </h2>

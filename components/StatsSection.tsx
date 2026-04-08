@@ -73,7 +73,7 @@ export default function StatsSection() {
       <div className="max-w-[1120px] mx-auto flex flex-col gap-8 md:gap-[60px]">
         <div className="flex flex-col gap-2.5">
           <Badge icon="trendup" text="By the numbers" />
-          <h2 className="font-bricolage font-medium text-[36px] sm:text-[48px] lg:text-[56px] leading-[1.1em] tracking-[-0.04em] m-0">
+          <h2 className="font-bricolage font-medium leading-[1.1em] tracking-[-0.04em] m-0" style={{ fontSize: 'clamp(28px, 5vw, 56px)' }}>
             Your free logo is waiting
           </h2>
           <p className="font-bricolage font-medium text-base sm:text-lg leading-7 tracking-[-0.02em] text-white/50 m-0">

@@ -1,5 +1,6 @@
 import PageWrapper from '@/components/PageWrapper'
 import ScrollReveal from '@/components/ScrollReveal'
+import Badge from '@/components/ui/Badge'
 
 const BLUE = 'rgb(0,0,255)'
 
@@ -170,7 +171,7 @@ export default function LeadershipPage() {
       {/* ── Hero ── */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
         <div className="max-w-[1120px] mx-auto flex flex-col gap-6">
-          <p className="font-bricolage text-sm font-medium text-white/40 uppercase tracking-[2px]">Leadership &amp; Journey</p>
+          <Badge icon="users" text="Leadership &amp; Journey" />
           <h1
             className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[800px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
@@ -191,7 +192,7 @@ export default function LeadershipPage() {
           style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
-            <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">Founders</p>
+            <Badge icon="users" text="Founders" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {FOUNDERS.map((f) => (
                 <div
@@ -251,15 +252,7 @@ export default function LeadershipPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[360px] flex-shrink-0 flex flex-col gap-5">
-              <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="88" y="88" width="80" height="80" rx="8"/>
-                <path d="M112,88V64"/><path d="M144,88V64"/>
-                <path d="M112,192v-24"/><path d="M144,192v-24"/>
-                <path d="M88,112H64"/><path d="M88,144H64"/>
-                <path d="M192,112H168"/><path d="M192,144H168"/>
-                <rect x="40" y="40" width="176" height="176" rx="16"/>
-              </svg>
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">Early AI Experiments</p>
+              <Badge icon="cpu" text="Early AI Experiments" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Long before AI became mainstream
               </h2>
@@ -302,16 +295,7 @@ export default function LeadershipPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-5 max-w-[680px]">
-              <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="16,224 240,224"/>
-                <rect x="128" y="48" width="96" height="176" rx="8"/>
-                <path d="M40,224V112a8,8,0,0,1,8-8H96a8,8,0,0,1,8,8v112"/>
-                <line x1="152" y1="96" x2="152" y2="96"/><line x1="184" y1="96" x2="184" y2="96"/>
-                <line x1="152" y1="128" x2="152" y2="128"/><line x1="184" y1="128" x2="184" y2="128"/>
-                <line x1="152" y1="160" x2="152" y2="160"/><line x1="184" y1="160" x2="184" y2="160"/>
-                <rect x="152" y="184" width="24" height="40"/>
-              </svg>
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">Building Across Industries</p>
+              <Badge icon="buildings" text="Building Across Industries" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Products built and scaled at real scale
               </h2>
@@ -354,7 +338,7 @@ export default function LeadershipPage() {
           style={{ borderTop: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.015)' }}
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-14">
-            <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">Experience that adds up</p>
+            <Badge icon="trendup" text="Experience that adds up" />
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {STATS.map((s) => (
                 <div key={s.label} className="flex flex-col gap-3">
@@ -385,12 +369,7 @@ export default function LeadershipPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[280px] flex-shrink-0 flex flex-col gap-4">
-              <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M236.8,188.09,149.35,36.22a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224H215.45a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09Z"/>
-                <line x1="128" y1="104" x2="128" y2="144"/>
-                <circle cx="128" cy="180" r="12" fill={BLUE} stroke="none"/>
-              </svg>
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">The Pattern We Couldn&apos;t Ignore</p>
+              <Badge icon="shield" text="The Pattern We Couldn't Ignore" />
             </div>
             <div className="flex-1 flex flex-col gap-5">
               <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
@@ -423,10 +402,7 @@ export default function LeadershipPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-8 max-w-[760px]">
             <div className="flex flex-col gap-4">
-              <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="152,16 72,144 128,144 104,240 184,112 128,112 152,16"/>
-              </svg>
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">Why LOGO.AI</p>
+              <Badge icon="lightning" text="Why LOGO.AI" />
             </div>
             <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
               When AI reached the point where it could understand design — not just generate outputs —
@@ -453,7 +429,7 @@ export default function LeadershipPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-4 max-w-[580px]">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">How We Think</p>
+              <Badge icon="sparkle" text="How We Think" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 We don&apos;t believe in adding features for the sake of it.
               </h2>
@@ -484,7 +460,7 @@ export default function LeadershipPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-4 max-w-[580px]">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">What We&apos;re Building</p>
+              <Badge icon="rocket" text="What We're Building" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 LOGO.AI is just the start.
               </h2>
@@ -525,7 +501,7 @@ export default function LeadershipPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-4 max-w-[580px]">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">Looking Ahead</p>
+              <Badge icon="rocket" text="Looking Ahead" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 We&apos;re building toward a world where:
               </h2>
