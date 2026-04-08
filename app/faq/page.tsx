@@ -116,7 +116,7 @@ export default function FAQPage() {
             Got questions?{' '}
             <span className="text-white/40">We&apos;ve got answers.</span>
           </h1>
-          <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.7em] tracking-[-0.02em] text-white/50 max-w-[500px] m-0">
+          <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.7em] tracking-[-0.02em] text-white/55 max-w-[500px] m-0">
             Everything you need to know about creating your free logo.
           </p>
         </div>

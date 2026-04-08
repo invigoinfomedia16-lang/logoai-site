@@ -204,7 +204,7 @@ export default function PressPage() {
                   style={{ border: '1px solid rgba(84,87,94,0.3)' }}
                 >
                   <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">{item.label}</p>
-                  <p className="font-bricolage text-sm md:text-base leading-[1.7em] text-white/65 m-0">{item.text}</p>
+                  <p className="font-bricolage text-sm md:text-base leading-[1.7em] text-white/50 m-0">{item.text}</p>
                 </div>
               ))}
             </div>

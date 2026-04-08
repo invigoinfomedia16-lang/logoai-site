@@ -226,13 +226,13 @@ export default function LeadershipPage() {
               className="rounded-2xl p-8 md:p-10 flex flex-col gap-4"
               style={{ border: '1px solid rgba(84,87,94,0.3)' }}
             >
-              <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/60 m-0">
+              <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
                 We&apos;ve been building together since our teens.
               </p>
-              <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/60 m-0">
+              <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
                 It started with early web experiments — Flash-based e-greeting cards, among the first of their kind.
               </p>
-              <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/60 m-0">
+              <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
                 That project grew into one of the most visited greeting platforms on the web.
               </p>
               <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.5em] text-white m-0">
@@ -285,10 +285,10 @@ export default function LeadershipPage() {
                   >
                     {String(i + 1).padStart(2, '0')}
                   </span>
-                  <span className="font-bricolage text-sm leading-[1.6em] text-white/60">{item}</span>
+                  <span className="font-bricolage text-sm leading-[1.6em] text-white/55">{item}</span>
                 </div>
               ))}
-              <div className="mt-3 rounded-xl px-5 py-4" style={{ background: 'rgba(0,0,255,0.06)', border: '1px solid rgba(0,0,255,0.15)' }}>
+              <div className="mt-3 rounded-xl px-5 py-4" style={{ background: 'rgba(0,0,255,0.06)', border: '1px solid rgba(0,0,255,0.2)' }}>
                 <p className="font-bricolage text-sm leading-[1.7em] text-white/70 m-0">
                   It didn&apos;t look like today&apos;s AI — but the goal was the same:<br />
                   <span className="font-medium text-white">Build systems that respond, learn, and improve over time.</span>
@@ -338,12 +338,12 @@ export default function LeadershipPage() {
                 >
                   <div
                     className="w-9 h-9 rounded-lg flex items-center justify-center"
-                    style={{ background: 'rgba(0,0,255,0.08)', border: '1px solid rgba(0,0,255,0.15)' }}
+                    style={{ background: 'rgba(0,0,255,0.08)', border: '1px solid rgba(0,0,255,0.2)' }}
                   >
                     {ind.icon}
                   </div>
                   <h3 className="font-bricolage font-medium text-base m-0">{ind.label}</h3>
-                  <p className="font-bricolage text-sm leading-[1.6em] text-white/45 m-0">{ind.desc}</p>
+                  <p className="font-bricolage text-sm leading-[1.6em] text-white/50 m-0">{ind.desc}</p>
                 </div>
               ))}
             </div>
@@ -431,7 +431,7 @@ export default function LeadershipPage() {
                     className="rounded-xl px-4 py-3 text-center"
                     style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.02)' }}
                   >
-                    <span className="font-bricolage font-medium text-sm text-white/60">{label}</span>
+                    <span className="font-bricolage font-medium text-sm text-white/55">{label}</span>
                   </div>
                 ))}
               </div>
@@ -503,7 +503,7 @@ export default function LeadershipPage() {
                     {b.icon}
                   </div>
                   <h3 className="font-bricolage font-medium text-base leading-[1.4em] m-0">{b.title}</h3>
-                  <p className="font-bricolage text-sm leading-[1.65em] text-white/45 m-0">{b.desc}</p>
+                  <p className="font-bricolage text-sm leading-[1.65em] text-white/50 m-0">{b.desc}</p>
                 </div>
               ))}
             </div>
@@ -541,7 +541,7 @@ export default function LeadershipPage() {
                     {b.icon}
                   </div>
                   <h3 className="font-bricolage font-medium text-base leading-[1.4em] m-0">{b.title}</h3>
-                  <p className="font-bricolage text-sm leading-[1.65em] text-white/45 m-0">{b.desc}</p>
+                  <p className="font-bricolage text-sm leading-[1.65em] text-white/50 m-0">{b.desc}</p>
                 </div>
               ))}
             </div>
@@ -584,7 +584,7 @@ export default function LeadershipPage() {
                     {a.icon}
                   </div>
                   <h3 className="font-bricolage font-medium text-base leading-[1.4em] m-0">{a.title}</h3>
-                  <p className="font-bricolage text-sm leading-[1.65em] text-white/45 m-0">{a.desc}</p>
+                  <p className="font-bricolage text-sm leading-[1.65em] text-white/50 m-0">{a.desc}</p>
                 </div>
               ))}
             </div>
