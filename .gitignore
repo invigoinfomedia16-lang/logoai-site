@@ -1,0 +1,11 @@
+# Next.js
+.next/
+out/
+node_modules/
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+tests/**/*.png
