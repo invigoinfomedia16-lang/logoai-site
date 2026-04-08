@@ -176,7 +176,7 @@ export default function LeadershipPage() {
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
           >
             Built over decades,{' '}
-            <span className="text-white/40">not months.</span>
+            <span className="text-white">not months.</span>
           </h1>
           <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.7em] tracking-[-0.02em] text-white/50 max-w-[580px] m-0">
             Brothers. Serial founders. Repeat builders. Three decades of building products across web and mobile — from early internet platforms to AI systems.

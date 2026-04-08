@@ -88,7 +88,7 @@ export default function PressPage() {
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
           >
             Everything you need{' '}
-            <span className="text-white/40">to cover LOGO.AI.</span>
+            <span className="text-white">to cover LOGO.AI.</span>
           </h1>
           <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.7em] tracking-[-0.02em] text-white/50 max-w-[580px] m-0">
             Brand assets, company facts, press releases, and media guidelines — all in one place.

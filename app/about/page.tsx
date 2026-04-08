@@ -99,7 +99,7 @@ export default function AboutPage() {
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
           >
             From name to logo —{' '}
-            <span className="text-white/40">in seconds.</span>
+            <span className="text-white">in seconds.</span>
           </h1>
           <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.7em] tracking-[-0.02em] text-white/55 max-w-[600px] m-0">
             No delays. No guesswork. No back-and-forth.

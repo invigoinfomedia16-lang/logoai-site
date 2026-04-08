@@ -83,7 +83,7 @@ export default function OurStoryPage() {
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
           >
             We didn&apos;t discover this problem.{' '}
-            <span className="text-white/40">We watched it repeat.</span>
+            <span className="text-white">We watched it repeat.</span>
           </h1>
           <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.7em] tracking-[-0.02em] text-white/55 max-w-[640px] m-0">
             Three decades of building, investing in, and advising companies.
