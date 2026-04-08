@@ -2,18 +2,47 @@ import PageWrapper from '@/components/PageWrapper'
 import ScrollReveal from '@/components/ScrollReveal'
 import Link from 'next/link'
 
+const BLUE = 'rgb(0,0,255)'
+
 const BUILD_STEPS = [
   {
     title: 'Study the fundamentals',
     desc: 'Color, typography, spacing, and layout.',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M32,56H192a8,8,0,0,1,8,8V216a8,8,0,0,1-8,8H72a8,8,0,0,1-8-8V48a8,8,0,0,0-8-8H208" />
+        <line x1="80" y1="112" x2="160" y2="112" />
+        <line x1="80" y1="144" x2="160" y2="144" />
+        <line x1="80" y1="176" x2="128" y2="176" />
+      </svg>
+    ),
   },
   {
     title: 'Train on principles — not templates',
     desc: 'No shortcuts. No assets.',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="88" y="88" width="80" height="80" rx="8" />
+        <path d="M112,88V64" /><path d="M144,88V64" />
+        <path d="M112,192v-24" /><path d="M144,192v-24" />
+        <path d="M88,112H64" /><path d="M88,144H64" />
+        <path d="M192,112H168" /><path d="M192,144H168" />
+        <rect x="40" y="40" width="176" height="176" rx="16" />
+      </svg>
+    ),
   },
   {
     title: 'Set a high bar',
     desc: "If it didn't feel original and professional, it didn't ship.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="96" y1="224" x2="160" y2="224" />
+        <line x1="128" y1="184" x2="128" y2="224" />
+        <path d="M58,128H48A32,32,0,0,1,16,96V80a8,8,0,0,1,8-8H56" />
+        <path d="M198,128h10a32,32,0,0,0,32-32V80a8,8,0,0,0-8-8H200" />
+        <path d="M64,48H192a0,0,0,0,1,0,0v88a64,64,0,0,1-64,64h0a64,64,0,0,1-64-64V48A0,0,0,0,1,64,48Z" />
+      </svg>
+    ),
   },
 ]
 
@@ -232,11 +261,19 @@ export default function OurStoryPage() {
                 <div
                   key={step.title}
                   className="rounded-2xl p-7 flex flex-col gap-4"
-                  style={{ border: '1px solid rgba(84,87,94,0.3)' }}
+                  style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.015)' }}
                 >
-                  <span className="font-bricolage text-xs font-medium text-white/30 uppercase tracking-[2px]">
-                    0{i + 1}
-                  </span>
+                  <div className="flex items-center justify-between">
+                    <div
+                      className="w-10 h-10 rounded-xl flex items-center justify-center"
+                      style={{ background: 'rgba(0,0,255,0.08)', border: '1px solid rgba(0,0,255,0.2)' }}
+                    >
+                      {step.icon}
+                    </div>
+                    <span className="font-bricolage text-xs font-medium text-white/20 uppercase tracking-[2px]">
+                      0{i + 1}
+                    </span>
+                  </div>
                   <h3 className="font-bricolage font-medium text-lg leading-[1.3em] m-0">{step.title}</h3>
                   <p className="font-bricolage text-sm leading-[1.7em] text-white/50 m-0">{step.desc}</p>
                 </div>

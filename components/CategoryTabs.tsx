@@ -49,15 +49,22 @@ interface CategoryTabsProps {
 
 export default function CategoryTabs({ active, onSelect }: CategoryTabsProps) {
   return (
-    <div className="flex flex-wrap gap-2.5">
-      {CATEGORIES.map((cat) => (
-        <TabButton
-          key={cat.key}
-          label={cat.name}
-          isActive={cat.key === active}
-          onClick={() => onSelect(cat.key)}
-        />
-      ))}
+    <div className="relative">
+      {/* Right fade — mobile only, signals more content */}
+      <div
+        className="md:hidden absolute right-0 top-0 bottom-0 w-10 pointer-events-none z-10"
+        style={{ background: 'linear-gradient(to right, transparent, #000)' }}
+      />
+      <div className="flex md:flex-wrap gap-2.5 overflow-x-auto md:overflow-visible scrollbar-hide pb-1 md:pb-0">
+        {CATEGORIES.map((cat) => (
+          <TabButton
+            key={cat.key}
+            label={cat.name}
+            isActive={cat.key === active}
+            onClick={() => onSelect(cat.key)}
+          />
+        ))}
+      </div>
     </div>
   )
 }

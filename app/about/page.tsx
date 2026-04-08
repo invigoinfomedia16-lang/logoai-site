@@ -1,70 +1,89 @@
 import PageWrapper from '@/components/PageWrapper'
 import ScrollReveal from '@/components/ScrollReveal'
-import Link from 'next/link'
+import { COMPARISON_ROWS } from '@/data'
 
-const DELIVERABLES = [
+const BLUE = 'rgb(0,0,255)'
+
+const FEATURES = [
   {
-    title: 'Logo Files',
-    desc: 'High-resolution PNG with transparent background, plus SVG, JPG, and PDF — ready for web and print.',
+    title: 'Ready in seconds',
+    desc: 'No waiting days or weeks. No revisions. Just a finished logo — ready to use.',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="128" cy="128" r="96" />
+        <polyline points="128,72 128,128 176,128" />
+      </svg>
+    ),
   },
   {
-    title: 'App Icons',
-    desc: 'iOS and Android ready — optimized for App Store and Google Play.',
+    title: 'AI makes the decisions',
+    desc: "You don't need design skills. The AI handles the design choices for you.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="88" y="88" width="80" height="80" rx="8" />
+        <path d="M112,88V64" /><path d="M144,88V64" />
+        <path d="M112,192v-24" /><path d="M144,192v-24" />
+        <path d="M88,112H64" /><path d="M88,144H64" />
+        <path d="M192,112H168" /><path d="M192,144H168" />
+        <rect x="40" y="40" width="176" height="176" rx="16" />
+      </svg>
+    ),
   },
   {
-    title: 'Social Kit',
-    desc: 'Profile images, cover images, and story formats — sized perfectly for every platform.',
+    title: 'Understands your brand',
+    desc: 'LOGO.AI adapts to your industry, tone, and style — so your logo fits from the start.',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M128,24A104,104,0,0,0,24,128" />
+        <path d="M128,24A104,104,0,0,1,232,128" />
+        <path d="M128,72a56,56,0,0,0-56,56c0,23.76,7.84,46.55,22.3,64.81" />
+        <path d="M128,72a56,56,0,0,1,56,56,120.43,120.43,0,0,1-7.13,40.91" />
+        <path d="M128,120v0a199.28,199.28,0,0,1-15.8,77.53" />
+        <path d="M128,120a199.28,199.28,0,0,0,2.46,31.42" />
+      </svg>
+    ),
   },
   {
-    title: 'Brand Colors',
-    desc: 'HEX, RGB, and CMYK — consistent across digital and print.',
+    title: 'Designed from scratch',
+    desc: 'No templates. Real design principles — color, typography, spacing, and hierarchy.',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M92,164l-40,40a8,8,0,0,0,0,11.31l8,7.93a8,8,0,0,0,11.32,0L112,184" />
+        <path d="M184,32l32,32-96,96L88,128Z" />
+        <line x1="152" y1="56" x2="200" y2="104" />
+      </svg>
+    ),
   },
   {
-    title: 'Font Guide',
-    desc: 'Carefully paired fonts for headlines, body, and accents — aligned with your brand.',
+    title: 'Works everywhere',
+    desc: 'Built for web, print, and apps — so your brand stays consistent everywhere.',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="128" cy="128" r="96" />
+        <line x1="32" y1="128" x2="224" y2="128" />
+        <ellipse cx="128" cy="128" rx="40" ry="96" />
+      </svg>
+    ),
   },
   {
-    title: 'Brand Guide',
-    desc: 'Clear rules for usage, spacing, and consistency — so your brand stays cohesive everywhere.',
-  },
-  {
-    title: 'Business Card',
-    desc: 'Print-ready layouts, front and back — designed to feel professional from day one.',
-  },
-  {
-    title: 'Web Assets',
-    desc: 'Favicons, OG images, and web-ready graphics — optimized for modern websites.',
-  },
-  {
-    title: 'Email Signature',
-    desc: 'Clean, branded signatures with your logo, colors, and links.',
-  },
-  {
-    title: 'Letterhead',
-    desc: 'Professional templates for proposals, contracts, and documents.',
-  },
-  {
-    title: 'Invoice Design',
-    desc: 'Branded invoice layouts that make your business look established and trustworthy.',
-  },
-  {
-    title: 'Mockups',
-    desc: 'Real-world previews — cards, apparel, signage, and more — so you can see your brand in action.',
+    title: 'Everything works together',
+    desc: 'Your logo, colors, and assets are designed as one system — not separate pieces.',
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="32" y="32" width="84" height="84" rx="8" />
+        <rect x="140" y="32" width="84" height="84" rx="8" />
+        <rect x="32" y="140" width="84" height="84" rx="8" />
+        <rect x="140" y="140" width="84" height="84" rx="8" />
+      </svg>
+    ),
   },
 ]
 
-const TAGS = [
-  'Logo ready in seconds',
-  'Designed from scratch',
-  'Fits your brand from the start',
-  'Free',
-  'Loved by 1,000+ early testers',
-]
-
-const VISION_POINTS = [
-  'Understand what makes a logo work',
-  'Make design decisions — not just outputs',
-  'Produce work that feels intentional, not assembled',
+const STEPS = [
+  'Tell us about your business',
+  'AI makes the design decisions',
+  'Get a finished logo',
+  'Choose from multiple logo options',
 ]
 
 export default function AboutPage() {
@@ -73,9 +92,9 @@ export default function AboutPage() {
 
       {/* ── Hero ── */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
-        <div className="max-w-[1120px] mx-auto flex flex-col gap-7">
+        <div className="max-w-[1120px] mx-auto flex flex-col gap-6">
           <p className="font-bricolage text-sm font-medium text-white/40 uppercase tracking-[2px] m-0">
-            About LOGO.AI
+            Why LOGO.AI
           </p>
           <h1
             className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[860px]"
@@ -85,111 +104,46 @@ export default function AboutPage() {
             <span className="text-white/40">in seconds.</span>
           </h1>
           <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.7em] tracking-[-0.02em] text-white/55 max-w-[600px] m-0">
-            Create an original, professional logo — instantly.
-            No templates. No guesswork. No waiting.
+            No delays. No guesswork. No back-and-forth.
           </p>
-          <div className="flex flex-wrap gap-2.5 pt-1">
-            {TAGS.map((t) => (
-              <span
-                key={t}
-                className="font-bricolage text-sm font-medium text-white/60 px-3.5 py-1.5 rounded-lg"
-                style={{ border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.03)' }}
-              >
-                {t}
-              </span>
-            ))}
-          </div>
+          <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/45 max-w-[640px] m-0">
+            LOGO.AI turns your brand into an original, professional logo — instantly.
+            Built to look right everywhere your brand appears.
+          </p>
         </div>
       </section>
 
-      {/* ── What We Built ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
-          <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24 items-start">
-            <div className="flex-1 flex flex-col gap-5">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                What We Built
-              </p>
-              <h2 className="font-bricolage font-medium text-[32px] md:text-[44px] leading-[1.1em] tracking-[-0.04em] m-0">
-                A new way to design a logo
-              </h2>
-              <div className="flex flex-col gap-3">
-                <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
-                  LOGO.AI doesn&apos;t use templates.
-                  <br />
-                  It designs from scratch — every time.
-                </p>
-                <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
-                  Tell us about your business, and in seconds,
-                  AI designs a logo that fits your brand.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex-1 flex flex-col gap-5">
-              <div
-                className="rounded-2xl p-8 flex flex-col gap-5"
-                style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.02)' }}
-              >
-                <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                  Their reaction
-                </p>
-                <blockquote className="m-0">
-                  <p
-                    className="font-bricolage font-medium leading-[1.2em] tracking-[-0.03em] text-white m-0"
-                    style={{ fontSize: 'clamp(28px, 3vw, 40px)' }}
-                  >
-                    &ldquo;This can&apos;t be real.&rdquo;
-                  </p>
-                </blockquote>
-                <p className="font-bricolage text-base font-medium text-white/50 m-0">
-                  It is.
-                </p>
-                <Link
-                  href="/our-story"
-                  className="inline-flex items-center gap-2 font-bricolage font-medium text-sm text-white/60 no-underline hover:text-white transition-colors duration-200 w-fit"
-                >
-                  → Read Our Story
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-      </ScrollReveal>
-
-      {/* ── What You Get ── */}
+      {/* ── Why choose LOGO.AI ── */}
       <ScrollReveal>
         <section
           className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
           style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
-            <div className="flex flex-col gap-4 max-w-[680px]">
+            <div className="flex flex-col gap-4 max-w-[640px]">
               <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                What You Get
+                Why choose LOGO.AI
               </p>
-              <h2 className="font-bricolage font-medium text-[32px] md:text-[44px] leading-[1.1em] tracking-[-0.04em] m-0">
-                Everything designed around your logo
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
+                LOGO.AI replaces manual design with fast, consistent results.
               </h2>
-              <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
-                From your logo to everything around it —
-                every piece works together.
-                No gaps. No patchwork. No guesswork.
-              </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {DELIVERABLES.map((d) => (
+              {FEATURES.map((f) => (
                 <div
-                  key={d.title}
-                  className="rounded-xl p-5 flex flex-col gap-2.5"
+                  key={f.title}
+                  className="rounded-2xl p-6 md:p-7 flex flex-col gap-4"
                   style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.015)' }}
                 >
-                  <h3 className="font-bricolage font-medium text-base m-0 text-white">{d.title}</h3>
-                  <p className="font-bricolage text-sm leading-[1.65em] text-white/50 m-0">{d.desc}</p>
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center"
+                    style={{ background: 'rgba(0,0,255,0.08)', border: '1px solid rgba(0,0,255,0.2)' }}
+                  >
+                    {f.icon}
+                  </div>
+                  <h3 className="font-bricolage font-medium text-base leading-[1.4em] m-0">{f.title}</h3>
+                  <p className="font-bricolage text-sm leading-[1.65em] text-white/50 m-0">{f.desc}</p>
                 </div>
               ))}
             </div>
@@ -197,181 +151,173 @@ export default function AboutPage() {
         </section>
       </ScrollReveal>
 
-      {/* ── How We're Different ── */}
+      {/* ── How LOGO.AI compares ── */}
       <ScrollReveal>
         <section
           className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
           style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
         >
-          <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
-            <div className="lg:w-[280px] flex-shrink-0">
+          <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+            <div className="flex flex-col gap-4 max-w-[640px]">
               <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                How We&apos;re Different
+                How LOGO.AI compares
               </p>
-            </div>
-            <div className="flex-1 flex flex-col gap-5">
-              <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
-                Most tools rely on templates.
-              </p>
-              <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
-                LOGO.AI works differently.
-                It&apos;s trained on real design principles —
-                so it understands composition, balance, and structure.
-              </p>
-              <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.5em] text-white m-0">
-                It doesn&apos;t assemble.
-                <br />
-                It designs.
-              </p>
-            </div>
-          </div>
-        </section>
-      </ScrollReveal>
-
-      {/* ── Why Now ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
-          <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
-            <div className="lg:w-[280px] flex-shrink-0">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                Why Now
-              </p>
-            </div>
-            <div className="flex-1 flex flex-col gap-5">
-              <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
-                For years, this wasn&apos;t possible.
-                Design required human judgment —
-                something software couldn&apos;t replicate.
-              </p>
-              <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
-                Recent advances in AI changed that.
-                For the first time, AI can
-                not just produce results — but understand design.
-              </p>
-              <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.5em] text-white m-0">
-                That&apos;s what makes LOGO.AI possible today.
-              </p>
-            </div>
-          </div>
-        </section>
-      </ScrollReveal>
-
-      {/* ── Who We Are ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
-          <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
-            <div className="lg:w-[280px] flex-shrink-0">
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                Who We Are
-              </p>
-            </div>
-            <div className="flex-1 flex flex-col gap-5">
-              <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
-                A small team of engineers, designers, and builders
-                focused on one question:
-              </p>
-              <p className="font-bricolage font-medium text-lg md:text-2xl leading-[1.4em] tracking-[-0.02em] text-white m-0">
-                Why does something as simple as a logo
-                still take so long to get right?
-              </p>
-              <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
-                We&apos;ve been building products for decades
-                and saw the same problem every time.
-                So we built something better.
-              </p>
-            </div>
-          </div>
-        </section>
-      </ScrollReveal>
-
-      {/* ── Mission & Vision ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
-          <div className="max-w-[1120px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <div
-              className="rounded-2xl p-8 md:p-10 flex flex-col gap-5"
-              style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.015)' }}
-            >
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                Our Mission
-              </p>
-              <h2 className="font-bricolage font-medium text-[22px] md:text-[28px] leading-[1.25em] tracking-[-0.03em] m-0">
-                Remove the bottleneck from logo design.
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
+                See how LOGO.AI compares to designers and other AI logo makers.
               </h2>
-              <div className="flex flex-col gap-3">
-                <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">
-                  Creating a logo — something foundational —
-                  takes weeks, costs thousands,
-                  and still doesn&apos;t feel right.
-                </p>
-                <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">
-                  We built LOGO.AI to fix that.
-                  So a brand can move from name to identity —
-                  in minutes, not weeks.
-                </p>
-              </div>
             </div>
 
-            <div
-              className="rounded-2xl p-8 md:p-10 flex flex-col gap-5"
-              style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.015)' }}
-            >
-              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                Our Vision
-              </p>
-              <h2 className="font-bricolage font-medium text-[22px] md:text-[28px] leading-[1.25em] tracking-[-0.03em] m-0">
-                Design that understands what it&apos;s creating.
-              </h2>
-              <div className="flex flex-col gap-3">
-                <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">
-                  Most tools generate.
-                  They don&apos;t understand.
-                  We&apos;re building systems that:
-                </p>
-                <ul className="flex flex-col gap-2 m-0 pl-0 list-none">
-                  {VISION_POINTS.map((p) => (
-                    <li key={p} className="flex items-start gap-2.5">
-                      <span className="mt-[7px] w-1 h-1 rounded-full bg-white/30 flex-shrink-0" />
-                      <span className="font-bricolage text-base leading-[1.7em] text-white/55">{p}</span>
-                    </li>
-                  ))}
-                </ul>
+            {/* Table — horizontally scrollable on mobile */}
+            <div className="w-full overflow-x-auto scrollbar-hide -mx-5 px-5 md:mx-0 md:px-0">
+              <div style={{ minWidth: 560 }}>
+                {/* Header */}
+                <div
+                  className="grid pb-4 border-b font-bricolage"
+                  style={{ gridTemplateColumns: '180px 1fr 1fr 1fr', borderColor: 'rgba(255,255,255,0.08)' }}
+                >
+                  <span className="text-[11px] font-medium text-white/30 uppercase tracking-[2px]">Feature</span>
+                  <span
+                    className="text-[11px] font-medium text-white uppercase tracking-[2px] text-center px-2 py-1 rounded-t-lg"
+                    style={{ background: 'rgba(0,0,255,0.1)' }}
+                  >
+                    LOGO.AI
+                  </span>
+                  <span className="text-[11px] font-medium text-white/30 uppercase tracking-[2px] text-center">Designer</span>
+                  <span className="text-[11px] font-medium text-white/30 uppercase tracking-[2px] text-center">Other AI logo makers</span>
+                </div>
+
+                {COMPARISON_ROWS.map((row, i) => (
+                  <div
+                    key={row.label}
+                    className="grid font-bricolage"
+                    style={{
+                      gridTemplateColumns: '180px 1fr 1fr 1fr',
+                      borderBottom: i < COMPARISON_ROWS.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none',
+                    }}
+                  >
+                    <div className="text-[13px] font-medium text-white/50 flex items-center py-4">{row.label}</div>
+                    <div
+                      className="text-[13px] font-medium text-white text-center flex items-center justify-center py-4 px-2"
+                      style={{
+                        background: 'rgba(0,0,255,0.08)',
+                        borderRadius: i === COMPARISON_ROWS.length - 1 ? '0 0 8px 8px' : 0,
+                      }}
+                    >
+                      {row.logo}
+                    </div>
+                    <div className="text-[13px] text-white/40 text-center flex items-center justify-center py-4">{row.designer}</div>
+                    <div className="text-[13px] text-white/40 text-center flex items-center justify-center py-4">{row.other}</div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </section>
       </ScrollReveal>
 
-      {/* ── Closing ── */}
+      {/* ── See it in action ── */}
       <ScrollReveal>
         <section
           className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
           style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
         >
-          <div className="max-w-[1120px] mx-auto flex flex-col gap-6 max-w-[760px]">
-            <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.7em] text-white/55 m-0">
-              A world where creating a professional identity
-              is instant — and expected.
-              Not something you wait for.
-              Not something you outsource.
-              Something built into the system itself.
-            </p>
-            <p
-              className="font-bricolage font-medium leading-[1.2em] tracking-[-0.03em] text-white m-0"
-              style={{ fontSize: 'clamp(24px, 3vw, 40px)' }}
+          <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+            <div className="flex flex-col gap-4 max-w-[580px]">
+              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
+                See it in action
+              </p>
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
+                Name to logo. Without the process.
+              </h2>
+              <p className="font-bricolage text-base leading-[1.7em] text-white/50 m-0">
+                See how LOGO.AI turns a simple name into a complete, professional logo — without templates, revisions, or guesswork.
+              </p>
+            </div>
+
+            {/* Steps flow */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+              {STEPS.map((step, i) => (
+                <div
+                  key={step}
+                  className="rounded-xl p-5 flex flex-col gap-3"
+                  style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.015)' }}
+                >
+                  <div className="flex items-center gap-2">
+                    <span
+                      className="w-6 h-6 rounded-full flex items-center justify-center font-bricolage text-xs font-bold flex-shrink-0"
+                      style={{ background: 'rgba(0,0,255,0.15)', color: BLUE }}
+                    >
+                      {i + 1}
+                    </span>
+                    {i < STEPS.length - 1 && (
+                      <svg className="hidden md:block w-4 h-4 text-white/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                        <polyline points="9 18 15 12 9 6" />
+                      </svg>
+                    )}
+                  </div>
+                  <p className="font-bricolage text-sm font-medium leading-[1.5em] text-white/75 m-0">{step}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Demo placeholder + CTA */}
+            <div
+              className="rounded-2xl p-8 md:p-12 flex flex-col items-center gap-6 text-center"
+              style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.02)' }}
             >
-              So creating a logo isn&apos;t a project anymore.
-              <br />
-              <span className="text-white/40">It&apos;s just the starting point.</span>
+              <div
+                className="w-14 h-14 rounded-2xl flex items-center justify-center"
+                style={{ background: 'rgba(0,0,255,0.1)', border: '1px solid rgba(0,0,255,0.25)' }}
+              >
+                <svg width="28" height="28" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="128" cy="128" r="96" />
+                  <polygon points="108,96 160,128 108,160 108,96" fill={BLUE} stroke="none" />
+                </svg>
+              </div>
+              <div className="flex flex-col gap-2">
+                <p className="font-bricolage font-medium text-base text-white/50 m-0">Demo video coming soon</p>
+                <p className="font-bricolage text-sm text-white/35 m-0">Try it yourself — create your logo in seconds</p>
+              </div>
+              <a
+                href="/"
+                className="inline-flex items-center gap-2 font-bricolage font-semibold text-base text-white no-underline rounded-xl px-7 py-4 transition-all duration-200 hover:opacity-90"
+                style={{ background: BLUE }}
+              >
+                Get my free logo
+              </a>
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
+
+      {/* ── Built for real use ── */}
+      <ScrollReveal>
+        <section
+          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
+          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
+        >
+          <div className="max-w-[1120px] mx-auto flex flex-col gap-8 max-w-[760px]">
+            <div className="flex flex-col gap-4">
+              <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
+                Built for real use
+              </p>
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[44px] leading-[1.1em] tracking-[-0.04em] m-0">
+                Not just something that looks good — but something that works everywhere your brand appears.
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {['On a business card.', 'On a website.', 'On a billboard.'].map((item) => (
+                <div
+                  key={item}
+                  className="rounded-xl px-5 py-4 text-center"
+                  style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.02)' }}
+                >
+                  <p className="font-bricolage font-medium text-base text-white/70 m-0">{item}</p>
+                </div>
+              ))}
+            </div>
+            <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.6em] text-white/50 m-0">
+              At every size, in every context.
             </p>
           </div>
         </section>
