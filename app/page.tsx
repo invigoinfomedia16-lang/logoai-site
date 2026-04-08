@@ -71,7 +71,9 @@ export default function HomePage() {
 
       {/* ── FAQ ──────────────────────────────────────────── */}
       <ScrollReveal>
-        <FAQ />
+        <div id="faq">
+          <FAQ />
+        </div>
       </ScrollReveal>
 
       {/* ── Blog ─────────────────────────────────────────── */}

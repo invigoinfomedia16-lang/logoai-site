@@ -1,8 +1,7 @@
 import PageWrapper from '@/components/PageWrapper'
-import ScrollReveal from '@/components/ScrollReveal'
+import PageSection from '@/components/ui/PageSection'
 import Badge from '@/components/ui/Badge'
-
-const BLUE = 'rgb(0,0,255)'
+import { BLUE, BORDER, CARD_BG } from '@/lib/ds'
 
 // Phosphor-style icon helpers — viewBox 256×256, strokeWidth 20
 function Icon({ children, size = 24 }: { children: React.ReactNode; size?: number }) {
@@ -186,11 +185,7 @@ export default function LeadershipPage() {
       </section>
 
       {/* ── Founders ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
+      <PageSection>
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <Badge icon="users" text="Founders" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -241,15 +236,10 @@ export default function LeadershipPage() {
               </p>
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── Early AI Experiments ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
+      <PageSection>
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[360px] flex-shrink-0 flex flex-col gap-5">
               <Badge icon="cpu" text="Early AI Experiments" />
@@ -284,15 +274,10 @@ export default function LeadershipPage() {
               </div>
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── Building Across Industries ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
+      <PageSection>
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-5 max-w-[680px]">
               <Badge icon="buildings" text="Building Across Industries" />
@@ -328,15 +313,10 @@ export default function LeadershipPage() {
               </p>
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── Experience that adds up ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[80px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.015)' }}
-        >
+      <PageSection compact tinted>
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-14">
             <Badge icon="trendup" text="Experience that adds up" />
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -358,15 +338,10 @@ export default function LeadershipPage() {
               </p>
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── The Pattern We Couldn't Ignore ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
+      <PageSection>
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[280px] flex-shrink-0 flex flex-col gap-4">
               <Badge icon="shield" text="The Pattern We Couldn't Ignore" />
@@ -391,15 +366,10 @@ export default function LeadershipPage() {
               </div>
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── Why LOGO.AI ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
+      <PageSection>
           <div className="max-w-[1120px] mx-auto flex flex-col gap-8 max-w-[760px]">
             <div className="flex flex-col gap-4">
               <Badge icon="lightning" text="Why LOGO.AI" />
@@ -418,15 +388,10 @@ export default function LeadershipPage() {
               </p>
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── How We Think ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
+      <PageSection>
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-4 max-w-[580px]">
               <Badge icon="sparkle" text="How We Think" />
@@ -449,15 +414,10 @@ export default function LeadershipPage() {
               ))}
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── What We're Building ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
+      <PageSection>
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-4 max-w-[580px]">
               <Badge icon="rocket" text="What We're Building" />
@@ -490,15 +450,10 @@ export default function LeadershipPage() {
               </p>
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── Looking Ahead ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
+      <PageSection>
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-4 max-w-[580px]">
               <Badge icon="rocket" text="Looking Ahead" />
@@ -531,8 +486,7 @@ export default function LeadershipPage() {
               </p>
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
     </PageWrapper>
   )

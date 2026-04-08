@@ -1,9 +1,8 @@
 import PageWrapper from '@/components/PageWrapper'
-import ScrollReveal from '@/components/ScrollReveal'
+import PageSection from '@/components/ui/PageSection'
 import { COMPARISON_ROWS } from '@/data'
 import Badge from '@/components/ui/Badge'
-
-const BLUE = 'rgb(0,0,255)'
+import { BLUE, BORDER, CARD_BG } from '@/lib/ds'
 
 const FEATURES = [
   {
@@ -105,7 +104,7 @@ export default function AboutPage() {
           <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.7em] tracking-[-0.02em] text-white/55 max-w-[600px] m-0">
             No delays. No guesswork. No back-and-forth.
           </p>
-          <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/45 max-w-[640px] m-0">
+          <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/40 max-w-[640px] m-0">
             LOGO.AI turns your brand into an original, professional logo — instantly.
             Built to look right everywhere your brand appears.
           </p>
@@ -113,201 +112,172 @@ export default function AboutPage() {
       </section>
 
       {/* ── Why choose LOGO.AI ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
-          <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
-            <div className="flex flex-col gap-4 max-w-[640px]">
-              <Badge icon="sparkle" text="Why choose LOGO.AI" />
-              <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
-                LOGO.AI replaces manual design with fast, consistent results.
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {FEATURES.map((f) => (
-                <div
-                  key={f.title}
-                  className="rounded-2xl p-6 md:p-7 flex flex-col gap-4"
-                  style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.015)' }}
-                >
-                  {f.icon}
-                  <h3 className="font-bricolage font-medium text-base leading-[1.4em] m-0">{f.title}</h3>
-                  <p className="font-bricolage text-sm leading-[1.65em] text-white/50 m-0">{f.desc}</p>
-                </div>
-              ))}
-            </div>
+      <PageSection>
+        <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+          <div className="flex flex-col gap-4 max-w-[640px]">
+            <Badge icon="sparkle" text="Why choose LOGO.AI" />
+            <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
+              LOGO.AI replaces manual design with fast, consistent results.
+            </h2>
           </div>
-        </section>
-      </ScrollReveal>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {FEATURES.map((f) => (
+              <div
+                key={f.title}
+                className="rounded-2xl p-6 md:p-7 flex flex-col gap-4"
+                style={{ border: BORDER, background: CARD_BG }}
+              >
+                {f.icon}
+                <h3 className="font-bricolage font-medium text-base leading-[1.4em] m-0">{f.title}</h3>
+                <p className="font-bricolage text-sm leading-[1.65em] text-white/55 m-0">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </PageSection>
 
       {/* ── How LOGO.AI compares ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
-          <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
-            <div className="flex flex-col gap-4 max-w-[640px]">
-              <Badge icon="trophy" text="How LOGO.AI compares" />
-              <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
-                See how LOGO.AI compares to designers and other AI logo makers.
-              </h2>
-            </div>
+      <PageSection>
+        <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+          <div className="flex flex-col gap-4 max-w-[640px]">
+            <Badge icon="trophy" text="How LOGO.AI compares" />
+            <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
+              See how LOGO.AI compares to designers and other AI logo makers.
+            </h2>
+          </div>
 
-            {/* Table — horizontally scrollable on mobile */}
-            <div className="w-full overflow-x-auto scrollbar-hide -mx-5 px-5 md:mx-0 md:px-0">
-              <div style={{ minWidth: 480 }}>
-                {/* Header */}
-                <div
-                  className="grid pb-4 border-b font-bricolage"
-                  style={{ gridTemplateColumns: '180px 1fr 1fr 1fr', borderColor: 'rgba(255,255,255,0.08)' }}
+          {/* Table — horizontally scrollable on mobile */}
+          <div className="w-full overflow-x-auto scrollbar-hide -mx-5 px-5 md:mx-0 md:px-0">
+            <div style={{ minWidth: 480 }}>
+              {/* Header */}
+              <div
+                className="grid pb-4 border-b font-bricolage"
+                style={{ gridTemplateColumns: '180px 1fr 1fr 1fr', borderColor: 'rgba(255,255,255,0.08)' }}
+              >
+                <span className="text-[11px] font-medium text-white/40 uppercase tracking-[2px]">Feature</span>
+                <span
+                  className="text-[11px] font-medium text-white uppercase tracking-[2px] text-center px-2 py-1 rounded-t-lg"
+                  style={{ background: 'rgba(0,0,255,0.1)' }}
                 >
-                  <span className="text-[11px] font-medium text-white/30 uppercase tracking-[2px]">Feature</span>
-                  <span
-                    className="text-[11px] font-medium text-white uppercase tracking-[2px] text-center px-2 py-1 rounded-t-lg"
-                    style={{ background: 'rgba(0,0,255,0.1)' }}
-                  >
-                    LOGO.AI
-                  </span>
-                  <span className="text-[11px] font-medium text-white/30 uppercase tracking-[2px] text-center">Designer</span>
-                  <span className="text-[11px] font-medium text-white/30 uppercase tracking-[2px] text-center">Other AI logo makers</span>
-                </div>
+                  LOGO.AI
+                </span>
+                <span className="text-[11px] font-medium text-white/40 uppercase tracking-[2px] text-center">Designer</span>
+                <span className="text-[11px] font-medium text-white/40 uppercase tracking-[2px] text-center">Other AI logo makers</span>
+              </div>
 
-                {COMPARISON_ROWS.map((row, i) => (
+              {COMPARISON_ROWS.map((row, i) => (
+                <div
+                  key={row.label}
+                  className="grid font-bricolage"
+                  style={{
+                    gridTemplateColumns: '180px 1fr 1fr 1fr',
+                    borderBottom: i < COMPARISON_ROWS.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none',
+                  }}
+                >
+                  <div className="text-[13px] font-medium text-white/55 flex items-center py-4">{row.label}</div>
                   <div
-                    key={row.label}
-                    className="grid font-bricolage"
+                    className="text-[13px] font-medium text-white text-center flex items-center justify-center py-4 px-2"
                     style={{
-                      gridTemplateColumns: '180px 1fr 1fr 1fr',
-                      borderBottom: i < COMPARISON_ROWS.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none',
+                      background: 'rgba(0,0,255,0.08)',
+                      borderRadius: i === COMPARISON_ROWS.length - 1 ? '0 0 8px 8px' : 0,
                     }}
                   >
-                    <div className="text-[13px] font-medium text-white/50 flex items-center py-4">{row.label}</div>
-                    <div
-                      className="text-[13px] font-medium text-white text-center flex items-center justify-center py-4 px-2"
-                      style={{
-                        background: 'rgba(0,0,255,0.08)',
-                        borderRadius: i === COMPARISON_ROWS.length - 1 ? '0 0 8px 8px' : 0,
-                      }}
-                    >
-                      {row.logo}
-                    </div>
-                    <div className="text-[13px] text-white/40 text-center flex items-center justify-center py-4">{row.designer}</div>
-                    <div className="text-[13px] text-white/40 text-center flex items-center justify-center py-4">{row.other}</div>
+                    {row.logo}
                   </div>
-                ))}
-              </div>
+                  <div className="text-[13px] text-white/40 text-center flex items-center justify-center py-4">{row.designer}</div>
+                  <div className="text-[13px] text-white/40 text-center flex items-center justify-center py-4">{row.other}</div>
+                </div>
+              ))}
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+        </div>
+      </PageSection>
 
       {/* ── See it in action ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
-          <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
-            <div className="flex flex-col gap-4 max-w-[580px]">
-              <Badge icon="monitor" text="See it in action" />
-              <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
-                Name to logo. Without the process.
-              </h2>
-              <p className="font-bricolage text-base leading-[1.7em] text-white/50 m-0">
-                See how LOGO.AI turns a simple name into a complete, professional logo — without templates, revisions, or guesswork.
-              </p>
-            </div>
-
-            {/* Steps flow */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-              {STEPS.map((step, i) => (
-                <div
-                  key={step}
-                  className="rounded-xl p-5 flex flex-col gap-3"
-                  style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.015)' }}
-                >
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="w-6 h-6 rounded-full flex items-center justify-center font-bricolage text-xs font-bold flex-shrink-0"
-                      style={{ background: 'rgba(0,0,255,0.15)', color: BLUE }}
-                    >
-                      {i + 1}
-                    </span>
-                    {i < STEPS.length - 1 && (
-                      <svg className="hidden md:block w-4 h-4 text-white/20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                        <polyline points="9 18 15 12 9 6" />
-                      </svg>
-                    )}
-                  </div>
-                  <p className="font-bricolage text-sm font-medium leading-[1.5em] text-white/75 m-0">{step}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Demo placeholder + CTA */}
-            <div
-              className="rounded-2xl p-8 md:p-12 flex flex-col items-center gap-6 text-center"
-              style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.02)' }}
-            >
-              <div
-                className="w-14 h-14 rounded-2xl flex items-center justify-center"
-                style={{ background: 'rgba(0,0,255,0.1)', border: '1px solid rgba(0,0,255,0.25)' }}
-              >
-                <svg width="28" height="28" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="128" cy="128" r="96" />
-                  <polygon points="108,96 160,128 108,160 108,96" fill={BLUE} stroke="none" />
-                </svg>
-              </div>
-              <div className="flex flex-col gap-2">
-                <p className="font-bricolage font-medium text-base text-white/50 m-0">Demo video coming soon</p>
-                <p className="font-bricolage text-sm text-white/35 m-0">Try it yourself — create your logo in seconds</p>
-              </div>
-              <a
-                href="/"
-                className="inline-flex items-center gap-2 font-bricolage font-semibold text-base text-white no-underline rounded-xl px-7 py-4 transition-all duration-200 hover:opacity-90"
-                style={{ background: BLUE }}
-              >
-                Get my free logo
-              </a>
-            </div>
-          </div>
-        </section>
-      </ScrollReveal>
-
-      {/* ── Built for real use ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
-          <div className="max-w-[1120px] mx-auto flex flex-col gap-8 max-w-[760px]">
-            <div className="flex flex-col gap-4">
-              <Badge icon="shield" text="Built for real use" />
-              <h2 className="font-bricolage font-medium text-[28px] md:text-[44px] leading-[1.1em] tracking-[-0.04em] m-0">
-                Not just something that looks good — but something that works everywhere your brand appears.
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {['On a business card.', 'On a website.', 'On a billboard.'].map((item) => (
-                <div
-                  key={item}
-                  className="rounded-xl px-5 py-4 text-center"
-                  style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.02)' }}
-                >
-                  <p className="font-bricolage font-medium text-base text-white/70 m-0">{item}</p>
-                </div>
-              ))}
-            </div>
-            <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.6em] text-white/50 m-0">
-              At every size, in every context.
+      <PageSection>
+        <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+          <div className="flex flex-col gap-4 max-w-[580px]">
+            <Badge icon="monitor" text="See it in action" />
+            <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
+              Name to logo. Without the process.
+            </h2>
+            <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">
+              See how LOGO.AI turns a simple name into a complete, professional logo — without templates, revisions, or guesswork.
             </p>
           </div>
-        </section>
-      </ScrollReveal>
+
+          {/* Steps flow */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+            {STEPS.map((step, i) => (
+              <div
+                key={step}
+                className="rounded-xl p-5 flex flex-col gap-3"
+                style={{ border: BORDER, background: CARD_BG }}
+              >
+                <div className="flex items-center gap-2">
+                  <span
+                    className="w-6 h-6 rounded-full flex items-center justify-center font-bricolage text-xs font-bold flex-shrink-0"
+                    style={{ background: 'rgba(0,0,255,0.15)', color: BLUE }}
+                  >
+                    {i + 1}
+                  </span>
+                  {i < STEPS.length - 1 && (
+                    <svg className="hidden md:block w-4 h-4 text-white/25" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  )}
+                </div>
+                <p className="font-bricolage text-sm font-medium leading-[1.5em] text-white/55 m-0">{step}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div
+            className="rounded-2xl p-8 md:p-12 flex flex-col items-center gap-6 text-center"
+            style={{ border: BORDER, background: 'rgba(255,255,255,0.02)' }}
+          >
+            <div className="flex flex-col gap-2">
+              <p className="font-bricolage font-medium text-base text-white/55 m-0">Demo video coming soon</p>
+              <p className="font-bricolage text-sm text-white/40 m-0">Try it yourself — create your logo in seconds</p>
+            </div>
+            <a
+              href="/"
+              className="inline-flex items-center gap-2 font-bricolage font-semibold text-base text-white no-underline rounded-xl px-7 py-4 transition-all duration-200 hover:opacity-90"
+              style={{ background: BLUE }}
+            >
+              Get my free logo
+            </a>
+          </div>
+        </div>
+      </PageSection>
+
+      {/* ── Built for real use ── */}
+      <PageSection>
+        <div className="max-w-[1120px] mx-auto flex flex-col gap-8 max-w-[760px]">
+          <div className="flex flex-col gap-4">
+            <Badge icon="shield" text="Built for real use" />
+            <h2 className="font-bricolage font-medium text-[28px] md:text-[44px] leading-[1.1em] tracking-[-0.04em] m-0">
+              Not just something that looks good — but something that works everywhere your brand appears.
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {['On a business card.', 'On a website.', 'On a billboard.'].map((item) => (
+              <div
+                key={item}
+                className="rounded-xl px-5 py-4 text-center"
+                style={{ border: BORDER, background: 'rgba(255,255,255,0.02)' }}
+              >
+                <p className="font-bricolage font-medium text-base text-white/55 m-0">{item}</p>
+              </div>
+            ))}
+          </div>
+          <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.6em] text-white/55 m-0">
+            At every size, in every context.
+          </p>
+        </div>
+      </PageSection>
 
     </PageWrapper>
   )

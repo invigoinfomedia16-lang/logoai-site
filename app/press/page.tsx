@@ -1,8 +1,7 @@
 import PageWrapper from '@/components/PageWrapper'
-import ScrollReveal from '@/components/ScrollReveal'
+import PageSection from '@/components/ui/PageSection'
 import Badge from '@/components/ui/Badge'
-
-const BLUE = 'rgb(0,0,255)'
+import { BLUE, BORDER, CARD_BG } from '@/lib/ds'
 
 const PRESS_RELEASES = [
   {
@@ -105,12 +104,8 @@ export default function PressPage() {
       </section>
 
       {/* ── Company Overview ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[80px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.015)' }}
-        >
-          <div className="max-w-[1120px] mx-auto flex flex-col gap-8">
+      <PageSection compact tinted>
+        <div className="max-w-[1120px] mx-auto flex flex-col gap-8">
             <Badge icon="buildings" text="Company Overview" />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {STATS.map((s) => (
@@ -121,16 +116,11 @@ export default function PressPage() {
               ))}
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── Press Releases ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
-          <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+      <PageSection>
+        <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-3">
               <Badge icon="newspaper" text="Press Releases" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
@@ -167,16 +157,11 @@ export default function PressPage() {
               ))}
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── For Journalists ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
-          <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+      <PageSection>
+        <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-3">
               <Badge icon="article" text="For Journalists" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
@@ -227,16 +212,11 @@ export default function PressPage() {
               </div>
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── Usage Guidelines ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
-          <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+      <PageSection>
+        <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-3">
               <Badge icon="shield" text="Usage Guidelines" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
@@ -303,16 +283,11 @@ export default function PressPage() {
               </div>
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── Media Contact ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
-          <div className="max-w-[1120px] mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <PageSection>
+        <div className="max-w-[1120px] mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div className="flex flex-col gap-2">
               <h2 className="font-bricolage font-medium text-[24px] md:text-[36px] leading-[1.2em] tracking-[-0.03em] m-0">
                 Let&apos;s talk
@@ -324,13 +299,12 @@ export default function PressPage() {
             <a
               href="mailto:press@logo.ai"
               className="inline-flex items-center gap-2 font-bricolage font-semibold text-base text-white no-underline rounded-xl px-7 py-4 transition-all duration-200 flex-shrink-0"
-              style={{ background: 'rgb(0,0,255)' }}
+              style={{ background: BLUE }}
             >
               press@logo.ai
             </a>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
     </PageWrapper>
   )
 }

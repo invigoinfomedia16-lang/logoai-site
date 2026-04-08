@@ -204,7 +204,7 @@ export const NAV_LINKS = [
   { text: 'About', href: '/about' },
   { text: 'Our story', href: '/our-story' },
   { text: 'Leadership', href: '/leadership' },
-  { text: 'FAQ', href: '/faq' },
+  { text: 'FAQ', href: '/#faq' },
   { text: 'Press', href: '/press' },
 ]
 
@@ -215,7 +215,7 @@ export const FOOTER_LINKS = [
     links: [
       { t: 'Why logo.ai', h: '/about' },
       { t: 'How it works', h: '/our-story' },
-      { t: 'FAQ', h: '/faq' },
+      { t: 'FAQ', h: '/#faq' },
       { t: 'Blog', h: '/press' },
     ],
   },

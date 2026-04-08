@@ -1,9 +1,8 @@
 import PageWrapper from '@/components/PageWrapper'
-import ScrollReveal from '@/components/ScrollReveal'
+import PageSection from '@/components/ui/PageSection'
 import Link from 'next/link'
 import Badge from '@/components/ui/Badge'
-
-const BLUE = 'rgb(0,0,255)'
+import { BLUE, BORDER, CARD_BG } from '@/lib/ds'
 
 const BUILD_STEPS = [
   {
@@ -95,11 +94,7 @@ export default function OurStoryPage() {
       </section>
 
       {/* ── The Problem ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
+      <PageSection>
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24 items-start">
             <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
               <Badge icon="shield" text="The Problem" />
@@ -166,15 +161,10 @@ export default function OurStoryPage() {
               </div>
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── The Turning Point ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
+      <PageSection>
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
               <Badge icon="clock" text="The Turning Point" />
@@ -229,15 +219,10 @@ export default function OurStoryPage() {
               </div>
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── How We Built It ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
+      <PageSection>
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-4 max-w-[680px]">
               <Badge icon="cpu" text="How We Built It" />
@@ -279,15 +264,10 @@ export default function OurStoryPage() {
               ))}
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── The Team ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
+      <PageSection>
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
               <Badge icon="users" text="The Team" />
@@ -349,15 +329,10 @@ export default function OurStoryPage() {
               </div>
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── The Name ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
+      <PageSection>
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24 items-center">
             <div className="flex-1 flex flex-col gap-5">
               <Badge icon="trophy" text="The Name" />
@@ -388,15 +363,10 @@ export default function OurStoryPage() {
               </span>
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── Why Now ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
+      <PageSection>
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
               <Badge icon="lightning" text="Why Now" />
@@ -426,15 +396,10 @@ export default function OurStoryPage() {
               </p>
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── What This Unlocks ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
+      <PageSection>
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[320px] flex-shrink-0">
               <Badge icon="rocket" text="What This Unlocks" />
@@ -451,15 +416,10 @@ export default function OurStoryPage() {
               </div>
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
       {/* ── What Comes Next ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
+      <PageSection>
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
               <Badge icon="rocket" text="What Comes Next" />
@@ -500,8 +460,7 @@ export default function OurStoryPage() {
               </div>
             </div>
           </div>
-        </section>
-      </ScrollReveal>
+      </PageSection>
 
     </PageWrapper>
   )

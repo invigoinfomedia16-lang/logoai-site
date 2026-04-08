@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import PageWrapper from '@/components/PageWrapper'
-import ScrollReveal from '@/components/ScrollReveal'
+import PageSection from '@/components/ui/PageSection'
 import Badge from '@/components/ui/Badge'
 
 const FAQS = [
@@ -94,7 +94,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         </div>
       </div>
       <div style={{ maxHeight: open ? 300 : 0, overflow: 'hidden', transition: 'max-height 0.4s cubic-bezier(0.23,1,0.32,1)' }}>
-        <p className="font-bricolage text-sm leading-[1.7] text-white/50 pr-10 pb-5 m-0">{a}</p>
+        <p className="font-bricolage text-sm leading-[1.7] text-white/55 pr-10 pb-5 m-0">{a}</p>
       </div>
     </div>
   )
@@ -124,48 +124,38 @@ export default function FAQPage() {
       </section>
 
       {/* ── FAQ Accordion ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
-          <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-0 lg:gap-16 items-start">
-            {cols.map((col, ci) => (
-              <div key={ci} className="flex-1 min-w-0 w-full">
-                {col.map((item) => (
-                  <FAQItem key={item.q} q={item.q} a={item.a} />
-                ))}
-              </div>
-            ))}
-          </div>
-        </section>
-      </ScrollReveal>
+      <PageSection>
+        <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-0 lg:gap-16 items-start">
+          {cols.map((col, ci) => (
+            <div key={ci} className="flex-1 min-w-0 w-full">
+              {col.map((item) => (
+                <FAQItem key={item.q} q={item.q} a={item.a} />
+              ))}
+            </div>
+          ))}
+        </div>
+      </PageSection>
 
       {/* ── Still have questions ── */}
-      <ScrollReveal>
-        <section
-          className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
-          style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
-        >
-          <div className="max-w-[1120px] mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div className="flex flex-col gap-2">
-              <h2 className="font-bricolage font-medium text-[24px] md:text-[32px] leading-[1.2em] tracking-[-0.03em] m-0">
-                Still have questions?
-              </h2>
-              <p className="font-bricolage text-base text-white/50 m-0">
-                We&apos;re happy to help — reach out any time.
-              </p>
-            </div>
-            <a
-              href="mailto:hello@logo.ai"
-              className="inline-flex items-center gap-2 font-bricolage font-medium text-base text-white no-underline rounded-xl px-6 py-3.5 transition-all duration-200 hover:bg-white hover:text-black flex-shrink-0"
-              style={{ border: '1px solid rgba(255,255,255,0.2)' }}
-            >
-              Contact us
-            </a>
+      <PageSection>
+        <div className="max-w-[1120px] mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div className="flex flex-col gap-2">
+            <h2 className="font-bricolage font-medium text-[24px] md:text-[32px] leading-[1.2em] tracking-[-0.03em] m-0">
+              Still have questions?
+            </h2>
+            <p className="font-bricolage text-base text-white/55 m-0">
+              We&apos;re happy to help — reach out any time.
+            </p>
           </div>
-        </section>
-      </ScrollReveal>
+          <a
+            href="mailto:hello@logo.ai"
+            className="inline-flex items-center gap-2 font-bricolage font-medium text-base text-white no-underline rounded-xl px-6 py-3.5 transition-all duration-200 hover:bg-white hover:text-black flex-shrink-0"
+            style={{ border: '1px solid rgba(255,255,255,0.2)' }}
+          >
+            Contact us
+          </a>
+        </div>
+      </PageSection>
     </PageWrapper>
   )
 }
