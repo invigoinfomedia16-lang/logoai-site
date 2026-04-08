@@ -13,12 +13,7 @@ export default function LogoGrid({ images, animKey, mobile = false }: LogoGridPr
     <>
       <div
         key={animKey}
-        className="w-full grid gap-3 md:gap-5"
-        style={{
-          gridTemplateColumns: mobile
-            ? 'repeat(auto-fill, minmax(140px, 1fr))'
-            : 'repeat(auto-fill, minmax(260px, 1fr))',
-        }}
+        className="w-full grid gap-3 md:gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
       >
         {images.map((src, i) => (
           <div
@@ -36,7 +31,7 @@ export default function LogoGrid({ images, animKey, mobile = false }: LogoGridPr
               alt=""
               fill
               className="object-cover transition-transform duration-[400ms] ease-smooth group-hover:scale-[1.04]"
-              sizes="(max-width: 640px) 140px, 260px"
+              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
               loading={i < 4 ? 'eager' : 'lazy'}
             />
           </div>
