@@ -95,8 +95,8 @@ export default function PressPage() {
           </p>
           <a
             href="mailto:press@logo.ai"
-            className="inline-flex w-fit items-center gap-2 font-bricolage font-medium text-base text-white no-underline rounded-xl px-6 py-3.5 transition-all duration-200 hover:bg-white hover:text-black"
-            style={{ border: '1px solid rgba(255,255,255,0.2)' }}
+            className="inline-flex w-fit items-center gap-2 font-bricolage font-medium text-white no-underline transition-all duration-200 hover:bg-white hover:text-black"
+            style={{ border: '1px solid rgba(255,255,255,0.2)', borderRadius: 8, padding: '12px 24px', fontSize: 16 }}
           >
             press@logo.ai
           </a>
@@ -298,8 +298,8 @@ export default function PressPage() {
             </div>
             <a
               href="mailto:press@logo.ai"
-              className="inline-flex items-center gap-2 font-bricolage font-semibold text-base text-white no-underline rounded-xl px-7 py-4 transition-all duration-200 flex-shrink-0"
-              style={{ background: BLUE }}
+              className="inline-flex items-center gap-2 font-bricolage font-semibold text-white no-underline transition-all duration-200 flex-shrink-0 hover:opacity-90"
+              style={{ background: BLUE, borderRadius: 12, padding: 'clamp(14px,2vw,20px) clamp(20px,3vw,32px)', fontSize: 'clamp(18px,1.8vw,20px)' }}
             >
               press@logo.ai
             </a>

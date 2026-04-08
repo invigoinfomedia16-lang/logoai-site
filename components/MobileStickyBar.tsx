@@ -29,8 +29,8 @@ export default function MobileStickyBar({
           e.preventDefault()
           onCTAClick()
         }}
-        className="flex items-center justify-center gap-1.5 w-full no-underline rounded-xl py-4 px-6 font-bricolage font-semibold text-base text-white"
-        style={{ background: 'rgb(0,0,255)' }}
+        className="flex items-center justify-center gap-1.5 w-full no-underline rounded-xl py-4 px-6 font-bricolage font-semibold text-white"
+        style={{ background: 'rgb(0,0,255)', fontSize: 18 }}
       >
         Get my free logo
         <ArrowRight />

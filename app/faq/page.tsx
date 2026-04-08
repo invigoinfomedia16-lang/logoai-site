@@ -149,8 +149,8 @@ export default function FAQPage() {
           </div>
           <a
             href="mailto:hello@logo.ai"
-            className="inline-flex items-center gap-2 font-bricolage font-medium text-base text-white no-underline rounded-xl px-6 py-3.5 transition-all duration-200 hover:bg-white hover:text-black flex-shrink-0"
-            style={{ border: '1px solid rgba(255,255,255,0.2)' }}
+            className="inline-flex items-center gap-2 font-bricolage font-medium text-white no-underline transition-all duration-200 hover:bg-white hover:text-black flex-shrink-0"
+            style={{ border: '1px solid rgba(255,255,255,0.2)', borderRadius: 8, padding: '12px 24px', fontSize: 16 }}
           >
             Contact us
           </a>

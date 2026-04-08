@@ -86,9 +86,9 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
                   onClick={onSubmit}
                   className="inline-flex items-center justify-center gap-1.5 rounded-xl border-0 cursor-pointer font-bricolage font-semibold text-white whitespace-nowrap flex-shrink-0 transition-all duration-200"
                   style={{
-                    padding: 'clamp(18px,2vw,24px) clamp(24px,3vw,40px)',
+                    padding: 'clamp(20px,2.5vw,28px) clamp(28px,4vw,52px)',
                     background: 'rgb(0,0,255)',
-                    fontSize: 'clamp(17px,1.8vw,20px)',
+                    fontSize: 'clamp(18px,1.8vw,22px)',
                     boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
                   }}
                   onMouseEnter={(e) => {

@@ -77,10 +77,12 @@ export default function CTASection({ onSubmit, submitted }: CTASectionProps) {
                 )}
                 <button
                   onClick={onSubmit}
-                  className="inline-flex items-center justify-center gap-1 font-bricolage font-semibold text-base sm:text-lg text-white rounded-lg border-0 cursor-pointer transition-all duration-200 whitespace-nowrap"
+                  className="inline-flex items-center justify-center gap-1 font-bricolage font-semibold text-white rounded-xl border-0 cursor-pointer transition-all duration-200 whitespace-nowrap"
                   style={{
                     padding: submitted ? '20px 0' : 'clamp(14px,2vw,20px) clamp(20px,3vw,32px)',
+                    fontSize: 'clamp(18px,1.8vw,20px)',
                     background: submitted ? 'transparent' : 'rgb(0,0,255)',
+                    borderRadius: 12,
                   }}
                 >
                   {submitted ? (

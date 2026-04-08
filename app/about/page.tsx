@@ -244,8 +244,8 @@ export default function AboutPage() {
             </div>
             <a
               href="/"
-              className="inline-flex items-center gap-2 font-bricolage font-semibold text-base text-white no-underline rounded-xl px-7 py-4 transition-all duration-200 hover:opacity-90"
-              style={{ background: BLUE }}
+              className="inline-flex items-center gap-2 font-bricolage font-semibold text-white no-underline transition-all duration-200 hover:opacity-90"
+              style={{ background: BLUE, borderRadius: 12, padding: 'clamp(18px,2vw,24px) clamp(24px,3vw,40px)', fontSize: 'clamp(18px,1.8vw,20px)' }}
             >
               Get my free logo
             </a>
