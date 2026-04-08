@@ -264,12 +264,7 @@ export default function OurStoryPage() {
                   style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.015)' }}
                 >
                   <div className="flex items-center justify-between">
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center"
-                      style={{ background: 'rgba(0,0,255,0.08)', border: '1px solid rgba(0,0,255,0.2)' }}
-                    >
-                      {step.icon}
-                    </div>
+                    {step.icon}
                     <span className="font-bricolage text-xs font-medium text-white/20 uppercase tracking-[2px]">
                       0{i + 1}
                     </span>

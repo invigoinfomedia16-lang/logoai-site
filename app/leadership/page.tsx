@@ -251,19 +251,14 @@ export default function LeadershipPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[360px] flex-shrink-0 flex flex-col gap-5">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center"
-                style={{ background: 'rgba(0,0,255,0.08)', border: '1px solid rgba(0,0,255,0.2)' }}
-              >
-                <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="88" y="88" width="80" height="80" rx="8"/>
-                  <path d="M112,88V64"/><path d="M144,88V64"/>
-                  <path d="M112,192v-24"/><path d="M144,192v-24"/>
-                  <path d="M88,112H64"/><path d="M88,144H64"/>
-                  <path d="M192,112H168"/><path d="M192,144H168"/>
-                  <rect x="40" y="40" width="176" height="176" rx="16"/>
-                </svg>
-              </div>
+              <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="88" y="88" width="80" height="80" rx="8"/>
+                <path d="M112,88V64"/><path d="M144,88V64"/>
+                <path d="M112,192v-24"/><path d="M144,192v-24"/>
+                <path d="M88,112H64"/><path d="M88,144H64"/>
+                <path d="M192,112H168"/><path d="M192,144H168"/>
+                <rect x="40" y="40" width="176" height="176" rx="16"/>
+              </svg>
               <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">Early AI Experiments</p>
               <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Long before AI became mainstream
@@ -307,20 +302,15 @@ export default function LeadershipPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-5 max-w-[680px]">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center"
-                style={{ background: 'rgba(0,0,255,0.08)', border: '1px solid rgba(0,0,255,0.2)' }}
-              >
-                <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="16,224 240,224"/>
-                  <rect x="128" y="48" width="96" height="176" rx="8"/>
-                  <path d="M40,224V112a8,8,0,0,1,8-8H96a8,8,0,0,1,8,8v112"/>
-                  <line x1="152" y1="96" x2="152" y2="96"/><line x1="184" y1="96" x2="184" y2="96"/>
-                  <line x1="152" y1="128" x2="152" y2="128"/><line x1="184" y1="128" x2="184" y2="128"/>
-                  <line x1="152" y1="160" x2="152" y2="160"/><line x1="184" y1="160" x2="184" y2="160"/>
-                  <rect x="152" y="184" width="24" height="40"/>
-                </svg>
-              </div>
+              <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="16,224 240,224"/>
+                <rect x="128" y="48" width="96" height="176" rx="8"/>
+                <path d="M40,224V112a8,8,0,0,1,8-8H96a8,8,0,0,1,8,8v112"/>
+                <line x1="152" y1="96" x2="152" y2="96"/><line x1="184" y1="96" x2="184" y2="96"/>
+                <line x1="152" y1="128" x2="152" y2="128"/><line x1="184" y1="128" x2="184" y2="128"/>
+                <line x1="152" y1="160" x2="152" y2="160"/><line x1="184" y1="160" x2="184" y2="160"/>
+                <rect x="152" y="184" width="24" height="40"/>
+              </svg>
               <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">Building Across Industries</p>
               <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Products built and scaled at real scale
@@ -336,12 +326,7 @@ export default function LeadershipPage() {
                   className="rounded-xl p-5 flex flex-col gap-3"
                   style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.015)' }}
                 >
-                  <div
-                    className="w-9 h-9 rounded-lg flex items-center justify-center"
-                    style={{ background: 'rgba(0,0,255,0.08)', border: '1px solid rgba(0,0,255,0.2)' }}
-                  >
-                    {ind.icon}
-                  </div>
+                  {ind.icon}
                   <h3 className="font-bricolage font-medium text-base m-0">{ind.label}</h3>
                   <p className="font-bricolage text-sm leading-[1.6em] text-white/50 m-0">{ind.desc}</p>
                 </div>
@@ -373,12 +358,7 @@ export default function LeadershipPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {STATS.map((s) => (
                 <div key={s.label} className="flex flex-col gap-3">
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center"
-                    style={{ background: 'rgba(0,0,255,0.08)', border: '1px solid rgba(0,0,255,0.2)' }}
-                  >
-                    {s.icon}
-                  </div>
+                  {s.icon}
                   <span className="font-bricolage font-bold text-[28px] md:text-[36px] leading-none tracking-[-0.04em]">{s.n}</span>
                   <span className="font-bricolage text-sm md:text-base font-medium text-white/40">{s.label}</span>
                 </div>
@@ -405,16 +385,11 @@ export default function LeadershipPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[280px] flex-shrink-0 flex flex-col gap-4">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center"
-                style={{ background: 'rgba(0,0,255,0.08)', border: '1px solid rgba(0,0,255,0.2)' }}
-              >
-                <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M236.8,188.09,149.35,36.22a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224H215.45a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09Z"/>
-                  <line x1="128" y1="104" x2="128" y2="144"/>
-                  <circle cx="128" cy="180" r="12" fill={BLUE} stroke="none"/>
-                </svg>
-              </div>
+              <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M236.8,188.09,149.35,36.22a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224H215.45a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09Z"/>
+                <line x1="128" y1="104" x2="128" y2="144"/>
+                <circle cx="128" cy="180" r="12" fill={BLUE} stroke="none"/>
+              </svg>
               <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">The Pattern We Couldn&apos;t Ignore</p>
             </div>
             <div className="flex-1 flex flex-col gap-5">
@@ -448,14 +423,9 @@ export default function LeadershipPage() {
         >
           <div className="max-w-[1120px] mx-auto flex flex-col gap-8 max-w-[760px]">
             <div className="flex flex-col gap-4">
-              <div
-                className="w-10 h-10 rounded-xl flex items-center justify-center"
-                style={{ background: 'rgba(0,0,255,0.08)', border: '1px solid rgba(0,0,255,0.2)' }}
-              >
-                <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="152,16 72,144 128,144 104,240 184,112 128,112 152,16"/>
-                </svg>
-              </div>
+              <svg width="20" height="20" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="152,16 72,144 128,144 104,240 184,112 128,112 152,16"/>
+              </svg>
               <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">Why LOGO.AI</p>
             </div>
             <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
@@ -496,12 +466,7 @@ export default function LeadershipPage() {
                   className="rounded-2xl p-6 md:p-7 flex flex-col gap-4"
                   style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.015)' }}
                 >
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center"
-                    style={{ background: 'rgba(0,0,255,0.08)', border: '1px solid rgba(0,0,255,0.2)' }}
-                  >
-                    {b.icon}
-                  </div>
+                  {b.icon}
                   <h3 className="font-bricolage font-medium text-base leading-[1.4em] m-0">{b.title}</h3>
                   <p className="font-bricolage text-sm leading-[1.65em] text-white/50 m-0">{b.desc}</p>
                 </div>
@@ -534,12 +499,7 @@ export default function LeadershipPage() {
                   className="rounded-2xl p-6 md:p-7 flex flex-col gap-4"
                   style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.015)' }}
                 >
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center"
-                    style={{ background: 'rgba(0,0,255,0.08)', border: '1px solid rgba(0,0,255,0.2)' }}
-                  >
-                    {b.icon}
-                  </div>
+                  {b.icon}
                   <h3 className="font-bricolage font-medium text-base leading-[1.4em] m-0">{b.title}</h3>
                   <p className="font-bricolage text-sm leading-[1.65em] text-white/50 m-0">{b.desc}</p>
                 </div>
@@ -577,12 +537,7 @@ export default function LeadershipPage() {
                   className="rounded-2xl p-6 md:p-7 flex flex-col gap-4"
                   style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.015)' }}
                 >
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center"
-                    style={{ background: 'rgba(0,0,255,0.08)', border: '1px solid rgba(0,0,255,0.2)' }}
-                  >
-                    {a.icon}
-                  </div>
+                  {a.icon}
                   <h3 className="font-bricolage font-medium text-base leading-[1.4em] m-0">{a.title}</h3>
                   <p className="font-bricolage text-sm leading-[1.65em] text-white/50 m-0">{a.desc}</p>
                 </div>

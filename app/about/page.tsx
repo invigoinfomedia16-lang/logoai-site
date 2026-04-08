@@ -136,12 +136,7 @@ export default function AboutPage() {
                   className="rounded-2xl p-6 md:p-7 flex flex-col gap-4"
                   style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.015)' }}
                 >
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center"
-                    style={{ background: 'rgba(0,0,255,0.08)', border: '1px solid rgba(0,0,255,0.2)' }}
-                  >
-                    {f.icon}
-                  </div>
+                  {f.icon}
                   <h3 className="font-bricolage font-medium text-base leading-[1.4em] m-0">{f.title}</h3>
                   <p className="font-bricolage text-sm leading-[1.65em] text-white/50 m-0">{f.desc}</p>
                 </div>

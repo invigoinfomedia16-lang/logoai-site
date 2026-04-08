@@ -48,12 +48,7 @@ function StatCard({ label, from, to, suffix = '', desc, icon }: StatCardProps) {
           {label}
         </span>
         {icon && (
-          <div
-            className="w-9 h-9 rounded-lg flex items-center justify-center"
-            style={{ background: 'rgba(0,0,255,0.08)', border: '1px solid rgba(0,0,255,0.2)' }}
-          >
-            <span style={{ color: 'rgb(0,0,255)' }}>{icon}</span>
-          </div>
+          <span style={{ color: 'rgb(0,0,255)', opacity: 0.7 }}>{icon}</span>
         )}
       </div>
       <div className="flex flex-col gap-3">

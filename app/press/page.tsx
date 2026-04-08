@@ -158,12 +158,7 @@ export default function PressPage() {
                         Coming Soon
                       </span>
                     </div>
-                    <div
-                      className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
-                      style={{ background: 'rgba(0,0,255,0.08)', border: '1px solid rgba(0,0,255,0.18)' }}
-                    >
-                      {pr.icon}
-                    </div>
+                    {pr.icon}
                   </div>
                   <h3 className="font-bricolage font-medium text-lg md:text-xl leading-[1.3em] m-0">{pr.title}</h3>
                   <p className="font-bricolage text-sm md:text-base leading-[1.7em] text-white/50 m-0">{pr.desc}</p>
