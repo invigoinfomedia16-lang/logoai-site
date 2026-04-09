@@ -77,14 +77,15 @@ export default function OurStoryPage() {
       {/* ── Hero ── */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
         <div className="max-w-[1120px] mx-auto flex flex-col gap-7">
-          <Badge icon="book" text="Our Story" />
           <h1
             className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[860px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
           >
-            We didn&apos;t discover this problem.{' '}
-            <span className="text-white">We watched it repeat.</span>
+            Our Story
           </h1>
+          <p className="font-bricolage font-medium text-xl md:text-2xl leading-[1.4em] tracking-[-0.02em] text-white/70 max-w-[860px] m-0">
+            We didn&apos;t discover this problem. We watched it repeat.
+          </p>
           <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.7em] tracking-[-0.02em] text-white/55 max-w-[640px] m-0">
             Three decades of building, investing in, and advising companies.
             Every time, the logo was the bottleneck —
@@ -95,21 +96,28 @@ export default function OurStoryPage() {
 
       {/* ── The Problem ── */}
       <PageSection>
-          <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24 items-start">
-            <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
-              <Badge icon="shield" text="The Problem" />
-              <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
-                The wall every founder hits
-              </h2>
-              <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
-                Across companies we built and worked with,
-                the same pattern kept repeating.
-                Brilliant founders —
-                stuck for weeks on something that should take minutes.
-              </p>
+          <div className="max-w-[1120px] mx-auto flex flex-col gap-10">
+            <div className="flex flex-col md:flex-row items-center gap-10 lg:gap-14">
+              <div className="flex-1 flex flex-col gap-5">
+                <Badge icon="shield" text="The Problem" />
+                <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+                  The wall every founder hits
+                </h2>
+                <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
+                  Across companies we built and worked with,
+                  the same pattern kept repeating.
+                  Brilliant founders —
+                  stuck for weeks on something that should take minutes.
+                </p>
+              </div>
+              <img
+                src="/images/illustrations/final-story-problem.png"
+                alt="Founder stuck in logo design chaos"
+                className="w-[300px] md:w-[420px] flex-shrink-0 h-auto opacity-90"
+              />
             </div>
 
-            <div className="flex-1 flex flex-col gap-4">
+              <div className="flex flex-col gap-4">
               {/* Option 1 */}
               <div
                 className="rounded-2xl p-6 flex flex-col gap-3"
@@ -165,8 +173,8 @@ export default function OurStoryPage() {
 
       {/* ── The Turning Point ── */}
       <PageSection>
-          <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
-            <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
+          <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-10 lg:gap-14 items-center">
+            <div className="flex-1 flex flex-col gap-6">
               <Badge icon="clock" text="The Turning Point" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Late 2023.
@@ -187,9 +195,6 @@ export default function OurStoryPage() {
                   <span className="text-white/55 font-normal">Still broken.</span>
                 </p>
               </div>
-            </div>
-
-            <div className="flex-1 flex flex-col gap-5">
               <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
                 Everything we tried looked wrong:
               </p>
@@ -218,6 +223,11 @@ export default function OurStoryPage() {
                 </p>
               </div>
             </div>
+            <img
+              src="/images/illustrations/final-story-turningpoint.png"
+              alt="The eureka moment — a new approach"
+              className="w-[200px] lg:w-[400px] flex-shrink-0 h-auto opacity-90"
+            />
           </div>
       </PageSection>
 
@@ -268,8 +278,8 @@ export default function OurStoryPage() {
 
       {/* ── The Team ── */}
       <PageSection>
-          <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
-            <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
+          <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
+            <div className="flex-1 flex flex-col gap-5">
               <Badge icon="users" text="The Team" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Small team. High standards.
@@ -284,49 +294,64 @@ export default function OurStoryPage() {
                 <span className="text-white/55 font-normal">Make AI design logos that actually work.</span>
               </p>
             </div>
+            <img
+              src="/images/illustrations/final-story-team.png"
+              alt="Global team across four countries"
+              className="w-[200px] lg:w-[480px] flex-shrink-0 h-auto opacity-90"
+            />
+          </div>
+      </PageSection>
 
-            <div className="flex-1 flex flex-col gap-6">
-              <div className="flex flex-col gap-3">
-                <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                  Built on experience
-                </p>
-                <div className="flex flex-col gap-2">
-                  {TEAM_STATS.map((s) => (
-                    <div key={s} className="flex items-center gap-3">
-                      <span className="w-1 h-1 rounded-full bg-white/25 flex-shrink-0" />
-                      <span className="font-bricolage text-base text-white/55">{s}</span>
-                    </div>
-                  ))}
+      {/* ── Built on Experience ── */}
+      <PageSection>
+          <div className="max-w-[1120px] mx-auto flex flex-col gap-6">
+            <Badge icon="shield" text="Built on Experience" />
+            <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+              Built on experience
+            </h2>
+            <div className="flex flex-col gap-2">
+              {TEAM_STATS.map((s) => (
+                <div key={s} className="flex items-center gap-3">
+                  <span className="w-1 h-1 rounded-full bg-white/25 flex-shrink-0" />
+                  <span className="font-bricolage text-base text-white/55">{s}</span>
                 </div>
-              </div>
-              <div
-                className="rounded-xl p-5"
-                style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.02)' }}
-              >
-                <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0 italic">
-                  &ldquo;But one belief never changed:
-                  If people don&apos;t love the product, nothing else matters.&rdquo;
-                </p>
-              </div>
+              ))}
+            </div>
+            <div
+              className="rounded-xl p-5"
+              style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.02)' }}
+            >
+              <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0 italic">
+                &ldquo;But one belief never changed:
+                If people don&apos;t love the product, nothing else matters.&rdquo;
+              </p>
+            </div>
+          </div>
+      </PageSection>
 
-              <div className="flex flex-col gap-3 pt-2">
-                <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
-                  Leadership
-                </p>
-                <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">
-                  Brothers. Serial founders. Repeat builders.
-                </p>
-                <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">
-                  Three decades of building products across web and mobile —
-                  from early internet platforms to AI systems.
-                  Multiple exits.
-                  Millions of users reached.
-                </p>
-                <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">
-                  We&apos;ve seen the same problem again and again.
-                  So we built something better.
-                </p>
-              </div>
+      {/* ── Leadership ── */}
+      <PageSection>
+          <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
+            <img
+              src="/images/illustrations/final-story-leadership.png"
+              alt="Brothers and co-founders"
+              className="w-[200px] lg:w-[380px] flex-shrink-0 h-auto opacity-90"
+            />
+            <div className="flex-1 flex flex-col gap-6">
+              <Badge icon="users" text="Leadership" />
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+                Brothers. Serial founders. Repeat builders.
+              </h2>
+              <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
+                Three decades of building products across web and mobile —
+                from early internet platforms to AI systems.
+                Multiple exits.
+                Millions of users reached.
+              </p>
+              <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
+                We&apos;ve seen the same problem again and again.
+                So we built something better.
+              </p>
             </div>
           </div>
       </PageSection>
@@ -337,7 +362,7 @@ export default function OurStoryPage() {
             <div className="flex-1 flex flex-col gap-5">
               <Badge icon="trophy" text="The Name" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
-                Earned, not bought.
+                Earned, not bought
               </h2>
               <div className="flex flex-col gap-3">
                 <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
@@ -359,7 +384,7 @@ export default function OurStoryPage() {
                 className="font-bricolage font-medium select-none text-white"
                 style={{ fontSize: 'clamp(56px, 8vw, 100px)', letterSpacing: '-0.04em', lineHeight: 1 }}
               >
-                LOGO.AI
+                Logo.ai
               </span>
             </div>
           </div>
@@ -392,7 +417,7 @@ export default function OurStoryPage() {
                 ))}
               </ul>
               <p className="font-bricolage font-medium text-base md:text-lg text-white m-0 pt-2">
-                That&apos;s what makes LOGO.AI possible.
+                That&apos;s what makes Logo.ai possible.
               </p>
             </div>
           </div>

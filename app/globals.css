@@ -41,6 +41,11 @@ input::placeholder {
   display: none;
 }
 
+/* Seamless illustrations — black bg becomes transparent */
+.illustration-seamless {
+  mix-blend-mode: lighten;
+}
+
 /* Logo fade animation */
 @keyframes logoFade {
   to {

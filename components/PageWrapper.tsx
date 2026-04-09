@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import MobileStickyBar from './MobileStickyBar'
@@ -8,6 +9,7 @@ import MobileStickyBar from './MobileStickyBar'
 export default function PageWrapper({ children }: { children: React.ReactNode }) {
   const [showStickyBar, setShowStickyBar] = useState(false)
   const heroRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
 
   useEffect(() => {
     const handler = () => {
@@ -18,15 +20,17 @@ export default function PageWrapper({ children }: { children: React.ReactNode })
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
+  const goToHeroCTA = () => {
+    router.push('/#hero-cta')
+  }
 
   return (
     <div className="font-bricolage bg-black text-white min-h-screen overflow-x-hidden">
-      <Navbar onCTAClick={scrollToTop} />
+      <Navbar onCTAClick={goToHeroCTA} />
       <div ref={heroRef} />
       {children}
       <Footer />
-      <MobileStickyBar visible={showStickyBar} onCTAClick={scrollToTop} />
+      <MobileStickyBar visible={showStickyBar} onCTAClick={goToHeroCTA} />
     </div>
   )
 }

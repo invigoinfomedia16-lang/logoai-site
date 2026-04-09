@@ -170,16 +170,14 @@ export default function LeadershipPage() {
       {/* ── Hero ── */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
         <div className="max-w-[1120px] mx-auto flex flex-col gap-6">
-          <Badge icon="users" text="Leadership &amp; Journey" />
           <h1
             className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[800px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
           >
-            Built over decades,{' '}
-            <span className="text-white">not months.</span>
+            Leadership & Journey
           </h1>
-          <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.7em] tracking-[-0.02em] text-white/50 max-w-[580px] m-0">
-            Brothers. Serial founders. Repeat builders. Three decades of building products across web and mobile — from early internet platforms to AI systems.
+          <p className="font-bricolage font-medium text-xl md:text-2xl leading-[1.4em] tracking-[-0.02em] text-white/70 max-w-[800px] m-0">
+            Built over decades, not months.
           </p>
         </div>
       </section>
@@ -195,19 +193,9 @@ export default function LeadershipPage() {
                   className="rounded-2xl p-8 md:p-10 flex flex-col gap-6"
                   style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.015)' }}
                 >
-                  <div className="flex items-center gap-4">
-                    <div
-                      className="w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0"
-                      style={{ background: 'rgba(0,0,255,0.1)', border: '1px solid rgba(0,0,255,0.2)' }}
-                    >
-                      <span className="font-bricolage font-semibold text-lg" style={{ color: BLUE }}>
-                        {f.name.split(' ').map((n) => n[0]).join('')}
-                      </span>
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <h2 className="font-bricolage font-medium text-[20px] md:text-[24px] leading-[1.2em] tracking-[-0.03em] m-0">{f.name}</h2>
-                      <p className="font-bricolage text-sm font-medium text-white/40 m-0">{f.role}</p>
-                    </div>
+                  <div className="flex flex-col gap-1">
+                    <h2 className="font-bricolage font-medium text-[20px] md:text-[24px] leading-[1.2em] tracking-[-0.03em] m-0">{f.name}</h2>
+                    <p className="font-bricolage text-sm font-medium text-white/40 m-0">{f.role}</p>
                   </div>
                   <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">{f.bio}</p>
                   <div className="pt-2 border-t border-white/[0.06]">
@@ -368,11 +356,11 @@ export default function LeadershipPage() {
           </div>
       </PageSection>
 
-      {/* ── Why LOGO.AI ── */}
+      {/* ── Why Logo.ai ── */}
       <PageSection>
           <div className="max-w-[1120px] mx-auto flex flex-col gap-8 max-w-[760px]">
             <div className="flex flex-col gap-4">
-              <Badge icon="lightning" text="Why LOGO.AI" />
+              <Badge icon="lightning" text="Why Logo.ai" />
             </div>
             <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
               When AI reached the point where it could understand design — not just generate outputs —
@@ -422,7 +410,7 @@ export default function LeadershipPage() {
             <div className="flex flex-col gap-4 max-w-[580px]">
               <Badge icon="rocket" text="What We're Building" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
-                LOGO.AI is just the start.
+                Logo.ai is just the start.
               </h2>
               <p className="font-bricolage text-base leading-[1.7em] text-white/50 m-0">
                 We&apos;re building systems that:

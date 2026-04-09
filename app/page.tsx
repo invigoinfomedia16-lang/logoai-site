@@ -33,6 +33,15 @@ export default function HomePage() {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
+  // Handle #hero-cta hash from other pages
+  useEffect(() => {
+    if (window.location.hash === '#hero-cta') {
+      setTimeout(() => {
+        heroFormRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }, 300)
+    }
+  }, [])
+
   const scrollToHero = () => {
     heroFormRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }

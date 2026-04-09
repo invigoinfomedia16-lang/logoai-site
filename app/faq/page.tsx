@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import PageWrapper from '@/components/PageWrapper'
 import PageSection from '@/components/ui/PageSection'
-import Badge from '@/components/ui/Badge'
+import { getDaysUntilLaunch } from '@/data'
 
 const FAQS = [
   {
@@ -16,7 +16,7 @@ const FAQS = [
   },
   {
     q: 'How is this different from other AI logo makers?',
-    a: "Most other AI logo makers use templates or pre-made elements. LOGO.AI designs logos from scratch using real design principles — so the result is original and consistent.",
+    a: "Most other AI logo makers use templates or pre-made elements. Logo.ai designs logos from scratch using real design principles — so the result is original and consistent.",
   },
   {
     q: 'Do I own my logo?',
@@ -32,7 +32,7 @@ const FAQS = [
   },
   {
     q: 'What file formats will I get?',
-    a: "You'll get a high-resolution PNG with a transparent background. Additional formats like SVG and PDF are coming soon.",
+    a: "You'll receive high-resolution files ready for both web and print — including PNG, SVG, JPG, and PDF. Everything you need to use your logo anywhere.",
   },
   {
     q: 'When will I get my logo?',
@@ -51,8 +51,8 @@ const FAQS = [
     a: "We want people to experience the quality for themselves. If it's good, it spreads.",
   },
   {
-    q: 'When does LOGO.AI launch?',
-    a: 'Launching in 21 days. Join now to secure your spot.',
+    q: 'When does Logo.ai launch?',
+    a: `Launching in ${getDaysUntilLaunch()} days. Join now to secure your spot.`,
   },
 ]
 
@@ -109,14 +109,15 @@ export default function FAQPage() {
       {/* ── Hero ── */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
         <div className="max-w-[1120px] mx-auto flex flex-col gap-6">
-          <Badge icon="question" text="FAQ" />
           <h1
             className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[760px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
           >
-            Got questions?{' '}
-            <span className="text-white">We&apos;ve got answers.</span>
+            FAQ
           </h1>
+          <p className="font-bricolage font-medium text-xl md:text-2xl leading-[1.4em] tracking-[-0.02em] text-white/70 max-w-[760px] m-0">
+            Got questions? We&apos;ve got answers.
+          </p>
           <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.7em] tracking-[-0.02em] text-white/55 max-w-[500px] m-0">
             Everything you need to know about creating your free logo.
           </p>
@@ -125,13 +126,9 @@ export default function FAQPage() {
 
       {/* ── FAQ Accordion ── */}
       <PageSection>
-        <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-0 lg:gap-16 items-start">
-          {cols.map((col, ci) => (
-            <div key={ci} className="flex-1 min-w-0 w-full">
-              {col.map((item) => (
-                <FAQItem key={item.q} q={item.q} a={item.a} />
-              ))}
-            </div>
+        <div className="max-w-[800px] mx-auto">
+          {FAQS.map((item) => (
+            <FAQItem key={item.q} q={item.q} a={item.a} />
           ))}
         </div>
       </PageSection>

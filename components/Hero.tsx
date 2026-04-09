@@ -5,6 +5,7 @@ import Badge from './ui/Badge'
 import ArrowRight from './ui/ArrowRight'
 import AnimatedCounter from './ui/AnimatedCounter'
 import LogoCarousel from './LogoCarousel'
+import { getDaysUntilLaunch } from '@/data'
 
 interface HeroProps {
   onSubmit: () => void
@@ -59,6 +60,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
 
         {/* Email form */}
         <div
+          id="hero-cta"
           ref={ref}
           className="flex flex-col gap-3 max-w-[720px]"
           style={slide(0.9)}
@@ -132,7 +134,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
 
           <div className="flex flex-col items-center gap-0.5">
             <span className="font-bricolage font-bold text-lg text-white/85">
-              15 days
+              {getDaysUntilLaunch()} days
             </span>
             <span className="font-bricolage font-medium text-xs text-white/40">
               until launch

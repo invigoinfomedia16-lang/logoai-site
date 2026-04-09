@@ -1,3 +1,12 @@
+// ─── Launch date (single source of truth) ───────────────────────────────────
+export const LAUNCH_DATE = new Date('2026-05-24T00:00:00')
+
+export function getDaysUntilLaunch(): number {
+  const now = new Date()
+  const diff = LAUNCH_DATE.getTime() - now.getTime()
+  return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)))
+}
+
 // ─── Categories ─────────────────────────────────────────────────────────────
 export const CATEGORIES = [
   { name: 'Restaurant', key: 'restaurant' },
@@ -169,7 +178,7 @@ export const FAQ_ITEMS = [
     a: "We want 1,000,000 founders to experience Logo.ai firsthand. Once you see the quality, we know you'll come back for brand kits, social assets, and more.",
   },
   {
-    q: 'When does LOGO.AI launch?',
+    q: 'When does Logo.ai launch?',
     a: "We're launching soon! Secure your spot today so you don't miss the free offer.",
   },
 ]
@@ -204,7 +213,7 @@ export const NAV_LINKS = [
   { text: 'About', href: '/about' },
   { text: 'Our story', href: '/our-story' },
   { text: 'Leadership', href: '/leadership' },
-  { text: 'FAQ', href: '/#faq' },
+  { text: 'Why Logo.ai', href: '/why-logo-ai' },
   { text: 'Press', href: '/press' },
 ]
 

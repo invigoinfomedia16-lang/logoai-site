@@ -37,7 +37,7 @@ function Table({ mobile = false }: ComparisonTableProps) {
           style={{ fontSize: headerSize, background: HIGHLIGHT_BG, borderRadius: '8px 8px 0 0' }}
           className="font-medium text-white uppercase tracking-[0.08em] text-center px-2"
         >
-          LOGO.AI
+          Logo.ai
         </span>
         <span style={{ fontSize: headerSize }} className="font-medium text-[#555] tracking-[0.08em] text-center">
           Designer
@@ -98,7 +98,7 @@ export default function ComparisonTable() {
             Skip the designer, outperform the templates
           </h2>
           <p className="font-bricolage font-medium text-base sm:text-lg leading-7 tracking-[-0.02em] text-white/50 m-0">
-            Here's how LOGO.AI compares – on speed, cost, quality, and
+            Here's how Logo.ai compares – on speed, cost, quality, and
             everything that matters.
           </p>
         </div>
