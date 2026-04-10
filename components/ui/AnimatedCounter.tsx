@@ -52,7 +52,7 @@ export default function AnimatedCounter({
         {formatNum(value)}
         {suffix}
         {sublabel && (
-          <span className="text-white/40 font-bold"> of {formatNum(end)}</span>
+          <span className="text-white/40 font-bold"> {sublabel}</span>
         )}
       </span>
       <span className="font-medium text-xs text-white/40 whitespace-nowrap">
