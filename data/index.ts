@@ -7,6 +7,28 @@ export function getDaysUntilLaunch(): number {
   return Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)))
 }
 
+// ─── Dynamic logos claimed counter ──────────────────────────────────────────
+// Base: 129,000 claimed as of April 9, 2026
+// Growth: ~2,000-3,000 per day (accelerating as launch nears)
+const CLAIMED_BASE = 129000
+const CLAIMED_BASE_DATE = new Date('2026-04-09T00:00:00')
+
+export function getLogosClaimed(): number {
+  const now = new Date()
+  const daysSinceBase = Math.max(0, (now.getTime() - CLAIMED_BASE_DATE.getTime()) / (1000 * 60 * 60 * 24))
+  // Accelerating growth: starts ~2000/day, increases as launch approaches
+  const dailyGrowth = 2000 + (daysSinceBase * 50)
+  const totalClaimed = Math.min(
+    Math.floor(CLAIMED_BASE + (daysSinceBase * dailyGrowth)),
+    950000 // cap at 950k so there are always some remaining
+  )
+  return totalClaimed
+}
+
+export function getLogosRemaining(): number {
+  return 1000000 - getLogosClaimed()
+}
+
 // ─── Categories ─────────────────────────────────────────────────────────────
 export const CATEGORIES = [
   { name: 'Restaurant', key: 'restaurant' },
@@ -167,7 +189,7 @@ export const FAQ_ITEMS = [
   },
   {
     q: 'How many free logos are left?',
-    a: '1,000,000 total. Over 65,000 spots have already been secured – so the sooner you sign up, the better your chances.',
+    a: '1,000,000 total. Spots are being claimed every day — the sooner you sign up, the better your chances.',
   },
   {
     q: 'Is my logo trademark-safe?',

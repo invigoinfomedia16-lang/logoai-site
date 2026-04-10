@@ -5,7 +5,7 @@ import Badge from './ui/Badge'
 import ArrowRight from './ui/ArrowRight'
 import AnimatedCounter from './ui/AnimatedCounter'
 import LogoCarousel from './LogoCarousel'
-import { getDaysUntilLaunch } from '@/data'
+import { getDaysUntilLaunch, getLogosRemaining } from '@/data'
 
 interface HeroProps {
   onSubmit: () => void
@@ -120,8 +120,8 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
           style={slide(1)}
         >
           <AnimatedCounter
-            start={854740}
-            end={1000000}
+            start={getLogosRemaining() + 50000}
+            end={getLogosRemaining()}
             label="free logos remaining"
             sublabel="of 1,000,000"
           />
