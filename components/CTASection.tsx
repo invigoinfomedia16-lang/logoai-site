@@ -22,7 +22,7 @@ export default function CTASection({ onSubmit, submitted }: CTASectionProps) {
         >
           {/* Background image */}
           <Image
-            src="/Images/1.jpeg"
+            src="/images/1.jpeg"
             alt=""
             fill
             className="object-cover object-[center_30%]"
