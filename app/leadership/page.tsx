@@ -169,7 +169,7 @@ export default function LeadershipPage() {
 
       {/* ── Hero ── */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
-        <div className="max-w-[1120px] mx-auto flex flex-col gap-6">
+        <div className="max-w-[1120px] mx-auto flex flex-col gap-6 items-center text-center">
           <h1
             className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[800px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
@@ -247,14 +247,14 @@ export default function LeadershipPage() {
                 >
                   <span
                     className="mt-[3px] flex-shrink-0 font-bricolage text-xs font-bold w-5 text-right"
-                    style={{ color: 'rgba(0,0,255,0.4)' }}
+                    style={{ color: 'rgba(51,106,234,0.4)' }}
                   >
                     {String(i + 1).padStart(2, '0')}
                   </span>
                   <span className="font-bricolage text-sm leading-[1.6em] text-white/55">{item}</span>
                 </div>
               ))}
-              <div className="mt-3 rounded-xl px-5 py-4" style={{ background: 'rgba(0,0,255,0.06)', border: '1px solid rgba(0,0,255,0.2)' }}>
+              <div className="mt-3 rounded-xl px-5 py-4" style={{ background: 'rgba(51,106,234,0.06)', border: '1px solid rgba(51,106,234,0.2)' }}>
                 <p className="font-bricolage text-sm leading-[1.7em] text-white/70 m-0">
                   It didn&apos;t look like today&apos;s AI — but the goal was the same:<br />
                   <span className="font-medium text-white">Build systems that respond, learn, and improve over time.</span>
@@ -318,7 +318,7 @@ export default function LeadershipPage() {
             </div>
             <div
               className="rounded-2xl p-7 md:p-8 flex flex-col gap-2"
-              style={{ border: '1px solid rgba(0,0,255,0.2)', background: 'rgba(0,0,255,0.05)' }}
+              style={{ border: '1px solid rgba(51,106,234,0.2)', background: 'rgba(51,106,234,0.05)' }}
             >
               <p className="font-bricolage text-sm font-medium text-white/40 uppercase tracking-[2px] m-0">One belief never changed</p>
               <p className="font-bricolage font-medium text-xl md:text-2xl leading-[1.4em] tracking-[-0.03em] text-white m-0">
@@ -431,7 +431,7 @@ export default function LeadershipPage() {
             </div>
             <div
               className="rounded-2xl p-7 text-center"
-              style={{ border: '1px solid rgba(0,0,255,0.2)', background: 'rgba(0,0,255,0.05)' }}
+              style={{ border: '1px solid rgba(51,106,234,0.2)', background: 'rgba(51,106,234,0.05)' }}
             >
               <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.5em] text-white m-0">
                 Not just tools — systems that design.

@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={bricolage.variable}>
-      <body className="font-bricolage bg-black text-white overflow-x-hidden">
+      <body className="font-bricolage bg-[#0D0D0D] text-white overflow-x-hidden">
         {children}
       </body>
     </html>

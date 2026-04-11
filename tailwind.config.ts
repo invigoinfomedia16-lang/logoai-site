@@ -12,8 +12,9 @@ const config: Config = {
         bricolage: ['var(--font-bricolage)', 'sans-serif'],
       },
       colors: {
-        primary: 'rgb(0, 0, 255)',
-        'primary-hover': 'rgba(0, 0, 255, 0.85)',
+        primary: '#336AEA',
+        'primary-hover': 'rgba(51, 106, 234, 0.85)',
+        dark: '#0D0D0D',
       },
       borderColor: {
         DEFAULT: 'rgba(84, 87, 94, 0.3)',

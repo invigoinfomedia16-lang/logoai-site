@@ -32,9 +32,9 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
 
   return (
     <section className="px-5 md:px-8 lg:px-10 pt-[120px] md:pt-[180px] pb-10 md:pb-[60px]">
-      <div className="max-w-[1120px] mx-auto flex flex-col gap-7 md:gap-10">
+      <div className="max-w-[1120px] mx-auto flex flex-col gap-7 md:gap-10 items-center text-center">
         {/* Text block */}
-        <div className="flex flex-col gap-3.5 md:gap-5">
+        <div className="flex flex-col items-center gap-3.5 md:gap-5">
           <div style={slide(0.3)}>
             <Badge icon="sparkle" text="World's best AI logo generator" />
           </div>
@@ -50,7 +50,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
           </h1>
 
           <p
-            className="font-bricolage font-medium leading-7 tracking-[-0.02em] text-white/50 m-0"
+            className="font-bricolage font-medium leading-7 tracking-[-0.02em] text-white/50 m-0 max-w-[520px]"
             style={{ ...slide(0.7), fontSize: 'clamp(16px, 2vw, 18px)' }}
           >
             Free logo for the first 1,000,000 users. Join now to secure yours
@@ -75,7 +75,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
                 className="flex flex-col sm:flex-row items-stretch sm:items-center rounded-2xl p-1.5"
                 style={{
                   border: '1px solid rgba(255,255,255,0.1)',
-                  background: 'rgba(255,255,255,0.04)',
+                  background: '#2B2B2B',
                 }}
               >
                 <input
@@ -89,13 +89,13 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
                   className="inline-flex items-center justify-center gap-1.5 rounded-xl border-0 cursor-pointer font-bricolage font-semibold text-white whitespace-nowrap flex-shrink-0 transition-all duration-200"
                   style={{
                     padding: 'clamp(20px,2.5vw,28px) clamp(28px,4vw,52px)',
-                    background: 'rgb(0,0,255)',
+                    background: '#336AEA',
                     fontSize: 'clamp(18px,1.8vw,22px)',
                     boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'scale(1.02)'
-                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,255,0.4)'
+                    e.currentTarget.style.boxShadow = '0 4px 20px rgba(51,106,234,0.4)'
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'scale(1)'
@@ -116,7 +116,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
 
         {/* Stats row */}
         <div
-          className="flex items-center flex-wrap gap-4 w-fit"
+          className="flex items-center flex-wrap gap-4 w-fit mx-auto"
           style={slide(1)}
         >
           <AnimatedCounter

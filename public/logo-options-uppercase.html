@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOGO.AI — Complete Wordmark Collection (36 Styles)</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #f4f3f1;
+    --card: #ffffff;
+    --text: #111111;
+    --muted: #888888;
+    --border: #e0ddd8;
+    --accent: #ff5733;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0a0a0a;
+      --card: #161616;
+      --text: #f0f0f0;
+      --muted: #666666;
+      --border: #262626;
+    }
+  }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 48px 20px 80px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 64px;
+    animation: fadeIn 0.8s ease;
+  }
+
+  .header .eyebrow {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .header h1 {
+    font-size: 56px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .header .sub {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--muted);
+  }
+
+  .section-title {
+    max-width: 1100px;
+    margin: 0 auto 24px;
+    padding: 0 4px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 12px;
+  }
+
+  .section-title:not(:first-of-type) {
+    margin-top: 56px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 18px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 36px 26px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 170px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: slideUp 0.5s ease both;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 32px rgba(0,0,0,0.08);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .card:hover { box-shadow: 0 10px 32px rgba(0,0,0,0.5); }
+  }
+
+  .card.inverted { background: #0a0a0a; border-color: #0a0a0a; }
+
+  .card .label {
+    position: absolute;
+    top: 14px;
+    left: 18px;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .card.inverted .label { color: rgba(255,255,255,0.3); }
+
+  .card .number {
+    position: absolute;
+    top: 13px;
+    right: 18px;
+    font-size: 10px;
+    font-weight: 300;
+    color: var(--muted);
+    opacity: 0.6;
+  }
+  .card.inverted .number { color: rgba(255,255,255,0.25); }
+
+  .card svg { max-width: 100%; height: auto; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card { animation-delay: calc(var(--i, 0) * 0.03s); }
+
+  @media (max-width: 700px) {
+    .grid { grid-template-columns: 1fr; }
+    .header h1 { font-size: 38px; }
+    body { padding: 28px 12px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="eyebrow">Complete collection</div>
+  <h1>LOGO.AI</h1>
+  <div class="sub">36 wordmark styles · Hand-drawn SVG · Inspired by GS · SD · OM · SB · HZ · JM monograms</div>
+</div>
+
+<!-- ============ SET A: 18 ORIGINAL ============ -->
+<div class="section-title">Set A · Original 18 styles</div>
+<div class="grid">
+
+<!-- A1 Rounded stripe -->
+<div class="card" style="--i:1">
+  <span class="label">Rounded stripe</span><span class="number">A01</span>
+  <svg viewBox="0 0 360 90" width="290">
+    <g fill="var(--text)">
+      <path d="M0,0 H14 V68 H42 V82 H0 Z"/>
+      <rect fill="var(--card)" x="0" y="18" width="14" height="6"/><rect fill="var(--card)" x="0" y="38" width="14" height="6"/><rect fill="var(--card)" x="0" y="58" width="42" height="6"/>
+      <path d="M52,10 Q52,0 72,0 H82 Q102,0 102,10 V72 Q102,82 82,82 H72 Q52,82 52,72 Z M66,14 V68 Q66,72 72,72 H82 Q88,72 88,68 V14 Q88,10 82,10 H72 Q66,10 66,14 Z"/>
+      <rect fill="var(--card)" x="52" y="18" width="50" height="6"/><rect fill="var(--card)" x="52" y="38" width="50" height="6"/><rect fill="var(--card)" x="52" y="58" width="50" height="6"/>
+      <path d="M112,10 Q112,0 132,0 H152 Q162,0 162,10 V18 H148 V14 Q148,10 142,10 H132 Q126,10 126,14 V68 Q126,72 132,72 H142 Q148,72 148,68 V48 H136 V36 H162 V72 Q162,82 142,82 H132 Q112,82 112,72 Z"/>
+      <rect fill="var(--card)" x="112" y="18" width="50" height="6"/><rect fill="var(--card)" x="112" y="58" width="50" height="6"/>
+      <path d="M172,10 Q172,0 192,0 H202 Q222,0 222,10 V72 Q222,82 202,82 H192 Q172,82 172,72 Z M186,14 V68 Q186,72 192,72 H202 Q208,72 208,68 V14 Q208,10 202,10 H192 Q186,10 186,14 Z"/>
+      <rect fill="var(--card)" x="172" y="18" width="50" height="6"/><rect fill="var(--card)" x="172" y="38" width="50" height="6"/><rect fill="var(--card)" x="172" y="58" width="50" height="6"/>
+      <circle cx="234" cy="74" r="7"/><rect fill="var(--card)" x="227" y="71" width="14" height="6"/>
+      <path d="M262,82 L280,0 H298 L316,82 H302 L298,66 H280 L276,82 Z M283,52 H295 L289,24 Z"/>
+      <rect fill="var(--card)" x="262" y="18" width="54" height="6"/><rect fill="var(--card)" x="262" y="38" width="54" height="6"/><rect fill="var(--card)" x="262" y="58" width="54" height="6"/>
+      <rect x="326" y="0" width="14" height="82"/>
+      <rect fill="var(--card)" x="326" y="18" width="14" height="6"/><rect fill="var(--card)" x="326" y="38" width="14" height="6"/><rect fill="var(--card)" x="326" y="58" width="14" height="6"/>
+    </g>
+  </svg>
+</div>
+
+<!-- A2 Bold condensed -->
+<div class="card" style="--i:2">
+  <span class="label">Bold condensed</span><span class="number">A02</span>
+  <svg viewBox="0 0 320 90" width="270">
+    <g fill="var(--text)">
+      <path d="M0,0 H18 V64 H42 V82 H0 Z"/>
+      <path d="M48,0 H92 V82 H48 Z M66,16 V66 H74 V16 Z"/>
+      <path d="M98,0 H142 V18 H116 V34 H136 V50 H116 V64 H142 V82 H98 Z"/>
+      <path d="M148,0 H192 V82 H148 Z M166,16 V66 H174 V16 Z"/>
+      <rect x="198" y="62" width="16" height="20"/>
+      <path d="M220,82 L240,0 H262 L282,82 H264 L258,58 H244 L238,82 Z M247,42 H255 L251,22 Z"/>
+      <rect x="288" y="0" width="18" height="82"/>
+    </g>
+  </svg>
+</div>
+
+<!-- A3 Bold inline -->
+<div class="card" style="--i:3">
+  <span class="label">Bold inline</span><span class="number">A03</span>
+  <svg viewBox="0 0 340 90" width="280">
+    <g fill="var(--text)">
+      <path d="M0,0 H20 V62 H46 V82 H0 Z"/><path fill="var(--card)" d="M7,7 H13 V55 H7 Z"/>
+      <path d="M52,0 H98 V82 H52 Z M68,16 V66 H82 V16 Z"/>
+      <path fill="var(--card)" d="M59,7 H65 V75 H59 Z M85,7 H91 V75 H85 Z"/>
+      <path d="M104,0 H150 V20 H120 V34 H144 V82 H104 Z M120,50 V66 H128 V50 Z"/>
+      <path fill="var(--card)" d="M111,7 H117 V75 H111 Z"/>
+      <path d="M156,0 H202 V82 H156 Z M172,16 V66 H186 V16 Z"/>
+      <path fill="var(--card)" d="M163,7 H169 V75 H163 Z M189,7 H195 V75 H195 Z"/>
+      <circle cx="216" cy="72" r="10"/><circle fill="var(--card)" cx="216" cy="72" r="4"/>
+      <path d="M234,82 L256,0 H278 L300,82 H280 L274,58 H260 L254,82 Z M263,42 H271 L267,22 Z"/>
+      <path fill="var(--card)" d="M248,75 L264,12 H270 L286,75 H280 L268,30 L256,75 Z"/>
+      <rect x="306" y="0" width="20" height="82"/><rect fill="var(--card)" x="313" y="7" width="6" height="68"/>
+    </g>
+  </svg>
+</div>
+
+<!-- A4 Parallel lines -->
+<div class="card" style="--i:4">
+  <span class="label">Parallel lines</span><span class="number">A04</span>
+  <svg viewBox="0 0 290 80" width="260">
+    <g fill="none" stroke="var(--text)" stroke-width="3.5" stroke-linecap="round">
+      <line x1="3" y1="2" x2="3" y2="70"/><line x1="10" y1="2" x2="10" y2="70"/><line x1="17" y1="2" x2="17" y2="70"/>
+      <line x1="3" y1="70" x2="36" y2="70"/><line x1="3" y1="63" x2="36" y2="63"/>
+      <ellipse cx="68" cy="36" rx="22" ry="34"/><ellipse cx="68" cy="36" rx="15" ry="27"/><ellipse cx="68" cy="36" rx="8" ry="20"/>
+      <path d="M128,14 Q118,2 108,2 Q94,2 94,36 Q94,70 108,70 Q120,70 128,58"/>
+      <path d="M124,18 Q118,9 108,9 Q101,9 101,36 Q101,63 108,63 Q116,63 124,52"/>
+      <path d="M120,22 Q116,16 108,16 Q108,16 108,36 Q108,56 108,56 Q114,56 120,46"/>
+      <line x1="112" y1="38" x2="128" y2="38"/><line x1="112" y1="45" x2="128" y2="45"/>
+      <ellipse cx="162" cy="36" rx="22" ry="34"/><ellipse cx="162" cy="36" rx="15" ry="27"/><ellipse cx="162" cy="36" rx="8" ry="20"/>
+      <circle cx="196" cy="66" r="4" fill="var(--text)" stroke="none"/>
+      <line x1="210" y1="70" x2="228" y2="2"/><line x1="217" y1="70" x2="232" y2="2"/><line x1="224" y1="70" x2="236" y2="2"/>
+      <line x1="246" y1="70" x2="228" y2="2"/><line x1="239" y1="70" x2="232" y2="2"/><line x1="232" y1="70" x2="236" y2="2"/>
+      <line x1="215" y1="48" x2="241" y2="48"/><line x1="218" y1="41" x2="238" y2="41"/>
+      <line x1="258" y1="2" x2="258" y2="70"/><line x1="265" y1="2" x2="265" y2="70"/><line x1="272" y1="2" x2="272" y2="70"/>
+    </g>
+  </svg>
+</div>
+
+<!-- A5 Merged bold -->
+<div class="card" style="--i:5">
+  <span class="label">Merged bold</span><span class="number">A05</span>
+  <svg viewBox="0 0 320 88" width="270">
+    <g fill="var(--text)">
+      <path d="M0,0 H20 V60 H44 V80 H0 Z"/>
+      <path d="M40,0 H80 Q90,0 90,12 V68 Q90,80 80,80 H40 Z M56,16 V64 H74 V16 Z"/>
+      <path d="M86,0 H126 Q136,0 136,12 V20 H120 V16 H102 V36 H126 V68 Q126,80 116,80 H86 Z M102,52 V64 H110 V52 Z"/>
+      <path d="M132,0 H172 Q182,0 182,12 V68 Q182,80 172,80 H142 Q132,80 132,68 V12 Q132,0 142,0 Z M148,16 V64 H166 V16 Z"/>
+      <circle cx="196" cy="72" r="8"/>
+      <path d="M212,80 L234,0 H254 L276,80 H258 L252,58 H236 L230,80 Z M240,42 H248 L244,22 Z"/>
+      <rect x="282" y="0" width="20" height="80"/>
+    </g>
+  </svg>
+</div>
+
+<!-- A6 Geometric outline -->
+<div class="card" style="--i:6">
+  <span class="label">Geometric outline</span><span class="number">A06</span>
+  <svg viewBox="0 0 280 88" width="240">
+    <g fill="none" stroke="var(--text)" stroke-width="3">
+      <polyline points="2,2 2,78 40,78"/>
+      <rect x="48" y="2" width="38" height="76" rx="4"/>
+      <path d="M130,2 H98 Q90,2 90,10 V70 Q90,78 98,78 H122 Q130,78 130,70 V42 H112"/>
+      <rect x="138" y="2" width="38" height="76" rx="4"/>
+      <circle cx="188" cy="70" r="5" fill="var(--text)" stroke="none"/>
+      <polyline points="200,78 220,2 240,78"/>
+      <line x1="208" y1="50" x2="232" y2="50"/>
+      <line x1="254" y1="2" x2="254" y2="78"/>
+      <line x1="244" y1="2" x2="264" y2="2"/>
+      <line x1="244" y1="78" x2="264" y2="78"/>
+    </g>
+  </svg>
+</div>
+
+<!-- A7 Double border -->
+<div class="card" style="--i:7">
+  <span class="label">Double border</span><span class="number">A07</span>
+  <svg viewBox="0 0 320 88" width="270">
+    <g fill="var(--text)">
+      <rect x="0" y="0" width="310" height="80"/><rect fill="var(--card)" x="4" y="4" width="302" height="72"/>
+      <rect x="8" y="8" width="294" height="64"/><rect fill="var(--card)" x="12" y="12" width="286" height="56"/>
+      <path d="M22,18 H34 V56 H50 V68 H22 Z"/>
+      <path d="M56,18 H86 V68 H56 Z M68,30 V56 H74 V30 Z"/>
+      <path d="M92,18 H122 V30 H104 V38 H116 V68 H92 Z M104,50 V56 H108 V50 Z"/>
+      <path d="M128,18 H158 V68 H128 Z M140,30 V56 H146 V30 Z"/>
+      <rect x="166" y="58" width="10" height="10"/>
+      <path d="M184,68 L198,18 H212 L226,68 H214 L210,54 H200 L196,68 Z M202,44 H208 L205,30 Z"/>
+      <rect x="234" y="18" width="12" height="50"/>
+    </g>
+  </svg>
+</div>
+
+<!-- A8 Ultra bold rounded -->
+<div class="card" style="--i:8">
+  <span class="label">Ultra bold rounded</span><span class="number">A08</span>
+  <svg viewBox="0 0 340 90" width="280">
+    <g fill="var(--text)">
+      <path d="M0,0 H22 V54 H42 V82 H0 Z"/>
+      <path d="M52,8 Q52,0 62,0 H86 Q96,0 96,8 V74 Q96,82 86,82 H62 Q52,82 52,74 Z M72,20 V62 H76 V20 Z"/>
+      <path d="M106,8 Q106,0 116,0 H140 Q150,0 150,8 V22 H130 V20 H126 V36 H144 V74 Q144,82 134,82 H116 Q106,82 106,74 Z M126,54 V62 H130 V54 Z"/>
+      <path d="M154,8 Q154,0 164,0 H188 Q198,0 198,8 V74 Q198,82 188,82 H164 Q154,82 154,74 Z M174,20 V62 H178 V20 Z"/>
+      <circle cx="212" cy="72" r="10"/>
+      <path d="M230,82 L252,0 H274 L296,82 H274 L270,66 H256 L252,82 Z M259,50 H267 L263,30 Z"/>
+      <path d="M306,0 H328 V82 H306 Z"/>
+    </g>
+  </svg>
+</div>
+
+<!-- A9 Rounded outline -->
+<div class="card" style="--i:9">
+  <span class="label">Rounded outline</span><span class="number">A09</span>
+  <svg viewBox="0 0 320 90" width="270">
+    <g fill="var(--text)">
+      <path d="M0,4 Q0,0 4,0 H18 Q22,0 22,4 V58 H40 Q44,58 44,62 V78 Q44,82 40,82 H4 Q0,82 0,78 Z"/>
+      <path fill="var(--card)" d="M8,8 H14 V66 H36 V74 H8 Z"/>
+      <path d="M52,4 Q52,0 60,0 H86 Q94,0 94,4 V78 Q94,82 86,82 H60 Q52,82 52,78 Z"/>
+      <path fill="var(--card)" d="M62,10 H80 Q84,10 84,14 V68 Q84,72 80,72 H62 Q60,72 60,68 V14 Q60,10 62,10 Z"/>
+      <path d="M102,4 Q102,0 110,0 H136 Q144,0 144,4 V18 H134 V10 H112 V72 H134 V46 H122 V36 H144 V78 Q144,82 136,82 H110 Q102,82 102,78 Z"/>
+      <path d="M152,4 Q152,0 160,0 H186 Q194,0 194,4 V78 Q194,82 186,82 H160 Q152,82 152,78 Z"/>
+      <path fill="var(--card)" d="M162,10 H180 Q184,10 184,14 V68 Q184,72 180,72 H162 Q160,72 160,68 V14 Q160,10 162,10 Z"/>
+      <circle cx="208" cy="72" r="8"/><circle fill="var(--card)" cx="208" cy="72" r="3"/>
+      <path d="M224,78 Q222,82 226,82 H238 L242,66 H260 L264,82 H276 Q280,82 278,78 L258,4 Q256,0 254,0 H248 Q246,0 244,4 Z M246,52 L251,30 L256,52 Z"/>
+      <path d="M288,4 Q288,0 292,0 H304 Q308,0 308,4 V78 Q308,82 304,82 H292 Q288,82 288,78 Z"/>
+      <rect fill="var(--card)" x="296" y="8" width="4" height="66"/>
+    </g>
+  </svg>
+</div>
+
+<!-- A10 Connected arches -->
+<div class="card" style="--i:10">
+  <span class="label">Connected arches</span><span class="number">A10</span>
+  <svg viewBox="0 0 340 88" width="280">
+    <g fill="var(--text)">
+      <path d="M0,0 H16 V64 H40 V80 H0 Z"/>
+      <path d="M44,20 Q44,0 64,0 H76 Q96,0 96,20 V80 H80 V20 Q80,14 76,14 H64 Q60,14 60,20 V80 H44 Z"/>
+      <path d="M100,20 Q100,0 120,0 H132 Q152,0 152,20 V26 H136 V20 Q136,14 132,14 H120 Q116,14 116,20 V60 Q116,66 120,66 H132 Q136,66 136,60 V48 H124 V34 H152 V80 H100 V20 Z"/>
+      <path d="M156,20 Q156,0 176,0 H188 Q208,0 208,20 V80 H192 V20 Q192,14 188,14 H176 Q172,14 172,20 V80 H156 Z"/>
+      <circle cx="222" cy="72" r="8"/>
+      <path d="M238,80 L258,0 H278 L298,80 H282 L276,58 H260 L254,80 Z M263,44 H273 L268,20 Z"/>
+      <rect x="306" y="0" width="16" height="80"/>
+    </g>
+  </svg>
+</div>
+
+<!-- A11 White on black -->
+<div class="card inverted" style="--i:11">
+  <span class="label">White on black</span><span class="number">A11</span>
+  <svg viewBox="0 0 310 88" width="260">
+    <g fill="#f0f0f0">
+      <path d="M16,10 H32 V62 H52 V78 H16 Z"/>
+      <path d="M58,10 H96 V78 H58 Z M74,24 V64 H80 V24 Z"/>
+      <path d="M102,10 H140 V24 H118 V36 H134 V78 H102 Z M118,50 V64 H122 V50 Z"/>
+      <path d="M146,10 H184 V78 H146 Z M162,24 V64 H168 V24 Z"/>
+      <circle cx="198" cy="70" r="8"/>
+      <path d="M214,78 L234,10 H254 L274,78 H258 L254,62 H234 L230,78 Z M238,48 H250 L244,26 Z"/>
+      <rect x="282" y="10" width="18" height="68"/>
+    </g>
+  </svg>
+</div>
+
+<!-- A12 Vertical lines -->
+<div class="card" style="--i:12">
+  <span class="label">Vertical lines</span><span class="number">A12</span>
+  <svg viewBox="0 0 240 88" width="220">
+    <g fill="var(--text)">
+      <rect x="0" y="0" width="4" height="80"/><rect x="8" y="0" width="4" height="80"/><rect x="16" y="0" width="4" height="80"/>
+      <rect x="24" y="64" width="4" height="16"/><rect x="32" y="64" width="4" height="16"/>
+      <rect x="44" y="0" width="4" height="80"/><rect x="52" y="0" width="4" height="16"/><rect x="52" y="64" width="4" height="16"/>
+      <rect x="60" y="0" width="4" height="16"/><rect x="60" y="64" width="4" height="16"/><rect x="68" y="0" width="4" height="80"/>
+      <rect x="80" y="0" width="4" height="80"/><rect x="88" y="0" width="4" height="16"/><rect x="88" y="64" width="4" height="16"/>
+      <rect x="96" y="0" width="4" height="16"/><rect x="96" y="36" width="4" height="44"/>
+      <rect x="104" y="0" width="4" height="16"/><rect x="104" y="36" width="4" height="44"/>
+      <rect x="116" y="0" width="4" height="80"/><rect x="124" y="0" width="4" height="16"/><rect x="124" y="64" width="4" height="16"/>
+      <rect x="132" y="0" width="4" height="16"/><rect x="132" y="64" width="4" height="16"/><rect x="140" y="0" width="4" height="80"/>
+      <circle cx="154" cy="74" r="5"/>
+      <rect x="168" y="16" width="4" height="64"/><rect x="176" y="0" width="4" height="80"/><rect x="184" y="0" width="4" height="80"/>
+      <rect x="192" y="16" width="4" height="64"/><rect x="168" y="40" width="28" height="4"/><rect x="172" y="0" width="20" height="4"/>
+      <rect x="206" y="0" width="4" height="80"/><rect x="214" y="0" width="4" height="80"/><rect x="222" y="0" width="4" height="80"/>
+    </g>
+  </svg>
+</div>
+
+<!-- A13 Bold outline shadow -->
+<div class="card" style="--i:13">
+  <span class="label">Bold outline shadow</span><span class="number">A13</span>
+  <svg viewBox="0 0 310 92" width="260">
+    <g transform="translate(4,4)" opacity="0.18" fill="var(--text)">
+      <path d="M0,0 H18 V60 H40 V80 H0 Z"/>
+      <path d="M46,0 H86 V80 H46 Z M62,16 V64 H70 V16 Z"/>
+      <path d="M92,0 H132 V16 H110 V32 H126 V80 H92 Z M110,48 V64 H114 V48 Z"/>
+      <path d="M138,0 H178 V80 H138 Z M154,16 V64 H162 V16 Z"/>
+      <circle cx="192" cy="72" r="8"/>
+      <path d="M208,80 L228,0 H248 L268,80 H252 L248,64 H228 L224,80 Z M232,48 H244 L238,24 Z"/>
+      <rect x="276" y="0" width="18" height="80"/>
+    </g>
+    <g fill="var(--text)">
+      <path d="M0,0 H18 V60 H40 V80 H0 Z"/>
+      <path d="M46,0 H86 V80 H46 Z M62,16 V64 H70 V16 Z"/>
+      <path d="M92,0 H132 V16 H110 V32 H126 V80 H92 Z M110,48 V64 H114 V48 Z"/>
+      <path d="M138,0 H178 V80 H138 Z M154,16 V64 H162 V16 Z"/>
+      <circle cx="192" cy="72" r="8"/>
+      <path d="M208,80 L228,0 H248 L268,80 H252 L248,64 H228 L224,80 Z M232,48 H244 L238,24 Z"/>
+      <rect x="276" y="0" width="18" height="80"/>
+    </g>
+  </svg>
+</div>
+
+<!-- A14 Italic speed -->
+<div class="card" style="--i:14">
+  <span class="label">Italic speed</span><span class="number">A14</span>
+  <svg viewBox="0 0 300 88" width="260">
+    <g fill="var(--text)">
+      <path d="M14,0 H30 L18,60 H42 L38,80 H0 Z"/>
+      <path d="M62,0 H94 L78,80 H46 Z M68,16 L58,64 H66 L76,16 Z"/>
+      <path d="M108,0 H140 L136,16 H118 L114,32 H130 L120,80 H88 L92,62 H108 L112,44 H98 Z"/>
+      <path d="M148,0 H180 L164,80 H132 Z M154,16 L144,64 H152 L162,16 Z"/>
+      <circle cx="186" cy="74" r="6"/>
+      <path d="M198,80 L224,0 H244 L258,80 H242 L238,60 H218 L214,80 Z M222,44 H234 L236,22 Z"/>
+      <path d="M270,0 H286 L272,80 H256 Z"/>
+    </g>
+  </svg>
+</div>
+
+<!-- A15 Clean modern -->
+<div class="card" style="--i:15">
+  <span class="label">Clean modern</span><span class="number">A15</span>
+  <svg viewBox="0 0 300 88" width="260">
+    <g fill="var(--text)">
+      <path d="M0,0 H14 V68 H42 V80 H0 Z"/>
+      <path d="M50,8 Q50,0 58,0 H82 Q90,0 90,8 V72 Q90,80 82,80 H58 Q50,80 50,72 Z M64,12 V68 H76 V12 Z"/>
+      <path d="M98,8 Q98,0 106,0 H130 Q138,0 138,8 V16 H124 V12 H112 V68 H124 V44 H116 V32 H138 V72 Q138,80 130,80 H106 Q98,80 98,72 Z"/>
+      <path d="M146,8 Q146,0 154,0 H178 Q186,0 186,8 V72 Q186,80 178,80 H154 Q146,80 146,72 Z M160,12 V68 H172 V12 Z"/>
+      <circle cx="198" cy="74" r="6"/>
+      <path d="M212,80 L232,0 H248 L268,80 H254 L250,64 H230 L226,80 Z M233,52 H247 L240,20 Z"/>
+      <rect x="278" y="0" width="14" height="80"/>
+    </g>
+  </svg>
+</div>
+
+<!-- A16 Thin elegant -->
+<div class="card" style="--i:16">
+  <span class="label">Thin elegant</span><span class="number">A16</span>
+  <svg viewBox="0 0 260 88" width="230">
+    <g fill="none" stroke="var(--text)" stroke-width="2">
+      <polyline points="2,2 2,78 38,78"/>
+      <rect x="46" y="2" width="36" height="76" rx="2"/>
+      <path d="M130,2 H98 Q90,2 90,10 V70 Q90,78 98,78 H122 Q130,78 130,70 V40 H114"/>
+      <rect x="138" y="2" width="36" height="76" rx="2"/>
+      <circle cx="186" cy="72" r="4" fill="var(--text)" stroke="none"/>
+      <path d="M196,78 L216,2 L236,78 M204,52 H228"/>
+      <line x1="248" y1="2" x2="248" y2="78"/>
+    </g>
+  </svg>
+</div>
+
+<!-- A17 Rounded bubble -->
+<div class="card" style="--i:17">
+  <span class="label">Rounded bubble</span><span class="number">A17</span>
+  <svg viewBox="0 0 320 88" width="270">
+    <g fill="var(--text)">
+      <path d="M0,4 Q0,0 4,0 H16 Q20,0 20,4 V56 H36 Q44,56 44,60 V76 Q44,80 40,80 H4 Q0,80 0,76 Z"/>
+      <rect x="50" y="0" width="40" height="80" rx="20"/>
+      <rect fill="var(--card)" x="64" y="14" width="12" height="52" rx="6"/>
+      <path d="M96,20 Q96,0 116,0 H126 Q146,0 146,20 V26 H132 V20 Q132,14 126,14 H116 Q110,14 110,20 V60 Q110,66 116,66 H126 Q132,66 132,60 V50 H122 V36 H146 V60 Q146,80 126,80 H116 Q96,80 96,60 Z"/>
+      <rect x="152" y="0" width="40" height="80" rx="20"/>
+      <rect fill="var(--card)" x="166" y="14" width="12" height="52" rx="6"/>
+      <circle cx="206" cy="70" r="8"/>
+      <path d="M220,76 Q218,80 222,80 H234 L240,60 H260 L266,80 H278 Q282,80 280,76 L262,4 Q260,0 258,0 H242 Q240,0 238,4 Z M244,46 L250,22 L256,46 Z"/>
+      <rect x="290" y="0" width="18" height="80" rx="9"/>
+    </g>
+  </svg>
+</div>
+
+<!-- A18 3D block -->
+<div class="card" style="--i:18">
+  <span class="label">3D block</span><span class="number">A18</span>
+  <svg viewBox="0 0 306 92" width="260">
+    <g transform="translate(6,6)" opacity="0.12" fill="var(--text)">
+      <path d="M0,0 H16 V62 H40 V78 H0 Z"/><path d="M46,0 H86 V78 H46 Z M60,14 V64 H72 V14 Z"/>
+      <path d="M92,0 H132 V14 H108 V32 H126 V78 H92 Z M108,46 V64 H112 V46 Z"/>
+      <path d="M138,0 H178 V78 H138 Z M152,14 V64 H164 V14 Z"/>
+      <circle cx="192" cy="70" r="8"/>
+      <path d="M208,78 L228,0 H248 L268,78 H252 L248,62 H228 L224,78 Z M232,48 H244 L238,22 Z"/>
+      <rect x="276" y="0" width="16" height="78"/>
+    </g>
+    <g transform="translate(3,3)" opacity="0.3" fill="var(--text)">
+      <path d="M0,0 H16 V62 H40 V78 H0 Z"/><path d="M46,0 H86 V78 H46 Z M60,14 V64 H72 V14 Z"/>
+      <path d="M92,0 H132 V14 H108 V32 H126 V78 H92 Z M108,46 V64 H112 V46 Z"/>
+      <path d="M138,0 H178 V78 H138 Z M152,14 V64 H164 V14 Z"/>
+      <circle cx="192" cy="70" r="8"/>
+      <path d="M208,78 L228,0 H248 L268,78 H252 L248,62 H228 L224,78 Z M232,48 H244 L238,22 Z"/>
+      <rect x="276" y="0" width="16" height="78"/>
+    </g>
+    <g fill="var(--text)">
+      <path d="M0,0 H16 V62 H40 V78 H0 Z"/><path d="M46,0 H86 V78 H46 Z M60,14 V64 H72 V14 Z"/>
+      <path d="M92,0 H132 V14 H108 V32 H126 V78 H92 Z M108,46 V64 H112 V46 Z"/>
+      <path d="M138,0 H178 V78 H138 Z M152,14 V64 H164 V14 Z"/>
+      <circle cx="192" cy="70" r="8"/>
+      <path d="M208,78 L228,0 H248 L268,78 H252 L248,62 H228 L224,78 Z M232,48 H244 L238,22 Z"/>
+      <rect x="276" y="0" width="16" height="78"/>
+    </g>
+  </svg>
+</div>
+
+</div>
+
+<!-- ============ SET B: 18 NEW STYLES ============ -->
+<div class="section-title">Set B · Additional 18 styles</div>
+<div class="grid">
+
+<!-- B1 Heavy slab serif -->
+<div class="card" style="--i:1">
+  <span class="label">Heavy slab</span><span class="number">B01</span>
+  <svg viewBox="0 0 320 90" width="270">
+    <g fill="var(--text)">
+      <path d="M0,0 H22 V64 H46 V82 H0 Z M0,0 V8 H22 V0 Z M0,74 V82 H46 V74 Z"/>
+      <path d="M52,0 H94 V82 H52 Z M68,16 V66 H78 V16 Z"/>
+      <path d="M100,0 H142 V18 H118 V36 H134 V82 H100 Z M118,52 V64 H122 V52 Z"/>
+      <path d="M148,0 H190 V82 H148 Z M164,16 V66 H174 V16 Z"/>
+      <rect x="196" y="62" width="16" height="20"/>
+      <path d="M218,82 L238,0 H258 L278,82 H262 L258,62 H238 L234,82 Z M242,46 H254 L248,22 Z"/>
+      <path d="M284,0 H306 V82 H284 Z M280,0 V8 H310 V0 Z M280,74 V82 H310 V74 Z"/>
+    </g>
+  </svg>
+</div>
+
+<!-- B2 Cut diagonal -->
+<div class="card" style="--i:2">
+  <span class="label">Diagonal cut</span><span class="number">B02</span>
+  <svg viewBox="0 0 320 90" width="270">
+    <g fill="var(--text)">
+      <path d="M0,0 H22 V60 H46 V82 H0 Z"/>
+      <path d="M52,0 H92 L88,8 V72 L84,80 H52 Z M68,16 V66 H78 V16 Z"/>
+      <path d="M98,0 H140 L132,18 H116 V36 H136 V82 H98 Z M116,52 V66 H120 V52 Z"/>
+      <path d="M146,0 H188 L184,8 V72 L180,80 H146 Z M162,16 V66 H172 V16 Z"/>
+      <rect x="194" y="62" width="16" height="20"/>
+      <path d="M216,82 L240,0 H256 L274,82 H260 L256,62 H238 L234,82 Z M242,46 H252 L248,22 Z"/>
+      <rect x="282" y="0" width="18" height="82"/>
+    </g>
+  </svg>
+</div>
+
+<!-- B3 Bite cut O -->
+<div class="card" style="--i:3">
+  <span class="label">Bite cut</span><span class="number">B03</span>
+  <svg viewBox="0 0 320 90" width="270">
+    <g fill="var(--text)">
+      <path d="M0,0 H18 V64 H42 V82 H0 Z"/>
+      <path d="M48,0 H92 V82 H48 Z M66,16 V66 H74 V16 Z"/>
+      <!-- G with bite cut -->
+      <path d="M98,0 H140 V20 H116 V36 H134 V82 H98 V40 L108,30 V18 H118 V8 L98,8 Z"/>
+      <!-- O with bite cut -->
+      <path d="M146,0 H190 V82 H146 V40 L156,30 V18 H164 V8 L146,8 Z M164,16 V66 H172 V16 Z"/>
+      <rect x="196" y="62" width="14" height="20"/>
+      <path d="M218,82 L236,0 H258 L278,82 H262 L258,58 H242 L236,82 Z M245,42 H253 L249,22 Z"/>
+      <rect x="284" y="0" width="18" height="82"/>
+    </g>
+  </svg>
+</div>
+
+<!-- B4 Bold solid GS row2 col2 -->
+<div class="card" style="--i:4">
+  <span class="label">Solid bold compact</span><span class="number">B04</span>
+  <svg viewBox="0 0 300 90" width="260">
+    <g fill="var(--text)">
+      <path d="M0,0 H16 V64 H40 V82 H0 Z"/>
+      <path d="M44,0 H82 V82 H44 Z M58,14 V68 H68 V14 Z"/>
+      <path d="M88,0 H126 V14 H104 V34 H120 V82 H88 Z M104,48 V68 H108 V48 Z"/>
+      <path d="M132,0 H170 V82 H132 Z M146,14 V68 H156 V14 Z"/>
+      <rect x="176" y="62" width="14" height="20"/>
+      <path d="M196,82 L214,0 H234 L252,82 H236 L232,62 H214 L210,82 Z M218,46 H228 L223,22 Z"/>
+      <rect x="258" y="0" width="16" height="82"/>
+    </g>
+  </svg>
+</div>
+
+<!-- B5 Outline GS row2 col3 with thick stroke -->
+<div class="card" style="--i:5">
+  <span class="label">Bold outlined</span><span class="number">B05</span>
+  <svg viewBox="0 0 320 90" width="270">
+    <g fill="none" stroke="var(--text)" stroke-width="4">
+      <path d="M2,2 H22 V62 H46 V80 H2 Z"/>
+      <path d="M52,2 H94 V80 H52 Z M68,18 V64 H78 V18 Z"/>
+      <path d="M100,2 H142 V20 H118 V34 H136 V80 H100 Z M118,50 V64 H122 V50 Z"/>
+      <path d="M148,2 H190 V80 H148 Z M164,18 V64 H174 V18 Z"/>
+      <circle cx="202" cy="72" r="6" fill="var(--text)"/>
+      <path d="M214,80 L234,2 H254 L274,80 M222,52 H266"/>
+      <line x1="284" y1="2" x2="284" y2="80"/>
+    </g>
+  </svg>
+</div>
+
+<!-- B6 SD Row2 Col1 — narrow outline -->
+<div class="card" style="--i:6">
+  <span class="label">Narrow outline</span><span class="number">B06</span>
+  <svg viewBox="0 0 280 88" width="240">
+    <g fill="none" stroke="var(--text)" stroke-width="3">
+      <polyline points="2,2 2,76 32,76"/>
+      <rect x="38" y="2" width="32" height="74"/>
+      <line x1="50" y1="14" x2="50" y2="64"/><line x1="58" y1="14" x2="58" y2="64"/>
+      <path d="M108,2 H78 V76 H108 V42 H94"/>
+      <rect x="116" y="2" width="32" height="74"/>
+      <line x1="128" y1="14" x2="128" y2="64"/><line x1="136" y1="14" x2="136" y2="64"/>
+      <circle cx="160" cy="68" r="5" fill="var(--text)"/>
+      <path d="M170,76 L188,2 L206,76 M178,50 H198"/>
+      <line x1="218" y1="2" x2="218" y2="76"/>
+      <line x1="212" y1="2" x2="224" y2="2"/>
+      <line x1="212" y1="76" x2="224" y2="76"/>
+    </g>
+  </svg>
+</div>
+
+<!-- B7 SD Row2 Col2 — bold solid filled -->
+<div class="card" style="--i:7">
+  <span class="label">Compact bold</span><span class="number">B07</span>
+  <svg viewBox="0 0 290 88" width="250">
+    <g fill="var(--text)">
+      <path d="M0,0 H16 V62 H40 V78 H0 Z"/>
+      <path d="M44,0 H82 V78 H44 Z M58,14 V64 H68 V14 Z"/>
+      <path d="M88,0 H126 V16 H104 V32 H122 V78 H88 Z M104,46 V64 H108 V46 Z"/>
+      <path d="M132,0 H170 V78 H132 Z M146,14 V64 H156 V14 Z"/>
+      <rect x="176" y="60" width="14" height="18"/>
+      <path d="M196,78 L214,0 H232 L250,78 H236 L232,60 H214 L210,78 Z M218,46 H228 L223,22 Z"/>
+      <rect x="256" y="0" width="16" height="78"/>
+    </g>
+  </svg>
+</div>
+
+<!-- B8 SD Row2 Col3 — small bold compact -->
+<div class="card" style="--i:8">
+  <span class="label">Small bold</span><span class="number">B08</span>
+  <svg viewBox="0 0 260 88" width="220">
+    <g fill="var(--text)">
+      <path d="M0,0 H14 V58 H36 V74 H0 Z"/>
+      <path d="M40,0 H74 V74 H40 Z M52,14 V60 H62 V14 Z"/>
+      <path d="M80,0 H114 V14 H94 V32 H108 V74 H80 Z M94,46 V60 H98 V46 Z"/>
+      <path d="M120,0 H154 V74 H120 Z M132,14 V60 H142 V14 Z"/>
+      <rect x="158" y="58" width="12" height="16"/>
+      <path d="M176,74 L192,0 H210 L226,74 H212 L208,58 H192 L188,74 Z M195,42 H205 L200,20 Z"/>
+      <rect x="232" y="0" width="14" height="74"/>
+    </g>
+  </svg>
+</div>
+
+<!-- B9 OM Row2 Col1 — clean outlined OM -->
+<div class="card" style="--i:9">
+  <span class="label">Bold outline rounded</span><span class="number">B09</span>
+  <svg viewBox="0 0 320 88" width="270">
+    <g fill="none" stroke="var(--text)" stroke-width="4">
+      <path d="M2,8 Q2,2 10,2 H22 V60 H44 Q48,60 48,64 V74 Q48,80 42,80 H10 Q2,80 2,72 Z"/>
+      <path d="M58,8 Q58,2 66,2 H86 Q94,2 94,8 V72 Q94,80 86,80 H66 Q58,80 58,72 Z M70,18 V62 H82 V18 Z"/>
+      <path d="M104,8 Q104,2 112,2 H136 Q144,2 144,8 V20 H132 V14 H118 V62 H132 V46 H122 V36 H144 V72 Q144,80 136,80 H112 Q104,80 104,72 Z"/>
+      <path d="M154,8 Q154,2 162,2 H182 Q190,2 190,8 V72 Q190,80 182,80 H162 Q154,80 154,72 Z M166,18 V62 H178 V18 Z"/>
+      <circle cx="206" cy="72" r="6" fill="var(--text)"/>
+      <path d="M218,80 L238,2 L258,80 M226,52 H250"/>
+      <path d="M268,8 Q268,2 274,2 H284 Q290,2 290,8 V72 Q290,80 284,80 H274 Q268,80 268,72 Z"/>
+    </g>
+  </svg>
+</div>
+
+<!-- B10 OM Row2 Col2 — bite/notch cut bold -->
+<div class="card" style="--i:10">
+  <span class="label">Notch cut bold</span><span class="number">B10</span>
+  <svg viewBox="0 0 320 88" width="270">
+    <g fill="var(--text)">
+      <path d="M0,0 H18 V62 H42 V80 H0 Z"/>
+      <path d="M48,0 H88 V80 H48 V32 L60,20 V12 H68 V4 L48,4 Z M64,16 V64 H74 V16 Z"/>
+      <path d="M94,0 H134 V14 H110 V32 H128 V80 H94 V32 L106,20 V12 H114 V4 L94,4 Z M110,46 V64 H114 V46 Z"/>
+      <path d="M140,0 H180 V80 H140 V32 L152,20 V12 H160 V4 L140,4 Z M156,16 V64 H166 V16 Z"/>
+      <rect x="186" y="60" width="14" height="20"/>
+      <path d="M208,80 L226,0 H246 L264,80 H250 L246,60 H228 L224,80 Z M232,46 H244 L238,22 Z"/>
+      <rect x="270" y="0" width="16" height="80"/>
+    </g>
+  </svg>
+</div>
+
+<!-- B11 OM Row2 Col3 — outline rounded condensed -->
+<div class="card" style="--i:11">
+  <span class="label">Outline condensed</span><span class="number">B11</span>
+  <svg viewBox="0 0 290 88" width="250">
+    <g fill="none" stroke="var(--text)" stroke-width="3">
+      <path d="M2,8 Q2,2 8,2 H18 V60 H38 Q42,60 42,64 V74 Q42,80 36,80 H8 Q2,80 2,72 Z"/>
+      <path d="M52,8 Q52,2 58,2 H78 Q84,2 84,8 V72 Q84,80 78,80 H58 Q52,80 52,72 Z M62,16 V64 H74 V16 Z"/>
+      <path d="M94,8 Q94,2 100,2 H120 Q126,2 126,8 V20 H114 V14 H106 V64 H114 V46 H108 V36 H126 V72 Q126,80 120,80 H100 Q94,80 94,72 Z"/>
+      <path d="M134,8 Q134,2 140,2 H160 Q166,2 166,8 V72 Q166,80 160,80 H140 Q134,80 134,72 Z M144,16 V64 H156 V16 Z"/>
+      <circle cx="180" cy="72" r="5" fill="var(--text)"/>
+      <path d="M192,80 L210,2 L228,80 M200,52 H220"/>
+      <path d="M238,8 Q238,2 244,2 H252 Q258,2 258,8 V72 Q258,80 252,80 H244 Q238,80 238,72 Z"/>
+    </g>
+  </svg>
+</div>
+
+<!-- B12 SB Row4 Col1 — outlined white on black -->
+<div class="card inverted" style="--i:12">
+  <span class="label">White outline</span><span class="number">B12</span>
+  <svg viewBox="0 0 320 90" width="270">
+    <g fill="none" stroke="#f0f0f0" stroke-width="3">
+      <path d="M2,2 H22 V62 H46 V80 H2 Z"/>
+      <path d="M52,2 H94 V80 H52 Z M68,18 V64 H78 V18 Z"/>
+      <path d="M100,2 H142 V20 H118 V34 H136 V80 H100 Z M118,50 V64 H122 V50 Z"/>
+      <path d="M148,2 H190 V80 H148 Z M164,18 V64 H174 V18 Z"/>
+      <circle cx="202" cy="72" r="6" fill="#f0f0f0"/>
+      <path d="M214,80 L234,2 H254 L274,80 M222,52 H266"/>
+      <line x1="284" y1="2" x2="284" y2="80"/>
+    </g>
+  </svg>
+</div>
+
+<!-- B13 SB Row4 Col2 — bold solid white sliced -->
+<div class="card inverted" style="--i:13">
+  <span class="label">White sliced bold</span><span class="number">B13</span>
+  <svg viewBox="0 0 320 90" width="270">
+    <g fill="#f0f0f0">
+      <path d="M0,0 H22 V60 H46 V80 H0 Z"/>
+      <path d="M52,0 H92 V80 H52 Z M68,16 V64 H78 V40 L74,36 H68 V20 H78 V16 Z"/>
+      <path d="M98,0 H140 V18 H116 V34 H136 V80 H98 V52 L106,44 V32 H116 V16 H98 Z"/>
+      <path d="M146,0 H188 V80 H146 Z M162,16 V64 H172 V40 L168,36 H162 V20 H172 V16 Z"/>
+      <rect x="194" y="60" width="14" height="20"/>
+      <path d="M216,80 L236,0 H256 L276,80 H260 L256,60 H236 L232,80 Z M240,46 H252 L246,22 Z"/>
+      <rect x="282" y="0" width="18" height="80"/>
+    </g>
+  </svg>
+</div>
+
+<!-- B14 SB Row4 Col3 — solid bold white compact -->
+<div class="card inverted" style="--i:14">
+  <span class="label">White compact bold</span><span class="number">B14</span>
+  <svg viewBox="0 0 290 90" width="250">
+    <g fill="#f0f0f0">
+      <path d="M0,0 H18 V62 H42 V80 H0 Z"/>
+      <path d="M48,0 H88 V80 H48 Z M64,16 V64 H72 V16 Z"/>
+      <path d="M94,0 H134 V14 H110 V32 H128 V80 H94 Z M110,46 V64 H114 V46 Z"/>
+      <path d="M140,0 H180 V80 H140 Z M156,16 V64 H164 V16 Z"/>
+      <rect x="186" y="60" width="14" height="20"/>
+      <path d="M208,80 L226,0 H246 L264,80 H250 L246,62 H226 L222,80 Z M230,46 H242 L236,22 Z"/>
+      <rect x="270" y="0" width="16" height="80"/>
+    </g>
+  </svg>
+</div>
+
+<!-- B15 HZ Row1 Col1 — outlined slab italic -->
+<div class="card" style="--i:15">
+  <span class="label">Outlined slab</span><span class="number">B15</span>
+  <svg viewBox="0 0 320 90" width="270">
+    <g fill="none" stroke="var(--text)" stroke-width="3">
+      <path d="M2,2 H22 V62 H46 V78 H2 Z"/>
+      <path d="M52,2 H92 V78 H52 Z M66,14 V66 H78 V14 Z"/>
+      <path d="M98,2 H138 V18 H114 V34 H132 V78 H98 Z M114,50 V64 H118 V50 Z"/>
+      <path d="M144,2 H184 V78 H144 Z M158,14 V66 H170 V14 Z"/>
+      <circle cx="196" cy="70" r="6" fill="var(--text)"/>
+      <path d="M208,78 L226,2 H244 L262,78 M216,52 H254"/>
+      <line x1="272" y1="2" x2="272" y2="78"/>
+      <line x1="266" y1="2" x2="278" y2="2"/><line x1="266" y1="78" x2="278" y2="78"/>
+    </g>
+  </svg>
+</div>
+
+<!-- B16 HZ Row1 Col2 — solid bold slab -->
+<div class="card" style="--i:16">
+  <span class="label">Bold slab</span><span class="number">B16</span>
+  <svg viewBox="0 0 320 90" width="270">
+    <g fill="var(--text)">
+      <path d="M0,0 H22 V60 H46 V80 H0 Z M0,0 V8 H22 V0 Z M0,72 V80 H46 V72 Z"/>
+      <path d="M52,0 H94 V80 H52 Z M68,16 V64 H80 V16 Z"/>
+      <path d="M100,0 H142 V18 H118 V34 H136 V80 H100 Z M118,50 V64 H122 V50 Z"/>
+      <path d="M148,0 H190 V80 H148 Z M164,16 V64 H176 V16 Z"/>
+      <rect x="196" y="60" width="14" height="20"/>
+      <path d="M218,80 L236,0 H258 L276,80 H260 L256,62 H238 L234,80 Z M242,46 H252 L247,22 Z"/>
+      <path d="M284,0 H304 V80 H284 Z M280,0 V8 H308 V0 Z M280,72 V80 H308 V72 Z"/>
+    </g>
+  </svg>
+</div>
+
+<!-- B17 HZ Row1 Col3 — outlined slab solid -->
+<div class="card" style="--i:17">
+  <span class="label">Slab solid</span><span class="number">B17</span>
+  <svg viewBox="0 0 290 88" width="250">
+    <g fill="var(--text)">
+      <path d="M0,0 H16 V62 H40 V78 H0 Z"/>
+      <path d="M46,0 H86 V78 H46 Z M60,14 V64 H72 V14 Z"/>
+      <path d="M92,0 H132 V16 H110 V32 H126 V78 H92 Z M110,46 V64 H114 V46 Z"/>
+      <path d="M138,0 H178 V78 H138 Z M152,14 V64 H164 V14 Z"/>
+      <rect x="184" y="60" width="14" height="18"/>
+      <path d="M206,78 L224,0 H242 L260,78 H246 L242,60 H224 L220,78 Z M228,46 H238 L233,22 Z"/>
+      <rect x="266" y="0" width="16" height="78"/>
+    </g>
+  </svg>
+</div>
+
+<!-- B18 JM Row1 — outline heavy rounded -->
+<div class="card" style="--i:18">
+  <span class="label">Heavy rounded outline</span><span class="number">B18</span>
+  <svg viewBox="0 0 320 88" width="270">
+    <g fill="none" stroke="var(--text)" stroke-width="4">
+      <path d="M2,8 Q2,2 10,2 H22 V58 H42 Q46,58 46,62 V72 Q46,78 40,78 H10 Q2,78 2,70 Z"/>
+      <rect x="56" y="2" width="42" height="76" rx="8"/>
+      <path d="M138,16 Q138,2 124,2 H110 Q96,2 96,16 V62 Q96,78 110,78 H124 Q138,78 138,62 V44 H120"/>
+      <rect x="146" y="2" width="42" height="76" rx="8"/>
+      <circle cx="200" cy="70" r="6" fill="var(--text)"/>
+      <path d="M212,78 L232,2 L252,78 M220,52 H244"/>
+      <line x1="262" y1="2" x2="262" y2="78"/>
+      <line x1="254" y1="2" x2="270" y2="2"/><line x1="254" y1="78" x2="270" y2="78"/>
+    </g>
+  </svg>
+</div>
+
+</div>
+
+</body>
+</html>

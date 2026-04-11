@@ -81,7 +81,7 @@ export default function PressPage() {
     <PageWrapper>
       {/* ── Hero ── */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
-        <div className="max-w-[1120px] mx-auto flex flex-col gap-6">
+        <div className="max-w-[1120px] mx-auto flex flex-col gap-6 items-center text-center">
           <h1
             className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[800px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
@@ -139,7 +139,7 @@ export default function PressPage() {
                     <div className="flex items-center gap-3">
                       <span
                         className="font-bricolage text-xs font-medium text-white/60 px-2.5 py-1 rounded-md"
-                        style={{ background: 'rgba(0,0,255,0.15)', border: '1px solid rgba(0,0,255,0.25)' }}
+                        style={{ background: 'rgba(51,106,234,0.15)', border: '1px solid rgba(51,106,234,0.25)' }}
                       >
                         {pr.tag}
                       </span>
@@ -244,8 +244,8 @@ export default function PressPage() {
                     key={item.text}
                     className="font-bricolage font-medium text-sm px-3 py-1.5 rounded-lg"
                     style={{
-                      background: item.ok ? 'rgba(0,0,255,0.1)' : 'rgba(255,255,255,0.04)',
-                      border: `1px solid ${item.ok ? 'rgba(0,0,255,0.3)' : 'rgba(255,255,255,0.08)'}`,
+                      background: item.ok ? 'rgba(51,106,234,0.1)' : 'rgba(255,255,255,0.04)',
+                      border: `1px solid ${item.ok ? 'rgba(51,106,234,0.3)' : 'rgba(255,255,255,0.08)'}`,
                       color: item.ok ? '#fff' : 'rgba(255,255,255,0.35)',
                     }}
                   >

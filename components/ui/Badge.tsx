@@ -17,7 +17,7 @@ type IconName =
   | 'shield'
   | 'clock'
 
-const BLUE = 'rgb(0,0,255)'
+const BLUE = '#336AEA'
 
 const ICONS: Record<IconName, JSX.Element> = {
   sparkle: (

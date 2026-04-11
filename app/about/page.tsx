@@ -432,7 +432,7 @@ export default function AboutPage() {
 
           <div
             className="rounded-2xl p-8 md:p-10 flex flex-col gap-3"
-            style={{ border: '1px solid rgba(0,0,255,0.3)', background: 'rgba(0,0,255,0.06)' }}
+            style={{ border: '1px solid rgba(51,106,234,0.3)', background: 'rgba(51,106,234,0.06)' }}
           >
             <p className="font-bricolage text-base md:text-lg text-white/55 m-0">
               So creating a logo isn&apos;t a project anymore.

@@ -25,7 +25,7 @@ export default function PageWrapper({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="font-bricolage bg-black text-white min-h-screen overflow-x-hidden">
+    <div className="font-bricolage bg-[#0D0D0D] text-white min-h-screen overflow-x-hidden">
       <Navbar onCTAClick={goToHeroCTA} />
       <div ref={heroRef} />
       {children}

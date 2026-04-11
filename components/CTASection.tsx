@@ -81,7 +81,7 @@ export default function CTASection({ onSubmit, submitted }: CTASectionProps) {
                   style={{
                     padding: submitted ? '20px 0' : 'clamp(14px,2vw,20px) clamp(20px,3vw,32px)',
                     fontSize: 'clamp(18px,1.8vw,20px)',
-                    background: submitted ? 'transparent' : 'rgb(0,0,255)',
+                    background: submitted ? 'transparent' : '#336AEA',
                     borderRadius: 12,
                   }}
                 >

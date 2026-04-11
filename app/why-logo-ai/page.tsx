@@ -91,7 +91,7 @@ export default function WhyLogoAiPage() {
 
       {/* -- Hero -- */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
-        <div className="max-w-[1120px] mx-auto flex flex-col gap-6">
+        <div className="max-w-[1120px] mx-auto flex flex-col gap-6 items-center text-center">
           <h1
             className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[860px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
@@ -159,7 +159,7 @@ export default function WhyLogoAiPage() {
                 <span className="text-[11px] font-medium text-white/40 uppercase tracking-[2px]">Feature</span>
                 <span
                   className="text-[11px] font-medium text-white uppercase tracking-[2px] text-center px-2 py-1 rounded-t-lg"
-                  style={{ background: 'rgba(0,0,255,0.1)' }}
+                  style={{ background: 'rgba(51,106,234,0.1)' }}
                 >
                   Logo.ai
                 </span>
@@ -180,7 +180,7 @@ export default function WhyLogoAiPage() {
                   <div
                     className="text-[13px] font-medium text-white text-center flex items-center justify-center py-4 px-2"
                     style={{
-                      background: 'rgba(0,0,255,0.08)',
+                      background: 'rgba(51,106,234,0.08)',
                       borderRadius: i === COMPARISON_ROWS.length - 1 ? '0 0 8px 8px' : 0,
                     }}
                   >
@@ -217,7 +217,7 @@ export default function WhyLogoAiPage() {
                 <div className="flex items-center gap-2">
                   <span
                     className="w-6 h-6 rounded-full flex items-center justify-center font-bricolage text-xs font-bold flex-shrink-0"
-                    style={{ background: 'rgba(0,0,255,0.15)', color: BLUE }}
+                    style={{ background: 'rgba(51,106,234,0.15)', color: BLUE }}
                   >
                     {i + 1}
                   </span>

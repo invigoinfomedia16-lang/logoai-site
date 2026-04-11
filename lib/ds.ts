@@ -7,28 +7,30 @@
  */
 
 // ── Brand colour ──────────────────────────────────────────────────────
-export const BLUE = 'rgb(0,0,255)'
-
-// ── Borders ───────────────────────────────────────────────────────────
-export const BORDER      = '1px solid rgba(84,87,94,0.3)'   // default section/card border
-export const BLUE_BORDER = '1px solid rgba(0,0,255,0.3)'    // blue-tinted border
-export const BLUE_BORDER_FAINT = '1px solid rgba(0,0,255,0.2)' // softer blue border
+export const BLUE = '#336AEA'
 
 // ── Backgrounds ───────────────────────────────────────────────────────
-export const CARD_BG        = 'rgba(255,255,255,0.015)' // default card / tinted section bg
-export const BLUE_BG        = 'rgba(0,0,255,0.06)'      // blue-tinted card bg
-export const BLUE_BG_SUBTLE = 'rgba(0,0,255,0.05)'      // even softer blue bg
-export const BLUE_BG_LIGHT  = 'rgba(0,0,255,0.1)'       // avatar / badge fill
+export const SITE_BG        = '#0D0D0D'
+export const CARD_BG        = 'rgba(245,245,245,0.015)' // default card / tinted section bg
+export const INPUT_BG       = '#2B2B2B'                  // form input backgrounds
+export const BLUE_BG        = 'rgba(51,106,234,0.06)'   // blue-tinted card bg
+export const BLUE_BG_SUBTLE = 'rgba(51,106,234,0.05)'   // even softer blue bg
+export const BLUE_BG_LIGHT  = 'rgba(51,106,234,0.1)'    // avatar / badge fill
 
-// ── Text opacity scale ────────────────────────────────────────────────
-// Use ONLY these Tailwind classes. Do not invent new opacity values.
+// ── Borders ───────────────────────────────────────────────────────────
+export const BORDER      = '1px solid rgba(84,87,94,0.3)'      // default section/card border
+export const BLUE_BORDER = '1px solid rgba(51,106,234,0.3)'    // blue-tinted border
+export const BLUE_BORDER_FAINT = '1px solid rgba(51,106,234,0.2)' // softer blue border
+
+// ── Text colours (Figma hex codes) ────────────────────────────────────
+// Use these exact values. Do NOT use opacity-based text-white/xx.
 //
-//   text-white          primary   — headings
-//   text-white/55       secondary — body paragraphs
-//   text-white/40       muted     — labels, captions, eyebrow overlines
-//   text-white/25       faint     — decorative dots, minor decorative elements
-//
-// ❌ Do NOT use: /45 /50 /60 /65 /70 /80
+//   #F5F5F5   primary   — headings, strong text
+//   #AAAAAA   secondary — body paragraphs, muted text
+//   #777777   subtle    — labels, captions, placeholders
+//   #C5C5C5   nav       — navigation links
+//   #648EEF   accent    — badge icons, highlights
+//   #336AEA   cta       — buttons, links
 
 // ── CTA Button spec (source of truth — matches reference HTML exactly) ──
 //

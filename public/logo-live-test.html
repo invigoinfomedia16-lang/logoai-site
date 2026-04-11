@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logo.ai — Live Logo Tester on Freepik Theme</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Inter:wght@700;800;900&family=Nunito:wght@700;800;900&family=Playfair+Display:ital,wght@1,700;1,800&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Bricolage Grotesque', sans-serif; background: #0D1117; color: #fff; }
+
+/* Logo picker bar */
+.picker { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; background: #000; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 12px 20px; display: flex; align-items: center; gap: 10px; overflow-x: auto; }
+.picker-label { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.4); letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; margin-right: 8px; }
+.picker button { padding: 6px 14px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.1); background: transparent; color: rgba(255,255,255,0.5); font-size: 11px; font-family: inherit; font-weight: 600; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+.picker button:hover, .picker button.active { background: rgba(18,115,235,0.15); border-color: rgba(18,115,235,0.4); color: #fff; }
+
+/* Page */
+.page { padding-top: 56px; }
+
+/* Nav */
+.nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 40px; border-bottom: 1px solid rgba(255,255,255,0.06); background: rgba(13,17,23,0.95); backdrop-filter: blur(16px); position: sticky; top: 56px; z-index: 100; }
+.nav .links { display: flex; gap: 28px; font-size: 14px; color: rgba(255,255,255,0.45); }
+.nav .links span:hover { color: rgba(255,255,255,0.8); cursor: pointer; }
+.nav .cta-btn { font-size: 14px; padding: 10px 22px; border-radius: 8px; font-weight: 600; border: 1px solid rgba(255,255,255,0.15); color: #fff; background: transparent; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+.nav .cta-btn:hover { background: #fff; color: #000; }
+
+/* Logo container in nav */
+.nav-logo { display: flex; align-items: center; min-width: 120px; min-height: 30px; }
+
+/* Hero */
+.hero { padding: 100px 40px 80px; max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+.badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 100px; width: fit-content; background: rgba(18,115,235,0.08); color: rgb(18,115,235); }
+.hero h1 { font-size: clamp(36px, 6vw, 68px); font-weight: 600; letter-spacing: -0.04em; line-height: 1.1; }
+.hero .sub { font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.5); max-width: 500px; }
+.form { display: flex; gap: 6px; max-width: 600px; }
+.form input { flex: 1; padding: 16px 20px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); color: #fff; font-size: 16px; font-family: inherit; outline: none; }
+.form button { padding: 16px 32px; border-radius: 14px; border: 0; background: rgb(18,115,235); color: #fff; font-family: inherit; font-weight: 700; font-size: 16px; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+.form button:hover { transform: scale(1.02); box-shadow: 0 4px 20px rgba(18,115,235,0.4); }
+.form-note { font-size: 13px; color: rgba(255,255,255,0.4); }
+.stats { display: flex; gap: 32px; margin-top: 8px; }
+.stats .stat strong { font-size: 18px; font-weight: 700; display: block; }
+.stats .stat span { font-size: 12px; color: rgba(255,255,255,0.4); }
+
+/* Sections */
+.section { padding: 80px 40px; max-width: 1120px; margin: 0 auto; }
+.section-alt { background: rgba(255,255,255,0.015); }
+.section h2 { font-size: 32px; font-weight: 600; letter-spacing: -0.04em; margin-bottom: 16px; }
+.section .body { font-size: 16px; line-height: 1.7; color: rgba(255,255,255,0.55); max-width: 600px; }
+
+/* Cards grid */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+.card { padding: 24px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); transition: all 0.3s; }
+.card:hover { transform: translateY(-2px); border-color: rgba(18,115,235,0.2); }
+.card h3 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+.card p { font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.45); }
+
+/* Comparison table */
+.compare { border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); margin-top: 32px; max-width: 700px; }
+.compare-row { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.compare-row:last-child { border-bottom: none; }
+.compare-cell { padding: 14px 18px; font-size: 13px; }
+.compare-header { font-weight: 700; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+.compare-highlight { background: rgba(18,115,235,0.06); color: #fff; font-weight: 600; }
+.compare-highlight.header { background: rgba(18,115,235,0.1); color: rgb(18,115,235); }
+.compare-dim { color: rgba(255,255,255,0.3); }
+
+/* CTA */
+.cta-section { padding: 80px 40px; text-align: center; }
+.cta-section h2 { font-size: 40px; font-weight: 700; letter-spacing: -0.04em; margin-bottom: 12px; }
+.cta-section .sub { color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+.cta-section button { padding: 18px 40px; border-radius: 14px; border: 0; background: rgb(18,115,235); color: #fff; font-family: inherit; font-weight: 700; font-size: 18px; cursor: pointer; }
+
+/* Footer */
+.footer { padding: 40px; border-top: 1px solid rgba(255,255,255,0.06); text-align: center; font-size: 13px; color: rgba(255,255,255,0.3); }
+
+/* Logo styles */
+.logo-style { display: inline-flex; align-items: baseline; line-height: 1; white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<!-- LOGO PICKER -->
+<div class="picker">
+  <span class="picker-label">Switch logo:</span>
+</div>
+
+<div class="page">
+  <!-- NAV -->
+  <div class="nav">
+    <div class="nav-logo" id="navLogo"></div>
+    <div class="links">
+      <span>About</span>
+      <span>Our Story</span>
+      <span>Why Logo.ai</span>
+      <span>Leadership</span>
+      <span>Press</span>
+    </div>
+    <button class="cta-btn">Get my free logo</button>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge">AI Logo Generator</div>
+    <h1>Get your free logo in seconds</h1>
+    <p class="sub">Free logo for the first 1,000,000 users. Join now to secure yours at launch.</p>
+    <div class="form">
+      <input placeholder="Enter your email address">
+      <button>Get my free logo</button>
+    </div>
+    <span class="form-note">No credit card required.</span>
+    <div class="stats">
+      <div class="stat"><strong>871,000</strong><span>free logos remaining of 1,000,000</span></div>
+      <div class="stat"><strong>44 days</strong><span>until launch</span></div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="section-alt">
+    <div class="section">
+      <div class="badge" style="margin-bottom:16px">Why choose Logo.ai</div>
+      <h2>Logo.ai replaces manual design with fast, consistent results.</h2>
+      <div class="cards">
+        <div class="card"><h3>Ready in seconds</h3><p>No waiting days or weeks. No revisions. Just a finished logo — ready to use.</p></div>
+        <div class="card"><h3>AI makes the decisions</h3><p>You don't need design skills. The AI handles the design choices for you.</p></div>
+        <div class="card"><h3>Understands your brand</h3><p>Logo.ai adapts to your industry, tone, and style — so your logo fits from the start.</p></div>
+        <div class="card"><h3>Designed from scratch</h3><p>No templates. Real design principles — color, typography, spacing, and hierarchy.</p></div>
+        <div class="card"><h3>Works everywhere</h3><p>Built for web, print, and apps — so your brand stays consistent everywhere.</p></div>
+        <div class="card"><h3>Everything works together</h3><p>Your logo, colors, and assets are designed as one system — not separate pieces.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARISON -->
+  <div class="section">
+    <div class="badge" style="margin-bottom:16px">How Logo.ai compares</div>
+    <h2>See how Logo.ai compares to designers and other AI logo makers.</h2>
+    <div class="compare">
+      <div class="compare-row"><div class="compare-cell compare-header">Feature</div><div class="compare-cell compare-header compare-highlight header">Logo.ai</div><div class="compare-cell compare-header">Designer</div></div>
+      <div class="compare-row"><div class="compare-cell" style="color:rgba(255,255,255,0.5)">Time to logo</div><div class="compare-cell compare-highlight">Seconds</div><div class="compare-cell compare-dim">3–6 weeks</div></div>
+      <div class="compare-row"><div class="compare-cell" style="color:rgba(255,255,255,0.5)">Cost</div><div class="compare-cell compare-highlight">Free</div><div class="compare-cell compare-dim">$5K–$50K+</div></div>
+      <div class="compare-row"><div class="compare-cell" style="color:rgba(255,255,255,0.5)">Approach</div><div class="compare-cell compare-highlight">AI-driven design</div><div class="compare-cell compare-dim">Human process</div></div>
+      <div class="compare-row"><div class="compare-cell" style="color:rgba(255,255,255,0.5)">Output quality</div><div class="compare-cell compare-highlight">Professional</div><div class="compare-cell compare-dim">High (depends)</div></div>
+      <div class="compare-row"><div class="compare-cell" style="color:rgba(255,255,255,0.5)">Revisions needed</div><div class="compare-cell compare-highlight">None</div><div class="compare-cell compare-dim">Multiple rounds</div></div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Get your free logo in seconds</h2>
+    <p class="sub">Free for the first 1,000,000 users. No credit card required.</p>
+    <button>Get my free logo</button>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">© 2026 Logo.ai — All rights reserved.</div>
+</div>
+
+<script>
+const logoOptions = [
+  {
+    name: 'logo.AI — Rounded 3D',
+    html: size => `<span class="logo-style" style="font-family:'Nunito',sans-serif;font-weight:900;font-size:${size}px;color:#fff;letter-spacing:-1.5px;text-shadow:2px 3px 0px rgba(100,100,140,0.5);">logo.AI</span>`
+  },
+  {
+    name: 'LOGO.AI — Bold Caps',
+    html: size => `<span class="logo-style" style="font-family:'Inter',sans-serif;font-weight:900;font-size:${size}px;color:#fff;letter-spacing:-2px;">LOGO.AI</span>`
+  },
+  {
+    name: 'LOGO.AI — Outlined Bold',
+    html: size => `<span class="logo-style" style="font-family:'Inter',sans-serif;font-weight:900;font-size:${size}px;color:transparent;-webkit-text-stroke:1.5px #fff;letter-spacing:-2px;">LOGO.AI</span>`
+  },
+  {
+    name: 'LOGO.AI — Thin Outline',
+    html: size => `<span class="logo-style" style="font-family:'Inter',sans-serif;font-weight:900;font-size:${size}px;color:transparent;-webkit-text-stroke:0.8px rgba(255,255,255,0.7);letter-spacing:-2px;">LOGO.AI</span>`
+  },
+  {
+    name: 'LOGO.AI — Outlined + Shadow',
+    html: size => `<span class="logo-style" style="font-family:'Inter',sans-serif;font-weight:900;font-size:${size}px;color:transparent;-webkit-text-stroke:1px #fff;letter-spacing:-2px;text-shadow:2px 3px 0px rgba(100,100,140,0.4);">LOGO.AI</span>`
+  },
+  {
+    name: 'Logo.ai — Script Calligraphy',
+    html: size => `<span class="logo-style" style="font-family:'Dancing Script',cursive;font-weight:700;font-size:${size * 1.2}px;color:#fff;letter-spacing:0px;">Logo.ai</span>`
+  },
+  {
+    name: 'Logo.ai — Serif Italic',
+    html: size => `<span class="logo-style" style="font-family:'Playfair Display',serif;font-weight:800;font-size:${size}px;color:#fff;letter-spacing:-1px;font-style:italic;">Logo.ai</span>`
+  },
+];
+
+// Build picker buttons
+const picker = document.querySelector('.picker');
+logoOptions.forEach((opt, i) => {
+  const btn = document.createElement('button');
+  btn.textContent = opt.name;
+  btn.onclick = () => {
+    document.querySelectorAll('.picker button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('navLogo').innerHTML = opt.html(20);
+  };
+  if (i === 0) btn.classList.add('active');
+  picker.appendChild(btn);
+});
+
+// Set initial logo
+document.getElementById('navLogo').innerHTML = logoOptions[0].html(20);
+</script>
+</body>
+</html>

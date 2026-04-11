@@ -68,7 +68,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
       onMouseLeave={() => setHovered(false)}
       className="cursor-pointer transition-colors duration-200"
       style={{
-        borderBottom: open ? '1px solid rgba(0,0,255,0.3)' : '1px solid rgba(255,255,255,0.08)',
+        borderBottom: open ? '1px solid rgba(51,106,234,0.3)' : '1px solid rgba(255,255,255,0.08)',
         backgroundColor: hovered ? 'rgba(255,255,255,0.02)' : 'transparent',
       }}
     >
@@ -108,7 +108,7 @@ export default function FAQPage() {
     <PageWrapper>
       {/* ── Hero ── */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
-        <div className="max-w-[1120px] mx-auto flex flex-col gap-6">
+        <div className="max-w-[1120px] mx-auto flex flex-col gap-6 items-center text-center">
           <h1
             className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[760px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}

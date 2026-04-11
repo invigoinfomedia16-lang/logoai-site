@@ -29,7 +29,7 @@ export default function MockupCarousel({ images, category }: MockupCarouselProps
       {/* Blue banner frame */}
       <div
         className="w-full rounded-[32px] md:rounded-[48px]"
-        style={{ background: 'rgb(0,0,255)', padding: 'clamp(16px, 3vw, 40px)' }}
+        style={{ background: '#336AEA', padding: 'clamp(16px, 3vw, 40px)' }}
       >
         <div
           className="w-full relative overflow-hidden rounded-2xl md:rounded-[28px]"
@@ -64,10 +64,10 @@ export default function MockupCarousel({ images, category }: MockupCarouselProps
               width: i === active ? 36 : 10,
               background:
                 i === active
-                  ? 'linear-gradient(90deg, rgba(0,0,255,1), rgba(80,120,255,1))'
+                  ? 'linear-gradient(90deg, rgba(51,106,234,1), rgba(80,120,255,1))'
                   : 'rgba(255,255,255,0.15)',
               border: i === active ? 'none' : '1px solid rgba(255,255,255,0.06)',
-              boxShadow: i === active ? '0 0 12px rgba(0,0,255,0.4)' : 'none',
+              boxShadow: i === active ? '0 0 12px rgba(51,106,234,0.4)' : 'none',
             }}
           />
         ))}

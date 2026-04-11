@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logo.ai — Wordmark Collection (Sentence Case)</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #f4f3f1;
+    --card: #ffffff;
+    --text: #111111;
+    --muted: #888888;
+    --border: #e0ddd8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #0a0a0a; --card: #161616; --text: #f0f0f0; --muted: #666; --border: #262626; }
+  }
+  body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 48px 20px 80px; }
+  .header { text-align: center; margin-bottom: 64px; }
+  .header .eyebrow { font-size: 12px; font-weight: 500; letter-spacing: 6px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .header h1 { font-size: 56px; font-weight: 900; letter-spacing: -2px; line-height: 1; margin-bottom: 12px; }
+  .header .sub { font-size: 15px; font-weight: 300; color: var(--muted); }
+  .section-title { max-width: 1100px; margin: 0 auto 24px; padding: 0 4px 12px; font-size: 11px; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); }
+  .section-title:not(:first-of-type) { margin-top: 56px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 18px; max-width: 1100px; margin: 0 auto; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 44px 22px 28px; display: flex; align-items: center; justify-content: center; min-height: 180px; position: relative; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(0,0,0,0.08); }
+  @media (prefers-color-scheme: dark) { .card:hover { box-shadow: 0 10px 32px rgba(0,0,0,0.5); } }
+  .card.inverted { background: #0a0a0a; border-color: #0a0a0a; }
+  .card .label { position: absolute; top: 14px; left: 18px; font-size: 9px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .card.inverted .label { color: rgba(255,255,255,0.3); }
+  .card .number { position: absolute; top: 13px; right: 18px; font-size: 10px; font-weight: 300; color: var(--muted); opacity: 0.6; }
+  .card.inverted .number { color: rgba(255,255,255,0.25); }
+  .card svg { max-width: 100%; height: auto; display: block; }
+  @media (max-width: 700px) { .grid { grid-template-columns: 1fr; } .header h1 { font-size: 38px; } body { padding: 28px 12px 60px; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="eyebrow">Sentence case collection</div>
+  <h1>Logo.ai</h1>
+  <div class="sub">36 wordmark styles · Capital L · Lowercase rest</div>
+</div>
+
+<div class="section-title">Set A · 18 styles</div>
+<div class="grid">
+
+<div class="card"><span class="label">Rounded stripe</span><span class="number">A01</span>
+<svg viewBox="0 0 540 120" width="280"><defs><pattern id="sa1" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="6" fill="var(--text)"/></pattern></defs>
+<text x="10" y="90" font-family="Arial Black, sans-serif" font-weight="900" font-size="90" fill="url(#sa1)" letter-spacing="-2">Logo.ai</text>
+<text x="10" y="90" font-family="Arial Black, sans-serif" font-weight="900" font-size="90" fill="none" stroke="var(--text)" stroke-width="1.5" letter-spacing="-2">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Bold condensed</span><span class="number">A02</span>
+<svg viewBox="0 0 500 120" width="280">
+<text x="10" y="92" font-family="Impact, Arial Black, sans-serif" font-weight="900" font-size="92" fill="var(--text)" letter-spacing="-3">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Bold inline</span><span class="number">A03</span>
+<svg viewBox="0 0 540 120" width="280">
+<text x="10" y="92" font-family="Arial Black, sans-serif" font-weight="900" font-size="86" fill="var(--text)" stroke="var(--card)" stroke-width="3" paint-order="stroke" letter-spacing="-2">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Parallel lines</span><span class="number">A04</span>
+<svg viewBox="0 0 540 120" width="280">
+<text x="10" y="90" font-family="Arial Black, sans-serif" font-weight="900" font-size="84" fill="none" stroke="var(--text)" stroke-width="2" letter-spacing="-1">Logo.ai</text>
+<text x="10" y="90" font-family="Arial Black, sans-serif" font-weight="100" font-size="84" fill="var(--text)" letter-spacing="-1">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Merged bold</span><span class="number">A05</span>
+<svg viewBox="0 0 480 120" width="280">
+<text x="10" y="92" font-family="Arial Black, sans-serif" font-weight="900" font-size="90" fill="var(--text)" letter-spacing="-6">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Geometric outline</span><span class="number">A06</span>
+<svg viewBox="0 0 500 120" width="280">
+<text x="10" y="90" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="80" fill="none" stroke="var(--text)" stroke-width="3">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Double border</span><span class="number">A07</span>
+<svg viewBox="0 0 520 130" width="280">
+<rect x="0" y="0" width="510" height="120" fill="var(--text)"/>
+<rect x="4" y="4" width="502" height="112" fill="var(--card)"/>
+<rect x="8" y="8" width="494" height="104" fill="var(--text)"/>
+<rect x="12" y="12" width="486" height="96" fill="var(--card)"/>
+<text x="30" y="92" font-family="Arial Black, sans-serif" font-weight="900" font-size="78" fill="var(--text)">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Ultra bold rounded</span><span class="number">A08</span>
+<svg viewBox="0 0 540 120" width="280">
+<text x="10" y="94" font-family="'Arial Rounded MT Bold', 'Nunito', sans-serif" font-weight="900" font-size="92" fill="var(--text)" letter-spacing="-2">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Rounded outline</span><span class="number">A09</span>
+<svg viewBox="0 0 540 120" width="280">
+<text x="10" y="94" font-family="'Arial Rounded MT Bold', 'Nunito', sans-serif" font-weight="900" font-size="92" fill="var(--card)" stroke="var(--text)" stroke-width="3" paint-order="stroke" letter-spacing="-2">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Connected arches</span><span class="number">A10</span>
+<svg viewBox="0 0 520 120" width="280">
+<text x="10" y="92" font-family="'Trebuchet MS', sans-serif" font-weight="800" font-size="86" fill="var(--text)" letter-spacing="-1">Logo.ai</text>
+</svg></div>
+
+<div class="card inverted"><span class="label">White on black</span><span class="number">A11</span>
+<svg viewBox="0 0 520 120" width="280">
+<text x="10" y="92" font-family="Arial Black, sans-serif" font-weight="900" font-size="88" fill="#f0f0f0" letter-spacing="-2">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Vertical lines</span><span class="number">A12</span>
+<svg viewBox="0 0 520 120" width="280"><defs>
+<pattern id="vla12" x="0" y="0" width="6" height="10" patternUnits="userSpaceOnUse"><rect width="3" height="10" fill="var(--text)"/></pattern>
+</defs>
+<text x="10" y="92" font-family="Arial Black, sans-serif" font-weight="900" font-size="86" fill="url(#vla12)" letter-spacing="-1">Logo.ai</text>
+<text x="10" y="92" font-family="Arial Black, sans-serif" font-weight="900" font-size="86" fill="none" stroke="var(--text)" stroke-width="0.5" letter-spacing="-1">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Bold outline shadow</span><span class="number">A13</span>
+<svg viewBox="0 0 540 130" width="280">
+<text x="16" y="100" font-family="Arial Black, sans-serif" font-weight="900" font-size="86" fill="var(--text)" opacity="0.2" letter-spacing="-2">Logo.ai</text>
+<text x="10" y="94" font-family="Arial Black, sans-serif" font-weight="900" font-size="86" fill="var(--text)" letter-spacing="-2">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Italic speed</span><span class="number">A14</span>
+<svg viewBox="0 0 540 120" width="280">
+<text x="10" y="92" font-family="Arial Black, sans-serif" font-weight="900" font-style="italic" font-size="88" fill="var(--text)" letter-spacing="-2">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Clean modern</span><span class="number">A15</span>
+<svg viewBox="0 0 500 120" width="280">
+<text x="10" y="92" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="700" font-size="84" fill="var(--text)" letter-spacing="-3">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Thin elegant</span><span class="number">A16</span>
+<svg viewBox="0 0 540 120" width="280">
+<text x="10" y="92" font-family="'Helvetica Neue', sans-serif" font-weight="200" font-size="84" fill="var(--text)" letter-spacing="2">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Rounded bubble</span><span class="number">A17</span>
+<svg viewBox="0 0 540 120" width="280">
+<text x="10" y="94" font-family="'Arial Rounded MT Bold', 'Nunito', sans-serif" font-weight="900" font-size="90" fill="var(--text)" letter-spacing="0">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">3D block</span><span class="number">A18</span>
+<svg viewBox="0 0 520 130" width="280">
+<text x="18" y="100" font-family="Arial Black, sans-serif" font-weight="900" font-size="84" fill="var(--text)" opacity="0.12" letter-spacing="-2">Logo.ai</text>
+<text x="14" y="96" font-family="Arial Black, sans-serif" font-weight="900" font-size="84" fill="var(--text)" opacity="0.3" letter-spacing="-2">Logo.ai</text>
+<text x="10" y="92" font-family="Arial Black, sans-serif" font-weight="900" font-size="84" fill="var(--text)" letter-spacing="-2">Logo.ai</text>
+</svg></div>
+
+</div>
+
+<div class="section-title">Set B · 18 styles</div>
+<div class="grid">
+
+<div class="card"><span class="label">Heavy slab</span><span class="number">B01</span>
+<svg viewBox="0 0 500 120" width="280">
+<text x="10" y="92" font-family="'Rockwell', 'Courier New', serif" font-weight="900" font-size="84" fill="var(--text)" letter-spacing="-1">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Diagonal cut</span><span class="number">B02</span>
+<svg viewBox="0 0 540 120" width="280">
+<text x="10" y="92" font-family="Arial Black, sans-serif" font-weight="900" font-style="italic" font-size="86" fill="var(--text)" letter-spacing="-2">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Bite cut</span><span class="number">B03</span>
+<svg viewBox="0 0 540 120" width="280">
+<text x="10" y="92" font-family="Arial Black, sans-serif" font-weight="900" font-size="86" fill="var(--text)" letter-spacing="-2">Logo.ai</text>
+<rect x="100" y="40" width="22" height="22" fill="var(--card)"/>
+<rect x="200" y="40" width="22" height="22" fill="var(--card)"/>
+</svg></div>
+
+<div class="card"><span class="label">Solid bold compact</span><span class="number">B04</span>
+<svg viewBox="0 0 480 120" width="280">
+<text x="10" y="92" font-family="Arial Black, sans-serif" font-weight="900" font-size="84" fill="var(--text)" letter-spacing="-3">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Bold outlined</span><span class="number">B05</span>
+<svg viewBox="0 0 540 120" width="280">
+<text x="10" y="92" font-family="Arial Black, sans-serif" font-weight="900" font-size="86" fill="none" stroke="var(--text)" stroke-width="3" letter-spacing="-2">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Narrow outline</span><span class="number">B06</span>
+<svg viewBox="0 0 460 120" width="280">
+<text x="10" y="90" font-family="'Arial Narrow', sans-serif" font-weight="700" font-size="82" fill="none" stroke="var(--text)" stroke-width="2.5" letter-spacing="0">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Compact bold</span><span class="number">B07</span>
+<svg viewBox="0 0 480 120" width="280">
+<text x="10" y="92" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="80" fill="var(--text)" letter-spacing="-3">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Small bold</span><span class="number">B08</span>
+<svg viewBox="0 0 440 120" width="280">
+<text x="10" y="90" font-family="'Arial Narrow', sans-serif" font-weight="900" font-size="78" fill="var(--text)" letter-spacing="-1">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Bold outline rounded</span><span class="number">B09</span>
+<svg viewBox="0 0 540 120" width="280">
+<text x="10" y="94" font-family="'Arial Rounded MT Bold', 'Nunito', sans-serif" font-weight="900" font-size="86" fill="none" stroke="var(--text)" stroke-width="3" letter-spacing="-1">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Notch cut bold</span><span class="number">B10</span>
+<svg viewBox="0 0 540 120" width="280">
+<text x="10" y="92" font-family="Arial Black, sans-serif" font-weight="900" font-size="86" fill="var(--text)" letter-spacing="-2">Logo.ai</text>
+<polygon points="100,38 124,38 112,62" fill="var(--card)"/>
+<polygon points="200,38 224,38 212,62" fill="var(--card)"/>
+</svg></div>
+
+<div class="card"><span class="label">Outline condensed</span><span class="number">B11</span>
+<svg viewBox="0 0 460 120" width="280">
+<text x="10" y="90" font-family="'Arial Narrow', sans-serif" font-weight="700" font-size="80" fill="none" stroke="var(--text)" stroke-width="2.5">Logo.ai</text>
+</svg></div>
+
+<div class="card inverted"><span class="label">White outline</span><span class="number">B12</span>
+<svg viewBox="0 0 540 120" width="280">
+<text x="10" y="92" font-family="Arial Black, sans-serif" font-weight="900" font-size="86" fill="none" stroke="#f0f0f0" stroke-width="3" letter-spacing="-2">Logo.ai</text>
+</svg></div>
+
+<div class="card inverted"><span class="label">White sliced bold</span><span class="number">B13</span>
+<svg viewBox="0 0 540 120" width="280">
+<text x="10" y="92" font-family="Arial Black, sans-serif" font-weight="900" font-style="italic" font-size="88" fill="#f0f0f0" letter-spacing="-2">Logo.ai</text>
+</svg></div>
+
+<div class="card inverted"><span class="label">White compact bold</span><span class="number">B14</span>
+<svg viewBox="0 0 480 120" width="280">
+<text x="10" y="92" font-family="'Helvetica Neue', Arial, sans-serif" font-weight="900" font-size="84" fill="#f0f0f0" letter-spacing="-3">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Outlined slab</span><span class="number">B15</span>
+<svg viewBox="0 0 500 120" width="280">
+<text x="10" y="92" font-family="'Rockwell', 'Courier New', serif" font-weight="700" font-size="82" fill="none" stroke="var(--text)" stroke-width="2.5">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Bold slab</span><span class="number">B16</span>
+<svg viewBox="0 0 500 120" width="280">
+<text x="10" y="92" font-family="'Rockwell', 'Courier New', serif" font-weight="900" font-size="84" fill="var(--text)" letter-spacing="-2">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Slab solid</span><span class="number">B17</span>
+<svg viewBox="0 0 480 120" width="280">
+<text x="10" y="92" font-family="'Rockwell', 'Courier New', serif" font-weight="900" font-size="80" fill="var(--text)" letter-spacing="-1">Logo.ai</text>
+</svg></div>
+
+<div class="card"><span class="label">Heavy rounded outline</span><span class="number">B18</span>
+<svg viewBox="0 0 540 120" width="280">
+<text x="10" y="94" font-family="'Arial Rounded MT Bold', 'Nunito', sans-serif" font-weight="900" font-size="90" fill="none" stroke="var(--text)" stroke-width="4" letter-spacing="-1">Logo.ai</text>
+</svg></div>
+
+</div>
+
+</body>
+</html>

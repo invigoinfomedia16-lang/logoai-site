@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Logo.ai — Design Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&family=Nunito:wght@700;800;900&family=Playfair+Display:ital,wght@1,700;1,800&family=Dancing+Script:wght@700&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Satoshi:wght@400;500;700&family=General+Sans:wght@400;500;600;700&family=Onest:wght@400;500;600;700&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Bricolage Grotesque', sans-serif; background: #0D0D0D; color: #F5F5F5; }
+
+/* Logo picker */
+.picker { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; background: #000; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 8px; padding: 8px 16px; overflow-x: auto; }
+.picker::-webkit-scrollbar { display: none; }
+.picker .label { font-size: 9px; font-weight: 600; color: rgba(255,255,255,0.3); letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; margin-right: 4px; }
+.picker button { padding: 4px 10px; border-radius: 5px; border: 1px solid rgba(255,255,255,0.08); background: transparent; color: rgba(255,255,255,0.4); font-size: 9px; font-family: inherit; font-weight: 600; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+.picker button.active { background: rgba(51,106,234,0.15); border-color: rgba(51,106,234,0.4); color: #fff; }
+
+/* Nav */
+.nav { position: sticky; top: 40px; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: clamp(14px, 2vw, 18px) clamp(16px, 4vw, 40px); border-bottom: 1px solid rgba(255,255,255,0.06); background-color: rgba(13,13,13,0.85); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+.nav-logo { display: flex; align-items: center; height: 28px; }
+.nav .links { display: flex; gap: 40px; font-size: 16px; font-weight: 400; color: #C5C5C5; }
+.nav .links span { cursor: pointer; transition: color 0.15s; }
+.nav .links span:hover { color: rgba(245,245,245,0.9); }
+.nav .nav-cta { font-size: 16px; padding: 12px 24px; border-radius: 8px; font-weight: 500; border: 1px solid rgba(245,245,245,0.2); color: #F5F5F5; background: transparent; cursor: pointer; font-family: inherit; transition: all 0.2s; }
+.nav .nav-cta:hover { background: #F5F5F5; color: #0D0D0D; }
+
+/* Hero */
+.hero { padding: 120px 20px 40px; max-width: 1120px; margin: 0 auto; text-align: center; }
+.hero .badge { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; padding: 6px 0; margin: 0 auto 14px; border: 0; background: transparent; }
+.hero .badge span { color: #AAAAAA; letter-spacing: 2px; text-transform: uppercase; font-size: 13px; line-height: 17px; }
+.hero h1 { font-size: clamp(36px, 6vw, 68px); font-weight: 500; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 14px; }
+.hero .sub { font-size: clamp(16px, 2vw, 18px); font-weight: 500; line-height: 1.75; color: #AAAAAA; margin: 0 auto 20px; max-width: 520px; }
+
+/* Form */
+.form-wrap { display: flex; flex-direction: row; align-items: center; border-radius: 16px; padding: 6px; border: 1px solid rgba(245,245,245,0.1); background: #2B2B2B; max-width: 720px; margin: 0 auto; }
+.form-wrap input { flex: 1; background: transparent; border: 0; outline: none; color: #F5F5F5; font-family: inherit; font-size: clamp(16px, 1.5vw, 20px); padding: 18px 20px; }
+.form-wrap input::placeholder { color: #777777; }
+.form-wrap .cta-main { padding: clamp(20px,2.5vw,28px) clamp(28px,4vw,52px); border-radius: 12px; border: 0; color: #fff; font-family: inherit; font-weight: 600; font-size: clamp(18px,1.8vw,22px); cursor: pointer; white-space: nowrap; background: #336AEA; box-shadow: 0 1px 3px rgba(0,0,0,0.2); transition: all 0.2s; }
+.form-wrap .cta-main:hover { transform: scale(1.02); box-shadow: 0 4px 20px rgba(51,106,234,0.4); }
+.form-note { font-size: 14px; font-weight: 500; color: #AAAAAA; margin-top: 12px; }
+
+/* Stats */
+.stats-row { display: flex; align-items: center; gap: 16px; margin-top: 20px; flex-wrap: wrap; justify-content: center; }
+.stat-block { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.stat-block strong { font-size: 18px; font-weight: 700; color: #F5F5F5; }
+.stat-block span { font-size: 12px; font-weight: 500; color: #777777; }
+.stat-divider { width: 1px; height: 40px; background: rgba(84,87,94,0.3); }
+
+/* Sections */
+.section { padding: 80px 20px; max-width: 1120px; margin: 0 auto; text-align: center; }
+.section-border { border-top: 1px solid rgba(84,87,94,0.3); }
+.section .badge { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; padding: 6px 0; margin: 0 auto 20px; border: 0; background: transparent; }
+.section .badge span { color: #AAAAAA; letter-spacing: 2px; text-transform: uppercase; font-size: 13px; line-height: 17px; }
+.section h2 { font-size: clamp(28px, 3.5vw, 48px); font-weight: 500; letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 12px; }
+.section .body { font-size: 16px; line-height: 1.7; color: #AAAAAA; max-width: 600px; margin: 0 auto 40px; }
+
+/* Cards */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.card { padding: 24px 28px; border-radius: 16px; border: 1px solid rgba(84,87,94,0.3); background: rgba(245,245,245,0.015); transition: all 0.3s; text-align: left; }
+.card:hover { transform: translateY(-2px); border-color: rgba(51,106,234,0.2); }
+.card h3 { font-size: 16px; font-weight: 500; margin-bottom: 8px; line-height: 1.4; }
+.card p { font-size: 14px; line-height: 1.65; color: #AAAAAA; }
+
+/* Compare */
+.compare { border-radius: 0; overflow: hidden; max-width: 700px; margin: 0 auto; text-align: left; }
+.compare-row { display: grid; grid-template-columns: 180px 1fr 1fr 1fr; border-bottom: 1px solid rgba(255,255,255,0.04); }
+.compare-row:last-child { border-bottom: none; }
+.compare-cell { padding: 16px; font-size: 13px; font-weight: 500; color: #AAAAAA; }
+.compare-header { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: #777777; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.compare-highlight { font-weight: 500; color: #F5F5F5; text-align: center; background: rgba(51,106,234,0.08); }
+.compare-highlight.header { background: rgba(100,142,239,0.1); color: #648EEF; text-align: center; }
+.compare-dim { color: #777777; text-align: center; }
+
+/* CTA bottom */
+.cta-bottom { padding: 80px 20px; text-align: center; border-top: 1px solid rgba(84,87,94,0.3); }
+.cta-bottom h2 { font-size: clamp(28px, 4vw, 48px); font-weight: 500; letter-spacing: -0.04em; margin-bottom: 12px; }
+.cta-bottom .sub { color: #AAAAAA; margin-bottom: 28px; font-size: 16px; font-weight: 500; }
+.cta-bottom .cta-main { padding: clamp(14px,2vw,20px) clamp(20px,3vw,32px); border-radius: 12px; border: 0; color: #fff; font-family: inherit; font-weight: 600; font-size: clamp(18px,1.8vw,20px); cursor: pointer; display: inline-flex; background: #336AEA; }
+
+/* Footer */
+.footer { padding: 60px 20px 24px; border-top: 1px solid rgba(84,87,94,0.3); }
+.footer-inner { max-width: 1120px; margin: 0 auto; }
+.footer-grid { display: grid; grid-template-columns: 2fr repeat(3, 1fr); gap: 40px; margin-bottom: 40px; }
+.footer-brand { font-size: 14px; line-height: 1.7; color: #777777; max-width: 280px; }
+.footer-col h4 { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: #777777; margin-bottom: 16px; }
+.footer-col a { display: block; font-size: 14px; color: rgba(120,120,120,1); text-decoration: none; margin-bottom: 10px; transition: color 0.15s; }
+.footer-col a:hover { color: #F5F5F5; }
+.footer-bottom { text-align: center; padding-top: 24px; border-top: 1px solid rgba(84,87,94,0.3); font-size: 12px; color: rgba(245,245,245,0.25); }
+
+.logo-style { display: inline-flex; align-items: baseline; line-height: 1; white-space: nowrap; }
+
+@media (max-width: 768px) { .cards { grid-template-columns: 1fr; } .nav .links { display: none; } .footer-grid { grid-template-columns: 1fr 1fr; } .compare-row { grid-template-columns: 100px 1fr 1fr 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="picker">
+  <span class="label">Font:</span>
+  <span id="fontBtns"></span>
+</div>
+
+<div class="nav">
+  <div class="nav-logo" id="navLogo"></div>
+  <div class="links"><span>About</span><span>Our story</span><span>Why Logo.ai</span><span>Leadership</span><span>Press</span></div>
+  <button class="nav-cta">Get my free logo</button>
+</div>
+
+<div class="hero">
+  <div class="badge">
+    <svg viewBox="0 0 16 16" fill="#648EEF" width="16" height="16"><path d="M8 1L9.2 6.2L14 8L9.2 9.8L8 15L6.8 9.8L2 8L6.8 6.2L8 1Z"/><path d="M13 1.5L13.4 3L15 3.5L13.4 4L13 5.5L12.6 4L11 3.5L12.6 3L13 1.5Z" opacity="0.45"/></svg>
+    <span>World's best AI logo generator</span>
+  </div>
+  <h1>Get your free logo in seconds</h1>
+  <p class="sub">Free logo for the first 1,000,000 users. Join now to secure yours at launch.</p>
+  <div class="form-wrap">
+    <input placeholder="Enter your email address">
+    <button class="cta-main">Get my free logo</button>
+  </div>
+  <p class="form-note">No credit card required.</p>
+  <div class="stats-row">
+    <div class="stat-block"><strong>871,000</strong><span>free logos remaining</span></div>
+    <div style="color:#777777;font-weight:700;font-size:14px"> of 1,000,000</div>
+    <div class="stat-divider"></div>
+    <div class="stat-block"><strong>44 days</strong><span>until launch</span></div>
+  </div>
+</div>
+
+<div class="section-border"><div class="section">
+  <div class="badge">
+    <svg viewBox="0 0 16 16" fill="#648EEF" width="16" height="16"><path d="M8 1L9.2 6.2L14 8L9.2 9.8L8 15L6.8 9.8L2 8L6.8 6.2L8 1Z"/></svg>
+    <span>Why choose Logo.ai</span>
+  </div>
+  <h2>Logo.ai replaces manual design with fast, consistent results.</h2>
+  <div class="cards">
+    <div class="card"><h3>Ready in seconds</h3><p>No waiting days or weeks. No revisions. Just a finished logo — ready to use.</p></div>
+    <div class="card"><h3>AI makes the decisions</h3><p>You don't need design skills. The AI handles the design choices for you.</p></div>
+    <div class="card"><h3>Understands your brand</h3><p>Logo.ai adapts to your industry, tone, and style — so your logo fits from the start.</p></div>
+    <div class="card"><h3>Designed from scratch</h3><p>No templates. Real design principles — color, typography, spacing, and hierarchy.</p></div>
+    <div class="card"><h3>Works everywhere</h3><p>Built for web, print, and apps — so your brand stays consistent everywhere.</p></div>
+    <div class="card"><h3>Everything works together</h3><p>Your logo, colors, and assets are designed as one system — not separate pieces.</p></div>
+  </div>
+</div></div>
+
+<div class="section">
+  <div class="badge">
+    <svg viewBox="0 0 256 256" fill="#648EEF" width="16" height="16" stroke="#336AEA" stroke-width="16"><line x1="96" y1="224" x2="160" y2="224"/><line x1="128" y1="184" x2="128" y2="224"/><path d="M64,48H192v88a64,64,0,0,1-64,64h0a64,64,0,0,1-64-64Z" fill="none"/></svg>
+    <span>How Logo.ai compares</span>
+  </div>
+  <h2>See how Logo.ai compares to designers and other AI logo makers.</h2>
+  <div class="compare">
+    <div class="compare-row"><div class="compare-cell compare-header">Feature</div><div class="compare-cell compare-header compare-highlight header">LOGO.AI</div><div class="compare-cell compare-header" style="text-align:center">Designer</div><div class="compare-cell compare-header" style="text-align:center">Other AI</div></div>
+    <div class="compare-row"><div class="compare-cell">Time to logo</div><div class="compare-cell compare-highlight">Seconds</div><div class="compare-cell compare-dim">3–6 weeks</div><div class="compare-cell compare-dim">1–3 hours</div></div>
+    <div class="compare-row"><div class="compare-cell">Cost</div><div class="compare-cell compare-highlight">Free</div><div class="compare-cell compare-dim">$5K–$50K+</div><div class="compare-cell compare-dim">$20–$100/mo</div></div>
+    <div class="compare-row"><div class="compare-cell">Approach</div><div class="compare-cell compare-highlight">AI-driven design</div><div class="compare-cell compare-dim">Human process</div><div class="compare-cell compare-dim">Templates</div></div>
+    <div class="compare-row"><div class="compare-cell">Output quality</div><div class="compare-cell compare-highlight">Professional</div><div class="compare-cell compare-dim">High (depends)</div><div class="compare-cell compare-dim">Generic</div></div>
+    <div class="compare-row"><div class="compare-cell">Revisions needed</div><div class="compare-cell compare-highlight">None</div><div class="compare-cell compare-dim">Multiple rounds</div><div class="compare-cell compare-dim">Trial & error</div></div>
+    <div class="compare-row"><div class="compare-cell">Consistency</div><div class="compare-cell compare-highlight">Built-in</div><div class="compare-cell compare-dim">Depends</div><div class="compare-cell compare-dim">Limited</div></div>
+  </div>
+</div>
+
+<div class="cta-bottom">
+  <h2>Get your free logo in seconds</h2>
+  <p class="sub">Free logo for the first 1,000,000 users. Join now to secure yours at launch.</p>
+  <button class="cta-main">Get my free logo</button>
+</div>
+
+<div class="footer"><div class="footer-inner">
+  <div class="footer-grid">
+    <div><div class="footer-brand" id="footerLogo" style="margin-bottom:16px"></div><p class="footer-brand">Get your free AI-generated logo in seconds. No templates — crafted for your brand. Free for the first 1,000,000 users.</p></div>
+    <div class="footer-col"><h4>Product</h4><a href="#">Why Logo.ai</a><a href="#">How it works</a><a href="#">FAQ</a><a href="#">Blog</a></div>
+    <div class="footer-col"><h4>Company</h4><a href="#">About</a><a href="#">Our story</a><a href="#">Leadership</a><a href="#">Press</a><a href="#">Contact</a></div>
+    <div class="footer-col"><h4>Legal</h4><a href="#">Privacy policy</a><a href="#">Terms of service</a><a href="#">Cookie policy</a></div>
+  </div>
+  <div class="footer-bottom">© 2026 Logo.ai — All rights reserved.</div>
+</div></div>
+
+<script>
+// Varsity logo — finalized
+const varsityLogo = `<span class="logo-style" style="font-family:'Inter',sans-serif;font-weight:900;font-size:23px;color:#F5F5F5;letter-spacing:-1.5px;-webkit-text-stroke:0.6px #F5F5F5;text-shadow:3px 3px 0 #555, 4px 4px 0 #333;">LOGO<span style="letter-spacing:-1px">.</span>AI</span>`;
+document.getElementById('navLogo').innerHTML = varsityLogo;
+document.getElementById('footerLogo').innerHTML = varsityLogo;
+// ─── FONT SWITCHER ───
+const fontOptions = [
+  { name: 'Bricolage (Current)', family: "'Bricolage Grotesque', sans-serif" },
+  { name: 'Inter', family: "'Inter', sans-serif" },
+  { name: 'DM Sans', family: "'DM Sans', sans-serif" },
+  { name: 'Space Grotesk', family: "'Space Grotesk', sans-serif" },
+  { name: 'Sora', family: "'Sora', sans-serif" },
+  { name: 'Plus Jakarta', family: "'Plus Jakarta Sans', sans-serif" },
+  { name: 'Manrope', family: "'Manrope', sans-serif" },
+  { name: 'Outfit', family: "'Outfit', sans-serif" },
+  { name: 'Onest', family: "'Onest', sans-serif" },
+  { name: 'Geist', family: "'Geist', sans-serif" },
+];
+
+function setFont(i) {
+  document.body.style.fontFamily = fontOptions[i].family;
+  document.querySelectorAll('#fontBtns button').forEach((b, j) => b.classList.toggle('active', j === i));
+}
+
+const fontBtns = document.getElementById('fontBtns');
+fontOptions.forEach((opt, i) => {
+  const btn = document.createElement('button');
+  btn.textContent = opt.name;
+  btn.onclick = () => setFont(i);
+  fontBtns.appendChild(btn);
+});
+setFont(0); // Start with Bricolage
+
+</script>
+</body>
+</html>

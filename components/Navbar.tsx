@@ -33,7 +33,7 @@ export default function Navbar({ onCTAClick }: NavbarProps) {
         style={{
           backdropFilter: scrolled ? 'blur(16px)' : 'none',
           backgroundColor:
-            scrolled || mobileOpen ? 'rgba(0,0,0,0.8)' : 'transparent',
+            scrolled || mobileOpen ? 'rgba(13,13,13,0.85)' : 'transparent',
           borderBottom: '1px solid rgba(255,255,255,0.06)',
           padding: 'clamp(14px, 2vw, 18px) clamp(16px, 4vw, 40px)',
           opacity: visible ? 1 : 0,
@@ -100,7 +100,7 @@ export default function Navbar({ onCTAClick }: NavbarProps) {
 
       {/* Mobile drawer */}
       {mobileOpen && (
-        <div className="md:hidden fixed top-[60px] left-0 right-0 z-[999] bg-black/95 backdrop-blur-2xl px-6 py-6 flex flex-col gap-5 border-b border-white/[0.06]">
+        <div className="md:hidden fixed top-[60px] left-0 right-0 z-[999] bg-[#0D0D0D]/95 backdrop-blur-2xl px-6 py-6 flex flex-col gap-5 border-b border-white/[0.06]">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}

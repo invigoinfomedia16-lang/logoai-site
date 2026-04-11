@@ -17,7 +17,7 @@ function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
       className="cursor-pointer transition-colors duration-200"
       style={{
         borderBottom: open
-          ? '1px solid rgba(0,0,255,0.4)'
+          ? '1px solid rgba(51,106,234,0.4)'
           : '1px solid rgba(255,255,255,0.08)',
         backgroundColor: hovered ? 'rgba(255,255,255,0.02)' : 'transparent',
       }}

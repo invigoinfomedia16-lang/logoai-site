@@ -48,7 +48,7 @@ function StatCard({ label, from, to, suffix = '', desc, icon }: StatCardProps) {
           {label}
         </span>
         {icon && (
-          <span style={{ color: 'rgb(0,0,255)', opacity: 0.7 }}>{icon}</span>
+          <span style={{ color: '#336AEA', opacity: 0.7 }}>{icon}</span>
         )}
       </div>
       <div className="flex flex-col gap-3">

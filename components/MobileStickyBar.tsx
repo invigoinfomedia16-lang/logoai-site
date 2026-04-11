@@ -17,7 +17,7 @@ export default function MobileStickyBar({
       style={{
         paddingBottom: 'max(12px, env(safe-area-inset-bottom))',
         paddingTop: 12,
-        background: 'rgba(0,0,0,0.92)',
+        background: 'rgba(13,13,13,0.95)',
         backdropFilter: 'blur(16px)',
         borderTop: '1px solid rgba(255,255,255,0.06)',
         transform: visible ? 'translateY(0)' : 'translateY(100%)',
@@ -30,7 +30,7 @@ export default function MobileStickyBar({
           onCTAClick()
         }}
         className="flex items-center justify-center gap-1.5 w-full no-underline rounded-xl py-4 px-6 font-bricolage font-semibold text-white"
-        style={{ background: 'rgb(0,0,255)', fontSize: 18 }}
+        style={{ background: '#336AEA', fontSize: 18 }}
       >
         Get my free logo
         <ArrowRight />

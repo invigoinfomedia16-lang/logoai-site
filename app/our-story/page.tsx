@@ -76,7 +76,7 @@ export default function OurStoryPage() {
 
       {/* ── Hero ── */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
-        <div className="max-w-[1120px] mx-auto flex flex-col gap-7">
+        <div className="max-w-[1120px] mx-auto flex flex-col gap-7 items-center text-center">
           <h1
             className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[860px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
@@ -159,7 +159,7 @@ export default function OurStoryPage() {
               {/* Resolution */}
               <div
                 className="rounded-2xl p-6 flex flex-col gap-2"
-                style={{ border: '1px solid rgba(0,0,255,0.3)', background: 'rgba(0,0,255,0.06)' }}
+                style={{ border: '1px solid rgba(51,106,234,0.3)', background: 'rgba(51,106,234,0.06)' }}
               >
                 <p className="font-bricolage text-sm text-white/60 m-0">Neither option worked.</p>
                 <p className="font-bricolage text-sm text-white/60 m-0">So we built a third.</p>
@@ -304,7 +304,7 @@ export default function OurStoryPage() {
 
       {/* ── Built on Experience ── */}
       <PageSection>
-          <div className="max-w-[1120px] mx-auto flex flex-col gap-6">
+          <div className="max-w-[1120px] mx-auto flex flex-col gap-6 items-center text-center">
             <Badge icon="shield" text="Built on Experience" />
             <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
               Built on experience
