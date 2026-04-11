@@ -32,7 +32,7 @@ export default function PageSection({
   return (
     <ScrollReveal>
       <section
-        className={`px-5 md:px-8 lg:px-10 py-16 ${compact ? 'md:py-[80px]' : 'md:py-[120px]'}`}
+        className={`px-5 md:px-8 lg:px-10 py-16 ${compact ? 'md:py-[80px]' : 'md:py-[120px]'} section-centered`}
         style={{
           borderTop:  BORDER,
           background: tinted ? CARD_BG : undefined,

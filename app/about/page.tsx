@@ -160,8 +160,8 @@ export default function AboutPage() {
 
       {/* -- Hero -- */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
-        <div className="max-w-[1120px] mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-16">
-          <div className="flex flex-col gap-6 flex-1">
+        <div className="max-w-[1120px] mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-16 text-center md:text-left">
+          <div className="flex flex-col gap-6 flex-1 items-center md:items-start">
             <h1
               className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[860px]"
               style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}

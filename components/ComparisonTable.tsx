@@ -4,7 +4,7 @@ import { useInView } from '@/hooks/useInView'
 import Badge from './ui/Badge'
 import { COMPARISON_ROWS } from '@/data'
 
-const HIGHLIGHT_BG = 'rgba(0, 0, 255, 0.08)'
+const HIGHLIGHT_BG = 'rgba(51, 106, 234, 0.08)'
 
 interface ComparisonTableProps {
   mobile?: boolean
