@@ -41,7 +41,7 @@ export default function Navbar({ onCTAClick }: NavbarProps) {
           transition: 'opacity 0.6s ease, transform 0.6s ease, background-color 0.3s ease, backdrop-filter 0.3s ease',
         }}
       >
-        <div className="flex items-center justify-between w-full max-w-[1120px]">
+        <div className="flex items-center justify-between w-full max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px]">
           {/* Logo */}
           <Link href="/" className="no-underline flex items-center">
             <LogoMark size={20} />

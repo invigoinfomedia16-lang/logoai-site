@@ -32,7 +32,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
 
   return (
     <section className="px-5 md:px-8 lg:px-10 pt-[120px] md:pt-[180px] pb-10 md:pb-[60px]">
-      <div className="max-w-[1120px] mx-auto flex flex-col gap-7 md:gap-10 items-center text-center">
+      <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-7 md:gap-10 items-center text-center">
         {/* Text block */}
         <div className="flex flex-col items-center gap-3.5 md:gap-5">
           <div style={slide(0.3)}>
@@ -40,7 +40,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
           </div>
 
           <h1
-            className="font-bricolage font-medium leading-[1.1em] tracking-[-0.04em] m-0"
+            className="font-bricolage font-bold leading-[1.1em] tracking-[-0.04em] m-0"
             style={{
               ...slide(0.5),
               fontSize: 'clamp(36px, 6vw, 68px)',
@@ -50,7 +50,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
           </h1>
 
           <p
-            className="font-bricolage font-medium leading-7 tracking-[-0.02em] text-white/50 m-0 max-w-[520px]"
+            className="font-bricolage font-semibold leading-7 tracking-[-0.02em] text-white/50 m-0 max-w-[520px]"
             style={{ ...slide(0.7), fontSize: 'clamp(16px, 2vw, 18px)' }}
           >
             Free logo for the first 1,000,000 users. Join now to secure yours

@@ -108,9 +108,9 @@ export default function FAQPage() {
     <PageWrapper>
       {/* ── Hero ── */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
-        <div className="max-w-[1120px] mx-auto flex flex-col gap-6 items-center text-center">
+        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-6 items-center text-center">
           <h1
-            className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[760px]"
+            className="font-bricolage font-bold leading-[1.08em] tracking-[-0.04em] m-0 max-w-[760px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
           >
             FAQ
@@ -135,9 +135,9 @@ export default function FAQPage() {
 
       {/* ── Still have questions ── */}
       <PageSection>
-        <div className="max-w-[1120px] mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div className="flex flex-col gap-2">
-            <h2 className="font-bricolage font-medium text-[24px] md:text-[32px] leading-[1.2em] tracking-[-0.03em] m-0">
+            <h2 className="font-bricolage font-semibold text-[24px] md:text-[32px] leading-[1.2em] tracking-[-0.03em] m-0">
               Still have questions?
             </h2>
             <p className="font-bricolage text-base text-white/55 m-0">

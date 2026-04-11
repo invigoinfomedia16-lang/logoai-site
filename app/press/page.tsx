@@ -81,9 +81,9 @@ export default function PressPage() {
     <PageWrapper>
       {/* ── Hero ── */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
-        <div className="max-w-[1120px] mx-auto flex flex-col gap-6 items-center text-center">
+        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-6 items-center text-center">
           <h1
-            className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[800px]"
+            className="font-bricolage font-bold leading-[1.08em] tracking-[-0.04em] m-0 max-w-[800px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
           >
             Press
@@ -106,7 +106,7 @@ export default function PressPage() {
 
       {/* ── Company Overview ── */}
       <PageSection compact tinted>
-        <div className="max-w-[1120px] mx-auto flex flex-col gap-8">
+        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-8">
             <Badge icon="buildings" text="Company Overview" />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {STATS.map((s) => (
@@ -121,10 +121,10 @@ export default function PressPage() {
 
       {/* ── Press Releases ── */}
       <PageSection>
-        <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-3">
               <Badge icon="newspaper" text="Press Releases" />
-              <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Upcoming announcements
               </h2>
             </div>
@@ -162,10 +162,10 @@ export default function PressPage() {
 
       {/* ── For Journalists ── */}
       <PageSection>
-        <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-3">
               <Badge icon="article" text="For Journalists" />
-              <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Copy-paste descriptions
               </h2>
             </div>
@@ -217,10 +217,10 @@ export default function PressPage() {
 
       {/* ── Usage Guidelines ── */}
       <PageSection>
-        <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-3">
               <Badge icon="shield" text="Usage Guidelines" />
-              <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
                 How to use our brand
               </h2>
             </div>
@@ -288,9 +288,9 @@ export default function PressPage() {
 
       {/* ── Media Contact ── */}
       <PageSection>
-        <div className="max-w-[1120px] mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div className="flex flex-col gap-2">
-              <h2 className="font-bricolage font-medium text-[24px] md:text-[36px] leading-[1.2em] tracking-[-0.03em] m-0">
+              <h2 className="font-bricolage font-semibold text-[24px] md:text-[36px] leading-[1.2em] tracking-[-0.03em] m-0">
                 Let&apos;s talk
               </h2>
               <p className="font-bricolage text-base text-white/50 m-0 max-w-[480px]">

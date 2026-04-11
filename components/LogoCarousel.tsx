@@ -7,7 +7,7 @@ const doubled = [...CAROUSEL_IMAGES, ...CAROUSEL_IMAGES]
 
 export default function LogoCarousel() {
   return (
-    <div className="w-full max-w-[1120px] h-[260px] overflow-hidden relative rounded-[20px]">
+    <div className="w-screen h-[260px] overflow-hidden relative -mx-[50vw] left-[50%] right-[50%]" style={{ marginLeft: 'calc(-50vw + 50%)', width: '100vw' }}>
       {/* fade edges */}
       <div
         className="absolute inset-0 pointer-events-none z-10"

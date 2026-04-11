@@ -13,7 +13,7 @@ import { BORDER, CARD_BG } from '@/lib/ds'
  *
  * Usage:
  *   <PageSection>
- *     <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+ *     <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-10 md:gap-[60px]">
  *       ...
  *     </div>
  *   </PageSection>

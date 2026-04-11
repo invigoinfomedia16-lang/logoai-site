@@ -24,7 +24,7 @@ export default function HowItWorks() {
       className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
       style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
     >
-      <div className="max-w-[1120px] mx-auto flex flex-col gap-8 md:gap-[60px]">
+      <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-8 md:gap-[60px]">
         {/* Heading */}
         <div className="flex flex-col gap-2.5">
           <Badge icon="monitor" text="Simple as 1-2-3" />

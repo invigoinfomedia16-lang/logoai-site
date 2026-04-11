@@ -76,9 +76,9 @@ export default function OurStoryPage() {
 
       {/* ── Hero ── */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
-        <div className="max-w-[1120px] mx-auto flex flex-col gap-7 items-center text-center">
+        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-7 items-center text-center">
           <h1
-            className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[860px]"
+            className="font-bricolage font-bold leading-[1.08em] tracking-[-0.04em] m-0 max-w-[860px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
           >
             Our Story
@@ -96,11 +96,11 @@ export default function OurStoryPage() {
 
       {/* ── The Problem ── */}
       <PageSection>
-          <div className="max-w-[1120px] mx-auto flex flex-col gap-10">
+          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-10">
             <div className="flex flex-col md:flex-row items-center gap-10 lg:gap-14">
               <div className="flex-1 flex flex-col gap-5">
                 <Badge icon="shield" text="The Problem" />
-                <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+                <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                   The wall every founder hits
                 </h2>
                 <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
@@ -173,10 +173,10 @@ export default function OurStoryPage() {
 
       {/* ── The Turning Point ── */}
       <PageSection>
-          <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-10 lg:gap-14 items-center">
+          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-10 lg:gap-14 items-center">
             <div className="flex-1 flex flex-col gap-6">
               <Badge icon="clock" text="The Turning Point" />
-              <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Late 2023.
               </h2>
               <div className="flex flex-col gap-3">
@@ -233,10 +233,10 @@ export default function OurStoryPage() {
 
       {/* ── How We Built It ── */}
       <PageSection>
-          <div className="max-w-[1120px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-4 max-w-[680px]">
               <Badge icon="cpu" text="How We Built It" />
-              <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Teaching AI to design
               </h2>
               <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
@@ -278,10 +278,10 @@ export default function OurStoryPage() {
 
       {/* ── The Team ── */}
       <PageSection>
-          <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
+          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
             <div className="flex-1 flex flex-col gap-5">
               <Badge icon="users" text="The Team" />
-              <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Small team. High standards.
               </h2>
               <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">
@@ -304,9 +304,9 @@ export default function OurStoryPage() {
 
       {/* ── Built on Experience ── */}
       <PageSection>
-          <div className="max-w-[1120px] mx-auto flex flex-col gap-6 items-center text-center">
+          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-6 items-center text-center">
             <Badge icon="shield" text="Built on Experience" />
-            <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+            <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
               Built on experience
             </h2>
             <div className="flex flex-col gap-2">
@@ -331,7 +331,7 @@ export default function OurStoryPage() {
 
       {/* ── Leadership ── */}
       <PageSection>
-          <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
+          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
             <img
               src="/images/illustrations/final-story-leadership.png"
               alt="Brothers and co-founders"
@@ -339,7 +339,7 @@ export default function OurStoryPage() {
             />
             <div className="flex-1 flex flex-col gap-6">
               <Badge icon="users" text="Leadership" />
-              <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Brothers. Serial founders. Repeat builders.
               </h2>
               <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
@@ -358,10 +358,10 @@ export default function OurStoryPage() {
 
       {/* ── The Name ── */}
       <PageSection>
-          <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24 items-center">
+          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24 items-center">
             <div className="flex-1 flex flex-col gap-5">
               <Badge icon="trophy" text="The Name" />
-              <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Earned, not bought
               </h2>
               <div className="flex flex-col gap-3">
@@ -392,7 +392,7 @@ export default function OurStoryPage() {
 
       {/* ── Why Now ── */}
       <PageSection>
-          <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
+          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
               <Badge icon="lightning" text="Why Now" />
               <div className="flex flex-col gap-3">
@@ -425,7 +425,7 @@ export default function OurStoryPage() {
 
       {/* ── What This Unlocks ── */}
       <PageSection>
-          <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
+          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[320px] flex-shrink-0">
               <Badge icon="rocket" text="What This Unlocks" />
             </div>
@@ -445,7 +445,7 @@ export default function OurStoryPage() {
 
       {/* ── What Comes Next ── */}
       <PageSection>
-          <div className="max-w-[1120px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
+          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
               <Badge icon="rocket" text="What Comes Next" />
               <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
