@@ -232,10 +232,10 @@ export const BLOG_POSTS = [
 
 // ─── Nav links ────────────────────────────────────────────────────────────────
 export const NAV_LINKS = [
+  { text: 'Why Logo.ai', href: '/why-logo-ai' },
   { text: 'About', href: '/about' },
   { text: 'Our story', href: '/our-story' },
   { text: 'Leadership', href: '/leadership' },
-  { text: 'Why Logo.ai', href: '/why-logo-ai' },
   { text: 'Press', href: '/press' },
 ]
 

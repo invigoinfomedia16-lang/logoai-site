@@ -45,9 +45,10 @@ input::placeholder {
 .section-centered {
   text-align: center;
 }
-.section-centered .badge-wrap {
+.section-centered > div {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 .section-centered h2,
 .section-centered h1 {
@@ -56,6 +57,14 @@ input::placeholder {
 .section-centered p {
   margin-left: auto;
   margin-right: auto;
+}
+/* Keep card grids and comparison tables left-aligned */
+.section-centered .grid {
+  text-align: left;
+  width: 100%;
+}
+.section-centered .compare-row {
+  text-align: left;
 }
 
 /* Seamless illustrations — black bg becomes transparent */

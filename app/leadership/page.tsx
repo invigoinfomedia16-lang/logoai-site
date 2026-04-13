@@ -169,7 +169,7 @@ export default function LeadershipPage() {
 
       {/* ── Hero ── */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
-        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-6 items-center text-center">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-6 items-center text-center">
           <h1
             className="font-bricolage font-bold leading-[1.08em] tracking-[-0.04em] m-0 max-w-[800px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
@@ -184,7 +184,7 @@ export default function LeadershipPage() {
 
       {/* ── Founders ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <Badge icon="users" text="Founders" />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {FOUNDERS.map((f) => (
@@ -228,7 +228,7 @@ export default function LeadershipPage() {
 
       {/* ── Early AI Experiments ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[360px] flex-shrink-0 flex flex-col gap-5">
               <Badge icon="cpu" text="Early AI Experiments" />
               <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
@@ -266,7 +266,7 @@ export default function LeadershipPage() {
 
       {/* ── Building Across Industries ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-5 max-w-[680px]">
               <Badge icon="buildings" text="Building Across Industries" />
               <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
@@ -305,7 +305,7 @@ export default function LeadershipPage() {
 
       {/* ── Experience that adds up ── */}
       <PageSection compact tinted>
-          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-10 md:gap-14">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-14">
             <Badge icon="trendup" text="Experience that adds up" />
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
               {STATS.map((s) => (
@@ -330,7 +330,7 @@ export default function LeadershipPage() {
 
       {/* ── The Pattern We Couldn't Ignore ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
             <div className="lg:w-[280px] flex-shrink-0 flex flex-col gap-4">
               <Badge icon="shield" text="The Pattern We Couldn't Ignore" />
             </div>
@@ -358,7 +358,7 @@ export default function LeadershipPage() {
 
       {/* ── Why Logo.ai ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-8 max-w-[760px]">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-8 max-w-[760px]">
             <div className="flex flex-col gap-4">
               <Badge icon="lightning" text="Why Logo.ai" />
             </div>
@@ -380,7 +380,7 @@ export default function LeadershipPage() {
 
       {/* ── How We Think ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-4 max-w-[580px]">
               <Badge icon="sparkle" text="How We Think" />
               <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
@@ -406,7 +406,7 @@ export default function LeadershipPage() {
 
       {/* ── What We're Building ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-4 max-w-[580px]">
               <Badge icon="rocket" text="What We're Building" />
               <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
@@ -442,7 +442,7 @@ export default function LeadershipPage() {
 
       {/* ── Looking Ahead ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
             <div className="flex flex-col gap-4 max-w-[580px]">
               <Badge icon="rocket" text="Looking Ahead" />
               <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">

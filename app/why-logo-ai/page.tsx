@@ -91,7 +91,7 @@ export default function WhyLogoAiPage() {
 
       {/* -- Hero -- */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
-        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-6 items-center text-center">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-6 items-center text-center">
           <h1
             className="font-bricolage font-bold leading-[1.08em] tracking-[-0.04em] m-0 max-w-[860px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
@@ -111,7 +111,7 @@ export default function WhyLogoAiPage() {
 
       {/* -- Why choose Logo.ai -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
           <div className="flex flex-col gap-4 max-w-[640px]">
             <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
               Why choose Logo.ai
@@ -139,7 +139,7 @@ export default function WhyLogoAiPage() {
 
       {/* -- How Logo.ai compares -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
           <div className="flex flex-col gap-4 max-w-[640px]">
             <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
               How Logo.ai compares
@@ -197,7 +197,7 @@ export default function WhyLogoAiPage() {
 
       {/* -- See it in action -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
           <div className="flex flex-col gap-4 max-w-[580px]">
             <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
               See it in action
@@ -253,7 +253,7 @@ export default function WhyLogoAiPage() {
 
       {/* -- Built for real use -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-8 max-w-[760px]">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-8 max-w-[760px]">
           <div className="flex flex-col gap-4">
             <h2 className="font-bricolage font-semibold text-[28px] md:text-[44px] leading-[1.1em] tracking-[-0.04em] m-0">
               Built for real use

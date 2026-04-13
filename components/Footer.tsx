@@ -8,7 +8,7 @@ export default function Footer() {
       className="w-full px-5 md:px-8 lg:px-10 flex justify-center"
       style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
     >
-      <div className="w-full max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] py-10 md:py-20 flex flex-col gap-10 md:gap-[60px]">
+      <div className="w-full max-w-[95%] sm:max-w-[90%] py-10 md:py-20 flex flex-col gap-10 md:gap-[60px]">
         {/* Top row */}
         <div className="flex flex-col lg:flex-row justify-between items-start gap-10 lg:gap-[120px]">
           {/* Brand blurb */}

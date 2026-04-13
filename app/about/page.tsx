@@ -160,7 +160,7 @@ export default function AboutPage() {
 
       {/* -- Hero -- */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
-        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-16 text-center md:text-left">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-16 text-center md:text-left">
           <div className="flex flex-col gap-6 flex-1 items-center md:items-start">
             <h1
               className="font-bricolage font-bold leading-[1.08em] tracking-[-0.04em] m-0 max-w-[860px]"
@@ -186,7 +186,7 @@ export default function AboutPage() {
 
       {/* -- Highlights strip -- */}
       <PageSection compact tinted>
-        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto">
           <div className="flex flex-wrap gap-3">
             {HIGHLIGHTS.map((h) => (
               <span
@@ -203,7 +203,7 @@ export default function AboutPage() {
 
       {/* -- What We Built -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
           <div className="flex-1 flex flex-col gap-5">
             <Badge icon="sparkle" text="What We Built" />
             <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
@@ -246,7 +246,7 @@ export default function AboutPage() {
 
       {/* -- What You Get -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
           <div className="flex flex-col gap-4 max-w-[640px]">
             <Badge icon="lightning" text="What You Get" />
             <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
@@ -277,7 +277,7 @@ export default function AboutPage() {
 
       {/* -- How We're Different -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
           <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
             <Badge icon="trophy" text="How We're Different" />
             <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
@@ -302,7 +302,7 @@ export default function AboutPage() {
 
       {/* -- Why Now -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
           <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
             <Badge icon="lightning" text="Why Now" />
             <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
@@ -330,7 +330,7 @@ export default function AboutPage() {
 
       {/* -- Who We Are -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
           <div className="flex-1 flex flex-col gap-5">
             <Badge icon="users" text="Who We Are" />
             <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
@@ -362,7 +362,7 @@ export default function AboutPage() {
 
       {/* -- Our Mission -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
           <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
             <Badge icon="shield" text="Our Mission" />
             <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
@@ -388,7 +388,7 @@ export default function AboutPage() {
 
       {/* -- Our Vision -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-10 md:gap-[60px]">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
           <div className="flex flex-col gap-5 max-w-[640px]">
             <Badge icon="rocket" text="Our Vision" />
             <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">

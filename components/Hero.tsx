@@ -32,7 +32,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
 
   return (
     <section className="px-5 md:px-8 lg:px-10 pt-[120px] md:pt-[180px] pb-10 md:pb-[60px]">
-      <div className="max-w-[95%] sm:max-w-[90%] xl:max-w-[1400px] mx-auto flex flex-col gap-7 md:gap-10 items-center text-center">
+      <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-7 md:gap-10 items-center text-center">
         {/* Text block */}
         <div className="flex flex-col items-center gap-3.5 md:gap-5">
           <div style={slide(0.3)}>
