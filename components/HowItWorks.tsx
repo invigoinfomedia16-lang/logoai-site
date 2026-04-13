@@ -24,9 +24,9 @@ export default function HowItWorks() {
       className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
       style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
     >
-      <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-8 md:gap-[60px]">
+      <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-8 md:gap-[60px]">
         {/* Heading */}
-        <div className="flex flex-col gap-2.5">
+        <div className="flex flex-col items-center gap-2.5 max-w-[700px]">
           <Badge icon="monitor" text="Simple as 1-2-3" />
           <h2 className="font-bricolage font-medium leading-[1.1em] tracking-[-0.04em] m-0" style={{ fontSize: 'clamp(28px, 5vw, 56px)' }}>
             From idea to logo in seconds
@@ -38,7 +38,7 @@ export default function HowItWorks() {
         </div>
 
         {/* Steps grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {STEPS.map((step) => (
             <div
               key={step.n}

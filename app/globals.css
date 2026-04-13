@@ -115,7 +115,10 @@ input::placeholder {
 }
 
 .animate-marquee {
-  animation: marqueeScroll 40s linear infinite;
+  animation: marqueeScroll 60s linear infinite;
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* Accordion transition */

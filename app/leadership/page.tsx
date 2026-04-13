@@ -171,7 +171,7 @@ export default function LeadershipPage() {
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
         <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-6 items-center text-center">
           <h1
-            className="font-bricolage font-bold leading-[1.08em] tracking-[-0.04em] m-0 max-w-[800px]"
+            className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[800px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
           >
             Leadership & Journey
@@ -184,9 +184,9 @@ export default function LeadershipPage() {
 
       {/* ── Founders ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10 md:gap-[60px]">
             <Badge icon="users" text="Founders" />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5 text-left">
               {FOUNDERS.map((f) => (
                 <div
                   key={f.name}
@@ -207,7 +207,7 @@ export default function LeadershipPage() {
 
             {/* Joint statement */}
             <div
-              className="rounded-2xl p-8 md:p-10 flex flex-col gap-4"
+              className="w-full rounded-2xl p-8 md:p-10 flex flex-col gap-4 text-left"
               style={{ border: '1px solid rgba(84,87,94,0.3)' }}
             >
               <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
@@ -228,17 +228,17 @@ export default function LeadershipPage() {
 
       {/* ── Early AI Experiments ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
-            <div className="lg:w-[360px] flex-shrink-0 flex flex-col gap-5">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10">
+            <div className="flex flex-col items-center gap-5 max-w-[700px]">
               <Badge icon="cpu" text="Early AI Experiments" />
-              <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Long before AI became mainstream
               </h2>
               <p className="font-bricolage text-base leading-[1.7em] text-white/50 m-0">
                 We were already building systems that could respond and improve.
               </p>
             </div>
-            <div className="flex-1 flex flex-col gap-3">
+            <div className="w-full flex flex-col gap-3 text-left">
               {EARLY_AI.map((item, i) => (
                 <div
                   key={i}
@@ -266,17 +266,17 @@ export default function LeadershipPage() {
 
       {/* ── Building Across Industries ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
-            <div className="flex flex-col gap-5 max-w-[680px]">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10 md:gap-[60px]">
+            <div className="flex flex-col items-center gap-5 max-w-[680px]">
               <Badge icon="buildings" text="Building Across Industries" />
-              <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Products built and scaled at real scale
               </h2>
               <p className="font-bricolage text-base leading-[1.7em] text-white/50 m-0">
                 Alongside those experiments, we built and scaled products across multiple industries:
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-left">
               {INDUSTRIES.map((ind) => (
                 <div
                   key={ind.label}
@@ -290,7 +290,7 @@ export default function LeadershipPage() {
               ))}
             </div>
             <div
-              className="rounded-2xl p-7 flex flex-col gap-3"
+              className="w-full rounded-2xl p-7 flex flex-col gap-3 text-left"
               style={{ background: 'rgba(255,255,255,0.015)', border: '1px solid rgba(84,87,94,0.3)' }}
             >
               <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">
@@ -305,9 +305,9 @@ export default function LeadershipPage() {
 
       {/* ── Experience that adds up ── */}
       <PageSection compact tinted>
-          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-14">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10 md:gap-14">
             <Badge icon="trendup" text="Experience that adds up" />
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-6">
               {STATS.map((s) => (
                 <div key={s.label} className="flex flex-col gap-3">
                   {s.icon}
@@ -317,7 +317,7 @@ export default function LeadershipPage() {
               ))}
             </div>
             <div
-              className="rounded-2xl p-7 md:p-8 flex flex-col gap-2"
+              className="w-full rounded-2xl p-7 md:p-8 flex flex-col gap-2"
               style={{ border: '1px solid rgba(51,106,234,0.2)', background: 'rgba(51,106,234,0.05)' }}
             >
               <p className="font-bricolage text-sm font-medium text-white/40 uppercase tracking-[2px] m-0">One belief never changed</p>
@@ -330,39 +330,37 @@ export default function LeadershipPage() {
 
       {/* ── The Pattern We Couldn't Ignore ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
-            <div className="lg:w-[280px] flex-shrink-0 flex flex-col gap-4">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10">
+            <div className="flex flex-col items-center gap-5 max-w-[700px]">
               <Badge icon="shield" text="The Pattern We Couldn't Ignore" />
-            </div>
-            <div className="flex-1 flex flex-col gap-5">
               <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
                 Across everything we built, one problem kept repeating:
               </p>
               <p className="font-bricolage font-medium text-xl md:text-2xl leading-[1.4em] tracking-[-0.03em] text-white m-0">
                 Creating a logo was always harder than it should be.
               </p>
-              <div className="grid grid-cols-3 gap-3">
-                {['Too slow.', 'Too expensive.', 'Too uncertain.'].map((label) => (
-                  <div
-                    key={label}
-                    className="rounded-xl px-4 py-3 text-center"
-                    style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.02)' }}
-                  >
-                    <span className="font-bricolage font-medium text-sm text-white/55">{label}</span>
-                  </div>
-                ))}
-              </div>
+            </div>
+            <div className="w-full grid grid-cols-3 gap-3">
+              {['Too slow.', 'Too expensive.', 'Too uncertain.'].map((label) => (
+                <div
+                  key={label}
+                  className="rounded-xl px-4 py-3 text-center"
+                  style={{ border: '1px solid rgba(84,87,94,0.3)', background: 'rgba(255,255,255,0.02)' }}
+                >
+                  <span className="font-bricolage font-medium text-sm text-white/55">{label}</span>
+                </div>
+              ))}
             </div>
           </div>
       </PageSection>
 
       {/* ── Why Logo.ai ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-8 max-w-[760px]">
-            <div className="flex flex-col gap-4">
+          <div className="max-w-[760px] mx-auto flex flex-col items-center text-center gap-8">
+            <div className="flex flex-col items-center gap-4">
               <Badge icon="lightning" text="Why Logo.ai" />
             </div>
-            <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
+            <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
               When AI reached the point where it could understand design — not just generate outputs —
             </h2>
             <p className="font-bricolage font-medium text-xl md:text-2xl leading-[1.4em] tracking-[-0.03em] text-white m-0">
@@ -380,15 +378,15 @@ export default function LeadershipPage() {
 
       {/* ── How We Think ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
-            <div className="flex flex-col gap-4 max-w-[580px]">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10 md:gap-[60px]">
+            <div className="flex flex-col items-center gap-4 max-w-[580px]">
               <Badge icon="sparkle" text="How We Think" />
-              <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 We don&apos;t believe in adding features for the sake of it.
               </h2>
               <p className="font-bricolage text-base leading-[1.7em] text-white/50 m-0">We believe in:</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
               {BELIEFS.map((b) => (
                 <div
                   key={b.title}
@@ -406,17 +404,17 @@ export default function LeadershipPage() {
 
       {/* ── What We're Building ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
-            <div className="flex flex-col gap-4 max-w-[580px]">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10 md:gap-[60px]">
+            <div className="flex flex-col items-center gap-4 max-w-[580px]">
               <Badge icon="rocket" text="What We're Building" />
-              <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Logo.ai is just the start.
               </h2>
               <p className="font-bricolage text-base leading-[1.7em] text-white/50 m-0">
                 We&apos;re building systems that:
               </p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
               {BUILDING.map((b) => (
                 <div
                   key={b.title}
@@ -430,7 +428,7 @@ export default function LeadershipPage() {
               ))}
             </div>
             <div
-              className="rounded-2xl p-7 text-center"
+              className="w-full rounded-2xl p-7 text-center"
               style={{ border: '1px solid rgba(51,106,234,0.2)', background: 'rgba(51,106,234,0.05)' }}
             >
               <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.5em] text-white m-0">
@@ -442,14 +440,14 @@ export default function LeadershipPage() {
 
       {/* ── Looking Ahead ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
-            <div className="flex flex-col gap-4 max-w-[580px]">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10 md:gap-[60px]">
+            <div className="flex flex-col items-center gap-4 max-w-[580px]">
               <Badge icon="rocket" text="Looking Ahead" />
-              <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 We&apos;re building toward a world where:
               </h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
               {AHEAD.map((a) => (
                 <div
                   key={a.title}
@@ -463,7 +461,7 @@ export default function LeadershipPage() {
               ))}
             </div>
             <div
-              className="rounded-2xl p-8 md:p-10 flex flex-col gap-4"
+              className="w-full rounded-2xl p-8 md:p-10 flex flex-col gap-4"
               style={{ border: '1px solid rgba(84,87,94,0.3)' }}
             >
               <p className="font-bricolage font-medium text-xl md:text-2xl leading-[1.4em] tracking-[-0.03em] text-white m-0">

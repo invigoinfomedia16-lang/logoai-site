@@ -8,15 +8,15 @@ export default function BlogSection() {
       className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
       style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
     >
-      <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-8 md:gap-[60px]">
-        <div className="flex flex-col gap-2.5">
+      <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-8 md:gap-[60px]">
+        <div className="flex flex-col items-center gap-2.5 max-w-[700px]">
           <Badge icon="article" text="Insights" />
           <h2 className="font-bricolage font-medium text-[36px] sm:text-[48px] lg:text-[56px] leading-[1.1em] tracking-[-0.04em] m-0">
             Tips, trends, and inspiration
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-5">
           {BLOG_POSTS.map((post, i) => (
             <div
               key={i}

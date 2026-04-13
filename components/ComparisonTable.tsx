@@ -12,14 +12,14 @@ interface ComparisonTableProps {
 
 function Table({ mobile = false }: ComparisonTableProps) {
   const { ref, inView } = useInView(0.08)
-  const cols = mobile ? '120px 1fr 1fr 1fr' : '200px 1fr 1fr 1fr'
-  const labelSize = mobile ? 11 : 14
-  const headerSize = mobile ? 10 : 12
+  const cols = mobile ? '100px 1fr 1fr 1fr' : '180px 1fr 1fr 1fr'
+  const labelSize = mobile ? 12 : 16
+  const headerSize = mobile ? 10 : 13
 
   return (
     <div
       ref={ref}
-      className="w-full max-w-[1000px] mx-auto font-bricolage overflow-x-auto transition-all duration-700 ease-smooth"
+      className="w-full max-w-[900px] mx-auto font-bricolage transition-all duration-700 ease-smooth"
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? 'translateY(0)' : 'translateY(20px)',
@@ -28,7 +28,7 @@ function Table({ mobile = false }: ComparisonTableProps) {
       {/* Header row */}
       <div
         className="grid pb-5 border-b border-white/[0.1] mb-1"
-        style={{ gridTemplateColumns: cols, minWidth: mobile ? 400 : undefined }}
+        style={{ gridTemplateColumns: cols, minWidth: undefined }}
       >
         <span style={{ fontSize: headerSize }} className="font-medium text-[#555] uppercase tracking-[0.08em]">
           Feature
@@ -43,7 +43,7 @@ function Table({ mobile = false }: ComparisonTableProps) {
           Designer
         </span>
         <span style={{ fontSize: headerSize }} className="font-medium text-[#555] tracking-[0.08em] text-center">
-          Other AI logo makers
+          {mobile ? 'Other AI' : 'Other AI logo makers'}
         </span>
       </div>
 
@@ -57,12 +57,12 @@ function Table({ mobile = false }: ComparisonTableProps) {
             style={{
               gridTemplateColumns: cols,
               borderBottom: isLast ? 'none' : '1px solid rgba(255,255,255,0.04)',
-              minWidth: mobile ? 400 : undefined,
+              minWidth: undefined,
             }}
           >
             <div
               style={{ fontSize: labelSize }}
-              className="font-medium text-[#aaa] flex items-center py-4"
+              className="font-medium text-[#aaa] flex items-center py-5"
             >
               {row.label}
             </div>
@@ -91,8 +91,8 @@ export default function ComparisonTable() {
       className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
       style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
     >
-      <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-8 md:gap-[60px]">
-        <div className="flex flex-col gap-2.5">
+      <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-8 md:gap-[60px]">
+        <div className="flex flex-col items-center gap-2.5 max-w-[700px]">
           <Badge icon="trophy" text="The smart choice" />
           <h2 className="font-bricolage font-medium text-[36px] sm:text-[48px] lg:text-[56px] leading-[1.1em] tracking-[-0.04em] m-0">
             Skip the designer, outperform the templates

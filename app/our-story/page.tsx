@@ -78,7 +78,7 @@ export default function OurStoryPage() {
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
         <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-7 items-center text-center">
           <h1
-            className="font-bricolage font-bold leading-[1.08em] tracking-[-0.04em] m-0 max-w-[860px]"
+            className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[860px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
           >
             Our Story
@@ -96,28 +96,26 @@ export default function OurStoryPage() {
 
       {/* ── The Problem ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10">
-            <div className="flex flex-col md:flex-row items-center gap-10 lg:gap-14">
-              <div className="flex-1 flex flex-col gap-5">
-                <Badge icon="shield" text="The Problem" />
-                <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
-                  The wall every founder hits
-                </h2>
-                <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
-                  Across companies we built and worked with,
-                  the same pattern kept repeating.
-                  Brilliant founders —
-                  stuck for weeks on something that should take minutes.
-                </p>
-              </div>
-              <img
-                src="/images/illustrations/final-story-problem.png"
-                alt="Founder stuck in logo design chaos"
-                className="w-[300px] md:w-[420px] flex-shrink-0 h-auto opacity-90"
-              />
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10">
+            <div className="flex flex-col items-center gap-5 max-w-[700px]">
+              <Badge icon="shield" text="The Problem" />
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+                The wall every founder hits
+              </h2>
+              <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
+                Across companies we built and worked with,
+                the same pattern kept repeating.
+                Brilliant founders —
+                stuck for weeks on something that should take minutes.
+              </p>
             </div>
+            <img
+              src="/images/illustrations/final-story-problem.png"
+              alt="Founder stuck in logo design chaos"
+              className="w-[300px] md:w-[420px] h-auto opacity-90"
+            />
 
-              <div className="flex flex-col gap-4">
+            <div className="w-full flex flex-col gap-4 text-left">
               {/* Option 1 */}
               <div
                 className="rounded-2xl p-6 flex flex-col gap-3"
@@ -173,18 +171,18 @@ export default function OurStoryPage() {
 
       {/* ── The Turning Point ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row gap-10 lg:gap-14 items-center">
-            <div className="flex-1 flex flex-col gap-6">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10">
+            <div className="flex flex-col items-center gap-6 max-w-[700px]">
               <Badge icon="clock" text="The Turning Point" />
-              <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Late 2023.
               </h2>
               <div className="flex flex-col gap-3">
                 <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">AI could already:</p>
                 <ul className="flex flex-col gap-1.5 m-0 pl-0 list-none">
                   {['Generate images', 'Write code', 'Compose music'].map((p) => (
-                    <li key={p} className="flex items-start gap-2.5 font-bricolage text-base text-white/55">
-                      <span className="mt-[9px] w-1 h-1 rounded-full bg-white/25 flex-shrink-0" />
+                    <li key={p} className="flex items-center justify-center gap-2.5 font-bricolage text-base text-white/55">
+                      <span className="w-1 h-1 rounded-full bg-white/25 flex-shrink-0" />
                       {p}
                     </li>
                   ))}
@@ -198,45 +196,45 @@ export default function OurStoryPage() {
               <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
                 Everything we tried looked wrong:
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {['Warped text', 'Random symbols', 'No sense of brand'].map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-xl p-4 flex items-center gap-3"
-                    style={{ border: '1px solid rgba(84,87,94,0.3)' }}
-                  >
-                    <span className="text-white/25 flex-shrink-0">
-                      <svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="currentColor" strokeWidth="20" strokeLinecap="round">
-                        <line x1="200" y1="56" x2="56" y2="200" /><line x1="56" y1="56" x2="200" y2="200" />
-                      </svg>
-                    </span>
-                    <span className="font-bricolage text-sm font-medium text-white/50">{item}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="flex flex-col gap-2 pt-2">
-                <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
-                  The problem wasn&apos;t capability.
-                </p>
-                <p className="font-bricolage font-medium text-lg md:text-xl text-white m-0">
-                  It was approach.
-                </p>
-              </div>
+            </div>
+            <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-3 text-left">
+              {['Warped text', 'Random symbols', 'No sense of brand'].map((item) => (
+                <div
+                  key={item}
+                  className="rounded-xl p-4 flex items-center gap-3"
+                  style={{ border: '1px solid rgba(84,87,94,0.3)' }}
+                >
+                  <span className="text-white/25 flex-shrink-0">
+                    <svg width="16" height="16" viewBox="0 0 256 256" fill="none" stroke="currentColor" strokeWidth="20" strokeLinecap="round">
+                      <line x1="200" y1="56" x2="56" y2="200" /><line x1="56" y1="56" x2="200" y2="200" />
+                    </svg>
+                  </span>
+                  <span className="font-bricolage text-sm font-medium text-white/50">{item}</span>
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-col items-center gap-2 pt-2">
+              <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
+                The problem wasn&apos;t capability.
+              </p>
+              <p className="font-bricolage font-medium text-lg md:text-xl text-white m-0">
+                It was approach.
+              </p>
             </div>
             <img
               src="/images/illustrations/final-story-turningpoint.png"
               alt="The eureka moment — a new approach"
-              className="w-[200px] lg:w-[400px] flex-shrink-0 h-auto opacity-90"
+              className="w-[200px] lg:w-[400px] h-auto opacity-90"
             />
           </div>
       </PageSection>
 
       {/* ── How We Built It ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
-            <div className="flex flex-col gap-4 max-w-[680px]">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10 md:gap-[60px]">
+            <div className="flex flex-col items-center gap-4 max-w-[680px]">
               <Badge icon="cpu" text="How We Built It" />
-              <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Teaching AI to design
               </h2>
               <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
@@ -244,7 +242,7 @@ export default function OurStoryPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-5 text-left">
               {BUILD_STEPS.map((step, i) => (
                 <div
                   key={step.title}
@@ -278,10 +276,10 @@ export default function OurStoryPage() {
 
       {/* ── The Team ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
-            <div className="flex-1 flex flex-col gap-5">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10">
+            <div className="flex flex-col items-center gap-5 max-w-[700px]">
               <Badge icon="users" text="The Team" />
-              <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Small team. High standards.
               </h2>
               <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">
@@ -297,7 +295,7 @@ export default function OurStoryPage() {
             <img
               src="/images/illustrations/final-story-team.png"
               alt="Global team across four countries"
-              className="w-[200px] lg:w-[480px] flex-shrink-0 h-auto opacity-90"
+              className="w-[200px] lg:w-[480px] h-auto opacity-90"
             />
           </div>
       </PageSection>
@@ -306,7 +304,7 @@ export default function OurStoryPage() {
       <PageSection>
           <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-6 items-center text-center">
             <Badge icon="shield" text="Built on Experience" />
-            <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+            <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
               Built on experience
             </h2>
             <div className="flex flex-col gap-2">
@@ -331,15 +329,10 @@ export default function OurStoryPage() {
 
       {/* ── Leadership ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
-            <img
-              src="/images/illustrations/final-story-leadership.png"
-              alt="Brothers and co-founders"
-              className="w-[200px] lg:w-[380px] flex-shrink-0 h-auto opacity-90"
-            />
-            <div className="flex-1 flex flex-col gap-6">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10">
+            <div className="flex flex-col items-center gap-6 max-w-[700px]">
               <Badge icon="users" text="Leadership" />
-              <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Brothers. Serial founders. Repeat builders.
               </h2>
               <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
@@ -353,15 +346,20 @@ export default function OurStoryPage() {
                 So we built something better.
               </p>
             </div>
+            <img
+              src="/images/illustrations/final-story-leadership.png"
+              alt="Brothers and co-founders"
+              className="w-[200px] lg:w-[380px] h-auto opacity-90"
+            />
           </div>
       </PageSection>
 
       {/* ── The Name ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24 items-center">
-            <div className="flex-1 flex flex-col gap-5">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10">
+            <div className="flex flex-col items-center gap-5 max-w-[700px]">
               <Badge icon="trophy" text="The Name" />
-              <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Earned, not bought
               </h2>
               <div className="flex flex-col gap-3">
@@ -379,7 +377,7 @@ export default function OurStoryPage() {
                 </p>
               </div>
             </div>
-            <div className="flex-1 flex items-center justify-center">
+            <div className="flex items-center justify-center">
               <span
                 className="font-bricolage font-medium select-none text-white"
                 style={{ fontSize: 'clamp(56px, 8vw, 100px)', letterSpacing: '-0.04em', lineHeight: 1 }}
@@ -392,8 +390,8 @@ export default function OurStoryPage() {
 
       {/* ── Why Now ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
-            <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10">
+            <div className="flex flex-col items-center gap-5 max-w-[700px]">
               <Badge icon="lightning" text="Why Now" />
               <div className="flex flex-col gap-3">
                 <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
@@ -403,15 +401,13 @@ export default function OurStoryPage() {
                   Now it is.
                 </p>
               </div>
-            </div>
-            <div className="flex-1 flex flex-col gap-5">
               <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
                 AI can finally:
               </p>
               <ul className="flex flex-col gap-2 m-0 pl-0 list-none">
                 {WHY_NOW_POINTS.map((p) => (
-                  <li key={p} className="flex items-start gap-2.5">
-                    <span className="mt-[9px] w-1 h-1 rounded-full bg-white/25 flex-shrink-0" />
+                  <li key={p} className="flex items-center justify-center gap-2.5">
+                    <span className="w-1 h-1 rounded-full bg-white/25 flex-shrink-0" />
                     <span className="font-bricolage text-base md:text-lg text-white/55">{p}</span>
                   </li>
                 ))}
@@ -425,11 +421,9 @@ export default function OurStoryPage() {
 
       {/* ── What This Unlocks ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
-            <div className="lg:w-[320px] flex-shrink-0">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10">
+            <div className="flex flex-col items-center gap-5 max-w-[700px]">
               <Badge icon="rocket" text="What This Unlocks" />
-            </div>
-            <div className="flex-1 flex flex-col gap-3">
               <p className="font-bricolage font-medium text-lg md:text-2xl leading-[1.5em] tracking-[-0.02em] text-white m-0">
                 An original, professional logo —
                 designed by AI in seconds.
@@ -445,8 +439,8 @@ export default function OurStoryPage() {
 
       {/* ── What Comes Next ── */}
       <PageSection>
-          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
-            <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
+          <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10">
+            <div className="flex flex-col items-center gap-5 max-w-[700px]">
               <Badge icon="rocket" text="What Comes Next" />
               <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
                 We&apos;re not just building a logo tool.
@@ -454,8 +448,8 @@ export default function OurStoryPage() {
               </p>
               <ul className="flex flex-col gap-2 m-0 pl-0 list-none">
                 {WHAT_NEXT_POINTS.map((p) => (
-                  <li key={p} className="flex items-start gap-2.5">
-                    <span className="mt-[9px] w-1 h-1 rounded-full bg-white/25 flex-shrink-0" />
+                  <li key={p} className="flex items-center justify-center gap-2.5">
+                    <span className="w-1 h-1 rounded-full bg-white/25 flex-shrink-0" />
                     <span className="font-bricolage text-base text-white/55">{p}</span>
                   </li>
                 ))}
@@ -467,7 +461,7 @@ export default function OurStoryPage() {
               </p>
             </div>
 
-            <div className="flex-1 flex flex-col gap-5">
+            <div className="flex flex-col items-center gap-5 max-w-[700px]">
               <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">
                 The Future
               </p>

@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Logo.ai — Design Test</title>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&family=Nunito:wght@700;800;900&family=Playfair+Display:ital,wght@1,700;1,800&family=Dancing+Script:wght@700&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=Satoshi:wght@400;500;700&family=General+Sans:wght@400;500;600;700&family=Onest:wght@400;500;600;700&family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Sora:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Manrope:wght@500;600;700;800&family=Outfit:wght@500;600;700;800;900&family=Onest:wght@500;600;700;800&family=Nunito:wght@700;800;900&family=Bricolage+Grotesque:wght@500;600;700;800&family=Poppins:wght@500;600;700;800;900&family=Clash+Display:wght@500;600;700&family=Cabinet+Grotesk:wght@500;700;800&family=General+Sans:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Bricolage Grotesque', sans-serif; background: #0D0D0D; color: #F5F5F5; }
+body { font-family: 'Inter', sans-serif; background: #0D0D0D; color: #F5F5F5; }
 
 /* Logo picker */
 .picker { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; background: #000; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 8px; padding: 8px 16px; overflow-x: auto; }
@@ -17,7 +17,7 @@ body { font-family: 'Bricolage Grotesque', sans-serif; background: #0D0D0D; colo
 .picker button.active { background: rgba(51,106,234,0.15); border-color: rgba(51,106,234,0.4); color: #fff; }
 
 /* Nav */
-.nav { position: sticky; top: 40px; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: clamp(14px, 2vw, 18px) clamp(16px, 4vw, 40px); border-bottom: 1px solid rgba(255,255,255,0.06); background-color: rgba(13,13,13,0.85); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+.nav { position: sticky; top: 76px; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: clamp(14px, 2vw, 18px) clamp(16px, 4vw, 40px); border-bottom: 1px solid rgba(255,255,255,0.06); background-color: rgba(13,13,13,0.85); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
 .nav-logo { display: flex; align-items: center; height: 28px; }
 .nav .links { display: flex; gap: 40px; font-size: 16px; font-weight: 400; color: #C5C5C5; }
 .nav .links span { cursor: pointer; transition: color 0.15s; }
@@ -26,10 +26,10 @@ body { font-family: 'Bricolage Grotesque', sans-serif; background: #0D0D0D; colo
 .nav .nav-cta:hover { background: #F5F5F5; color: #0D0D0D; }
 
 /* Hero */
-.hero { padding: 120px 20px 40px; max-width: 1120px; margin: 0 auto; text-align: center; }
+.hero { padding: 140px 20px 40px; max-width: 1120px; margin: 0 auto; text-align: center; }
 .hero .badge { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; padding: 6px 0; margin: 0 auto 14px; border: 0; background: transparent; }
 .hero .badge span { color: #AAAAAA; letter-spacing: 2px; text-transform: uppercase; font-size: 13px; line-height: 17px; }
-.hero h1 { font-size: clamp(36px, 6vw, 68px); font-weight: 500; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 14px; }
+.hero h1 { font-size: clamp(36px, 6vw, 68px); font-weight: 500; letter-spacing: -0.04em; line-height: 1.2; margin-bottom: 14px; }
 .hero .sub { font-size: clamp(16px, 2vw, 18px); font-weight: 500; line-height: 1.75; color: #AAAAAA; margin: 0 auto 20px; max-width: 520px; }
 
 /* Form */
@@ -95,9 +95,23 @@ body { font-family: 'Bricolage Grotesque', sans-serif; background: #0D0D0D; colo
 </head>
 <body>
 
-<div class="picker">
-  <span class="label">Font:</span>
-  <span id="fontBtns"></span>
+<div class="picker" style="flex-direction:column;gap:3px;padding:5px 12px;">
+  <div style="display:flex;align-items:center;gap:6px;width:100%;overflow-x:auto;">
+    <span class="label" style="min-width:35px;">Logo:</span>
+    <span id="logoBtns" style="display:flex;gap:4px;"></span>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;width:100%;overflow-x:auto;">
+    <span class="label" style="min-width:35px;">H1/H2:</span>
+    <span id="headingBtns" style="display:flex;gap:4px;"></span>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;width:100%;overflow-x:auto;">
+    <span class="label" style="min-width:35px;">Body:</span>
+    <span id="bodyBtns" style="display:flex;gap:4px;"></span>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;width:100%;overflow-x:auto;border-top:1px solid rgba(255,255,255,0.06);padding-top:4px;">
+    <span class="label" style="min-width:35px;">Combo:</span>
+    <span id="comboBtns" style="display:flex;gap:4px;"></span>
+  </div>
 </div>
 
 <div class="nav">
@@ -176,38 +190,201 @@ body { font-family: 'Bricolage Grotesque', sans-serif; background: #0D0D0D; colo
 </div></div>
 
 <script>
-// Varsity logo — finalized
-const varsityLogo = `<span class="logo-style" style="font-family:'Inter',sans-serif;font-weight:900;font-size:23px;color:#F5F5F5;letter-spacing:-1.5px;-webkit-text-stroke:0.6px #F5F5F5;text-shadow:3px 3px 0 #555, 4px 4px 0 #333;">LOGO<span style="letter-spacing:-1px">.</span>AI</span>`;
-document.getElementById('navLogo').innerHTML = varsityLogo;
-document.getElementById('footerLogo').innerHTML = varsityLogo;
-// ─── FONT SWITCHER ───
-const fontOptions = [
-  { name: 'Bricolage (Current)', family: "'Bricolage Grotesque', sans-serif" },
-  { name: 'Inter', family: "'Inter', sans-serif" },
-  { name: 'DM Sans', family: "'DM Sans', sans-serif" },
-  { name: 'Space Grotesk', family: "'Space Grotesk', sans-serif" },
-  { name: 'Sora', family: "'Sora', sans-serif" },
-  { name: 'Plus Jakarta', family: "'Plus Jakarta Sans', sans-serif" },
-  { name: 'Manrope', family: "'Manrope', sans-serif" },
-  { name: 'Outfit', family: "'Outfit', sans-serif" },
-  { name: 'Onest', family: "'Onest', sans-serif" },
-  { name: 'Geist', family: "'Geist', sans-serif" },
+const S = 22;
+const W = 900;
+const K = '-1.5px';
+const ST = '0.6px #F5F5F5';
+
+const fonts = [
+  { name: 'Inter', f: "'Inter',sans-serif" },
+  { name: 'DM Sans', f: "'DM Sans',sans-serif" },
+  { name: 'Space Grotesk', f: "'Space Grotesk',sans-serif" },
+  { name: 'Sora', f: "'Sora',sans-serif" },
+  { name: 'Plus Jakarta', f: "'Plus Jakarta Sans',sans-serif" },
+  { name: 'Manrope', f: "'Manrope',sans-serif" },
+  { name: 'Outfit', f: "'Outfit',sans-serif" },
+  { name: 'Onest', f: "'Onest',sans-serif" },
+  { name: 'Nunito', f: "'Nunito',sans-serif" },
+  { name: 'Poppins', f: "'Poppins',sans-serif" },
 ];
 
-function setFont(i) {
-  document.body.style.fontFamily = fontOptions[i].family;
-  document.querySelectorAll('#fontBtns button').forEach((b, j) => b.classList.toggle('active', j === i));
+function mk(font, text) {
+  return `<span class="logo-style" style="font-family:${font};font-weight:${W};font-size:${S}px;color:#F5F5F5;letter-spacing:${K};-webkit-text-stroke:${ST};">${text}</span>`;
 }
 
-const fontBtns = document.getElementById('fontBtns');
-fontOptions.forEach((opt, i) => {
+const UC = 'LOGO<span style="letter-spacing:-1px">.</span>AI';
+const LC = 'logo<span style="letter-spacing:-1px">.</span>AI';
+
+function mkGlitch(font) {
+  const rest = 'OGO<span style="letter-spacing:-1px">.</span>AI';
+  return `<span class="logo-style" style="font-family:${font};font-weight:${W};font-size:${S}px;color:#F5F5F5;letter-spacing:${K};">` +
+    `<span style="position:relative;display:inline-block;">` +
+      `<span style="position:absolute;left:-2.5px;top:-1.5px;color:#336AEA;opacity:0.9;">L</span>` +
+      `<span style="position:absolute;left:2.5px;top:1.5px;color:#648EEF;opacity:0.8;">L</span>` +
+      `<span style="position:relative;">L</span>` +
+    `</span>` +
+    `${rest}</span>`;
+}
+
+// All options based on Glitch O style with different accent colors
+const P = "'Poppins',sans-serif";
+
+function mkGlitchO(c1, c2) {
+  return `<span class="logo-style" style="font-family:${P};font-weight:${W};font-size:${S}px;color:#F5F5F5;letter-spacing:${K};">L` +
+    `<span style="position:relative;display:inline-block;">` +
+      `<span style="position:absolute;left:-2.5px;top:-1.5px;color:${c1};opacity:0.9;">O</span>` +
+      `<span style="position:absolute;left:2.5px;top:1.5px;color:${c2};opacity:0.8;">O</span>` +
+      `<span style="position:relative;">O</span>` +
+    `</span>GO<span style="letter-spacing:-1px">.</span>AI</span>`;
+}
+
+// Helper: build both-Os glitch logo with any color pair
+function mk2Os(a, b) {
+  const gO = `<span style="position:relative;display:inline-block;"><span style="position:absolute;left:-2.5px;top:-1.5px;color:${a};opacity:0.9;">O</span><span style="position:absolute;left:2.5px;top:1.5px;color:${b};opacity:0.8;">O</span><span style="position:relative;">O</span></span>`;
+  return `<span class="logo-style" style="font-family:${P};font-weight:${W};font-size:${S}px;color:#F5F5F5;letter-spacing:${K};">L${gO}G${gO}<span style="letter-spacing:-1px">.</span>AI</span>`;
+}
+
+const logoOptions = [
+  // ── Finalized style: both Os ──
+  { name: 'Purple+Cyan', html: mk2Os('#8B5CF6', '#06B6D4') },
+  { name: 'Blue+Cyan', html: mk2Os('#336AEA', '#06B6D4') },
+  { name: 'Blue+Light Blue', html: mk2Os('#336AEA', '#648EEF') },
+  { name: 'Purple+Pink', html: mk2Os('#8B5CF6', '#EC4899') },
+  { name: 'Cyan+Pink', html: mk2Os('#06B6D4', '#EC4899') },
+  { name: 'Gold+Blue', html: mk2Os('#F59E0B', '#336AEA') },
+  { name: 'Green+Cyan', html: mk2Os('#22C55E', '#06B6D4') },
+  { name: 'Red+Blue', html: mk2Os('#EF4444', '#336AEA') },
+  { name: 'Orange+Purple', html: mk2Os('#F97316', '#8B5CF6') },
+  { name: 'Pink+Gold', html: mk2Os('#EC4899', '#F59E0B') },
+  { name: 'Teal+Violet', html: mk2Os('#14B8A6', '#7C3AED') },
+  { name: 'Lime+Blue', html: mk2Os('#84CC16', '#336AEA') },
+];
+
+function setLogo(i) {
+  document.getElementById('navLogo').innerHTML = logoOptions[i].html;
+  document.getElementById('footerLogo').innerHTML = logoOptions[i].html;
+  document.querySelectorAll('#logoBtns button').forEach((b, j) => b.classList.toggle('active', j === i));
+}
+
+const logoBtns = document.getElementById('logoBtns');
+logoOptions.forEach((opt, i) => {
   const btn = document.createElement('button');
   btn.textContent = opt.name;
-  btn.onclick = () => setFont(i);
-  fontBtns.appendChild(btn);
+  btn.onclick = () => setLogo(i);
+  logoBtns.appendChild(btn);
 });
-setFont(0); // Start with Bricolage
+setLogo(0);
 
+// ─── HEADING FONT SWITCHER ───
+const headingOptions = [
+  // 1. Inter Medium (current — Figma match)
+  { name: 'Inter (current)', family: "'Inter',sans-serif", weight: 500, tracking: '-0.04em' },
+  // 2. Poppins Semibold — rounder, friendlier
+  { name: 'Poppins 600', family: "'Poppins',sans-serif", weight: 600, tracking: '-0.03em' },
+  // 3. Poppins Bold — punchier
+  { name: 'Poppins 700', family: "'Poppins',sans-serif", weight: 700, tracking: '-0.03em' },
+  // 4. Outfit Semibold — geometric, clean
+  { name: 'Outfit 600', family: "'Outfit',sans-serif", weight: 600, tracking: '-0.03em' },
+  // 5. Outfit Bold
+  { name: 'Outfit 700', family: "'Outfit',sans-serif", weight: 700, tracking: '-0.03em' },
+  // 6. Sora Semibold — techy, precise
+  { name: 'Sora 600', family: "'Sora',sans-serif", weight: 600, tracking: '-0.03em' },
+  // 7. Sora Bold
+  { name: 'Sora 700', family: "'Sora',sans-serif", weight: 700, tracking: '-0.04em' },
+  // 8. Space Grotesk Bold — distinctive, editorial (like Higgsfield)
+  { name: 'Space Grotesk', family: "'Space Grotesk',sans-serif", weight: 700, tracking: '-0.04em' },
+  // 9. Bricolage Grotesque — personality, quirky (original font)
+  { name: 'Bricolage', family: "'Bricolage Grotesque',sans-serif", weight: 700, tracking: '-0.04em' },
+  // 10. Multi: Sora headings + Inter body (Higgsfield approach)
+  { name: 'Sora+Inter', family: "'Sora',sans-serif", weight: 600, tracking: '-0.03em', note: 'multi' },
+];
+
+function setHeading(i) {
+  const h = headingOptions[i];
+  // Apply to all h1 and h2 elements
+  document.querySelectorAll('h1, h2').forEach(el => {
+    el.style.fontFamily = h.family;
+    el.style.fontWeight = h.weight;
+    el.style.letterSpacing = h.tracking;
+  });
+  document.querySelectorAll('#headingBtns button').forEach((b, j) => b.classList.toggle('active', j === i));
+}
+
+const headingBtns = document.getElementById('headingBtns');
+headingOptions.forEach((opt, i) => {
+  const btn = document.createElement('button');
+  btn.textContent = opt.name;
+  btn.onclick = () => setHeading(i);
+  headingBtns.appendChild(btn);
+});
+setHeading(0);
+
+// ─── BODY FONT SWITCHER ───
+const bodyOptions = [
+  { name: 'Inter (current)', family: "'Inter',sans-serif" },
+  { name: 'DM Sans', family: "'DM Sans',sans-serif" },
+  { name: 'Poppins', family: "'Poppins',sans-serif" },
+  { name: 'Outfit', family: "'Outfit',sans-serif" },
+  { name: 'Sora', family: "'Sora',sans-serif" },
+  { name: 'Plus Jakarta', family: "'Plus Jakarta Sans',sans-serif" },
+  { name: 'Manrope', family: "'Manrope',sans-serif" },
+];
+
+function setBody(i) {
+  // Apply to body (everything except h1/h2 which are controlled separately)
+  document.body.style.fontFamily = bodyOptions[i].family;
+  // Re-apply heading font so it doesn't get overridden
+  const activeHeading = document.querySelector('#headingBtns button.active');
+  if (activeHeading) {
+    const hi = Array.from(document.querySelectorAll('#headingBtns button')).indexOf(activeHeading);
+    if (hi >= 0) setHeading(hi);
+  }
+  document.querySelectorAll('#bodyBtns button').forEach((b, j) => b.classList.toggle('active', j === i));
+}
+
+const bodyBtns = document.getElementById('bodyBtns');
+bodyOptions.forEach((opt, i) => {
+  const btn = document.createElement('button');
+  btn.textContent = opt.name;
+  btn.onclick = () => setBody(i);
+  bodyBtns.appendChild(btn);
+});
+setBody(0);
+
+// ─── FONT COMBOS — 10 best pairings ───
+const combos = [
+  { name: 'Sora + Inter', h: { f: "'Sora',sans-serif", w: 600, t: '-0.03em' }, b: "'Inter',sans-serif" },
+  { name: 'Poppins + Inter', h: { f: "'Poppins',sans-serif", w: 600, t: '-0.03em' }, b: "'Inter',sans-serif" },
+  { name: 'Outfit + DM Sans', h: { f: "'Outfit',sans-serif", w: 700, t: '-0.03em' }, b: "'DM Sans',sans-serif" },
+  { name: 'Space Grotesk + Inter', h: { f: "'Space Grotesk',sans-serif", w: 700, t: '-0.04em' }, b: "'Inter',sans-serif" },
+  { name: 'Bricolage + Inter', h: { f: "'Bricolage Grotesque',sans-serif", w: 700, t: '-0.04em' }, b: "'Inter',sans-serif" },
+  { name: 'Sora + DM Sans', h: { f: "'Sora',sans-serif", w: 700, t: '-0.04em' }, b: "'DM Sans',sans-serif" },
+  { name: 'Poppins + Manrope', h: { f: "'Poppins',sans-serif", w: 700, t: '-0.03em' }, b: "'Manrope',sans-serif" },
+  { name: 'Outfit + Inter', h: { f: "'Outfit',sans-serif", w: 600, t: '-0.03em' }, b: "'Inter',sans-serif" },
+  { name: 'Sora + Plus Jakarta', h: { f: "'Sora',sans-serif", w: 600, t: '-0.03em' }, b: "'Plus Jakarta Sans',sans-serif" },
+  { name: 'All Inter 500', h: { f: "'Inter',sans-serif", w: 500, t: '-0.04em' }, b: "'Inter',sans-serif" },
+];
+
+function setCombo(i) {
+  const c = combos[i];
+  document.body.style.fontFamily = c.b;
+  document.querySelectorAll('h1, h2').forEach(el => {
+    el.style.fontFamily = c.h.f;
+    el.style.fontWeight = c.h.w;
+    el.style.letterSpacing = c.h.t;
+  });
+  // Deactivate individual toggles
+  document.querySelectorAll('#headingBtns button, #bodyBtns button').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#comboBtns button').forEach((b, j) => b.classList.toggle('active', j === i));
+}
+
+const comboBtns = document.getElementById('comboBtns');
+combos.forEach((opt, i) => {
+  const btn = document.createElement('button');
+  btn.textContent = opt.name;
+  btn.onclick = () => setCombo(i);
+  comboBtns.appendChild(btn);
+});
 </script>
 </body>
 </html>

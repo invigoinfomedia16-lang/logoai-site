@@ -160,10 +160,10 @@ export default function AboutPage() {
 
       {/* -- Hero -- */}
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
-        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-16 text-center md:text-left">
-          <div className="flex flex-col gap-6 flex-1 items-center md:items-start">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10">
+          <div className="flex flex-col items-center gap-6 max-w-[700px]">
             <h1
-              className="font-bricolage font-bold leading-[1.08em] tracking-[-0.04em] m-0 max-w-[860px]"
+              className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[860px]"
               style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
             >
               About
@@ -179,7 +179,7 @@ export default function AboutPage() {
           <img
             src="/images/illustrations/final-about-hero.png"
             alt="Type a name, get a logo instantly"
-            className="flex-shrink-0 w-[200px] md:w-[440px] h-auto opacity-90"
+            className="w-[200px] md:w-[440px] h-auto opacity-90"
           />
         </div>
       </section>
@@ -187,7 +187,7 @@ export default function AboutPage() {
       {/* -- Highlights strip -- */}
       <PageSection compact tinted>
         <div className="max-w-[95%] sm:max-w-[90%] mx-auto">
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap justify-center gap-3">
             {HIGHLIGHTS.map((h) => (
               <span
                 key={h}
@@ -203,10 +203,10 @@ export default function AboutPage() {
 
       {/* -- What We Built -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
-          <div className="flex-1 flex flex-col gap-5">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10">
+          <div className="flex flex-col items-center gap-5 max-w-[700px]">
             <Badge icon="sparkle" text="What We Built" />
-            <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
+            <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
               A new way to design a logo
             </h2>
             <div className="flex flex-col gap-3">
@@ -239,17 +239,17 @@ export default function AboutPage() {
           <img
             src="/images/illustrations/final-whatwebuilt.png"
             alt="This can't be real — the reaction to seeing your logo"
-            className="w-[200px] lg:w-[480px] flex-shrink-0 h-auto opacity-90"
+            className="w-[200px] lg:w-[480px] h-auto opacity-90"
           />
         </div>
       </PageSection>
 
       {/* -- What You Get -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
-          <div className="flex flex-col gap-4 max-w-[640px]">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10 md:gap-[60px]">
+          <div className="flex flex-col items-center gap-4 max-w-[640px]">
             <Badge icon="lightning" text="What You Get" />
-            <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
+            <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
               Everything designed around your logo
             </h2>
             <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
@@ -259,7 +259,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-left">
             {DELIVERABLES.map((d) => (
               <div
                 key={d.title}
@@ -277,14 +277,12 @@ export default function AboutPage() {
 
       {/* -- How We're Different -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
-          <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10">
+          <div className="flex flex-col items-center gap-5 max-w-[700px]">
             <Badge icon="trophy" text="How We're Different" />
-            <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+            <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
               Most tools rely on templates.
             </h2>
-          </div>
-          <div className="flex-1 flex flex-col gap-5">
             <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
               Logo.ai works differently.
             </p>
@@ -302,14 +300,12 @@ export default function AboutPage() {
 
       {/* -- Why Now -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
-          <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10">
+          <div className="flex flex-col items-center gap-5 max-w-[700px]">
             <Badge icon="lightning" text="Why Now" />
-            <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+            <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
               For years, this wasn&apos;t possible.
             </h2>
-          </div>
-          <div className="flex-1 flex flex-col gap-5">
             <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
               Design required human judgment —
               something software couldn&apos;t replicate.
@@ -330,10 +326,10 @@ export default function AboutPage() {
 
       {/* -- Who We Are -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
-          <div className="flex-1 flex flex-col gap-5">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10">
+          <div className="flex flex-col items-center gap-5 max-w-[700px]">
             <Badge icon="users" text="Who We Are" />
-            <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+            <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
               A small team with a big question
             </h2>
             <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
@@ -355,21 +351,19 @@ export default function AboutPage() {
           <img
             src="/images/illustrations/final-whoweare.png"
             alt="Small team obsessing over one question"
-            className="w-[200px] lg:w-[480px] flex-shrink-0 h-auto opacity-90"
+            className="w-[200px] lg:w-[480px] h-auto opacity-90"
           />
         </div>
       </PageSection>
 
       {/* -- Our Mission -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col lg:flex-row gap-12 lg:gap-24">
-          <div className="lg:w-[320px] flex-shrink-0 flex flex-col gap-5">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10">
+          <div className="flex flex-col items-center gap-5 max-w-[700px]">
             <Badge icon="shield" text="Our Mission" />
-            <h2 className="font-bricolage font-semibold text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
+            <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
               Remove the bottleneck from logo design.
             </h2>
-          </div>
-          <div className="flex-1 flex flex-col gap-5">
             <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
               Creating a logo — something foundational —
               takes weeks, costs thousands,
@@ -388,10 +382,10 @@ export default function AboutPage() {
 
       {/* -- Our Vision -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
-          <div className="flex flex-col gap-5 max-w-[640px]">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10 md:gap-[60px]">
+          <div className="flex flex-col items-center gap-5 max-w-[640px]">
             <Badge icon="rocket" text="Our Vision" />
-            <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
+            <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
               Design that understands what it&apos;s creating.
             </h2>
             <div className="flex flex-col gap-3">
@@ -414,7 +408,7 @@ export default function AboutPage() {
           </div>
 
           <div
-            className="rounded-2xl p-8 md:p-10 flex flex-col gap-5"
+            className="w-full rounded-2xl p-8 md:p-10 flex flex-col gap-5 text-left"
             style={{ border: BORDER }}
           >
             <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.5em] text-white m-0">
@@ -431,7 +425,7 @@ export default function AboutPage() {
           </div>
 
           <div
-            className="rounded-2xl p-8 md:p-10 flex flex-col gap-3"
+            className="w-full rounded-2xl p-8 md:p-10 flex flex-col gap-3"
             style={{ border: '1px solid rgba(51,106,234,0.3)', background: 'rgba(51,106,234,0.06)' }}
           >
             <p className="font-bricolage text-base md:text-lg text-white/55 m-0">

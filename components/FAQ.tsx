@@ -64,16 +64,13 @@ function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
 }
 
 export default function FAQ() {
-  const half = Math.ceil(FAQ_ITEMS.length / 2)
-  const cols = [FAQ_ITEMS.slice(0, half), FAQ_ITEMS.slice(half)]
-
   return (
     <section
       className="px-5 md:px-8 lg:px-10 py-16 md:py-[120px]"
       style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
     >
-      <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-8 md:gap-[60px]">
-        <div className="flex flex-col gap-2.5">
+      <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-8 md:gap-[60px]">
+        <div className="flex flex-col items-center gap-2.5 max-w-[700px]">
           <Badge icon="question" text="FAQ" />
           <h2 className="font-bricolage font-medium leading-[1.1em] tracking-[-0.04em] m-0" style={{ fontSize: 'clamp(28px, 5vw, 56px)' }}>
             Got questions? We've got answers
@@ -83,19 +80,15 @@ export default function FAQ() {
           </p>
         </div>
 
-        {/* Two-column layout on desktop, single column on mobile */}
-        <div className="flex flex-col lg:flex-row gap-10 items-start">
-          {cols.map((col, ci) => (
-            <div key={ci} className="flex-1 min-w-0 w-full">
-              {col.map((item, si) => (
-                <FAQItem
-                  key={item.q}
-                  q={item.q}
-                  a={item.a}
-                  index={ci * half + si}
-                />
-              ))}
-            </div>
+        {/* Single column */}
+        <div className="w-full max-w-[800px] text-left">
+          {FAQ_ITEMS.map((item, i) => (
+            <FAQItem
+              key={item.q}
+              q={item.q}
+              a={item.a}
+              index={i}
+            />
           ))}
         </div>
       </div>

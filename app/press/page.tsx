@@ -83,7 +83,7 @@ export default function PressPage() {
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
         <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-6 items-center text-center">
           <h1
-            className="font-bricolage font-bold leading-[1.08em] tracking-[-0.04em] m-0 max-w-[800px]"
+            className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[800px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
           >
             Press
@@ -106,9 +106,9 @@ export default function PressPage() {
 
       {/* ── Company Overview ── */}
       <PageSection compact tinted>
-        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-8">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-8">
             <Badge icon="buildings" text="Company Overview" />
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-6">
               {STATS.map((s) => (
                 <div key={s.label} className="flex flex-col gap-1.5">
                   <span className="font-bricolage font-bold text-[28px] md:text-[36px] leading-none tracking-[-0.03em]">{s.n}</span>
@@ -121,14 +121,14 @@ export default function PressPage() {
 
       {/* ── Press Releases ── */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
-            <div className="flex flex-col gap-3">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10 md:gap-[60px]">
+            <div className="flex flex-col items-center gap-3 max-w-[700px]">
               <Badge icon="newspaper" text="Press Releases" />
-              <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Upcoming announcements
               </h2>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="w-full flex flex-col gap-4 text-left">
               {PRESS_RELEASES.map((pr) => (
                 <div
                   key={pr.title}
@@ -162,14 +162,14 @@ export default function PressPage() {
 
       {/* ── For Journalists ── */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
-            <div className="flex flex-col gap-3">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10 md:gap-[60px]">
+            <div className="flex flex-col items-center gap-3 max-w-[700px]">
               <Badge icon="article" text="For Journalists" />
-              <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
                 Copy-paste descriptions
               </h2>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5 text-left">
               {[
                 {
                   label: 'Short version',
@@ -192,9 +192,9 @@ export default function PressPage() {
             </div>
 
             {/* Quotes */}
-            <div className="flex flex-col gap-4">
+            <div className="w-full flex flex-col gap-4 text-left">
               <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">Pull Quotes</p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5">
                 {QUOTES.map((q) => (
                   <div
                     key={q.name}
@@ -217,17 +217,17 @@ export default function PressPage() {
 
       {/* ── Usage Guidelines ── */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
-            <div className="flex flex-col gap-3">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10 md:gap-[60px]">
+            <div className="flex flex-col items-center gap-3 max-w-[700px]">
               <Badge icon="shield" text="Usage Guidelines" />
-              <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
+              <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
                 How to use our brand
               </h2>
             </div>
 
             {/* Name usage */}
             <div
-              className="rounded-2xl p-7 flex flex-col gap-4"
+              className="w-full rounded-2xl p-7 flex flex-col gap-4 text-left"
               style={{ border: '1px solid rgba(84,87,94,0.3)' }}
             >
               <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">How to write our name</p>
@@ -255,7 +255,7 @@ export default function PressPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5 text-left">
               <div className="rounded-2xl p-7 flex flex-col gap-4" style={{ border: '1px solid rgba(84,87,94,0.3)' }}>
                 <p className="font-bricolage text-xs font-medium text-white/40 uppercase tracking-[2px] m-0">Do</p>
                 <ul className="flex flex-col gap-2.5 m-0 pl-0 list-none">
@@ -288,9 +288,9 @@ export default function PressPage() {
 
       {/* ── Media Contact ── */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div className="flex flex-col gap-2">
-              <h2 className="font-bricolage font-semibold text-[24px] md:text-[36px] leading-[1.2em] tracking-[-0.03em] m-0">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-6">
+            <div className="flex flex-col items-center gap-2 max-w-[700px]">
+              <h2 className="font-bricolage font-medium text-[24px] md:text-[36px] leading-[1.2em] tracking-[-0.03em] m-0">
                 Let&apos;s talk
               </h2>
               <p className="font-bricolage text-base text-white/50 m-0 max-w-[480px]">

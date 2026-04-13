@@ -93,7 +93,7 @@ export default function WhyLogoAiPage() {
       <section className="px-5 md:px-8 lg:px-10 pt-[140px] md:pt-[200px] pb-16 md:pb-[120px]">
         <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-6 items-center text-center">
           <h1
-            className="font-bricolage font-bold leading-[1.08em] tracking-[-0.04em] m-0 max-w-[860px]"
+            className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[860px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
           >
             Why Logo.ai
@@ -111,9 +111,9 @@ export default function WhyLogoAiPage() {
 
       {/* -- Why choose Logo.ai -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
-          <div className="flex flex-col gap-4 max-w-[640px]">
-            <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10 md:gap-[60px]">
+          <div className="flex flex-col items-center gap-4 max-w-[640px]">
+            <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
               Why choose Logo.ai
             </h2>
             <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">
@@ -121,7 +121,7 @@ export default function WhyLogoAiPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-left">
             {FEATURES.map((f) => (
               <div
                 key={f.title}
@@ -139,9 +139,9 @@ export default function WhyLogoAiPage() {
 
       {/* -- How Logo.ai compares -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
-          <div className="flex flex-col gap-4 max-w-[640px]">
-            <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10 md:gap-[60px]">
+          <div className="flex flex-col items-center gap-4 max-w-[640px]">
+            <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
               How Logo.ai compares
             </h2>
             <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">
@@ -150,7 +150,7 @@ export default function WhyLogoAiPage() {
           </div>
 
           {/* Table */}
-          <div className="w-full overflow-x-auto scrollbar-hide -mx-5 px-5 md:mx-0 md:px-0">
+          <div className="w-full overflow-x-auto scrollbar-hide -mx-5 px-5 md:mx-0 md:px-0 text-left">
             <div style={{ minWidth: 480 }}>
               <div
                 className="grid pb-4 border-b font-bricolage"
@@ -197,9 +197,9 @@ export default function WhyLogoAiPage() {
 
       {/* -- See it in action -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-10 md:gap-[60px]">
-          <div className="flex flex-col gap-4 max-w-[580px]">
-            <h2 className="font-bricolage font-semibold text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
+        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10 md:gap-[60px]">
+          <div className="flex flex-col items-center gap-4 max-w-[580px]">
+            <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
               See it in action
             </h2>
             <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">
@@ -207,7 +207,7 @@ export default function WhyLogoAiPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 text-left">
             {STEPS.map((step, i) => (
               <div
                 key={step}
@@ -253,16 +253,16 @@ export default function WhyLogoAiPage() {
 
       {/* -- Built for real use -- */}
       <PageSection>
-        <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col gap-8 max-w-[760px]">
-          <div className="flex flex-col gap-4">
-            <h2 className="font-bricolage font-semibold text-[28px] md:text-[44px] leading-[1.1em] tracking-[-0.04em] m-0">
+        <div className="max-w-[760px] mx-auto flex flex-col items-center text-center gap-8">
+          <div className="flex flex-col items-center gap-4 max-w-[700px]">
+            <h2 className="font-bricolage font-medium text-[28px] md:text-[44px] leading-[1.1em] tracking-[-0.04em] m-0">
               Built for real use
             </h2>
             <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">
               Not just something that looks good — but something that works everywhere your brand appears.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-3 gap-3">
             {['On a business card.', 'On a website.', 'On a billboard.'].map((item) => (
               <div
                 key={item}
