@@ -40,7 +40,7 @@ const FAQS = [
   },
   {
     q: 'How many free logos are left?',
-    a: `We're offering 1,000,000 free logos at launch. Over ${getLogosClaimed().toLocaleString()} have already been claimed. Spots are limited — join early to secure yours.`,
+    a: `We're offering 2,000,000 free logos at launch. Over ${getLogosClaimed().toLocaleString()} have already been claimed. Spots are limited — join early to secure yours.`,
   },
   {
     q: 'Is my logo trademark-safe?',

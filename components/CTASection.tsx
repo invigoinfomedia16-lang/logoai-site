@@ -54,7 +54,7 @@ export default function CTASection({ onSubmit, submitted }: CTASectionProps) {
                 className="font-bricolage font-normal text-sm md:text-base leading-[22px] text-white/75 m-0"
                 style={{ textShadow: '0 1px 10px rgba(0,0,0,0.5)' }}
               >
-                Free logo for the first 1,000,000 users. Join now to secure
+                Free logo for the first 2,000,000 users. Join now to secure
                 yours at launch.
               </p>
             </div>

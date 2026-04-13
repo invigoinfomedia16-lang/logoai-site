@@ -53,7 +53,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
             className="font-bricolage font-semibold leading-7 tracking-[-0.02em] text-white/50 m-0 max-w-[520px]"
             style={{ ...slide(0.7), fontSize: 'clamp(16px, 2vw, 18px)' }}
           >
-            Free logo for the first 1,000,000 users. Join now to secure yours
+            Free logo for the first 2,000,000 users. Join now to secure yours
             at launch.
           </p>
         </div>
@@ -123,7 +123,7 @@ const Hero = forwardRef<HTMLDivElement, HeroProps>(function Hero(
             start={getLogosRemaining() + 50000}
             end={getLogosRemaining()}
             label="free logos remaining"
-            sublabel="of 1,000,000"
+            sublabel="of 2,000,000"
           />
 
           {/* Divider (hidden on mobile) */}

@@ -9,7 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        bricolage: ['var(--font-bricolage)', 'sans-serif'],
+        bricolage: ['var(--font-inter)', 'sans-serif'],
+        inter: ['var(--font-inter)', 'sans-serif'],
       },
       colors: {
         primary: '#336AEA',

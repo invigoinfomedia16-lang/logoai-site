@@ -20,13 +20,13 @@ export function getLogosClaimed(): number {
   const dailyGrowth = 2000 + (daysSinceBase * 50)
   const totalClaimed = Math.min(
     Math.floor(CLAIMED_BASE + (daysSinceBase * dailyGrowth)),
-    950000 // cap at 950k so there are always some remaining
+    1900000 // cap at 1.9M so there are always some remaining
   )
   return totalClaimed
 }
 
 export function getLogosRemaining(): number {
-  return 1000000 - getLogosClaimed()
+  return 2000000 - getLogosClaimed()
 }
 
 // ─── Categories ─────────────────────────────────────────────────────────────
@@ -157,7 +157,7 @@ export const COMPARISON_ROWS = [
 export const FAQ_ITEMS = [
   {
     q: 'Is it really free?',
-    a: "Yes – 100%. No hidden fees, no surprise charges, and no credit card needed. If you're one of the first 1,000,000 sign-ups, your custom logo is completely free at launch.",
+    a: "Yes – 100%. No hidden fees, no surprise charges, and no credit card needed. If you're one of the first 2,000,000 sign-ups, your custom logo is completely free at launch.",
   },
   {
     q: 'Will my logo be unique?',
@@ -189,7 +189,7 @@ export const FAQ_ITEMS = [
   },
   {
     q: 'How many free logos are left?',
-    a: '1,000,000 total. Spots are being claimed every day — the sooner you sign up, the better your chances.',
+    a: '2,000,000 total. Spots are being claimed every day — the sooner you sign up, the better your chances.',
   },
   {
     q: 'Is my logo trademark-safe?',
@@ -197,7 +197,7 @@ export const FAQ_ITEMS = [
   },
   {
     q: 'Why are you offering this for free?',
-    a: "We want 1,000,000 founders to experience Logo.ai firsthand. Once you see the quality, we know you'll come back for brand kits, social assets, and more.",
+    a: "We want 2,000,000 founders to experience Logo.ai firsthand. Once you see the quality, we know you'll come back for brand kits, social assets, and more.",
   },
   {
     q: 'When does Logo.ai launch?',

@@ -18,7 +18,7 @@ export default function Footer() {
             </div>
             <p className="font-bricolage font-medium text-sm md:text-base leading-6 text-white/50 m-0">
               Get your free AI-generated logo in seconds. Original designs, no
-              templates – crafted for your brand. Free for the first 1,000,000
+              templates – crafted for your brand. Free for the first 2,000,000
               users.
             </p>
           </div>
