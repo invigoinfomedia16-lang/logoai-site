@@ -39,10 +39,10 @@ function Table({ mobile = false }: ComparisonTableProps) {
         >
           Logo.ai
         </span>
-        <span style={{ fontSize: headerSize }} className="font-medium text-[#555] tracking-[0.08em] text-center">
+        <span style={{ fontSize: headerSize }} className="font-medium text-[#555] uppercase tracking-[0.08em] text-center">
           Designer
         </span>
-        <span style={{ fontSize: headerSize }} className="font-medium text-[#555] tracking-[0.08em] text-center">
+        <span style={{ fontSize: headerSize }} className="font-medium text-[#555] uppercase tracking-[0.08em] text-center">
           {mobile ? 'Other AI' : 'Other AI logo makers'}
         </span>
       </div>
