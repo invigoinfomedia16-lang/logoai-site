@@ -14,7 +14,7 @@ export default function Footer() {
           {/* Brand blurb */}
           <div className="flex flex-col gap-5 max-w-[290px]">
             <div className="flex items-center">
-              <LogoMark size={20} />
+              <LogoMark size={30} />
             </div>
             <p className="font-bricolage font-medium text-sm md:text-base leading-6 text-white/50 m-0">
               Get your free AI-generated logo in seconds. Original designs, no
@@ -27,7 +27,7 @@ export default function Footer() {
           <div className="flex flex-wrap gap-6 md:gap-10 lg:gap-[80px]">
             {FOOTER_LINKS.map((group) => (
               <div key={group.title} className="flex flex-col gap-4">
-                <span className="font-bricolage font-bold text-sm leading-5 text-white">
+                <span className="font-bricolage font-semibold text-[11px] leading-5 text-white/40 uppercase tracking-[2px]">
                   {group.title}
                 </span>
                 {group.links.map((link) => (

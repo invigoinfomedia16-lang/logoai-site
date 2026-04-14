@@ -155,9 +155,18 @@ interface BadgeProps {
 
 export default function Badge({ icon, text }: BadgeProps) {
   return (
-    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border-0 bg-transparent">
+    <div
+      className="inline-flex items-center gap-2 rounded-xl"
+      style={{
+        padding: '8px 20px',
+        border: '1px solid rgba(255,255,255,0.2)',
+        background: 'rgba(0,0,0,0.6)',
+        backdropFilter: 'blur(2px)',
+        WebkitBackdropFilter: 'blur(2px)',
+      }}
+    >
       {ICONS[icon]}
-      <span className="font-bricolage font-medium text-[13px] leading-[17px] tracking-[2px] uppercase text-white/70">
+      <span className="font-inter font-semibold text-[12px] leading-[19px] tracking-[1.5px] uppercase text-white">
         {text}
       </span>
     </div>

@@ -16,9 +16,7 @@ function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
       onMouseLeave={() => setHovered(false)}
       className="cursor-pointer transition-colors duration-200"
       style={{
-        borderBottom: open
-          ? '1px solid rgba(51,106,234,0.4)'
-          : '1px solid rgba(255,255,255,0.08)',
+        borderBottom: '1px solid rgba(255,255,255,0.08)',
         backgroundColor: hovered ? 'rgba(255,255,255,0.02)' : 'transparent',
       }}
     >

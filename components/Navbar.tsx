@@ -44,7 +44,7 @@ export default function Navbar({ onCTAClick }: NavbarProps) {
         <div className="flex items-center justify-between w-full max-w-[95%] sm:max-w-[90%]">
           {/* Logo */}
           <Link href="/" className="no-underline flex items-center">
-            <LogoMark size={20} />
+            <LogoMark size={30} />
           </Link>
 
           {/* Desktop nav */}
@@ -53,7 +53,7 @@ export default function Navbar({ onCTAClick }: NavbarProps) {
               <Link
                 key={link.href}
                 href={link.href}
-                className="font-bricolage font-normal text-base text-white/50 no-underline leading-5 transition-colors duration-150 hover:text-white/90"
+                className="font-bricolage font-normal text-sm text-white/50 no-underline leading-5 transition-colors duration-150 hover:text-white/90 uppercase tracking-wider"
               >
                 {link.text}
               </Link>
@@ -106,7 +106,7 @@ export default function Navbar({ onCTAClick }: NavbarProps) {
               key={link.href}
               href={link.href}
               onClick={() => setMobileOpen(false)}
-              className="font-bricolage font-normal text-lg text-white/70 no-underline"
+              className="font-bricolage font-normal text-lg text-white/70 no-underline uppercase tracking-wider"
             >
               {link.text}
             </Link>

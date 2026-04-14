@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useInView } from '@/hooks/useInView'
 import Badge from './ui/Badge'
 
@@ -18,10 +18,9 @@ interface StatCardProps {
   to: number
   suffix?: string
   desc: string
-  icon?: React.ReactNode
 }
 
-function StatCard({ label, from, to, suffix = '', desc, icon }: StatCardProps) {
+function StatCard({ label, from, to, suffix = '', desc }: StatCardProps) {
   const { ref, inView } = useInView(0.3)
   const [value, setValue] = useState(from)
 
@@ -40,26 +39,18 @@ function StatCard({ label, from, to, suffix = '', desc, icon }: StatCardProps) {
   return (
     <div
       ref={ref}
-      className="border rounded-2xl p-7 md:p-9 flex flex-col justify-between gap-6 min-h-[220px] md:min-h-[300px] bg-transparent"
-      style={{ borderColor: 'rgba(84,87,94,0.3)' }}
+      className="rounded-2xl p-8 md:p-10 flex flex-col items-center text-center gap-2 bg-transparent border border-white/[0.1] transition-all duration-300 hover:border-white/[0.2]"
     >
-      <div className="flex items-center justify-between">
-        <span className="font-bricolage text-xs md:text-sm font-medium text-white/40 uppercase tracking-[1.5px] leading-[1.4em]">
-          {label}
-        </span>
-        {icon && (
-          <span style={{ color: '#336AEA', opacity: 0.7 }}>{icon}</span>
-        )}
-      </div>
-      <div className="flex flex-col gap-3">
-        <span className="font-bricolage text-5xl md:text-[64px] font-bold text-white leading-none tracking-[-0.04em]">
-          {formatNum(value)}
-          {suffix}
-        </span>
-        <span className="font-bricolage text-sm md:text-base font-medium text-white/50 leading-[1.6em]">
-          {desc}
-        </span>
-      </div>
+      <span className="font-bricolage text-[36px] md:text-[44px] font-bold text-white leading-none tracking-[-0.02em]">
+        {formatNum(value)}
+        {suffix && <span className="text-[20px] md:text-[24px] text-white/50 ml-0.5">{suffix}</span>}
+      </span>
+      <span className="font-inter text-[13px] font-semibold text-[#336AEA] uppercase tracking-[1px] mt-1 mb-2">
+        {label}
+      </span>
+      <span className="font-inter text-[15px] font-normal text-white/50 leading-[1.7]">
+        {desc}
+      </span>
     </div>
   )
 }
@@ -73,26 +64,19 @@ export default function StatsSection() {
       <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-8 md:gap-[60px]">
         <div className="flex flex-col items-center gap-2.5 max-w-[700px]">
           <Badge icon="trendup" text="By the numbers" />
-          <h2 className="font-bricolage font-medium leading-[1.1em] tracking-[-0.04em] m-0" style={{ fontSize: 'clamp(28px, 5vw, 56px)' }}>
+          <h2 className="font-bricolage font-semibold leading-[1.1em] tracking-[-0.03em] m-0" style={{ fontSize: 'clamp(28px, 5vw, 56px)' }}>
             Your free logo is waiting
           </h2>
-          <p className="font-bricolage font-medium text-base sm:text-lg leading-7 tracking-[-0.02em] text-white/50 m-0">
-            854,692 free logos left. Secure yours before they're gone.
+          <p className="font-inter font-normal text-base sm:text-lg leading-7 text-white/50 m-0">
+            854,692 free logos claimed. Secure yours before they&apos;re gone.
           </p>
         </div>
 
-        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6">
           <StatCard
             label="Logos Claimed"
             from={800000}
             to={854692}
-            icon={
-              /* Phosphor: Medal */
-              <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke="currentColor" strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="128" cy="168" r="64"/>
-                <polyline points="84,96 80,40 128,64 176,40 172,96"/>
-              </svg>
-            }
             desc="Free logos claimed by users worldwide."
           />
           <StatCard
@@ -100,25 +84,12 @@ export default function StatsSection() {
             from={1}
             to={60}
             suffix="s"
-            icon={
-              /* Phosphor: Lightning */
-              <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke="currentColor" strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="152,16 72,144 128,144 104,240 184,112 128,112 152,16"/>
-              </svg>
-            }
             desc="Average time to generate a complete logo."
           />
           <StatCard
             label="Free Spots Left"
             from={100000}
-            to={145308}
-            icon={
-              /* Phosphor: Ticket */
-              <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke="currentColor" strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M32,80a16,16,0,0,1,0-32H224a16,16,0,0,1,0,32,40,40,0,0,0,0,80,16,16,0,0,1,0,32H32a16,16,0,0,1,0-32,40,40,0,0,0,0-80Z"/>
-                <line x1="96" y1="48" x2="96" y2="208"/>
-              </svg>
-            }
+            to={1145308}
             desc="Free logos still available – claim yours now."
           />
         </div>

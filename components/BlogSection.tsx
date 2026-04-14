@@ -20,8 +20,7 @@ export default function BlogSection() {
           {BLOG_POSTS.map((post, i) => (
             <div
               key={i}
-              className="bg-transparent border rounded-lg overflow-hidden flex flex-col cursor-pointer transition-transform duration-300 ease-smooth hover:-translate-y-1"
-              style={{ borderColor: 'rgba(84,87,94,0.3)' }}
+              className="bg-[#1A1A1A] border border-white/[0.06] rounded-2xl overflow-hidden flex flex-col cursor-pointer transition-all duration-300 hover:border-white/[0.15]"
             >
               {/* Thumbnail */}
               <div className="relative w-full h-[220px] overflow-hidden flex-shrink-0">

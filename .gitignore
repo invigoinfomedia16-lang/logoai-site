@@ -11,3 +11,8 @@ playwright/.cache/
 tests/**/*.png
 
 .vercel
+
+# Environment
+.env
+.env.local
+.env*.local
