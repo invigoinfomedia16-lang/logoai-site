@@ -2,6 +2,7 @@
 
 import { useInView } from '@/hooks/useInView'
 import Badge from './ui/Badge'
+import { UserCircle, Cpu, CopySimple } from '@phosphor-icons/react'
 
 const CHECK = (
   <svg width="18" height="18" viewBox="0 0 20 20" fill="none" className="flex-shrink-0 mt-0.5">
@@ -24,6 +25,12 @@ const CROSS = (
   </svg>
 )
 
+const CARD_ICONS = {
+  designer: <UserCircle weight="bold" size={32} color="rgba(255,255,255,0.2)" />,
+  logoai: <Cpu weight="bold" size={32} color="#336AEA" />,
+  other: <CopySimple weight="bold" size={32} color="rgba(255,255,255,0.2)" />,
+}
+
 const CARDS = [
   {
     title: 'Designer',
@@ -31,6 +38,7 @@ const CARDS = [
     price: '$5K–$50K+',
     priceSub: '/ project',
     featured: false,
+    headerIcon: CARD_ICONS.designer,
     items: [
       { icon: 'dim', text: '3–6 weeks turnaround' },
       { icon: 'dim', text: 'High quality (depends on designer)' },
@@ -41,11 +49,12 @@ const CARDS = [
     ],
   },
   {
-    title: 'Logo.ai',
+    title: 'LOGO.AI',
     sub: 'AI-powered, instant',
     price: 'Free',
     priceSub: 'for first 2M users',
     featured: true,
+    headerIcon: CARD_ICONS.logoai,
     items: [
       { icon: 'check', text: 'Ready in seconds' },
       { icon: 'check', text: 'Professional, consistent quality' },
@@ -61,6 +70,7 @@ const CARDS = [
     price: '$20–$100',
     priceSub: '/ month',
     featured: false,
+    headerIcon: CARD_ICONS.other,
     items: [
       { icon: 'dim', text: '1–3 hours of trial & error' },
       { icon: 'cross', text: 'Generic, inconsistent output' },
@@ -93,7 +103,7 @@ export default function ComparisonTable() {
             Skip the designer, outperform the templates
           </h2>
           <p className="font-inter font-normal text-base sm:text-lg leading-7 text-white/50 m-0">
-            Here&apos;s how Logo.ai compares – on speed, cost, quality, and
+            Here&apos;s how LOGO.AI compares – on speed, cost, quality, and
             everything that matters.
           </p>
         </div>
@@ -111,7 +121,7 @@ export default function ComparisonTable() {
               key={card.title}
               className={`rounded-2xl p-8 lg:p-10 text-left relative transition-all duration-300 ${
                 card.featured
-                  ? 'bg-[#1F1F1F] border border-[rgba(51,106,234,0.3)] md:-my-4 md:py-12 lg:py-14'
+                  ? 'bg-[#1F1F1F] border border-[rgba(51,106,234,0.3)] md:-my-4 md:py-12 lg:py-14 order-first md:order-none'
                   : 'bg-[#1A1A1A] border border-white/[0.06]'
               }`}
               style={
@@ -120,17 +130,20 @@ export default function ComparisonTable() {
                   : undefined
               }
             >
-              {/* Featured card stands out via gradient + blue accents — no label needed */}
-
-              <h3
-                className="font-bricolage text-xl font-medium mb-1"
-                style={{ color: card.featured ? '#648EEF' : '#F5F5F5' }}
-              >
-                {card.title}
-              </h3>
-              <p className="font-inter text-[13px] text-white/40 mb-6">
-                {card.sub}
-              </p>
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <h3
+                    className="font-bricolage text-xl font-medium mb-1"
+                    style={{ color: card.featured ? '#648EEF' : '#F5F5F5' }}
+                  >
+                    {card.title}
+                  </h3>
+                  <p className="font-inter text-[13px] text-white/40">
+                    {card.sub}
+                  </p>
+                </div>
+                {card.headerIcon}
+              </div>
               <div className="mb-8">
                 <span className="font-bricolage text-[28px] lg:text-[32px] font-semibold text-white">
                   {card.price}

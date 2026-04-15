@@ -55,7 +55,7 @@ export default function CategoryTabs({ active, onSelect }: CategoryTabsProps) {
         className="md:hidden absolute right-0 top-0 bottom-0 w-10 pointer-events-none z-10"
         style={{ background: 'linear-gradient(to right, transparent, #0D0D0D)' }}
       />
-      <div className="flex md:flex-wrap md:justify-center gap-2.5 overflow-x-auto md:overflow-visible scrollbar-hide pb-1 md:pb-0">
+      <div className="flex md:flex-wrap md:justify-center gap-2.5 overflow-x-auto md:overflow-visible scrollbar-hide pb-1 md:pb-0 -mx-5 px-5 md:mx-0 md:px-0" style={{ WebkitOverflowScrolling: 'touch' }}>
         {CATEGORIES.map((cat) => (
           <TabButton
             key={cat.key}

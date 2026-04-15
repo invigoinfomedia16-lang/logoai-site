@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { useInView } from '@/hooks/useInView'
 import Badge from './ui/Badge'
+import { Medal, Timer, Ticket } from '@phosphor-icons/react'
 
 function easeOut(t: number) {
   return 1 - (1 - t) ** 3
@@ -18,9 +19,10 @@ interface StatCardProps {
   to: number
   suffix?: string
   desc: string
+  icon?: React.ReactNode
 }
 
-function StatCard({ label, from, to, suffix = '', desc }: StatCardProps) {
+function StatCard({ label, from, to, suffix = '', desc, icon }: StatCardProps) {
   const { ref, inView } = useInView(0.3)
   const [value, setValue] = useState(from)
 
@@ -39,8 +41,9 @@ function StatCard({ label, from, to, suffix = '', desc }: StatCardProps) {
   return (
     <div
       ref={ref}
-      className="rounded-2xl p-8 md:p-10 flex flex-col items-center text-center gap-2 bg-transparent border border-white/[0.1] transition-all duration-300 hover:border-white/[0.2]"
+      className="rounded-2xl p-8 md:p-10 flex flex-col items-center text-center gap-2 bg-[#1A1A1A] border border-white/[0.06] transition-all duration-300 hover:border-white/[0.15]"
     >
+      {icon && <div className="mb-2">{icon}</div>}
       <span className="font-bricolage text-[36px] md:text-[44px] font-bold text-white leading-none tracking-[-0.02em]">
         {formatNum(value)}
         {suffix && <span className="text-[20px] md:text-[24px] text-white/50 ml-0.5">{suffix}</span>}
@@ -78,6 +81,7 @@ export default function StatsSection() {
             from={800000}
             to={854692}
             desc="Free logos claimed by users worldwide."
+            icon={<Medal weight="bold" size={28} color="rgba(255,255,255,0.2)" />}
           />
           <StatCard
             label="Seconds to Generate"
@@ -85,12 +89,14 @@ export default function StatsSection() {
             to={60}
             suffix="s"
             desc="Average time to generate a complete logo."
+            icon={<Timer weight="bold" size={28} color="rgba(255,255,255,0.2)" />}
           />
           <StatCard
             label="Free Spots Left"
             from={100000}
             to={1145308}
             desc="Free logos still available – claim yours now."
+            icon={<Ticket weight="bold" size={28} color="rgba(255,255,255,0.2)" />}
           />
         </div>
       </div>

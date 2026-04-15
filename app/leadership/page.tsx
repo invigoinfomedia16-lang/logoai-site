@@ -354,11 +354,11 @@ export default function LeadershipPage() {
           </div>
       </PageSection>
 
-      {/* ── Why Logo.ai ── */}
+      {/* ── Why LOGO.AI ── */}
       <PageSection>
           <div className="max-w-[760px] mx-auto flex flex-col items-center text-center gap-8">
             <div className="flex flex-col items-center gap-4">
-              <Badge icon="lightning" text="Why Logo.ai" />
+              <Badge icon="lightning" text="Why LOGO.AI" />
             </div>
             <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.15em] tracking-[-0.04em] m-0">
               When AI reached the point where it could understand design — not just generate outputs —
@@ -408,7 +408,7 @@ export default function LeadershipPage() {
             <div className="flex flex-col items-center gap-4 max-w-[580px]">
               <Badge icon="rocket" text="What We're Building" />
               <h2 className="font-bricolage font-medium text-[28px] md:text-[36px] leading-[1.15em] tracking-[-0.04em] m-0">
-                Logo.ai is just the start.
+                LOGO.AI is just the start.
               </h2>
               <p className="font-bricolage text-base leading-[1.7em] text-white/50 m-0">
                 We&apos;re building systems that:

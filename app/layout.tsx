@@ -24,7 +24,7 @@ const sora = Sora({
 })
 
 export const metadata: Metadata = {
-  title: 'Logo.ai – Free AI Logo Generator',
+  title: 'LOGO.AI – Free AI Logo Generator',
   description:
     'Get your free AI-generated logo in seconds. Free for the first 2,000,000 users.',
 }

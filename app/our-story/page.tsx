@@ -382,7 +382,7 @@ export default function OurStoryPage() {
                 className="font-bricolage font-medium select-none text-white"
                 style={{ fontSize: 'clamp(56px, 8vw, 100px)', letterSpacing: '-0.04em', lineHeight: 1 }}
               >
-                Logo.ai
+                LOGO.AI
               </span>
             </div>
           </div>
@@ -413,7 +413,7 @@ export default function OurStoryPage() {
                 ))}
               </ul>
               <p className="font-bricolage font-medium text-base md:text-lg text-white m-0 pt-2">
-                That&apos;s what makes Logo.ai possible.
+                That&apos;s what makes LOGO.AI possible.
               </p>
             </div>
           </div>

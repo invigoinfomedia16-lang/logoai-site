@@ -27,7 +27,7 @@ export default function Footer() {
           <div className="flex flex-wrap gap-6 md:gap-10 lg:gap-[80px]">
             {FOOTER_LINKS.map((group) => (
               <div key={group.title} className="flex flex-col gap-4">
-                <span className="font-bricolage font-semibold text-[11px] leading-5 text-white/40 uppercase tracking-[2px]">
+                <span className="font-bricolage font-bold text-[11px] leading-5 text-white/90 uppercase tracking-[2px]">
                   {group.title}
                 </span>
                 {group.links.map((link) => (
@@ -57,10 +57,10 @@ export default function Footer() {
           style={{ borderTop: '1px solid rgba(84,87,94,0.3)' }}
         >
           <span className="font-bricolage font-normal text-sm text-white/40">
-            © 2026 Logo.ai
+            © 2026 LOGO.AI
           </span>
           <span className="font-bricolage font-normal text-sm text-white/40">
-            Logo.ai is an independent service.
+            LOGO.AI is an independent service.
           </span>
         </div>
       </div>

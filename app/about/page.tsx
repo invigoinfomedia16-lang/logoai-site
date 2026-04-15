@@ -211,7 +211,7 @@ export default function AboutPage() {
             </h2>
             <div className="flex flex-col gap-3">
               <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
-                Logo.ai doesn&apos;t use templates.
+                LOGO.AI doesn&apos;t use templates.
               </p>
               <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
                 It designs from scratch — every time.
@@ -284,7 +284,7 @@ export default function AboutPage() {
               Most tools rely on templates.
             </h2>
             <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
-              Logo.ai works differently.
+              LOGO.AI works differently.
             </p>
             <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
               It&apos;s trained on real design principles —
@@ -318,7 +318,7 @@ export default function AboutPage() {
               not just produce results — but understand design.
             </p>
             <p className="font-bricolage font-medium text-base md:text-lg text-white m-0 pt-2">
-              That&apos;s what makes Logo.ai possible today.
+              That&apos;s what makes LOGO.AI possible today.
             </p>
           </div>
         </div>
@@ -370,7 +370,7 @@ export default function AboutPage() {
               and still doesn&apos;t feel right.
             </p>
             <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/55 m-0">
-              We built Logo.ai to fix that.
+              We built LOGO.AI to fix that.
             </p>
             <p className="font-bricolage font-medium text-base md:text-lg text-white m-0 pt-2">
               So a brand can move from name to identity —

@@ -13,6 +13,7 @@
     "test:report": "playwright show-report"
   },
   "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18"

@@ -165,7 +165,7 @@ export const FAQ_ITEMS = [
   },
   {
     q: 'How is this different from other AI logo makers?',
-    a: 'Most "logo makers" give you a generic template with your name added. Logo.ai creates a custom logo based on your brand and your industry – powered by advanced AI to deliver something original.',
+    a: 'Most "logo makers" give you a generic template with your name added. LOGO.AI creates a custom logo based on your brand and your industry – powered by advanced AI to deliver something original.',
   },
   {
     q: 'Do I own my logo?',
@@ -185,7 +185,7 @@ export const FAQ_ITEMS = [
   },
   {
     q: 'When will I get my logo?',
-    a: "The moment we launch! You'll get an email as soon as Logo.ai goes live.",
+    a: "The moment we launch! You'll get an email as soon as LOGO.AI goes live.",
   },
   {
     q: 'How many free logos are left?',
@@ -197,10 +197,10 @@ export const FAQ_ITEMS = [
   },
   {
     q: 'Why are you offering this for free?',
-    a: "We want 2,000,000 founders to experience Logo.ai firsthand. Once you see the quality, we know you'll come back for brand kits, social assets, and more.",
+    a: "We want 2,000,000 founders to experience LOGO.AI firsthand. Once you see the quality, we know you'll come back for brand kits, social assets, and more.",
   },
   {
-    q: 'When does Logo.ai launch?',
+    q: 'When does LOGO.AI launch?',
     a: "We're launching soon! Secure your spot today so you don't miss the free offer.",
   },
 ]
@@ -232,7 +232,7 @@ export const BLOG_POSTS = [
 
 // ─── Nav links ────────────────────────────────────────────────────────────────
 export const NAV_LINKS = [
-  { text: 'Why Logo.ai', href: '/why-logo-ai' },
+  { text: 'Why LOGO.AI', href: '/why-logo-ai' },
   { text: 'About', href: '/about' },
   { text: 'Our story', href: '/our-story' },
   { text: 'Leadership', href: '/leadership' },
@@ -244,7 +244,7 @@ export const FOOTER_LINKS = [
   {
     title: 'Product',
     links: [
-      { t: 'Why logo.ai', h: '/about' },
+      { t: 'Why LOGO.AI', h: '/about' },
       { t: 'How it works', h: '/our-story' },
       { t: 'FAQ', h: '/#faq' },
       { t: 'Blog', h: '/press' },

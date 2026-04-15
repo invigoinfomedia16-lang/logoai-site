@@ -30,7 +30,7 @@ const FEATURES = [
   },
   {
     title: 'Understands your brand',
-    desc: 'Logo.ai adapts to your industry, tone, and style — so your logo fits from the start.',
+    desc: 'LOGO.AI adapts to your industry, tone, and style — so your logo fits from the start.',
     icon: (
       <svg width="22" height="22" viewBox="0 0 256 256" fill="none" stroke={BLUE} strokeWidth="20" strokeLinecap="round" strokeLinejoin="round">
         <path d="M128,24A104,104,0,0,0,24,128" />
@@ -96,28 +96,28 @@ export default function WhyLogoAiPage() {
             className="font-bricolage font-medium leading-[1.08em] tracking-[-0.04em] m-0 max-w-[860px]"
             style={{ fontSize: 'clamp(36px, 5.5vw, 72px)' }}
           >
-            Why Logo.ai
+            Why LOGO.AI
           </h1>
           <p className="font-bricolage font-medium text-lg md:text-xl leading-[1.7em] tracking-[-0.02em] text-white/55 max-w-[640px] m-0">
             From name to logo — in seconds.
           </p>
           <p className="font-bricolage text-base md:text-lg leading-[1.7em] text-white/40 max-w-[640px] m-0">
             No delays. No guesswork. No back-and-forth.
-            Logo.ai turns your brand into an original, professional logo — instantly.
+            LOGO.AI turns your brand into an original, professional logo — instantly.
             Built to look right everywhere your brand appears.
           </p>
         </div>
       </section>
 
-      {/* -- Why choose Logo.ai -- */}
+      {/* -- Why choose LOGO.AI -- */}
       <PageSection>
         <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10 md:gap-[60px]">
           <div className="flex flex-col items-center gap-4 max-w-[640px]">
             <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
-              Why choose Logo.ai
+              Why choose LOGO.AI
             </h2>
             <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">
-              Logo.ai replaces manual design with fast, consistent results.
+              LOGO.AI replaces manual design with fast, consistent results.
             </p>
           </div>
 
@@ -137,15 +137,15 @@ export default function WhyLogoAiPage() {
         </div>
       </PageSection>
 
-      {/* -- How Logo.ai compares -- */}
+      {/* -- How LOGO.AI compares -- */}
       <PageSection>
         <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-10 md:gap-[60px]">
           <div className="flex flex-col items-center gap-4 max-w-[640px]">
             <h2 className="font-bricolage font-medium text-[28px] md:text-[40px] leading-[1.1em] tracking-[-0.04em] m-0">
-              How Logo.ai compares
+              How LOGO.AI compares
             </h2>
             <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">
-              See how Logo.ai compares to designers and other AI logo makers.
+              See how LOGO.AI compares to designers and other AI logo makers.
             </p>
           </div>
 
@@ -161,7 +161,7 @@ export default function WhyLogoAiPage() {
                   className="text-[11px] font-medium text-white uppercase tracking-[2px] text-center px-2 py-1 rounded-t-lg"
                   style={{ background: 'rgba(51,106,234,0.1)' }}
                 >
-                  Logo.ai
+                  LOGO.AI
                 </span>
                 <span className="text-[11px] font-medium text-white/40 uppercase tracking-[2px] text-center">Designer</span>
                 <span className="text-[11px] font-medium text-white/40 uppercase tracking-[2px] text-center">Other AI logo makers</span>
@@ -203,7 +203,7 @@ export default function WhyLogoAiPage() {
               See it in action
             </h2>
             <p className="font-bricolage text-base leading-[1.7em] text-white/55 m-0">
-              See how Logo.ai turns a simple name into a complete, professional logo — without templates, revisions, or guesswork.
+              See how LOGO.AI turns a simple name into a complete, professional logo — without templates, revisions, or guesswork.
             </p>
           </div>
 

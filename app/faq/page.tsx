@@ -16,7 +16,7 @@ const FAQS = [
   },
   {
     q: 'How is this different from other AI logo makers?',
-    a: "Most other AI logo makers use templates or pre-made elements. Logo.ai designs logos from scratch using real design principles — so the result is original and consistent.",
+    a: "Most other AI logo makers use templates or pre-made elements. LOGO.AI designs logos from scratch using real design principles — so the result is original and consistent.",
   },
   {
     q: 'Do I own my logo?',
@@ -51,7 +51,7 @@ const FAQS = [
     a: "We want people to experience the quality for themselves. If it's good, it spreads.",
   },
   {
-    q: 'When does Logo.ai launch?',
+    q: 'When does LOGO.AI launch?',
     a: `Launching in ${getDaysUntilLaunch()} days. Join now to secure your spot.`,
   },
 ]

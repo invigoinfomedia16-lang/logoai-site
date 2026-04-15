@@ -35,7 +35,7 @@ export default function BlogSection() {
               </div>
 
               {/* Content */}
-              <div className="p-5 flex flex-col gap-3">
+              <div className="p-5 flex flex-col gap-3 text-left">
                 <div className="flex gap-3 items-center">
                   <span className="font-bricolage text-[13px] font-medium text-white/70 px-2.5 py-1 rounded-md bg-white/[0.06]">
                     {post.cat}

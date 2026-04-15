@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Badge from './ui/Badge'
 import { FAQ_ITEMS } from '@/data'
 
-function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
+function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false)
   const [hovered, setHovered] = useState(false)
 
@@ -16,8 +16,8 @@ function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
       onMouseLeave={() => setHovered(false)}
       className="cursor-pointer transition-colors duration-200"
       style={{
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
-        backgroundColor: hovered ? 'rgba(255,255,255,0.02)' : 'transparent',
+        borderBottom: open ? '1px solid rgba(255,255,255,0.25)' : '1px solid rgba(255,255,255,0.08)',
+        backgroundColor: 'transparent',
       }}
     >
       {/* Question row */}
@@ -50,7 +50,6 @@ function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
 
       {/* Answer */}
       <div
-        className="accordion-content"
         style={{ maxHeight: open ? 300 : 0, overflow: 'hidden', transition: 'max-height 0.4s cubic-bezier(0.23,1,0.32,1)' }}
       >
         <p className="font-bricolage font-normal text-sm leading-[1.7] text-white/50 pr-10 pb-5 m-0">
@@ -70,22 +69,21 @@ export default function FAQ() {
       <div className="max-w-[95%] sm:max-w-[90%] mx-auto flex flex-col items-center text-center gap-8 md:gap-[60px]">
         <div className="flex flex-col items-center gap-2.5 max-w-[700px]">
           <Badge icon="question" text="FAQ" />
-          <h2 className="font-bricolage font-medium leading-[1.1em] tracking-[-0.04em] m-0" style={{ fontSize: 'clamp(28px, 5vw, 56px)' }}>
-            Got questions? We've got answers
+          <h2 className="font-bricolage font-semibold leading-[1.1em] tracking-[-0.03em] m-0" style={{ fontSize: 'clamp(28px, 5vw, 56px)' }}>
+            Got questions? We&apos;ve got answers
           </h2>
-          <p className="font-bricolage font-medium text-base sm:text-lg leading-7 tracking-[-0.02em] text-white/50 m-0">
+          <p className="font-inter font-normal text-base sm:text-lg leading-7 text-white/50 m-0">
             Everything you need to know about creating your free logo.
           </p>
         </div>
 
         {/* Single column */}
         <div className="w-full max-w-[800px] text-left">
-          {FAQ_ITEMS.map((item, i) => (
+          {FAQ_ITEMS.map((item) => (
             <FAQItem
               key={item.q}
               q={item.q}
               a={item.a}
-              index={i}
             />
           ))}
         </div>

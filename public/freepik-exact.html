@@ -113,9 +113,9 @@ body { font-family: 'Inter', sans-serif; background: #0D0D0D; color: #F5F5F5; }
 .carousel-wrap { position: relative; width: 100vw; margin-left: calc(50% - 50vw); height: 280px; overflow: hidden; margin-top: 40px; }
 .carousel-fade { position: absolute; inset: 0; pointer-events: none; z-index: 2; background: linear-gradient(90deg, #0D0D0D 0%, transparent 120px, transparent calc(100% - 120px), #0D0D0D 100%); }
 .carousel-strip { display: flex; gap: 16px; padding-top: 8px; width: max-content; animation: marqueeScroll 50s linear infinite; will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-.carousel-card { width: 420px; height: 260px; border-radius: 16px; flex-shrink: 0; overflow: hidden; background: #1A1A1A; cursor: pointer; }
-.carousel-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.23,1,0.32,1); }
-.carousel-card:hover img { transform: scale(1.08); }
+.carousel-card { width: 420px; border-radius: 16px; flex-shrink: 0; overflow: hidden; background: #1A1A1A; cursor: pointer; }
+.carousel-card img { width: 100%; height: auto; display: block; object-fit: contain; transition: transform 0.5s cubic-bezier(0.23,1,0.32,1); }
+.carousel-card:hover img { transform: scale(1.06); }
 
 @media (max-width: 768px) { .cards { grid-template-columns: 1fr; } .nav .links { display: none; } .footer-grid { grid-template-columns: 1fr 1fr; } .compare-row { grid-template-columns: 100px 1fr 1fr 1fr; } .carousel-card { width: 420px; height: 280px; } .carousel-wrap { height: 300px; } }
 </style>
@@ -140,16 +140,16 @@ body { font-family: 'Inter', sans-serif; background: #0D0D0D; color: #F5F5F5; }
     <span id="comboBtns" style="display:flex;gap:4px;"></span>
   </div>
   <div style="display:flex;align-items:center;gap:6px;width:100%;overflow-x:auto;border-top:1px solid rgba(255,255,255,0.06);padding-top:4px;">
-    <span class="label" style="min-width:35px;">CTA:</span>
-    <span id="ctaColorBtns" style="display:flex;gap:4px;"></span>
-  </div>
-  <div style="display:flex;align-items:center;gap:6px;width:100%;overflow-x:auto;border-top:1px solid rgba(255,255,255,0.06);padding-top:4px;">
     <span class="label" style="min-width:35px;">Frame:</span>
     <span id="frameBtns" style="display:flex;gap:4px;"></span>
   </div>
   <div style="display:flex;align-items:center;gap:6px;width:100%;overflow-x:auto;border-top:1px solid rgba(255,255,255,0.06);padding-top:4px;">
     <span class="label" style="min-width:35px;">Cards:</span>
     <span id="cardBtns" style="display:flex;gap:4px;"></span>
+  </div>
+  <div style="display:flex;align-items:center;gap:6px;width:100%;overflow-x:auto;border-top:1px solid rgba(255,255,255,0.06);padding-top:4px;">
+    <span class="label" style="min-width:35px;">Badge:</span>
+    <span id="badgeBtns" style="display:flex;gap:4px;"></span>
   </div>
 </div>
 
@@ -302,8 +302,13 @@ body { font-family: 'Inter', sans-serif; background: #0D0D0D; color: #F5F5F5; }
   <div class="compare-grid">
     <!-- Designer card -->
     <div class="compare-card">
-      <div class="compare-card-title">Designer</div>
-      <div class="compare-card-sub">Traditional agency route</div>
+      <div style="display:flex;justify-content:space-between;align-items:start;">
+        <div>
+          <div class="compare-card-title">Designer</div>
+          <div class="compare-card-sub">Traditional agency route</div>
+        </div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" width="32" height="32" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+      </div>
       <div class="compare-card-price">$5K–$50K+ <span>/ project</span></div>
       <div class="compare-item"><svg class="compare-check" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/><path d="M6 10.5l2.5 2.5 5-5" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>3–6 weeks turnaround</div>
       <div class="compare-item"><svg class="compare-check" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/><path d="M6 10.5l2.5 2.5 5-5" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>High quality (depends on designer)</div>
@@ -315,8 +320,13 @@ body { font-family: 'Inter', sans-serif; background: #0D0D0D; color: #F5F5F5; }
 
     <!-- Logo.ai card (featured) -->
     <div class="compare-card featured">
-      <div class="compare-card-title" style="color:#648EEF;">Logo.ai</div>
-      <div class="compare-card-sub">AI-powered, instant</div>
+      <div style="display:flex;justify-content:space-between;align-items:start;">
+        <div>
+          <div class="compare-card-title" style="color:#648EEF;">Logo.ai</div>
+          <div class="compare-card-sub">AI-powered, instant</div>
+        </div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#336AEA" stroke-width="1.5" width="32" height="32" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
       <div class="compare-card-price">Free <span>for first 2M users</span></div>
       <div class="compare-item"><svg class="compare-check" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#336AEA" stroke-width="1.5"/><path d="M6 10.5l2.5 2.5 5-5" stroke="#336AEA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ready in seconds</div>
       <div class="compare-item"><svg class="compare-check" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="#336AEA" stroke-width="1.5"/><path d="M6 10.5l2.5 2.5 5-5" stroke="#336AEA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Professional, consistent quality</div>
@@ -328,8 +338,13 @@ body { font-family: 'Inter', sans-serif; background: #0D0D0D; color: #F5F5F5; }
 
     <!-- Other AI card -->
     <div class="compare-card">
-      <div class="compare-card-title">Other AI</div>
-      <div class="compare-card-sub">Template-based generators</div>
+      <div style="display:flex;justify-content:space-between;align-items:start;">
+        <div>
+          <div class="compare-card-title">Other AI</div>
+          <div class="compare-card-sub">Template-based generators</div>
+        </div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" width="32" height="32" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      </div>
       <div class="compare-card-price">$20–$100 <span>/ month</span></div>
       <div class="compare-item"><svg class="compare-check" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/><path d="M6 10.5l2.5 2.5 5-5" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>1–3 hours of trial & error</div>
       <div class="compare-item"><svg class="compare-check" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="9" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/><path d="M7 7l6 6M13 7l-6 6" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round"/></svg>Generic, inconsistent output</div>
@@ -351,16 +366,19 @@ body { font-family: 'Inter', sans-serif; background: #0D0D0D; color: #F5F5F5; }
   <p class="body">854,692 free logos claimed. Secure yours before they're gone.</p>
   <div class="cards">
     <div class="card" style="text-align:center;padding:32px 24px;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" width="28" height="28" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 12px;display:block;"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 7-7h4a7 7 0 0 1 7 7v2"/></svg>
       <div style="font-size:36px;font-weight:700;color:#F5F5F5;margin-bottom:4px;">854,692</div>
       <div style="font-size:13px;font-weight:600;color:#336AEA;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Logos Claimed</div>
       <p>Free logos claimed by users worldwide.</p>
     </div>
     <div class="card" style="text-align:center;padding:32px 24px;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" width="28" height="28" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 12px;display:block;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
       <div style="font-size:36px;font-weight:700;color:#F5F5F5;margin-bottom:4px;">60<span style="font-size:20px;color:#AAAAAA;">s</span></div>
       <div style="font-size:13px;font-weight:600;color:#336AEA;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Seconds to Generate</div>
       <p>Average time to generate a complete logo.</p>
     </div>
     <div class="card" style="text-align:center;padding:32px 24px;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" width="28" height="28" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 12px;display:block;"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12c0 1.1.9 2 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4h-4z"/></svg>
       <div style="font-size:36px;font-weight:700;color:#F5F5F5;margin-bottom:4px;">1,145,308</div>
       <div style="font-size:13px;font-weight:600;color:#336AEA;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">Free Spots Left</div>
       <p>Free logos still available – claim yours now.</p>
@@ -621,7 +639,7 @@ logoOptions.forEach((opt, i) => {
   btn.onclick = () => setLogo(i);
   logoBtns.appendChild(btn);
 });
-setLogo(0);
+setLogo(8); // Bingo 28px +
 
 // ─── HEADING FONT SWITCHER ───
 const headingOptions = [
@@ -762,35 +780,6 @@ combos.forEach((opt, i) => {
   comboBtns.appendChild(btn);
 });
 
-// ─── CTA TEXT COLOR SWITCHER ───
-const ctaColors = [
-  { name: 'White', h: '#FFFFFF', sub: 'rgba(255,255,255,0.75)' },
-  { name: 'Blue', h: '#336AEA', sub: '#648EEF' },
-  { name: 'Gold', h: '#F5C842', sub: '#D4A832' },
-  { name: 'Coral', h: '#FF6B6B', sub: '#FF8E8E' },
-  { name: 'Cyan', h: '#06B6D4', sub: '#22D3EE' },
-  { name: 'Lime', h: '#84CC16', sub: '#A3E635' },
-  { name: 'Pink', h: '#EC4899', sub: '#F472B6' },
-  { name: 'Amber', h: '#F59E0B', sub: '#FBBF24' },
-  { name: 'Lavender', h: '#A78BFA', sub: '#C4B5FD' },
-];
-
-function setCtaColor(i) {
-  const c = ctaColors[i];
-  document.getElementById('ctaHeading').style.color = c.h;
-  document.getElementById('ctaSub').style.color = c.sub;
-  document.querySelectorAll('#ctaColorBtns button').forEach((b, j) => b.classList.toggle('active', j === i));
-}
-
-const ctaColorBtns = document.getElementById('ctaColorBtns');
-ctaColors.forEach((opt, i) => {
-  const btn = document.createElement('button');
-  btn.textContent = opt.name;
-  btn.style.borderLeft = '3px solid ' + opt.h;
-  btn.onclick = () => setCtaColor(i);
-  ctaColorBtns.appendChild(btn);
-});
-setCtaColor(0);
 
 // ─── HERO CAROUSEL ───
 const carouselImages = [
@@ -881,70 +870,119 @@ setInterval(() => { setMockupSlide((mockupActive + 1) % mockupSlides.length); },
 // ─── ABSTRACT GRADIENT FRAME SWITCHER ───
 const frameStyles = [
   {
-    name: 'Ocean Wave',
+    name: 'Solid Blue',
     layers: [
-      'position:absolute;inset:0;background:linear-gradient(160deg, #2D1B69 0%, #1B1464 25%, #0C2D6B 50%, #0891B2 75%, #22D3EE 100%);',
-      'position:absolute;width:140%;height:80%;top:30%;left:-20%;background:radial-gradient(ellipse at 30% 50%, rgba(6,182,212,0.7) 0%, rgba(14,116,144,0.4) 40%, transparent 70%);border-radius:50%;transform:rotate(-15deg);',
-      'position:absolute;width:120%;height:60%;top:50%;left:-10%;background:radial-gradient(ellipse at 60% 40%, rgba(34,211,238,0.5) 0%, rgba(8,145,178,0.3) 40%, transparent 65%);border-radius:50%;transform:rotate(-8deg);',
-      'position:absolute;width:80%;height:50%;top:-10%;right:-10%;background:radial-gradient(ellipse at 70% 30%, rgba(88,28,135,0.8) 0%, rgba(45,27,105,0.4) 50%, transparent 70%);border-radius:50%;',
+      'position:absolute;inset:0;background:#336AEA;',
     ],
   },
   {
-    name: 'Aurora',
+    name: 'Blue Gradient',
     layers: [
-      'position:absolute;inset:0;background:linear-gradient(180deg, #0A0A1A 0%, #0D1B2A 50%, #1B2838 100%);',
-      'position:absolute;width:150%;height:50%;top:10%;left:-25%;background:linear-gradient(90deg, rgba(6,182,212,0.5), rgba(51,106,234,0.4), rgba(139,92,246,0.5), rgba(236,72,153,0.3));filter:blur(40px);border-radius:50%;transform:rotate(-5deg);',
-      'position:absolute;width:130%;height:40%;top:30%;left:-15%;background:linear-gradient(90deg, rgba(34,211,238,0.3), rgba(100,142,239,0.3), rgba(168,85,247,0.2));filter:blur(30px);border-radius:50%;transform:rotate(3deg);',
-      'position:absolute;width:100%;height:30%;bottom:0;left:0;background:linear-gradient(to top, rgba(13,13,26,0.8), transparent);',
+      'position:absolute;inset:0;background:linear-gradient(135deg, #1A4FD0 0%, #336AEA 50%, #648EEF 100%);',
     ],
   },
   {
-    name: 'Sunset',
+    name: 'Blue → Dark',
     layers: [
-      'position:absolute;inset:0;background:linear-gradient(135deg, #1A0A2E 0%, #2D1B4E 20%, #6B2157 45%, #C2410C 70%, #F59E0B 100%);',
-      'position:absolute;width:130%;height:70%;top:20%;left:-15%;background:radial-gradient(ellipse at 40% 50%, rgba(194,65,12,0.5) 0%, rgba(107,33,87,0.3) 40%, transparent 65%);border-radius:50%;transform:rotate(-10deg);',
-      'position:absolute;width:80%;height:60%;bottom:-10%;right:-10%;background:radial-gradient(ellipse at 60% 60%, rgba(245,158,11,0.4) 0%, transparent 60%);border-radius:50%;filter:blur(20px);',
+      'position:absolute;inset:0;background:linear-gradient(180deg, #336AEA 0%, #1A4FD0 40%, #0D1A3D 100%);',
     ],
   },
   {
-    name: 'Nebula',
+    name: 'Blue Wave',
     layers: [
-      'position:absolute;inset:0;background:linear-gradient(145deg, #0D0D1A 0%, #1A0A2E 30%, #2D1464 60%, #0D0D1A 100%);',
-      'position:absolute;width:120%;height:100%;top:-10%;left:-10%;background:radial-gradient(ellipse at 30% 40%, rgba(139,92,246,0.5) 0%, transparent 50%);',
-      'position:absolute;width:100%;height:80%;top:10%;right:-20%;background:radial-gradient(ellipse at 70% 60%, rgba(236,72,153,0.35) 0%, transparent 50%);',
-      'position:absolute;width:80%;height:60%;bottom:0;left:10%;background:radial-gradient(ellipse at 50% 80%, rgba(51,106,234,0.4) 0%, transparent 50%);filter:blur(15px);',
+      'position:absolute;inset:0;background:#1A4FD0;',
+      'position:absolute;width:150%;height:80%;top:20%;left:-25%;background:radial-gradient(ellipse at 30% 50%, #336AEA 0%, transparent 55%);border-radius:50%;transform:rotate(-12deg);',
+      'position:absolute;width:120%;height:60%;bottom:-10%;right:-20%;background:radial-gradient(ellipse at 70% 60%, #648EEF 0%, transparent 50%);border-radius:50%;filter:blur(20px);',
     ],
   },
   {
-    name: 'Electric',
+    name: 'Blue Orbs',
     layers: [
-      'position:absolute;inset:0;background:linear-gradient(135deg, #0A0A1F 0%, #0F1B3D 40%, #1A0A3D 70%, #0A1A2F 100%);',
-      'position:absolute;width:100%;height:100%;top:0;left:0;background:conic-gradient(from 180deg at 50% 50%, rgba(51,106,234,0.4) 0deg, rgba(139,92,246,0.3) 90deg, rgba(6,182,212,0.35) 180deg, rgba(51,106,234,0.2) 270deg, rgba(139,92,246,0.4) 360deg);filter:blur(40px);',
-      'position:absolute;width:60%;height:60%;top:20%;left:20%;background:radial-gradient(circle, rgba(100,142,239,0.2) 0%, transparent 60%);filter:blur(20px);',
+      'position:absolute;inset:0;background:#1F408C;',
+      'position:absolute;width:350px;height:350px;top:-60px;left:-60px;background:radial-gradient(circle, #336AEA 0%, transparent 60%);border-radius:50%;filter:blur(30px);',
+      'position:absolute;width:300px;height:300px;bottom:-50px;right:-50px;background:radial-gradient(circle, #648EEF 0%, transparent 60%);border-radius:50%;filter:blur(25px);',
+      'position:absolute;width:200px;height:200px;top:40%;left:40%;background:radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);border-radius:50%;filter:blur(20px);',
     ],
   },
   {
-    name: 'Forest',
+    name: 'Dark + Blue Glow',
     layers: [
-      'position:absolute;inset:0;background:linear-gradient(160deg, #0A1A0F 0%, #0D2818 30%, #134E2C 55%, #0891B2 85%, #06B6D4 100%);',
-      'position:absolute;width:140%;height:70%;top:25%;left:-20%;background:radial-gradient(ellipse at 35% 50%, rgba(34,197,94,0.4) 0%, rgba(13,78,44,0.3) 40%, transparent 65%);border-radius:50%;transform:rotate(-12deg);',
-      'position:absolute;width:90%;height:50%;bottom:-5%;right:-5%;background:radial-gradient(ellipse at 60% 70%, rgba(6,182,212,0.35) 0%, transparent 55%);border-radius:50%;filter:blur(15px);',
+      'position:absolute;inset:0;background:#0D1020;',
+      'position:absolute;width:80%;height:80%;top:10%;left:10%;background:radial-gradient(circle, rgba(51,106,234,0.5) 0%, transparent 55%);filter:blur(50px);',
     ],
   },
   {
-    name: 'Flame',
+    name: 'Blue Corners',
     layers: [
-      'position:absolute;inset:0;background:linear-gradient(160deg, #1A0A0A 0%, #3D0A0A 25%, #6B2020 50%, #C2410C 75%, #F59E0B 100%);',
-      'position:absolute;width:130%;height:80%;top:20%;left:-15%;background:radial-gradient(ellipse at 40% 50%, rgba(239,68,68,0.5) 0%, rgba(194,65,12,0.3) 40%, transparent 60%);border-radius:50%;transform:rotate(-8deg);',
-      'position:absolute;width:100%;height:50%;bottom:0;left:0;background:radial-gradient(ellipse at 50% 80%, rgba(245,158,11,0.4) 0%, transparent 55%);border-radius:50%;filter:blur(20px);',
+      'position:absolute;inset:0;background:#111833;',
+      'position:absolute;width:50%;height:50%;top:0;left:0;background:radial-gradient(circle at 0% 0%, #336AEA 0%, transparent 60%);filter:blur(30px);',
+      'position:absolute;width:50%;height:50%;bottom:0;right:0;background:radial-gradient(circle at 100% 100%, #648EEF 0%, transparent 60%);filter:blur(30px);',
     ],
   },
   {
-    name: 'Candy',
+    name: 'Blue Stripes',
     layers: [
-      'position:absolute;inset:0;background:linear-gradient(135deg, #2D1B69 0%, #6B21A8 25%, #EC4899 50%, #F472B6 75%, #FDE68A 100%);',
-      'position:absolute;width:120%;height:70%;top:20%;left:-10%;background:radial-gradient(ellipse at 40% 50%, rgba(236,72,153,0.5) 0%, rgba(168,85,247,0.3) 40%, transparent 60%);border-radius:50%;transform:rotate(-6deg);',
-      'position:absolute;width:80%;height:50%;top:-5%;right:-5%;background:radial-gradient(ellipse at 70% 30%, rgba(253,230,138,0.3) 0%, transparent 50%);border-radius:50%;filter:blur(15px);',
+      'position:absolute;inset:0;background:#1A3575;',
+      'position:absolute;inset:0;background:repeating-linear-gradient(135deg, transparent, transparent 20px, rgba(51,106,234,0.3) 20px, rgba(51,106,234,0.3) 22px);',
+    ],
+  },
+  {
+    name: 'Blue Dots',
+    layers: [
+      'position:absolute;inset:0;background:#162B5E;',
+      'position:absolute;inset:0;background-image:radial-gradient(circle, rgba(100,142,239,0.5) 2px, transparent 2px);background-size:20px 20px;',
+    ],
+  },
+  {
+    name: 'Blue Edge Glow',
+    layers: [
+      'position:absolute;inset:0;background:#0D1228;',
+      'position:absolute;top:0;left:0;right:0;height:3px;background:#336AEA;',
+      'position:absolute;bottom:0;left:0;right:0;height:3px;background:#336AEA;',
+      'position:absolute;top:0;left:0;bottom:0;width:3px;background:#336AEA;',
+      'position:absolute;top:0;right:0;bottom:0;width:3px;background:#336AEA;',
+      'position:absolute;inset:0;box-shadow:inset 0 0 60px rgba(51,106,234,0.3);',
+    ],
+  },
+  {
+    name: 'White Ribbons',
+    layers: [
+      'position:absolute;inset:0;background:#336AEA;',
+      "position:absolute;inset:0;background:url(\"data:image/svg+xml,%3Csvg width='600' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M-50 200 C100 100 200 300 350 200 S600 100 750 200' fill='none' stroke='rgba(255,255,255,0.15)' stroke-width='60'/%3E%3Cpath d='M-50 280 C100 180 200 380 350 280 S600 180 750 280' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='40'/%3E%3Cpath d='M-50 120 C100 20 200 220 350 120 S600 20 750 120' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='30'/%3E%3C/svg%3E\");background-size:cover;",
+    ],
+  },
+  {
+    name: 'Silk Waves',
+    layers: [
+      'position:absolute;inset:0;background:linear-gradient(160deg, #1A4FD0, #336AEA, #648EEF);',
+      "position:absolute;inset:0;background:url(\"data:image/svg+xml,%3Csvg width='800' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 300 Q200 150 400 250 T800 200' fill='none' stroke='rgba(255,255,255,0.2)' stroke-width='80'/%3E%3Cpath d='M0 200 Q200 50 400 150 T800 100' fill='none' stroke='rgba(255,255,255,0.12)' stroke-width='50'/%3E%3Cpath d='M0 350 Q200 250 400 320 T800 280' fill='none' stroke='rgba(255,255,255,0.07)' stroke-width='35'/%3E%3C/svg%3E\");background-size:cover;",
+    ],
+  },
+  {
+    name: 'Flowing Lines',
+    layers: [
+      'position:absolute;inset:0;background:#2255CC;',
+      "position:absolute;inset:0;background:url(\"data:image/svg+xml,%3Csvg width='600' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 100 C150 50 300 200 450 120 S600 50 700 100' fill='none' stroke='rgba(255,255,255,0.18)' stroke-width='3'/%3E%3Cpath d='M0 140 C150 90 300 240 450 160 S600 90 700 140' fill='none' stroke='rgba(255,255,255,0.14)' stroke-width='2.5'/%3E%3Cpath d='M0 180 C150 130 300 280 450 200 S600 130 700 180' fill='none' stroke='rgba(255,255,255,0.11)' stroke-width='2'/%3E%3Cpath d='M0 220 C150 170 300 320 450 240 S600 170 700 220' fill='none' stroke='rgba(255,255,255,0.09)' stroke-width='1.5'/%3E%3Cpath d='M0 260 C150 210 300 360 450 280 S600 210 700 260' fill='none' stroke='rgba(255,255,255,0.07)' stroke-width='1.5'/%3E%3Cpath d='M0 300 C150 250 300 400 450 320 S600 250 700 300' fill='none' stroke='rgba(255,255,255,0.05)' stroke-width='1'/%3E%3C/svg%3E\");background-size:cover;",
+    ],
+  },
+  {
+    name: 'Thick Ribbon',
+    layers: [
+      'position:absolute;inset:0;background:#336AEA;',
+      "position:absolute;inset:0;background:url(\"data:image/svg+xml,%3Csvg width='600' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M-100 350 C50 150 200 350 400 200 S650 50 800 150' fill='rgba(255,255,255,0.12)' stroke='none'/%3E%3Cpath d='M-100 400 C50 200 200 400 400 250 S650 100 800 200' fill='rgba(255,255,255,0.08)' stroke='none'/%3E%3C/svg%3E\");background-size:cover;",
+    ],
+  },
+  {
+    name: 'Swirl',
+    layers: [
+      'position:absolute;inset:0;background:linear-gradient(135deg, #1A4FD0, #336AEA);',
+      "position:absolute;inset:0;background:url(\"data:image/svg+xml,%3Csvg width='600' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M300 -50 C500 50 400 200 300 200 S100 200 100 350 C100 450 250 400 300 350 S450 250 500 200 C550 150 450 50 300 -50Z' fill='none' stroke='rgba(255,255,255,0.12)' stroke-width='60'/%3E%3Ccircle cx='150' cy='100' r='80' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='40'/%3E%3Ccircle cx='450' cy='300' r='60' fill='none' stroke='rgba(255,255,255,0.05)' stroke-width='30'/%3E%3C/svg%3E\");background-size:cover;",
+    ],
+  },
+  {
+    name: 'No Frame',
+    layers: [
+      'position:absolute;inset:0;background:transparent;',
     ],
   },
 ];
@@ -972,64 +1010,226 @@ frameStyles.forEach((s, i) => {
 setGradientFrame(0);
 
 // ─── HERO CAROUSEL CARD STYLE SWITCHER (5 distinct looks) ───
+// Helper: apply card style + fix images to never crop
+function applyCards(opts) {
+  document.querySelectorAll('.carousel-card').forEach((c, i) => {
+    const w = typeof opts.w === 'function' ? opts.w(i) : opts.w;
+    c.style.cssText = `width:${w}px;flex-shrink:0;overflow:hidden;border-radius:${opts.r}px;background:${opts.bg || '#1A1A1A'};${opts.border || 'border:none;'}${opts.shadow || ''}cursor:pointer;`;
+    const img = c.querySelector('img');
+    if (img) {
+      // Restore original src if it was swapped by Portrait mode
+      if (_origSrcs && _origSrcs[i]) img.src = _origSrcs[i];
+      img.style.width = '100%';
+      img.style.height = 'auto';
+      img.style.display = 'block';
+      img.style.objectFit = 'contain';
+    }
+  });
+  document.querySelectorAll('.carousel-strip').forEach(s => s.style.gap = opts.gap + 'px');
+  // Auto-height based on first card
+  setTimeout(() => {
+    const first = document.querySelector('.carousel-card');
+    if (first) {
+      const h = first.offsetHeight;
+      document.querySelectorAll('.carousel-wrap').forEach(wrap => wrap.style.height = (h + 20) + 'px');
+    }
+  }, 50);
+}
+
+// Portrait helper — swaps to portrait images
+function applyPortrait(w, r, gap) {
+  const portraitImgs = [
+    '/images/illustrations/portrait-coffee.png',
+    '/images/illustrations/portrait-gym.png',
+    '/images/illustrations/portrait-boutique.png',
+    '/images/illustrations/portrait-app.png',
+    '/images/illustrations/portrait-website.png',
+  ];
+  document.querySelectorAll('.carousel-card').forEach((c, i) => {
+    c.style.cssText = `width:${w}px;flex-shrink:0;overflow:hidden;border-radius:${r}px;background:#1A1A1A;box-shadow:0 8px 30px rgba(0,0,0,0.4);border:none;cursor:pointer;`;
+    const img = c.querySelector('img');
+    if (img) {
+      img.src = portraitImgs[i % portraitImgs.length];
+      img.style.width = '100%';
+      img.style.height = 'auto';
+      img.style.display = 'block';
+      img.style.objectFit = 'cover';
+    }
+  });
+  document.querySelectorAll('.carousel-strip').forEach(s => s.style.gap = gap + 'px');
+  setTimeout(() => {
+    const first = document.querySelector('.carousel-card');
+    if (first) document.querySelectorAll('.carousel-wrap').forEach(wrap => wrap.style.height = (first.offsetHeight + 20) + 'px');
+  }, 100);
+}
+
 const cardStyles = [
   {
-    name: 'Headshot.ai',
-    desc: 'Tall cards, tight gap, subtle shadow, no border',
-    apply: () => {
-      document.querySelectorAll('.carousel-card').forEach(c => {
-        c.style.cssText = 'width:280px;height:360px;border-radius:20px;flex-shrink:0;overflow:hidden;background:#1A1A1A;box-shadow:0 8px 30px rgba(0,0,0,0.4);border:none;';
-      });
-      document.querySelectorAll('.carousel-strip').forEach(s => s.style.gap = '14px');
-      document.querySelectorAll('.carousel-wrap').forEach(w => w.style.height = '380px');
-    }
+    name: 'Small',
+    desc: 'Compact cards',
+    apply: () => applyCards({ w: 280, r: 14, gap: 12 })
   },
   {
-    name: 'Freepik',
-    desc: 'Mixed widths, 16px radius, top gradient overlay, 16px gap',
-    apply: () => {
-      const widths = [320, 200, 320, 420, 200, 320, 320, 200, 320, 420, 200, 320, 320, 200, 320, 420, 200, 320];
-      document.querySelectorAll('.carousel-card').forEach((c, i) => {
-        c.style.cssText = `width:${widths[i % widths.length]}px;height:240px;border-radius:16px;flex-shrink:0;overflow:hidden;background:#1A1A1A;border:none;position:relative;`;
-      });
-      document.querySelectorAll('.carousel-strip').forEach(s => s.style.gap = '16px');
-      document.querySelectorAll('.carousel-wrap').forEach(w => w.style.height = '260px');
-    }
+    name: 'Medium',
+    desc: 'Standard size',
+    apply: () => applyCards({ w: 380, r: 16, gap: 16 })
   },
   {
-    name: 'Looka',
-    desc: 'Square cards, bright bg, no shadow, generous gap',
-    apply: () => {
-      document.querySelectorAll('.carousel-card').forEach(c => {
-        c.style.cssText = 'width:300px;height:300px;border-radius:24px;flex-shrink:0;overflow:hidden;background:#1A1A1A;border:none;box-shadow:none;';
-      });
-      document.querySelectorAll('.carousel-strip').forEach(s => s.style.gap = '20px');
-      document.querySelectorAll('.carousel-wrap').forEach(w => w.style.height = '320px');
-    }
+    name: 'Large',
+    desc: 'Big cards',
+    apply: () => applyCards({ w: 520, r: 18, gap: 18 })
   },
   {
-    name: 'Linear',
-    desc: 'Wide cinematic, subtle border, glass effect',
-    apply: () => {
-      document.querySelectorAll('.carousel-card').forEach(c => {
-        c.style.cssText = 'width:480px;height:270px;border-radius:12px;flex-shrink:0;overflow:hidden;background:#111;border:1px solid rgba(255,255,255,0.08);box-shadow:0 4px 20px rgba(0,0,0,0.3);';
-      });
-      document.querySelectorAll('.carousel-strip').forEach(s => s.style.gap = '16px');
-      document.querySelectorAll('.carousel-wrap').forEach(w => w.style.height = '290px');
-    }
+    name: 'XL',
+    desc: 'Extra large hero-size cards',
+    apply: () => applyCards({ w: 680, r: 20, gap: 20 })
   },
   {
-    name: 'Stripe',
-    desc: 'Elevated cards, heavy shadow, rounded, floating feel',
-    apply: () => {
-      document.querySelectorAll('.carousel-card').forEach(c => {
-        c.style.cssText = 'width:360px;height:240px;border-radius:16px;flex-shrink:0;overflow:hidden;background:#1A1A1A;border:1px solid rgba(255,255,255,0.05);box-shadow:0 2px 4px rgba(0,0,0,0.2),0 12px 40px rgba(0,0,0,0.4),0 0 0 1px rgba(255,255,255,0.03);';
-      });
-      document.querySelectorAll('.carousel-strip').forEach(s => s.style.gap = '24px');
-      document.querySelectorAll('.carousel-wrap').forEach(w => w.style.height = '270px');
-    }
+    name: 'Full',
+    desc: 'Massive billboard cards',
+    apply: () => applyCards({ w: 860, r: 24, gap: 24 })
+  },
+  {
+    name: 'Soft Light',
+    desc: 'Light bg, rounded, soft shadow',
+    apply: () => applyCards({ w: 420, r: 28, gap: 20, bg: '#F5F5F0', shadow: 'box-shadow:0 4px 16px rgba(0,0,0,0.08);' })
+  },
+  {
+    name: 'Soft Light XL',
+    desc: 'Light bg, huge cards',
+    apply: () => applyCards({ w: 680, r: 28, gap: 24, bg: '#F5F5F0', shadow: 'box-shadow:0 4px 16px rgba(0,0,0,0.08);' })
+  },
+  {
+    name: 'Dark Border',
+    desc: 'Dark with subtle border',
+    apply: () => applyCards({ w: 420, r: 16, gap: 16, border: 'border:1px solid rgba(255,255,255,0.1);', shadow: 'box-shadow:0 4px 20px rgba(0,0,0,0.3);' })
+  },
+  {
+    name: 'Dark Border XL',
+    desc: 'Dark border, huge',
+    apply: () => applyCards({ w: 680, r: 20, gap: 20, border: 'border:1px solid rgba(255,255,255,0.1);', shadow: 'box-shadow:0 8px 40px rgba(0,0,0,0.4);' })
+  },
+  {
+    name: 'Elevated',
+    desc: 'Heavy shadow, floating feel',
+    apply: () => applyCards({ w: 480, r: 16, gap: 24, border: 'border:1px solid rgba(255,255,255,0.05);', shadow: 'box-shadow:0 2px 4px rgba(0,0,0,0.2),0 16px 50px rgba(0,0,0,0.5);' })
+  },
+  {
+    name: 'Portrait S',
+    desc: 'Small portrait cards',
+    apply: () => applyPortrait(200, 16, 10)
+  },
+  {
+    name: 'Portrait M',
+    desc: 'Medium portrait cards',
+    apply: () => applyPortrait(280, 20, 14)
+  },
+  {
+    name: 'Portrait L',
+    desc: 'Large portrait cards',
+    apply: () => applyPortrait(360, 22, 16)
+  },
+  {
+    name: 'Portrait XL',
+    desc: 'Extra large portrait cards',
+    apply: () => applyPortrait(480, 24, 20)
   },
 ];
+
+// ─── BADGE STYLE SWITCHER ───
+const badgeStyles = [
+  {
+    name: 'Glass Pill',
+    desc: 'Current — dark bg, blur, border, rounded-xl',
+    css: 'display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border:1px solid rgba(255,255,255,0.2);background:rgba(0,0,0,0.6);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);border-radius:12px;',
+    spanCss: 'color:#F5F5F5;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;',
+  },
+  {
+    name: 'Minimal',
+    desc: 'No bg, no border — just icon + text',
+    css: 'display:inline-flex;align-items:center;gap:8px;padding:6px 0;border:none;background:transparent;',
+    spanCss: 'color:#AAAAAA;font-size:13px;font-weight:500;letter-spacing:2px;text-transform:uppercase;',
+  },
+  {
+    name: 'Blue Accent',
+    desc: 'Blue left border, dark bg',
+    css: 'display:inline-flex;align-items:center;gap:10px;padding:10px 20px;border:none;border-left:3px solid #336AEA;background:rgba(51,106,234,0.08);border-radius:0 8px 8px 0;',
+    spanCss: 'color:#648EEF;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;',
+  },
+  {
+    name: 'Filled Blue',
+    desc: 'Solid blue bg pill',
+    css: 'display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border:none;background:#336AEA;border-radius:9999px;',
+    spanCss: 'color:#fff;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;',
+  },
+  {
+    name: 'Outline Pill',
+    desc: 'Rounded full, thin border, no bg',
+    css: 'display:inline-flex;align-items:center;gap:8px;padding:8px 22px;border:1px solid rgba(255,255,255,0.15);background:transparent;border-radius:9999px;',
+    spanCss: 'color:rgba(255,255,255,0.6);font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;',
+  },
+  {
+    name: 'Tag',
+    desc: 'Small tag with dot indicator',
+    css: 'display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border:none;background:rgba(255,255,255,0.05);border-radius:6px;',
+    spanCss: 'color:rgba(255,255,255,0.5);font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;',
+    dot: true,
+  },
+  {
+    name: 'Gradient Border',
+    desc: 'Rainbow gradient border pill',
+    css: 'display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border:2px solid transparent;background-image:linear-gradient(#0D0D0D,#0D0D0D),linear-gradient(90deg,#336AEA,#8B5CF6,#06B6D4);background-origin:border-box;background-clip:padding-box,border-box;border-radius:9999px;',
+    spanCss: 'color:#F5F5F5;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;',
+  },
+  {
+    name: 'Underline',
+    desc: 'Text with blue underline, no container',
+    css: 'display:inline-flex;align-items:center;gap:8px;padding:0 0 6px;border:none;border-bottom:2px solid #336AEA;background:transparent;border-radius:0;',
+    spanCss: 'color:#F5F5F5;font-size:13px;font-weight:500;letter-spacing:2px;text-transform:uppercase;',
+  },
+];
+
+function setBadgeStyle(idx) {
+  const s = badgeStyles[idx];
+  document.querySelectorAll('.badge').forEach(badge => {
+    badge.style.cssText = s.css;
+    const span = badge.querySelector('span');
+    if (span) span.style.cssText = s.spanCss;
+    // Add/remove dot for Tag style
+    let dot = badge.querySelector('.badge-dot');
+    if (s.dot) {
+      if (!dot) {
+        dot = document.createElement('div');
+        dot.className = 'badge-dot';
+        dot.style.cssText = 'width:6px;height:6px;border-radius:50%;background:#336AEA;flex-shrink:0;';
+        badge.insertBefore(dot, badge.firstChild);
+      }
+      dot.style.display = 'block';
+      // Hide icon for tag style
+      const svg = badge.querySelector('svg');
+      if (svg) svg.style.display = 'none';
+    } else {
+      if (dot) dot.style.display = 'none';
+      const svg = badge.querySelector('svg');
+      if (svg) svg.style.display = '';
+    }
+  });
+  document.querySelectorAll('#badgeBtns button').forEach((b, j) => b.classList.toggle('active', j === idx));
+}
+
+const badgeBtnsEl = document.getElementById('badgeBtns');
+badgeStyles.forEach((s, i) => {
+  const btn = document.createElement('button');
+  btn.textContent = s.name;
+  btn.title = s.desc;
+  btn.onclick = () => setBadgeStyle(i);
+  badgeBtnsEl.appendChild(btn);
+});
+setBadgeStyle(0);
+
+// Store original image sources to restore when switching away from Portrait
+const _origSrcs = [];
+document.querySelectorAll('.carousel-card img').forEach(img => _origSrcs.push(img.src));
 
 function setCardStyle(i) {
   cardStyles[i].apply();

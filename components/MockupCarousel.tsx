@@ -60,7 +60,7 @@ export default function MockupCarousel({ images, category, hideDots, onSlideChan
               className="h-2 rounded-full cursor-pointer transition-all duration-[400ms] ease-smooth border-0"
               style={{
                 width: i === active ? 24 : 8,
-                background: i === active ? 'linear-gradient(90deg, #0891B2, #22D3EE)' : 'rgba(255,255,255,0.2)',
+                background: i === active ? '#336AEA' : 'rgba(255,255,255,0.2)',
               }}
             />
           ))}

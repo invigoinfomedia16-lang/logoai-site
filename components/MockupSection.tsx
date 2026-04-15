@@ -35,15 +35,9 @@ export default function MockupSection() {
 
         <CategoryTabs active={active} onSelect={setActive} />
 
-        {/* Ocean Wave gradient frame */}
+        {/* Blue → Dark gradient frame */}
         <div className="w-full relative rounded-[16px] md:rounded-[20px] overflow-hidden" style={{ padding: 'clamp(16px, 4vw, 48px)' }}>
-          {/* Gradient art background */}
-          <div className="absolute inset-0 z-0">
-            <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, #2D1B69 0%, #1B1464 25%, #0C2D6B 50%, #0891B2 75%, #22D3EE 100%)' }} />
-            <div className="absolute" style={{ width: '140%', height: '80%', top: '30%', left: '-20%', background: 'radial-gradient(ellipse at 30% 50%, rgba(6,182,212,0.7) 0%, rgba(14,116,144,0.4) 40%, transparent 70%)', borderRadius: '50%', transform: 'rotate(-15deg)' }} />
-            <div className="absolute" style={{ width: '120%', height: '60%', top: '50%', left: '-10%', background: 'radial-gradient(ellipse at 60% 40%, rgba(34,211,238,0.5) 0%, rgba(8,145,178,0.3) 40%, transparent 65%)', borderRadius: '50%', transform: 'rotate(-8deg)' }} />
-            <div className="absolute" style={{ width: '80%', height: '50%', top: '-10%', right: '-10%', background: 'radial-gradient(ellipse at 70% 30%, rgba(88,28,135,0.8) 0%, rgba(45,27,105,0.4) 50%, transparent 70%)', borderRadius: '50%' }} />
-          </div>
+          <div className="absolute inset-0 z-0" style={{ background: 'linear-gradient(180deg, #336AEA 0%, #1A4FD0 40%, #0D1A3D 100%)' }} />
 
           {/* Carousel inside frame — dots hidden */}
           <div className="relative z-10 rounded-xl overflow-hidden" style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.3)' }}>
@@ -59,7 +53,7 @@ export default function MockupSection() {
               className="h-2 rounded-full transition-all duration-[400ms] ease-smooth"
               style={{
                 width: i === slideIndex ? 24 : 8,
-                background: i === slideIndex ? 'linear-gradient(90deg, #0891B2, #22D3EE)' : 'rgba(255,255,255,0.2)',
+                background: i === slideIndex ? '#336AEA' : 'rgba(255,255,255,0.2)',
               }}
             />
           ))}
