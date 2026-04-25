@@ -122,7 +122,7 @@ export default function FAQPage() {
 
       {/* Categories — single h2 per category, no eyebrow duplication */}
       {getFAQ().map((cat, i) => (
-        <LSection key={cat.title} tone={i % 2 === 0 ? 'alt' : 'default'}>
+        <LSection key={cat.title} tone={i % 2 === 0 ? 'alt' : 'light'}>
           <div className="max-w-[820px] mx-auto">
             <h2 className="dk-h2 text-center mb-10" style={{ color: '#15141A' }}>{cat.title}</h2>
             <div className="flex flex-col gap-3">

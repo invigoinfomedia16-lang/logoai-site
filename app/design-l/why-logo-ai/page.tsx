@@ -97,7 +97,7 @@ export default function WhyLogoAIPage() {
 
       {/* 5 differentiators — alternating sections */}
       {DIFFERENTIATORS.map((d, i) => (
-        <LSection key={d.num} tone={i % 2 === 0 ? 'alt' : 'default'}>
+        <LSection key={d.num} tone={i % 2 === 0 ? 'alt' : 'light'}>
           <div className="max-w-[900px] mx-auto">
             <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-6 mb-6">
               <span

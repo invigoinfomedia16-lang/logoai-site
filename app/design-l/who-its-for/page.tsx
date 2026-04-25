@@ -19,7 +19,7 @@ type Segment = {
   bullets: string[]
   quote: string
   attribution: string
-  tone: 'default' | 'alt'
+  tone: 'light' | 'alt'
 }
 
 const SEGMENTS: Segment[] = [
@@ -53,7 +53,7 @@ const SEGMENTS: Segment[] = [
     ],
     quote: "I'm not a designer. I didn't have to be. The logo just showed up looking like it came from a studio.",
     attribution: 'Sarah Mitchell — Founder, Greenleaf Co. (E-commerce)',
-    tone: 'default',
+    tone: 'light',
   },
   {
     eyebrow: 'For creators and side projects',
@@ -85,7 +85,7 @@ const SEGMENTS: Segment[] = [
     ],
     quote: "I've rebranded three companies. This was the only one that didn't take six weeks.",
     attribution: 'Chris Donovan — Founder, Bright Harbor (Consulting)',
-    tone: 'default',
+    tone: 'light',
   },
   {
     eyebrow: 'For agencies and freelancers',

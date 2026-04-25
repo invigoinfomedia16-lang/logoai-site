@@ -76,7 +76,7 @@ export default function HowItWorksPage() {
 
       {/* Steps */}
       {STEPS.map((s, i) => (
-        <LSection key={s.num} tone={i % 2 === 0 ? 'alt' : 'default'}>
+        <LSection key={s.num} tone={i % 2 === 0 ? 'alt' : 'light'}>
           <div className="max-w-[900px] mx-auto">
             <div className="text-center mb-10">
               <p className="dk-eyebrow mb-4" style={{ color: '#7543E3' }}>{s.eyebrow}</p>

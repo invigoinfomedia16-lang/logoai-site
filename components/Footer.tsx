@@ -3,7 +3,7 @@ import LogoMark from './ui/LogoMark'
 import { FOOTER_LINKS, SOCIAL_LINKS } from '@/data'
 import { TwitterLogo, LinkedinLogo, InstagramLogo } from '@phosphor-icons/react/dist/ssr'
 
-const SOCIAL_ICONS: Record<string, React.ComponentType<{ size?: number; weight?: 'regular' | 'fill' }>> = {
+const SOCIAL_ICONS: Record<string, typeof TwitterLogo> = {
   Twitter: TwitterLogo,
   LinkedIn: LinkedinLogo,
   Instagram: InstagramLogo,
