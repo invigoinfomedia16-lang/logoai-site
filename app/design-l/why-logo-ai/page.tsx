@@ -80,7 +80,7 @@ export default function WhyLogoAIPage() {
   return (
     <main>
       {/* Hero — Our Story pattern */}
-      <LSection>
+      <LSection hero>
         <div className="max-w-[900px] mx-auto flex flex-col items-center text-center">
           <h1 className="dk-h1 mb-5" style={{ color: '#15141A' }}>Why LOGO.AI</h1>
           <p className="dk-body-lg mb-4" style={{ color: '#7543E3', fontWeight: 500 }}>
@@ -95,37 +95,119 @@ export default function WhyLogoAIPage() {
         </div>
       </LSection>
 
-      {/* 5 differentiators — alternating sections */}
-      {DIFFERENTIATORS.map((d, i) => (
-        <LSection key={d.num} tone={i % 2 === 0 ? 'alt' : 'light'}>
-          <div className="max-w-[900px] mx-auto">
-            <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-6 mb-6">
-              <span
+      {/* Demo video — see LOGO.AI in action */}
+      <LSection>
+        <LSectionHeader eyebrow="See it in action" title="Watch LOGO.AI design a brand in 60 seconds." />
+        <div className="max-w-[960px] mx-auto">
+          <div
+            className="relative w-full overflow-hidden"
+            style={{
+              aspectRatio: '16 / 9',
+              borderRadius: 20,
+              background: 'linear-gradient(135deg, #210340 0%, #3D1B7A 60%, #5B30B5 100%)',
+              border: '1px solid rgba(32,18,58,0.08)',
+              boxShadow: '0 18px 48px rgba(33,3,64,0.18)',
+            }}
+          >
+            {/* Soft purple glow ring */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0"
+              style={{
+                background:
+                  'radial-gradient(ellipse at center, rgba(199,168,255,0.18) 0%, rgba(199,168,255,0) 60%)',
+              }}
+            />
+            {/* Centered play button */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
+              <div
+                aria-hidden="true"
+                className="flex items-center justify-center"
                 style={{
-                  fontFamily: "'Mozilla Headline', sans-serif",
-                  fontSize: 'clamp(40px, 6vw, 64px)',
-                  lineHeight: 1,
-                  fontWeight: 600,
-                  color: '#7543E3',
-                  flexShrink: 0,
+                  width: 88,
+                  height: 88,
+                  borderRadius: 9999,
+                  background: 'rgba(255,255,255,0.12)',
+                  border: '1px solid rgba(255,255,255,0.35)',
+                  backdropFilter: 'blur(8px)',
                 }}
               >
-                {d.num}
-              </span>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <h2 className="dk-h2 mb-3" style={{ color: '#15141A' }}>{d.title}</h2>
-                <p className="dk-body-lg m-0" style={{ color: '#7543E3', fontWeight: 500 }}>{d.lede}</p>
+                <div
+                  style={{
+                    width: 0,
+                    height: 0,
+                    borderTop: '14px solid transparent',
+                    borderBottom: '14px solid transparent',
+                    borderLeft: '22px solid #FFFFFF',
+                    marginLeft: 6,
+                  }}
+                />
               </div>
-            </div>
-            <div className="max-w-[720px]" style={{ marginLeft: 'clamp(0px, 7vw, 100px)' }}>
-              <p className="dk-body-lg mb-4" style={{ color: 'rgba(21,20,26,0.7)' }}>{d.body}</p>
-              {d.tag && (
-                <p className="dk-body-lg m-0" style={{ color: '#15141A', fontWeight: 500 }}>{d.tag}</p>
-              )}
+              <p
+                className="dk-caption m-0"
+                style={{
+                  color: 'rgba(255,255,255,0.85)',
+                  fontWeight: 500,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Video coming soon
+              </p>
             </div>
           </div>
-        </LSection>
-      ))}
+          <p className="dk-caption text-center mt-4" style={{ color: 'rgba(21,20,26,0.55)' }}>
+            One input. Sixty seconds. A finished logo.
+          </p>
+        </div>
+      </LSection>
+
+      {/* 5 differentiators — single section so they read as one continuous block */}
+      <LSection tone="alt">
+        <LSectionHeader eyebrow="What sets us apart" title="Five reasons LOGO.AI is different." />
+        <div className="max-w-[900px] mx-auto flex flex-col" style={{ gap: 'clamp(48px, 7vw, 80px)' }}>
+          {DIFFERENTIATORS.map((d, i) => (
+            <div key={d.num} className="flex flex-col">
+              <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-6 mb-6">
+                <span
+                  style={{
+                    fontFamily: "'Mozilla Headline', sans-serif",
+                    fontSize: 'clamp(40px, 6vw, 64px)',
+                    lineHeight: 1,
+                    fontWeight: 600,
+                    color: '#7543E3',
+                    flexShrink: 0,
+                  }}
+                >
+                  {d.num}
+                </span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <h3 className="dk-h2 mb-3" style={{ color: '#15141A' }}>{d.title}</h3>
+                  <p className="dk-body-lg m-0" style={{ color: '#7543E3', fontWeight: 500 }}>{d.lede}</p>
+                </div>
+              </div>
+              <div className="max-w-[720px]" style={{ marginLeft: 'clamp(0px, 7vw, 100px)' }}>
+                <p className="dk-body-lg mb-4" style={{ color: 'rgba(21,20,26,0.7)' }}>{d.body}</p>
+                {d.tag && (
+                  <p className="dk-body-lg m-0" style={{ color: '#15141A', fontWeight: 500 }}>{d.tag}</p>
+                )}
+              </div>
+              {/* Soft divider between differentiators (not after last) */}
+              {i < DIFFERENTIATORS.length - 1 && (
+                <div
+                  className="mx-auto mt-12"
+                  style={{
+                    width: 60,
+                    height: 1,
+                    background: 'rgba(117,67,227,0.25)',
+                  }}
+                  aria-hidden="true"
+                />
+              )}
+            </div>
+          ))}
+        </div>
+      </LSection>
 
       {/* Comparison table */}
       <LSection>

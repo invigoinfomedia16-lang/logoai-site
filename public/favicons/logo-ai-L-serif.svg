@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140" width="140" height="140">
+  <rect width="140" height="140" rx="28" fill="#7543E3"/>
+  <g fill="#FFFFFF">
+    <!-- Top serif (cap on the vertical) -->
+    <rect x="28" y="22" width="48" height="12"/>
+    <!-- Vertical stroke (matches geometric L's body weight: 28) -->
+    <rect x="38" y="22" width="28" height="64"/>
+    <!-- Horizontal foot (28 thick, extends right) -->
+    <rect x="38" y="84" width="64" height="28"/>
+    <!-- Right terminal serif (extends 8px above the foot) -->
+    <rect x="88" y="76" width="14" height="36"/>
+  </g>
+</svg>

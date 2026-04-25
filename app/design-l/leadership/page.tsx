@@ -50,13 +50,9 @@ export default function LeadershipPage() {
 
       {/* Founders — 2 card grid */}
       <LSection tone="alt">
+        <LSectionHeader eyebrow="Our founders" title="Two brothers. One conviction." />
         <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: 24,
-            marginBottom: 48,
-          }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"
         >
           {FOUNDERS.map((f, i) => (
             <div

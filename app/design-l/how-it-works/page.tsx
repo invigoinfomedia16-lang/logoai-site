@@ -74,39 +74,56 @@ export default function HowItWorksPage() {
         </div>
       </LSection>
 
-      {/* Steps */}
-      {STEPS.map((s, i) => (
-        <LSection key={s.num} tone={i % 2 === 0 ? 'alt' : 'light'}>
-          <div className="max-w-[900px] mx-auto">
-            <div className="text-center mb-10">
-              <p className="dk-eyebrow mb-4" style={{ color: '#7543E3' }}>{s.eyebrow}</p>
-              <h2 className="dk-h2" style={{ color: '#15141A' }}>{s.title}</h2>
-            </div>
-            <div className="max-w-[720px] mx-auto flex flex-col gap-5">
-              <p className="dk-body-lg m-0" style={{ color: 'rgba(21,20,26,0.7)' }}>{s.body}</p>
-              {s.callout && (
-                <p className="dk-body-lg m-0" style={{ color: '#15141A', fontWeight: 500 }}>{s.callout}</p>
-              )}
-              <div
-                style={{
-                  background: '#FFFFFF',
-                  borderRadius: 16,
-                  padding: 28,
-                  border: '1px solid rgba(32,18,58,0.08)',
-                  borderLeft: '3px solid #7543E3',
-                  marginTop: 8,
-                }}
-              >
-                <p className="dk-caption m-0 mb-2" style={{ color: '#7543E3', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600 }}>
-                  {s.aiNote.label}
-                </p>
-                <p className="dk-body-lg m-0" style={{ color: '#15141A' }}>{s.aiNote.body}</p>
+      {/* Steps — single section so the 3 steps read as one continuous block */}
+      <LSection tone="alt">
+        <LSectionHeader eyebrow="The walkthrough" title="Three steps. Sixty seconds." />
+        <div className="max-w-[900px] mx-auto flex flex-col" style={{ gap: 'clamp(56px, 8vw, 96px)' }}>
+          {STEPS.map((s, i) => (
+            <div key={s.num} className="flex flex-col">
+              {/* Step header */}
+              <div className="text-center mb-10">
+                <p className="dk-eyebrow mb-4" style={{ color: '#7543E3' }}>{s.eyebrow}</p>
+                <h2 className="dk-h2" style={{ color: '#15141A' }}>{s.title}</h2>
               </div>
-              <p className="dk-body-lg m-0" style={{ color: 'rgba(21,20,26,0.7)' }}>{s.tail}</p>
+              {/* Step body */}
+              <div className="max-w-[720px] mx-auto flex flex-col gap-5 w-full">
+                <p className="dk-body-lg m-0" style={{ color: 'rgba(21,20,26,0.7)' }}>{s.body}</p>
+                {s.callout && (
+                  <p className="dk-body-lg m-0" style={{ color: '#15141A', fontWeight: 500 }}>{s.callout}</p>
+                )}
+                <div
+                  style={{
+                    background: '#FFFFFF',
+                    borderRadius: 16,
+                    padding: 28,
+                    border: '1px solid rgba(32,18,58,0.08)',
+                    borderLeft: '3px solid #7543E3',
+                    marginTop: 8,
+                  }}
+                >
+                  <p className="dk-caption m-0 mb-2" style={{ color: '#7543E3', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 600 }}>
+                    {s.aiNote.label}
+                  </p>
+                  <p className="dk-body-lg m-0" style={{ color: '#15141A' }}>{s.aiNote.body}</p>
+                </div>
+                <p className="dk-body-lg m-0" style={{ color: 'rgba(21,20,26,0.7)' }}>{s.tail}</p>
+              </div>
+              {/* Soft divider between steps (not after last) */}
+              {i < STEPS.length - 1 && (
+                <div
+                  className="mx-auto mt-12"
+                  style={{
+                    width: 60,
+                    height: 1,
+                    background: 'rgba(117,67,227,0.25)',
+                  }}
+                  aria-hidden="true"
+                />
+              )}
             </div>
-          </div>
-        </LSection>
-      ))}
+          ))}
+        </div>
+      </LSection>
 
       {/* Behind the scenes */}
       <LSection>

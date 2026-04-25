@@ -35,33 +35,50 @@ export default function OurStoryPage() {
           </div>
         </LSection>
 
-        {/* The problem — two cards + centered footer accent */}
+        {/* The problem — two options laid out as a VS comparison */}
         <LSection tone="alt">
           <LSectionHeader eyebrow={C.problem.eyebrow} title={C.problem.title} />
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: 24,
-            }}
-          >
-            {C.problem.options.map((t, i) => (
-              <div key={i} style={{ background: '#FFFFFF', borderRadius: 16, padding: 32, border: '1px solid rgba(32,18,58,0.08)' }}>
-                <span
-                  style={{
-                    display: 'block',
-                    marginBottom: 14,
-                    fontFamily: "'Mozilla Headline', sans-serif",
-                    fontSize: 28,
-                    fontWeight: 600,
-                    color: '#7543E3',
-                  }}
-                >
-                  0{i + 1}
-                </span>
-                <p className="dk-body-lg" style={{ color: '#15141A' }}>{t}</p>
-              </div>
-            ))}
+          <div className="max-w-[1000px] mx-auto relative">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-12">
+              {C.problem.options.map((t, i) => {
+                const dot = t.indexOf('.')
+                const label = dot > 0 ? t.slice(0, dot).trim() : t
+                const body = dot > 0 ? t.slice(dot + 1).trim() : ''
+                return (
+                  <div
+                    key={i}
+                    style={{
+                      background: '#FFFFFF',
+                      borderRadius: 16,
+                      padding: 'clamp(24px,3vw,32px)',
+                      border: '1px solid rgba(32,18,58,0.08)',
+                    }}
+                  >
+                    <h3 className="dk-h3 mb-3" style={{ color: '#15141A' }}>{label}</h3>
+                    <p className="dk-body-lg m-0" style={{ color: 'rgba(21,20,26,0.7)' }}>{body}</p>
+                  </div>
+                )
+              })}
+            </div>
+            {/* VS badge — sits between the cards on desktop, between the rows on mobile */}
+            <div
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none"
+              aria-hidden="true"
+              style={{
+                width: 56,
+                height: 56,
+                borderRadius: 9999,
+                background: '#7543E3',
+                color: '#FFFFFF',
+                fontFamily: "'Mozilla Headline', sans-serif",
+                fontSize: 18,
+                fontWeight: 700,
+                letterSpacing: '0.04em',
+                boxShadow: '0 6px 18px rgba(117,67,227,0.35), 0 0 0 6px #F5F0FF',
+              }}
+            >
+              VS
+            </div>
           </div>
           <div className="max-w-[680px] mx-auto text-center" style={{ marginTop: 48 }}>
             <p className="dk-body-lg mb-4" style={{ color: 'rgba(21,20,26,0.7)', fontStyle: 'italic' }}>

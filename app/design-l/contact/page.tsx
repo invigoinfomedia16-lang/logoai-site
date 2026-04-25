@@ -66,6 +66,7 @@ export default function ContactPage() {
 
       {/* Contact methods grid */}
       <LSection tone="alt">
+        <LSectionHeader eyebrow="How to reach us" title="Pick the channel that fits." />
         <div
           className="max-w-[900px] mx-auto"
           style={{
@@ -145,7 +146,8 @@ export default function ContactPage() {
       </LSection>
 
       {/* Closing note */}
-      <LSection tone="alt">
+      <LSection>
+        <LSectionHeader eyebrow="Still stuck?" title="We're here to help." />
         <div className="max-w-[720px] mx-auto text-center">
           <p className="dk-body-lg" style={{ color: '#15141A' }}>
             Can&apos;t find what you need? Send us a note at{' '}
