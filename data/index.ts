@@ -231,12 +231,29 @@ export const BLOG_POSTS = [
 ]
 
 // ─── Nav links ────────────────────────────────────────────────────────────────
-export const NAV_LINKS = [
-  { text: 'Why LOGO.AI', href: '/why-logo-ai' },
-  { text: 'About', href: '/about' },
-  { text: 'Our story', href: '/our-story' },
-  { text: 'Leadership', href: '/leadership' },
-  { text: 'Press', href: '/press' },
+export type NavLink = {
+  text: string
+  href?: string
+  children?: { text: string; href: string }[]
+}
+
+export const NAV_LINKS: NavLink[] = [
+  { text: 'Product',       href: '/product' },
+  { text: 'How it works',  href: '/how-it-works' },
+  { text: 'Examples',      href: '/examples' },
+  { text: 'Why LOGO.AI',   href: '/why-logo-ai' },
+  { text: "Who it's for",  href: '/who-its-for' },
+  {
+    text: 'Company',
+    children: [
+      { text: 'About us',   href: '/about' },
+      { text: 'Our story',  href: '/our-story' },
+      { text: 'Leadership', href: '/leadership' },
+      { text: 'Press',      href: '/press' },
+      { text: 'Contact',    href: '/contact' },
+    ],
+  },
+  { text: 'Blog', href: '/blog' },
 ]
 
 // ─── Footer links ─────────────────────────────────────────────────────────────
@@ -244,28 +261,38 @@ export const FOOTER_LINKS = [
   {
     title: 'Product',
     links: [
-      { t: 'Why LOGO.AI', h: '/about' },
-      { t: 'How it works', h: '/our-story' },
-      { t: 'FAQ', h: '/#faq' },
-      { t: 'Blog', h: '/press' },
+      { t: 'Why LOGO.AI',   h: '/why-logo-ai' },
+      { t: 'Product',       h: '/product' },
+      { t: 'How it works',  h: '/how-it-works' },
+      { t: 'Examples',      h: '/examples' },
+      { t: "Who it's for",  h: '/who-its-for' },
+      { t: 'FAQ',           h: '/#faq' },
+      { t: 'Blog',          h: '/blog' },
     ],
   },
   {
     title: 'Company',
     links: [
-      { t: 'About', h: '/about' },
-      { t: 'Our story', h: '/our-story' },
+      { t: 'About us',   h: '/about' },
+      { t: 'Our story',  h: '/our-story' },
       { t: 'Leadership', h: '/leadership' },
-      { t: 'Press', h: '/press' },
-      { t: 'Contact', h: '/about' },
+      { t: 'Press',      h: '/press' },
+      { t: 'Contact',    h: '/contact' },
     ],
   },
   {
     title: 'Legal',
     links: [
-      { t: 'Privacy policy', h: '#' },
-      { t: 'Terms of service', h: '#' },
-      { t: 'Cookie policy', h: '#' },
+      { t: 'Privacy policy',    h: '/privacy' },
+      { t: 'Terms of service',  h: '/terms' },
+      { t: 'Cookie policy',     h: '/cookies' },
     ],
   },
+]
+
+// ─── Social links ─────────────────────────────────────────────────────────────
+export const SOCIAL_LINKS = [
+  { name: 'Twitter',   href: 'https://twitter.com/logoai' },
+  { name: 'LinkedIn',  href: 'https://linkedin.com/company/logoai' },
+  { name: 'Instagram', href: 'https://instagram.com/logoai' },
 ]

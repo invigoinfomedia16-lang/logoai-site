@@ -49,15 +49,36 @@ export default function Navbar({ onCTAClick }: NavbarProps) {
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-10">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="font-bricolage font-normal text-sm text-white/50 no-underline leading-5 transition-colors duration-150 hover:text-white/90 uppercase tracking-wider"
-              >
-                {link.text}
-              </Link>
-            ))}
+            {NAV_LINKS.map((link) =>
+              link.children ? (
+                <div key={link.text} className="relative group">
+                  <span className="font-bricolage font-normal text-sm text-white/50 uppercase tracking-wider cursor-pointer transition-colors duration-150 group-hover:text-white/90 inline-flex items-center gap-1">
+                    {link.text} <span aria-hidden="true">▾</span>
+                  </span>
+                  <div className="absolute left-0 top-full pt-3 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-150">
+                    <div className="min-w-[180px] bg-[#0D0D0D]/95 backdrop-blur-xl border border-white/10 rounded-lg py-2">
+                      {link.children.map((c) => (
+                        <Link
+                          key={c.href}
+                          href={c.href}
+                          className="block px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-white/5 no-underline"
+                        >
+                          {c.text}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href ?? '#'}
+                  className="font-bricolage font-normal text-sm text-white/50 no-underline leading-5 transition-colors duration-150 hover:text-white/90 uppercase tracking-wider"
+                >
+                  {link.text}
+                </Link>
+              )
+            )}
           </div>
 
           {/* Desktop CTA */}
@@ -101,16 +122,29 @@ export default function Navbar({ onCTAClick }: NavbarProps) {
       {/* Mobile drawer */}
       {mobileOpen && (
         <div className="md:hidden fixed top-[60px] left-0 right-0 z-[999] bg-[#0D0D0D]/95 backdrop-blur-2xl px-6 py-6 flex flex-col gap-5 border-b border-white/[0.06]">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setMobileOpen(false)}
-              className="font-bricolage font-normal text-lg text-white/70 no-underline uppercase tracking-wider"
-            >
-              {link.text}
-            </Link>
-          ))}
+          {NAV_LINKS.flatMap((link) =>
+            link.children
+              ? link.children.map((c) => (
+                  <Link
+                    key={c.href}
+                    href={c.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="font-bricolage font-normal text-lg text-white/70 no-underline uppercase tracking-wider"
+                  >
+                    {c.text}
+                  </Link>
+                ))
+              : [
+                  <Link
+                    key={link.href}
+                    href={link.href ?? '#'}
+                    onClick={() => setMobileOpen(false)}
+                    className="font-bricolage font-normal text-lg text-white/70 no-underline uppercase tracking-wider"
+                  >
+                    {link.text}
+                  </Link>,
+                ]
+          )}
           <div className="h-px bg-white/10 w-full" />
           <button
             onClick={() => {

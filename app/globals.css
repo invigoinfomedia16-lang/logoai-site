@@ -107,6 +107,15 @@ input::placeholder {
   }
 }
 
+/* Retro grid animation */
+@keyframes grid {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(60px); }
+}
+.animate-grid {
+  animation: grid 3s linear infinite;
+}
+
 /* Continuous marquee scroll */
 @keyframes marqueeScroll {
   0% {

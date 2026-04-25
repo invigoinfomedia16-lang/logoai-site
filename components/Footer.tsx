@@ -1,6 +1,13 @@
 import Link from 'next/link'
 import LogoMark from './ui/LogoMark'
-import { FOOTER_LINKS } from '@/data'
+import { FOOTER_LINKS, SOCIAL_LINKS } from '@/data'
+import { TwitterLogo, LinkedinLogo, InstagramLogo } from '@phosphor-icons/react/dist/ssr'
+
+const SOCIAL_ICONS: Record<string, React.ComponentType<{ size?: number; weight?: 'regular' | 'fill' }>> = {
+  Twitter: TwitterLogo,
+  LinkedIn: LinkedinLogo,
+  Instagram: InstagramLogo,
+}
 
 export default function Footer() {
   return (
@@ -17,10 +24,25 @@ export default function Footer() {
               <LogoMark size={30} />
             </div>
             <p className="font-bricolage font-medium text-sm md:text-base leading-6 text-white/50 m-0">
-              Get your free AI-generated logo in seconds. Original designs, no
-              templates – crafted for your brand. Free for the first 2,000,000
-              users.
+              A professional logo, designed by AI in 60 seconds. No templates. Free for the first 2,000,000 users.
             </p>
+            <div className="flex items-center gap-3">
+              {SOCIAL_LINKS.map((s) => {
+                const Icon = SOCIAL_ICONS[s.name]
+                return (
+                  <a
+                    key={s.name}
+                    href={s.href}
+                    aria-label={s.name}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-9 h-9 rounded-full flex items-center justify-center border border-white/15 text-white/60 hover:text-white hover:border-white/40 transition-colors"
+                  >
+                    {Icon ? <Icon size={16} weight="regular" /> : <span>{s.name[0]}</span>}
+                  </a>
+                )
+              })}
+            </div>
           </div>
 
           {/* Link columns */}

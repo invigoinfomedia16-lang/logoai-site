@@ -37,12 +37,17 @@ const config: Config = {
           from: { transform: 'translateX(0)' },
           to: { transform: 'translateX(-50%)' },
         },
+        spotlight: {
+          '0%': { opacity: '0', transform: 'translate(-72%, -62%) scale(0.5)' },
+          '100%': { opacity: '1', transform: 'translate(-50%,-40%) scale(1)' },
+        },
       },
       animation: {
         logoFade: 'logoFade 0.5s cubic-bezier(0.23,1,0.32,1) forwards',
         fadeUp: 'fadeUp 0.7s cubic-bezier(0.23,1,0.32,1) forwards',
         slideIn: 'slideIn 0.6s cubic-bezier(0.23,1,0.32,1) forwards',
         marquee: 'marquee 30s linear infinite',
+        spotlight: 'spotlight 2s ease 0.75s 1 forwards',
       },
       transitionTimingFunction: {
         smooth: 'cubic-bezier(0.23,1,0.32,1)',
