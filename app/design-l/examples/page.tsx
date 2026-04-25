@@ -61,28 +61,38 @@ export default function ExamplesPage() {
             {INDUSTRIES.map((i) => (
               <div
                 key={i.name}
-                className="l-card-hover flex-shrink-0 flex flex-col overflow-hidden"
+                className="l-card-hover flex-shrink-0 relative overflow-hidden"
                 style={{
-                  background: '#FFFFFF',
                   borderRadius: 16,
                   width: 160,
+                  aspectRatio: '1',
                   border: '1px solid rgba(32,18,58,0.08)',
                   cursor: 'pointer',
+                  backgroundImage: `url('${i.img}')`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundColor: '#F5F0FF',
                 }}
               >
                 <div
+                  className="absolute inset-x-0 bottom-0 flex items-end justify-center"
                   style={{
-                    width: '100%',
-                    aspectRatio: '1',
-                    background: '#F5F0FF',
-                    backgroundImage: `url('${i.img}')`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
+                    height: '55%',
+                    background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.78) 100%)',
+                    padding: '0 10px 12px 10px',
                   }}
-                  aria-hidden="true"
-                />
-                <div className="flex items-center justify-center" style={{ padding: '12px 8px', flex: 1, minHeight: 48 }}>
-                  <p className="dk-caption m-0" style={{ color: '#15141A', fontWeight: 500, textAlign: 'center' }}>{i.name}</p>
+                >
+                  <p
+                    className="dk-caption m-0"
+                    style={{
+                      color: '#FFFFFF',
+                      fontWeight: 600,
+                      textAlign: 'center',
+                      textShadow: '0 1px 4px rgba(0,0,0,0.45)',
+                    }}
+                  >
+                    {i.name}
+                  </p>
                 </div>
               </div>
             ))}
@@ -93,27 +103,37 @@ export default function ExamplesPage() {
           {INDUSTRIES.map((i) => (
             <div
               key={i.name}
-              className="l-card-hover flex flex-col overflow-hidden"
+              className="l-card-hover relative overflow-hidden"
               style={{
-                background: '#FFFFFF',
                 borderRadius: 16,
+                aspectRatio: '1',
                 border: '1px solid rgba(32,18,58,0.08)',
                 cursor: 'pointer',
+                backgroundImage: `url('${i.img}')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundColor: '#F5F0FF',
               }}
             >
               <div
+                className="absolute inset-x-0 bottom-0 flex items-end justify-center"
                 style={{
-                  width: '100%',
-                  aspectRatio: '1',
-                  background: '#F5F0FF',
-                  backgroundImage: `url('${i.img}')`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
+                  height: '50%',
+                  background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.78) 100%)',
+                  padding: '0 12px 16px 12px',
                 }}
-                aria-hidden="true"
-              />
-              <div className="flex items-center justify-center" style={{ padding: '14px 10px', minHeight: 56 }}>
-                <p className="dk-body m-0" style={{ color: '#15141A', fontWeight: 500, textAlign: 'center' }}>{i.name}</p>
+              >
+                <p
+                  className="dk-body m-0"
+                  style={{
+                    color: '#FFFFFF',
+                    fontWeight: 600,
+                    textAlign: 'center',
+                    textShadow: '0 1px 6px rgba(0,0,0,0.5)',
+                  }}
+                >
+                  {i.name}
+                </p>
               </div>
             </div>
           ))}
