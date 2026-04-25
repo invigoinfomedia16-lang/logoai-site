@@ -1,40 +1,75 @@
 'use client'
 
-// Examples — see what LOGO.AI designs. Industries grid + blind test + CTA.
-// Copy verbatim from CONTENT/NEW/EXAMPLES.docx.
+// Examples — category-tab logo gallery (mirrors the homepage Real Examples
+// section), blind test, and bottom CTA.
 
-import Link from 'next/link'
-import { ArrowRight } from '@phosphor-icons/react'
+import { useState } from 'react'
+import Image from 'next/image'
 import LSection from '../_components/LSection'
 import LSectionHeader from '../_components/LSectionHeader'
 import LBottomCTA from '../_components/LBottomCTA'
-import { getLogosClaimed } from '@/data'
+import { CATEGORIES, getCategoryImages, getLogosClaimed } from '@/data'
 
-type Industry = { name: string; img: string }
-const INDUSTRIES: Industry[] = [
-  { name: 'Restaurants',       img: '/Images/Logos/restaurant-logo-1.webp' },
-  { name: 'Coffee shops',      img: '/Images/Logos/coffee-shop-logo-1.webp' },
-  { name: 'Bakeries',          img: '/Images/Logos/bakery-logo-1.webp' },
-  { name: 'Food trucks',       img: '/Images/Logos/food-truck-logo-1.webp' },
-  { name: 'Barbershops',       img: '/Images/Logos/barbershop-logo-1.webp' },
-  { name: 'Hair salons',       img: '/Images/Logos/hair-salon-logo-1.webp' },
-  { name: 'Nail studios',      img: '/Images/Logos/nail-studio-logo-1.webp' },
-  { name: 'Boutiques',         img: '/Images/Logos/boutique-logo-1.webp' },
-  { name: 'Clothing brands',   img: '/Images/Logos/clothing-brand-logo-1.webp' },
-  { name: 'Gyms',              img: '/Images/Logos/gym-logo-1.webp' },
-  { name: 'Cleaning services', img: '/Images/Logos/cleaning-service-logo-1.webp' },
-  { name: 'Landscaping',       img: '/Images/Logos/landscaping-company-logo-1.webp' },
-  { name: 'Pet grooming',      img: '/Images/Logos/pet-grooming-logo-1.webp' },
-  { name: 'E-commerce',        img: '/Images/Logos/e-commerce-brand-logo-7.webp' },
-  { name: 'Content creators',  img: '/Images/Logos/content-creator-logo-1.webp' },
-  { name: 'Tattoo studios',    img: '/Images/Logos/tattoo-studio-logo-1.webp' },
-]
+function CategoryPill({
+  label,
+  active,
+  onClick,
+}: {
+  label: string
+  active: boolean
+  onClick: () => void
+}) {
+  const [hovered, setHovered] = useState(false)
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="flex-shrink-0 cursor-pointer"
+      style={{
+        padding: '10px 18px',
+        borderRadius: 9999,
+        border: active
+          ? '1px solid #7543E3'
+          : hovered
+          ? '1px solid rgba(33,3,64,0.35)'
+          : '1px solid rgba(33,3,64,0.12)',
+        background: active
+          ? '#7543E3'
+          : hovered
+          ? 'rgba(117,67,227,0.06)'
+          : '#FFFFFF',
+        color: active ? '#FFFFFF' : hovered ? '#15141A' : 'rgba(21,20,26,0.7)',
+        fontFamily: "'Mozilla Text', sans-serif",
+        fontSize: '15px',
+        lineHeight: 1,
+        fontWeight: active ? 600 : 500,
+        transition: 'all 0.15s ease',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      {label}
+    </button>
+  )
+}
 
 export default function ExamplesPage() {
+  const [activeCategory, setActiveCategory] = useState<string>('restaurant')
+  const [galleryKey, setGalleryKey] = useState(0)
+  const galleryImages = getCategoryImages(activeCategory)
+
   return (
     <main>
+      {/* Local fade-in animation for logo grid (mirrors homepage). */}
+      <style>{`
+        @keyframes lLogoFade {
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+      `}</style>
+
       {/* Hero — Our Story pattern */}
-      <LSection>
+      <LSection hero>
         <div className="max-w-[900px] mx-auto flex flex-col items-center text-center">
           <h1 className="dk-h1 mb-5" style={{ color: '#15141A' }}>Examples</h1>
           <p className="dk-body-lg mb-4" style={{ color: '#7543E3', fontWeight: 500 }}>
@@ -49,92 +84,59 @@ export default function ExamplesPage() {
         </div>
       </LSection>
 
-      {/* By industry — horizontal scroll on mobile, grid from sm and up */}
+      {/* By industry — category tabs + 12-image fade-in grid (homepage pattern) */}
       <LSection tone="alt">
         <LSectionHeader eyebrow="By industry" title="Explore logos across categories" />
-        {/* Mobile: horizontal scroll strip */}
-        <div
-          className="sm:hidden -mx-5 px-5 overflow-x-auto"
-          style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}
-        >
-          <div className="flex gap-3 pb-2" style={{ width: 'max-content' }}>
-            {INDUSTRIES.map((i) => (
-              <div
-                key={i.name}
-                className="l-card-hover flex-shrink-0 relative overflow-hidden"
-                style={{
-                  borderRadius: 16,
-                  width: 160,
-                  aspectRatio: '1',
-                  border: '1px solid rgba(32,18,58,0.08)',
-                  cursor: 'pointer',
-                  backgroundImage: `url('${i.img}')`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  backgroundColor: '#F5F0FF',
+
+        {/* Tabs — horizontal scroll on mobile with right-edge fade, wrap on desktop */}
+        <div className="relative mb-10">
+          <div
+            className="md:hidden absolute right-0 top-0 bottom-0 w-10 pointer-events-none z-10"
+            style={{ background: 'linear-gradient(to right, transparent, #F5F0FF)' }}
+            aria-hidden="true"
+          />
+          <div
+            className="flex md:flex-wrap md:justify-center gap-2.5 overflow-x-auto md:overflow-visible l-noscrollbar pb-1 md:pb-0 -mx-5 px-5 md:mx-0 md:px-0"
+            style={{ WebkitOverflowScrolling: 'touch' }}
+          >
+            {CATEGORIES.map((cat) => (
+              <CategoryPill
+                key={cat.key}
+                label={cat.name}
+                active={cat.key === activeCategory}
+                onClick={() => {
+                  if (cat.key === activeCategory) return
+                  setActiveCategory(cat.key)
+                  setGalleryKey((k) => k + 1)
                 }}
-              >
-                <div
-                  className="absolute inset-x-0 bottom-0 flex items-end justify-center"
-                  style={{
-                    height: '55%',
-                    background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.78) 100%)',
-                    padding: '0 10px 12px 10px',
-                  }}
-                >
-                  <p
-                    className="dk-caption m-0"
-                    style={{
-                      color: '#FFFFFF',
-                      fontWeight: 600,
-                      textAlign: 'center',
-                      textShadow: '0 1px 4px rgba(0,0,0,0.45)',
-                    }}
-                  >
-                    {i.name}
-                  </p>
-                </div>
-              </div>
+              />
             ))}
           </div>
         </div>
-        {/* sm+: grid */}
-        <div className="hidden sm:grid max-w-[920px] mx-auto grid-cols-3 md:grid-cols-4 gap-4">
-          {INDUSTRIES.map((i) => (
+
+        {/* Logo grid — 12 per category, fade-in stagger on switch */}
+        <div key={galleryKey} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5 max-w-[1100px] mx-auto">
+          {galleryImages.map((src, i) => (
             <div
-              key={i.name}
-              className="l-card-hover relative overflow-hidden"
+              key={src}
+              className="relative w-full overflow-hidden rounded-2xl group"
               style={{
-                borderRadius: 16,
-                aspectRatio: '1',
-                border: '1px solid rgba(32,18,58,0.08)',
-                cursor: 'pointer',
-                backgroundImage: `url('${i.img}')`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundColor: '#F5F0FF',
+                paddingBottom: '100%',
+                background: '#FFFFFF',
+                border: '1px solid rgba(32,18,58,0.06)',
+                opacity: 0,
+                transform: 'translateY(12px) scale(0.97)',
+                animation: `lLogoFade 0.5s cubic-bezier(0.23,1,0.32,1) ${i * 0.04}s forwards`,
               }}
             >
-              <div
-                className="absolute inset-x-0 bottom-0 flex items-end justify-center"
-                style={{
-                  height: '50%',
-                  background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.78) 100%)',
-                  padding: '0 12px 16px 12px',
-                }}
-              >
-                <p
-                  className="dk-body m-0"
-                  style={{
-                    color: '#FFFFFF',
-                    fontWeight: 600,
-                    textAlign: 'center',
-                    textShadow: '0 1px 6px rgba(0,0,0,0.5)',
-                  }}
-                >
-                  {i.name}
-                </p>
-              </div>
+              <Image
+                src={src}
+                alt=""
+                fill
+                className="object-cover transition-transform duration-[400ms] group-hover:scale-[1.04]"
+                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                loading={i < 4 ? 'eager' : 'lazy'}
+              />
             </div>
           ))}
         </div>

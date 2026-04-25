@@ -54,7 +54,7 @@ export default function LStickyCTA({ label = 'Get my free logo' }: Props) {
   return (
     <div
       aria-hidden={visible ? undefined : true}
-      className="fixed left-0 right-0 z-40 flex justify-center pointer-events-none"
+      className="md:hidden fixed left-0 right-0 z-40 flex justify-center pointer-events-none"
       style={sharedWrap}
     >
       {submitted ? (
