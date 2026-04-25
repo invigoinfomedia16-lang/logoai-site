@@ -10,11 +10,24 @@ import LSectionHeader from '../_components/LSectionHeader'
 import LBottomCTA from '../_components/LBottomCTA'
 import { getLogosClaimed } from '@/data'
 
-const INDUSTRIES = [
-  'Restaurants', 'Coffee shops', 'Bakeries', 'Food trucks',
-  'Barbershops', 'Hair salons', 'Nail studios', 'Boutiques',
-  'Clothing brands', 'Gyms', 'Cleaning services', 'Landscaping',
-  'Pet grooming', 'E-commerce', 'Content creators', 'Tattoo studios',
+type Industry = { name: string; img: string }
+const INDUSTRIES: Industry[] = [
+  { name: 'Restaurants',       img: '/Images/Logos/restaurant-logo-1.webp' },
+  { name: 'Coffee shops',      img: '/Images/Logos/coffee-shop-logo-1.webp' },
+  { name: 'Bakeries',          img: '/Images/Logos/bakery-logo-1.webp' },
+  { name: 'Food trucks',       img: '/Images/Logos/food-truck-logo-1.webp' },
+  { name: 'Barbershops',       img: '/Images/Logos/barbershop-logo-1.webp' },
+  { name: 'Hair salons',       img: '/Images/Logos/hair-salon-logo-1.webp' },
+  { name: 'Nail studios',      img: '/Images/Logos/nail-studio-logo-1.webp' },
+  { name: 'Boutiques',         img: '/Images/Logos/boutique-logo-1.webp' },
+  { name: 'Clothing brands',   img: '/Images/Logos/clothing-brand-logo-1.webp' },
+  { name: 'Gyms',              img: '/Images/Logos/gym-logo-1.webp' },
+  { name: 'Cleaning services', img: '/Images/Logos/cleaning-service-logo-1.webp' },
+  { name: 'Landscaping',       img: '/Images/Logos/landscaping-company-logo-1.webp' },
+  { name: 'Pet grooming',      img: '/Images/Logos/pet-grooming-logo-1.webp' },
+  { name: 'E-commerce',        img: '/Images/Logos/e-commerce-brand-logo-7.webp' },
+  { name: 'Content creators',  img: '/Images/Logos/content-creator-logo-1.webp' },
+  { name: 'Tattoo studios',    img: '/Images/Logos/tattoo-studio-logo-1.webp' },
 ]
 
 export default function ExamplesPage() {
@@ -47,23 +60,30 @@ export default function ExamplesPage() {
           <div className="flex gap-3 pb-2" style={{ width: 'max-content' }}>
             {INDUSTRIES.map((i) => (
               <div
-                key={i}
-                className="l-card-hover flex-shrink-0"
+                key={i.name}
+                className="l-card-hover flex-shrink-0 flex flex-col overflow-hidden"
                 style={{
                   background: '#FFFFFF',
                   borderRadius: 16,
-                  width: 140,
-                  height: 140,
+                  width: 160,
                   border: '1px solid rgba(32,18,58,0.08)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: 16,
-                  textAlign: 'center',
                   cursor: 'pointer',
                 }}
               >
-                <p className="dk-body m-0" style={{ color: '#15141A', fontWeight: 500 }}>{i}</p>
+                <div
+                  style={{
+                    width: '100%',
+                    aspectRatio: '1',
+                    background: '#F5F0FF',
+                    backgroundImage: `url('${i.img}')`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                  aria-hidden="true"
+                />
+                <div className="flex items-center justify-center" style={{ padding: '12px 8px', flex: 1, minHeight: 48 }}>
+                  <p className="dk-caption m-0" style={{ color: '#15141A', fontWeight: 500, textAlign: 'center' }}>{i.name}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -72,22 +92,29 @@ export default function ExamplesPage() {
         <div className="hidden sm:grid max-w-[920px] mx-auto grid-cols-3 md:grid-cols-4 gap-4">
           {INDUSTRIES.map((i) => (
             <div
-              key={i}
-              className="l-card-hover"
+              key={i.name}
+              className="l-card-hover flex flex-col overflow-hidden"
               style={{
                 background: '#FFFFFF',
                 borderRadius: 16,
-                aspectRatio: '1',
                 border: '1px solid rgba(32,18,58,0.08)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: 20,
-                textAlign: 'center',
                 cursor: 'pointer',
               }}
             >
-              <p className="dk-body-lg m-0" style={{ color: '#15141A', fontWeight: 500 }}>{i}</p>
+              <div
+                style={{
+                  width: '100%',
+                  aspectRatio: '1',
+                  background: '#F5F0FF',
+                  backgroundImage: `url('${i.img}')`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+                aria-hidden="true"
+              />
+              <div className="flex items-center justify-center" style={{ padding: '14px 10px', minHeight: 56 }}>
+                <p className="dk-body m-0" style={{ color: '#15141A', fontWeight: 500, textAlign: 'center' }}>{i.name}</p>
+              </div>
             </div>
           ))}
         </div>
