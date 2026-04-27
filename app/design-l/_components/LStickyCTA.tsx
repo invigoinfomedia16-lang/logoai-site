@@ -43,6 +43,20 @@ export default function LStickyCTA({ label = 'Get my free logo' }: Props) {
     }
   }, [])
 
+  // Reserve space at the bottom of the page (mobile only) so the floating CTA
+  // doesn't cover content. We add padding to <body> only when the CTA is
+  // actually visible AND we're on mobile, then restore the previous value.
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const isMobile = window.matchMedia('(max-width: 767px)').matches
+    if (!visible || !isMobile) return
+    const prev = document.body.style.paddingBottom
+    document.body.style.paddingBottom = '92px'
+    return () => {
+      document.body.style.paddingBottom = prev
+    }
+  }, [visible])
+
   const sharedWrap: React.CSSProperties = {
     bottom: 'env(safe-area-inset-bottom, 0px)',
     padding: '16px 20px max(16px, env(safe-area-inset-bottom)) 20px',
