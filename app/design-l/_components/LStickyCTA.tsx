@@ -1,9 +1,13 @@
 'use client'
 
-// Floating bottom-anchored CTA. Visible only between hero CTA scrolling out
-// and bottom CTA entering view. On click, scrolls smoothly to the hero email
-// form (#hero-cta). Once the user has submitted on any CTA, this swaps to the
-// success state ("You're on the list!") and matches the rest of the page.
+// Mobile-only sticky CTA bar pinned to the bottom of the viewport.
+// Renders as a SOLID BAR with its own Tolopea background, top border, and
+// backdrop blur — so it visually separates from the page content scrolling
+// above it (no transparent floating pill that overlaps the page).
+//
+// Visible only between the hero CTA scrolling out and the bottom CTA
+// entering view. Click scrolls to #hero-cta. Once submitted on any page,
+// the CTA swaps to the success state.
 
 import { useEffect, useState } from 'react'
 import { ArrowRight, Check } from '@phosphor-icons/react'
@@ -12,6 +16,8 @@ import { scrollToHeroCTA, useSubmitted } from './useSubmitted'
 type Props = {
   label?: string
 }
+
+const BAR_HEIGHT = 80 // approx; padding + button height
 
 export default function LStickyCTA({ label = 'Get my free logo' }: Props) {
   const [visible, setVisible] = useState(false)
@@ -43,46 +49,47 @@ export default function LStickyCTA({ label = 'Get my free logo' }: Props) {
     }
   }, [])
 
-  // Reserve space at the bottom of the page (mobile only) so the floating CTA
-  // doesn't cover content. We add padding to <body> only when the CTA is
-  // actually visible AND we're on mobile, then restore the previous value.
+  // While the bar is showing on mobile, push body content up by exactly the
+  // bar's height so nothing scrolls underneath it. Restored when the bar
+  // hides (back at hero, or once the bottom CTA section enters view).
   useEffect(() => {
     if (typeof window === 'undefined') return
     const isMobile = window.matchMedia('(max-width: 767px)').matches
     if (!visible || !isMobile) return
     const prev = document.body.style.paddingBottom
-    document.body.style.paddingBottom = '92px'
+    document.body.style.paddingBottom = BAR_HEIGHT + 24 + 'px'
     return () => {
       document.body.style.paddingBottom = prev
     }
   }, [visible])
 
-  const sharedWrap: React.CSSProperties = {
-    bottom: 'env(safe-area-inset-bottom, 0px)',
-    padding: '16px 20px max(16px, env(safe-area-inset-bottom)) 20px',
-    transform: visible ? 'translateY(0)' : 'translateY(140%)',
-    opacity: visible ? 1 : 0,
-    transition: 'transform 0.3s ease, opacity 0.3s ease',
-  }
-
   return (
     <div
-      aria-hidden={visible ? undefined : true}
-      className="md:hidden fixed left-0 right-0 z-40 flex justify-center pointer-events-none"
-      style={sharedWrap}
+      aria-hidden={!visible}
+      className="md:hidden fixed left-0 right-0 bottom-0 z-40"
+      style={{
+        background: 'rgba(33,3,64,0.96)',
+        borderTop: '1px solid rgba(255,255,255,0.10)',
+        backdropFilter: 'blur(14px)',
+        WebkitBackdropFilter: 'blur(14px)',
+        boxShadow: '0 -8px 24px rgba(0,0,0,0.22)',
+        padding: '14px 16px max(14px, env(safe-area-inset-bottom)) 16px',
+        transform: visible ? 'translateY(0)' : 'translateY(110%)',
+        transition: 'transform 0.3s ease',
+      }}
     >
       {submitted ? (
         <div
-          className="pointer-events-auto inline-flex items-center justify-center gap-2 rounded-full w-full sm:w-auto"
+          className="w-full inline-flex items-center justify-center gap-2"
           style={{
             color: '#FFFFFF',
             background: '#7543E3',
+            border: '1px solid #7543E3',
+            borderRadius: 9999,
             fontFamily: "'Mozilla Text', sans-serif",
             fontWeight: 600,
             fontSize: '16px',
-            padding: '16px 32px',
-            maxWidth: 420,
-            boxShadow: '0 8px 24px rgba(32,18,58,0.32), 0 2px 6px rgba(0,0,0,0.18)',
+            padding: '14px 24px',
           }}
         >
           <Check weight="bold" size={18} /> You&apos;re on the list!
@@ -92,27 +99,20 @@ export default function LStickyCTA({ label = 'Get my free logo' }: Props) {
           type="button"
           onClick={scrollToHeroCTA}
           tabIndex={visible ? 0 : -1}
-          className="pointer-events-auto inline-flex items-center justify-center gap-1.5 rounded-full cursor-pointer w-full sm:w-auto"
+          className="w-full inline-flex items-center justify-center gap-1.5 cursor-pointer"
           style={{
             color: '#FFFFFF',
             background: '#7543E3',
-            border: 'none',
+            border: '1px solid #7543E3',
+            borderRadius: 9999,
             fontFamily: "'Mozilla Text', sans-serif",
             fontWeight: 600,
             fontSize: '16px',
-            padding: '16px 32px',
-            maxWidth: 420,
-            boxShadow: '0 8px 24px rgba(32,18,58,0.32), 0 2px 6px rgba(0,0,0,0.18)',
-            transition: 'background 0.2s ease, box-shadow 0.2s ease',
+            padding: '14px 24px',
+            transition: 'background 0.2s ease',
           }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#5F2EB4'
-            e.currentTarget.style.boxShadow = '0 10px 28px rgba(32,18,58,0.4), 0 2px 6px rgba(0,0,0,0.22)'
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.background = '#7543E3'
-            e.currentTarget.style.boxShadow = '0 8px 24px rgba(32,18,58,0.32), 0 2px 6px rgba(0,0,0,0.18)'
-          }}
+          onTouchStart={(e) => { e.currentTarget.style.background = '#5F2EB4' }}
+          onTouchEnd={(e) => { e.currentTarget.style.background = '#7543E3' }}
         >
           {label} <ArrowRight weight="bold" size={16} />
         </button>
