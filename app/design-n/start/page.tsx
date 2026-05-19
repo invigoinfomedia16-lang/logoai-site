@@ -187,6 +187,30 @@ export default function LogoOnboarding() {
   })()
   const formattedBrand = applyCase(brandName.trim() || 'Your Brand', nameStyle)
 
+  // Demo-mode: persist the brand snapshot to localStorage on every input
+  // change so the dashboard reflects the user's actual brand even if they
+  // navigate there without completing checkout. Production logic (only
+  // persist after pay) lives in onPaid below — that still runs too.
+  useEffect(() => {
+    if (typeof window === 'undefined' || !brandName.trim()) return
+    try {
+      const industryLabel = INDUSTRIES.find((i) => i.key === industry)?.label ?? ''
+      const logoStyleName = logoTypeIndex !== null ? LOGO_TYPES[logoTypeIndex]?.name ?? '' : ''
+      window.localStorage.setItem(
+        'logoai:brand',
+        JSON.stringify({
+          name: formattedBrand,
+          tagline,
+          industry: industryLabel,
+          style: logoStyleName,
+          palette: palette?.colors ?? [],
+        }),
+      )
+    } catch {
+      /* localStorage unavailable — dashboard falls back to its default */
+    }
+  }, [formattedBrand, brandName, tagline, industry, logoTypeIndex, palette])
+
   /* nav */
 
   function canProceed() {
