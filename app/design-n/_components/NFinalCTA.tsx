@@ -51,7 +51,7 @@ function Thumb({ src, rot }: { src: string; rot: number }) {
         e.currentTarget.style.zIndex = '1'
       }}
     >
-      <Image src={src} alt="" fill className="object-cover" sizes="190px" />
+      <Image src={src} alt="" fill className="object-contain" sizes="190px" />
     </div>
   )
 }
@@ -132,17 +132,8 @@ export default function NFinalCTA() {
               className="flex flex-col items-center w-full"
               style={{ maxWidth: 480 }}
             >
-            <p
-              className="m-eyebrow"
-              style={{
-                color: 'var(--m-brand)',
-                textShadow: '0 1px 10px rgba(0,0,0,0.45)',
-              }}
-            >
-              Get Started
-            </p>
             <h2
-              className="m-h2 mt-3"
+              className="m-h2"
               style={{
                 color: '#FFFFFF',
                 textShadow: '0 2px 20px rgba(0,0,0,0.55)',
@@ -186,7 +177,6 @@ export default function NFinalCTA() {
           CTA on mobile: the storefront composition is desktop-only; small
           screens get a plain, focused heading + button instead. */}
       <div className="md:hidden flex flex-col items-center gap-5 text-center max-w-[400px] mx-auto">
-        <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>Get Started</p>
         <h2 className="m-h2">
           Your professional logo is 60 seconds away
         </h2>
