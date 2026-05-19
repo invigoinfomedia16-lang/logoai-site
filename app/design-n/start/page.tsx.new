@@ -1,0 +1,4307 @@
+'use client'
+
+// Onboarding — Design N. Follows the LogoOnboarding mock (Downloads/
+// onboarding.jsx) structure:
+//   Step 1  Business Name      — text input + optional case styling
+//   Step 2  Description        — pick from 10 AI suggestions (1-select)
+//   Step 3  Services           — pick exactly 3 from 12 (multi)
+//   Step 4  Tagline            — pick from 10 AI taglines (1-select, skippable)
+//   Step 5  Impression         — pick exactly 3 from 18 chips
+//   Step 6  Colors             — palette picker (5 palettes, named swatches)
+//   Step 7  Logo Type          — radio with popularity %
+//   ⤳ Brand Brief              — summary card → "Generate Logo Prompts"
+//   ⤳ Generating               — spinner + rotating phase text
+//   ⤳ Results                  — 10 watermarked previews; tap a card to
+//                                open the S1-style checkout for that logo.
+// Visuals adapted to design-n's terracotta light theme — no dark bg, no
+// blue gradient. Eyebrows use uppercase + tracking on Open Sans instead of
+// Space Mono so the page stays inside design-n's two-font system.
+
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from 'react'
+import NCheckoutModal from '../_components/NCheckoutModal'
+
+/* ------------------------------------------------------------------ */
+/* data — verbatim from the mock                                       */
+/* ------------------------------------------------------------------ */
+
+// 8-step flow — industry now owns its own screen (was crowded into step 2).
+const STEPS = [
+  { num: 1, label: 'Business Name', icon: '✦' },
+  { num: 2, label: 'Industry',      icon: '◈' },
+  { num: 3, label: 'Description',   icon: '◈' },
+  { num: 4, label: 'Services',      icon: '◆' },
+  { num: 5, label: 'Tagline',       icon: '❝' },
+  { num: 6, label: 'Impression',    icon: '◉' },
+  { num: 7, label: 'Colors',        icon: '◐' },
+  { num: 8, label: 'Logo Type',     icon: '△' },
+]
+const TOTAL_STEPS = STEPS.length
+
+const NAME_STYLES = ['all lowercase', 'Title Case', 'ALL CAPS', 'camelCase']
+
+// Industry taxonomy — flat searchable list for the step-2 typeahead.
+// The first 25 entries are the broad parent categories (the empty-state
+// "Popular" surface; first 8 are pre-shown via INDUSTRIES_VISIBLE).
+// The remaining ~330 entries are niche-level variants, each mapped to
+// one of the parent keys so downstream filters (SUGGESTIONS_BY_INDUSTRY,
+// SERVICES_BY_INDUSTRY, TAGLINES_BY_INDUSTRY) keep working when a niche
+// is picked. The substring filter in IndustryCombobox handles the rest.
+const INDUSTRIES: { key: string; label: string }[] = [
+  // ── Top 8 popular broad categories (empty-state surface) ──
+  { key: 'restaurant', label: 'Restaurant' },
+  { key: 'coffee',     label: 'Coffee Shop' },
+  { key: 'boutique',   label: 'Boutique' },
+  { key: 'agency',     label: 'Agency' },
+  { key: 'fitness',    label: 'Fitness' },
+  { key: 'salon',      label: 'Salon / Spa' },
+  { key: 'bakery',     label: 'Bakery' },
+  { key: 'tech',       label: 'Tech / SaaS' },
+  // ── Other broad categories ──
+  { key: 'bar',        label: 'Bar / Brewery' },
+  { key: 'foodtruck',  label: 'Food Truck' },
+  { key: 'ecommerce',  label: 'E-commerce' },
+  { key: 'yoga',       label: 'Yoga / Pilates' },
+  { key: 'consulting', label: 'Consulting' },
+  { key: 'realestate', label: 'Real Estate' },
+  { key: 'photo',      label: 'Photography' },
+  { key: 'wedding',    label: 'Wedding / Events' },
+  { key: 'trades',     label: 'Construction / Trades' },
+  { key: 'cleaning',   label: 'Cleaning Service' },
+  { key: 'pet',        label: 'Pet / Vet' },
+  { key: 'medical',    label: 'Healthcare' },
+  { key: 'legal',      label: 'Legal / Finance' },
+  { key: 'education',  label: 'Education' },
+  { key: 'nonprofit',  label: 'Non-profit' },
+  { key: 'creator',    label: 'Creator / Personal' },
+  { key: 'other',      label: 'Something else' },
+
+  // ── Restaurant niches ──
+  { key: 'restaurant', label: 'Italian restaurant' },
+  { key: 'restaurant', label: 'Chinese restaurant' },
+  { key: 'restaurant', label: 'Mexican restaurant' },
+  { key: 'restaurant', label: 'Japanese restaurant' },
+  { key: 'restaurant', label: 'Indian restaurant' },
+  { key: 'restaurant', label: 'Thai restaurant' },
+  { key: 'restaurant', label: 'Vietnamese restaurant' },
+  { key: 'restaurant', label: 'Korean restaurant' },
+  { key: 'restaurant', label: 'French restaurant' },
+  { key: 'restaurant', label: 'Mediterranean restaurant' },
+  { key: 'restaurant', label: 'Greek restaurant' },
+  { key: 'restaurant', label: 'Lebanese restaurant' },
+  { key: 'restaurant', label: 'Ethiopian restaurant' },
+  { key: 'restaurant', label: 'Caribbean restaurant' },
+  { key: 'restaurant', label: 'Soul food restaurant' },
+  { key: 'restaurant', label: 'American diner' },
+  { key: 'restaurant', label: 'BBQ restaurant' },
+  { key: 'restaurant', label: 'Steakhouse' },
+  { key: 'restaurant', label: 'Seafood restaurant' },
+  { key: 'restaurant', label: 'Sushi restaurant' },
+  { key: 'restaurant', label: 'Pizzeria' },
+  { key: 'restaurant', label: 'Burger joint' },
+  { key: 'restaurant', label: 'Sandwich shop' },
+  { key: 'restaurant', label: 'Deli' },
+  { key: 'restaurant', label: 'Bistro' },
+  { key: 'restaurant', label: 'Gastropub' },
+  { key: 'restaurant', label: 'Fine dining restaurant' },
+  { key: 'restaurant', label: 'Farm-to-table restaurant' },
+  { key: 'restaurant', label: 'Vegan restaurant' },
+  { key: 'restaurant', label: 'Vegetarian restaurant' },
+  { key: 'restaurant', label: 'Plant-based restaurant' },
+  { key: 'restaurant', label: 'Brunch spot' },
+  { key: 'restaurant', label: 'Breakfast café' },
+  { key: 'restaurant', label: 'Ramen shop' },
+  { key: 'restaurant', label: 'Pho shop' },
+  { key: 'restaurant', label: 'Taco shop' },
+  { key: 'restaurant', label: 'Burrito spot' },
+  { key: 'restaurant', label: 'Hot pot restaurant' },
+  { key: 'restaurant', label: 'Family restaurant' },
+  { key: 'restaurant', label: 'Fast-casual restaurant' },
+  { key: 'restaurant', label: 'Buffet' },
+  { key: 'restaurant', label: 'Ghost kitchen' },
+  { key: 'restaurant', label: 'Catering company' },
+
+  // ── Coffee / café niches ──
+  { key: 'coffee', label: 'Specialty coffee shop' },
+  { key: 'coffee', label: 'Espresso bar' },
+  { key: 'coffee', label: 'Coffee roastery' },
+  { key: 'coffee', label: 'Drive-through coffee' },
+  { key: 'coffee', label: 'Café bookshop' },
+  { key: 'coffee', label: 'Mobile coffee cart' },
+  { key: 'coffee', label: 'Cold brew bar' },
+  { key: 'coffee', label: 'Pour-over café' },
+  { key: 'coffee', label: 'Coffee subscription' },
+  { key: 'coffee', label: 'Third-wave café' },
+  { key: 'coffee', label: 'Tea shop' },
+  { key: 'coffee', label: 'Matcha bar' },
+  { key: 'coffee', label: 'Bubble tea / boba shop' },
+  { key: 'coffee', label: 'Juice bar' },
+  { key: 'coffee', label: 'Smoothie bar' },
+  { key: 'coffee', label: 'Coworking café' },
+
+  // ── Boutique / retail niches ──
+  { key: 'boutique', label: "Women's clothing boutique" },
+  { key: 'boutique', label: "Men's clothing boutique" },
+  { key: 'boutique', label: "Children's clothing brand" },
+  { key: 'boutique', label: 'Maternity boutique' },
+  { key: 'boutique', label: 'Streetwear shop' },
+  { key: 'boutique', label: 'Sneaker shop' },
+  { key: 'boutique', label: 'Vintage clothing boutique' },
+  { key: 'boutique', label: 'Thrift / consignment shop' },
+  { key: 'boutique', label: 'Luxury accessories boutique' },
+  { key: 'boutique', label: 'Swimwear brand' },
+  { key: 'boutique', label: 'Activewear brand' },
+  { key: 'boutique', label: 'Jewelry boutique' },
+  { key: 'boutique', label: 'Eyewear boutique' },
+  { key: 'boutique', label: 'Shoe boutique' },
+  { key: 'boutique', label: 'Lingerie boutique' },
+  { key: 'boutique', label: 'Bridal boutique' },
+  { key: 'boutique', label: 'Home goods store' },
+  { key: 'boutique', label: 'Furniture store' },
+  { key: 'boutique', label: 'Plant shop' },
+  { key: 'boutique', label: 'Bookstore' },
+  { key: 'boutique', label: 'Toy store' },
+  { key: 'boutique', label: 'Gift shop' },
+  { key: 'boutique', label: 'Stationery shop' },
+  { key: 'boutique', label: 'Art gallery / store' },
+
+  // ── Agency niches ──
+  { key: 'agency', label: 'Design agency' },
+  { key: 'agency', label: 'Branding studio' },
+  { key: 'agency', label: 'Marketing agency' },
+  { key: 'agency', label: 'Digital agency' },
+  { key: 'agency', label: 'Creative agency' },
+  { key: 'agency', label: 'Web design agency' },
+  { key: 'agency', label: 'SEO agency' },
+  { key: 'agency', label: 'PR agency' },
+  { key: 'agency', label: 'Social media agency' },
+  { key: 'agency', label: 'Content marketing agency' },
+  { key: 'agency', label: 'Performance marketing agency' },
+  { key: 'agency', label: 'Influencer marketing agency' },
+  { key: 'agency', label: 'Video production studio' },
+  { key: 'agency', label: 'Copywriting agency' },
+  { key: 'agency', label: 'UX / UI design studio' },
+  { key: 'agency', label: 'Architecture firm' },
+  { key: 'agency', label: 'Interior design studio' },
+  { key: 'agency', label: 'Animation studio' },
+  { key: 'agency', label: 'Podcast production company' },
+  { key: 'agency', label: 'Talent / modeling agency' },
+
+  // ── Fitness niches ──
+  { key: 'fitness', label: 'Personal training gym' },
+  { key: 'fitness', label: 'CrossFit gym' },
+  { key: 'fitness', label: 'Boxing gym' },
+  { key: 'fitness', label: 'Martial arts gym' },
+  { key: 'fitness', label: 'Climbing gym' },
+  { key: 'fitness', label: 'Cycling / spin studio' },
+  { key: 'fitness', label: 'Barre studio' },
+  { key: 'fitness', label: 'Pilates studio' },
+  { key: 'fitness', label: 'Reformer pilates studio' },
+  { key: 'fitness', label: 'HIIT studio' },
+  { key: 'fitness', label: 'Boutique fitness studio' },
+  { key: 'fitness', label: "Women's-only fitness studio" },
+  { key: 'fitness', label: 'Dance studio' },
+  { key: 'fitness', label: 'Strength gym' },
+  { key: 'fitness', label: 'Functional fitness gym' },
+  { key: 'fitness', label: 'Run club' },
+  { key: 'fitness', label: 'Outdoor bootcamp' },
+  { key: 'fitness', label: 'Swim school' },
+
+  // ── Salon / spa niches ──
+  { key: 'salon', label: 'Hair salon' },
+  { key: 'salon', label: 'Nail studio' },
+  { key: 'salon', label: 'Barbershop' },
+  { key: 'salon', label: 'Skincare clinic' },
+  { key: 'salon', label: 'Medical spa' },
+  { key: 'salon', label: 'Day spa' },
+  { key: 'salon', label: 'Massage studio' },
+  { key: 'salon', label: 'Lash & brow studio' },
+  { key: 'salon', label: 'Tanning studio' },
+  { key: 'salon', label: 'Waxing studio' },
+  { key: 'salon', label: 'Makeup studio' },
+  { key: 'salon', label: 'Hair extension specialist' },
+  { key: 'salon', label: 'Mobile beauty service' },
+  { key: 'salon', label: "Men's grooming lounge" },
+  { key: 'salon', label: 'Tattoo studio' },
+  { key: 'salon', label: 'Piercing studio' },
+
+  // ── Bakery niches ──
+  { key: 'bakery', label: 'Patisserie' },
+  { key: 'bakery', label: 'Sourdough bakery' },
+  { key: 'bakery', label: 'Cake shop' },
+  { key: 'bakery', label: 'Cookie company' },
+  { key: 'bakery', label: 'Donut shop' },
+  { key: 'bakery', label: 'Cupcake shop' },
+  { key: 'bakery', label: 'Bagel shop' },
+  { key: 'bakery', label: 'Pie & tart shop' },
+  { key: 'bakery', label: 'Vegan bakery' },
+  { key: 'bakery', label: 'Gluten-free bakery' },
+  { key: 'bakery', label: 'Ice cream shop' },
+  { key: 'bakery', label: 'Gelato shop' },
+  { key: 'bakery', label: 'Chocolate / confectionery shop' },
+  { key: 'bakery', label: 'Macaron shop' },
+
+  // ── Tech / SaaS niches ──
+  { key: 'tech', label: 'SaaS startup' },
+  { key: 'tech', label: 'AI startup' },
+  { key: 'tech', label: 'Mobile app company' },
+  { key: 'tech', label: 'Developer tools company' },
+  { key: 'tech', label: 'No-code platform' },
+  { key: 'tech', label: 'Fintech startup' },
+  { key: 'tech', label: 'Healthtech startup' },
+  { key: 'tech', label: 'Edtech startup' },
+  { key: 'tech', label: 'Proptech startup' },
+  { key: 'tech', label: 'Climate tech startup' },
+  { key: 'tech', label: 'Cybersecurity company' },
+  { key: 'tech', label: 'Data analytics platform' },
+  { key: 'tech', label: 'Web3 / crypto startup' },
+  { key: 'tech', label: 'Consumer mobile app' },
+  { key: 'tech', label: 'Productivity software' },
+  { key: 'tech', label: 'CRM platform' },
+  { key: 'tech', label: 'API / dev tooling' },
+  { key: 'tech', label: 'IoT / hardware startup' },
+  { key: 'tech', label: 'Robotics company' },
+  { key: 'tech', label: 'Open-source project' },
+  { key: 'tech', label: 'IT services firm' },
+  { key: 'tech', label: 'Cloud / infrastructure platform' },
+
+  // ── Bar / brewery niches ──
+  { key: 'bar', label: 'Cocktail bar' },
+  { key: 'bar', label: 'Wine bar' },
+  { key: 'bar', label: 'Natural wine bar' },
+  { key: 'bar', label: 'Sports bar' },
+  { key: 'bar', label: 'Craft brewery' },
+  { key: 'bar', label: 'Speakeasy' },
+  { key: 'bar', label: 'Rooftop bar' },
+  { key: 'bar', label: 'Tiki bar' },
+  { key: 'bar', label: 'Whiskey lounge' },
+  { key: 'bar', label: 'Brewpub' },
+  { key: 'bar', label: 'Dive bar' },
+  { key: 'bar', label: 'Beer garden' },
+  { key: 'bar', label: 'Cider house' },
+  { key: 'bar', label: 'Distillery' },
+
+  // ── Food truck niches ──
+  { key: 'foodtruck', label: 'Taco truck' },
+  { key: 'foodtruck', label: 'Pizza truck' },
+  { key: 'foodtruck', label: 'Burger truck' },
+  { key: 'foodtruck', label: 'BBQ truck' },
+  { key: 'foodtruck', label: 'Vegan food truck' },
+  { key: 'foodtruck', label: 'Ice cream truck' },
+  { key: 'foodtruck', label: 'Coffee truck' },
+  { key: 'foodtruck', label: 'Dessert truck' },
+
+  // ── E-commerce niches ──
+  { key: 'ecommerce', label: 'D2C beauty brand' },
+  { key: 'ecommerce', label: 'D2C skincare brand' },
+  { key: 'ecommerce', label: 'D2C fashion brand' },
+  { key: 'ecommerce', label: 'D2C home goods brand' },
+  { key: 'ecommerce', label: 'D2C wellness brand' },
+  { key: 'ecommerce', label: 'D2C food / snack brand' },
+  { key: 'ecommerce', label: 'D2C pet brand' },
+  { key: 'ecommerce', label: 'D2C baby brand' },
+  { key: 'ecommerce', label: 'Subscription box brand' },
+  { key: 'ecommerce', label: 'Online marketplace' },
+  { key: 'ecommerce', label: 'Dropshipping store' },
+  { key: 'ecommerce', label: 'Print-on-demand store' },
+  { key: 'ecommerce', label: 'Online jewelry store' },
+  { key: 'ecommerce', label: 'Online plant shop' },
+  { key: 'ecommerce', label: 'Online art store' },
+
+  // ── Yoga niches ──
+  { key: 'yoga', label: 'Vinyasa yoga studio' },
+  { key: 'yoga', label: 'Hot yoga studio' },
+  { key: 'yoga', label: 'Hatha yoga studio' },
+  { key: 'yoga', label: 'Aerial yoga studio' },
+  { key: 'yoga', label: 'Yoga retreat' },
+  { key: 'yoga', label: 'Online yoga platform' },
+
+  // ── Consulting niches ──
+  { key: 'consulting', label: 'Management consulting firm' },
+  { key: 'consulting', label: 'IT consulting firm' },
+  { key: 'consulting', label: 'HR consulting firm' },
+  { key: 'consulting', label: 'Financial consulting firm' },
+  { key: 'consulting', label: 'Strategy consulting firm' },
+  { key: 'consulting', label: 'Operations consulting' },
+  { key: 'consulting', label: 'Sales consulting' },
+  { key: 'consulting', label: 'Sustainability consulting' },
+  { key: 'consulting', label: 'M&A advisory' },
+  { key: 'consulting', label: 'Nonprofit consulting' },
+  { key: 'consulting', label: 'Business coaching' },
+  { key: 'consulting', label: 'Executive coaching' },
+  { key: 'consulting', label: 'Career coaching' },
+  { key: 'consulting', label: 'Life coaching' },
+
+  // ── Real estate niches ──
+  { key: 'realestate', label: 'Residential realty' },
+  { key: 'realestate', label: 'Commercial realty' },
+  { key: 'realestate', label: 'Luxury realty' },
+  { key: 'realestate', label: 'Property management' },
+  { key: 'realestate', label: 'Real estate investment firm' },
+  { key: 'realestate', label: 'Real estate brokerage' },
+  { key: 'realestate', label: 'Vacation rentals' },
+  { key: 'realestate', label: 'Real estate developer' },
+  { key: 'realestate', label: 'Mortgage broker' },
+  { key: 'realestate', label: 'Home staging service' },
+  { key: 'realestate', label: 'Real estate appraiser' },
+  { key: 'realestate', label: 'Title & escrow services' },
+
+  // ── Photography niches ──
+  { key: 'photo', label: 'Wedding photographer' },
+  { key: 'photo', label: 'Portrait photographer' },
+  { key: 'photo', label: 'Family photographer' },
+  { key: 'photo', label: 'Newborn photographer' },
+  { key: 'photo', label: 'Headshot photographer' },
+  { key: 'photo', label: 'Commercial photographer' },
+  { key: 'photo', label: 'Event photographer' },
+  { key: 'photo', label: 'Real estate photographer' },
+  { key: 'photo', label: 'Food photographer' },
+  { key: 'photo', label: 'Travel photographer' },
+  { key: 'photo', label: 'Brand photographer' },
+  { key: 'photo', label: 'Videographer' },
+
+  // ── Wedding / events niches ──
+  { key: 'wedding', label: 'Wedding planner' },
+  { key: 'wedding', label: 'Wedding florist' },
+  { key: 'wedding', label: 'Wedding DJ' },
+  { key: 'wedding', label: 'Wedding caterer' },
+  { key: 'wedding', label: 'Wedding officiant' },
+  { key: 'wedding', label: 'Event venue' },
+  { key: 'wedding', label: 'Corporate event planner' },
+  { key: 'wedding', label: 'Party planner' },
+  { key: 'wedding', label: 'Event rentals' },
+  { key: 'wedding', label: 'Bridal hair & makeup' },
+
+  // ── Trades niches ──
+  { key: 'trades', label: 'General contractor' },
+  { key: 'trades', label: 'Plumber' },
+  { key: 'trades', label: 'Electrician' },
+  { key: 'trades', label: 'Carpenter' },
+  { key: 'trades', label: 'Painter' },
+  { key: 'trades', label: 'Roofer' },
+  { key: 'trades', label: 'HVAC technician' },
+  { key: 'trades', label: 'Landscaper' },
+  { key: 'trades', label: 'Handyman service' },
+  { key: 'trades', label: 'Home remodeler' },
+  { key: 'trades', label: 'Flooring installer' },
+  { key: 'trades', label: 'Window & door installer' },
+  { key: 'trades', label: 'Pool service' },
+  { key: 'trades', label: 'Pest control' },
+  { key: 'trades', label: 'Solar installer' },
+
+  // ── Cleaning niches ──
+  { key: 'cleaning', label: 'Residential cleaning service' },
+  { key: 'cleaning', label: 'Commercial cleaning service' },
+  { key: 'cleaning', label: 'Move-in / move-out cleaning' },
+  { key: 'cleaning', label: 'Carpet cleaning service' },
+  { key: 'cleaning', label: 'Window cleaning service' },
+  { key: 'cleaning', label: 'Power washing service' },
+  { key: 'cleaning', label: 'Eco-friendly cleaning service' },
+  { key: 'cleaning', label: 'Laundry / dry cleaning' },
+
+  // ── Pet / vet niches ──
+  { key: 'pet', label: 'Veterinary clinic' },
+  { key: 'pet', label: 'Pet grooming' },
+  { key: 'pet', label: 'Dog daycare' },
+  { key: 'pet', label: 'Dog walking service' },
+  { key: 'pet', label: 'Pet boarding / sitting' },
+  { key: 'pet', label: 'Pet training' },
+  { key: 'pet', label: 'Pet food brand' },
+  { key: 'pet', label: 'Pet supply store' },
+  { key: 'pet', label: 'Mobile pet grooming' },
+  { key: 'pet', label: 'Animal rescue / shelter' },
+
+  // ── Medical / healthcare niches ──
+  { key: 'medical', label: 'Dental practice' },
+  { key: 'medical', label: 'Orthodontic practice' },
+  { key: 'medical', label: 'Pediatric practice' },
+  { key: 'medical', label: 'Family medicine practice' },
+  { key: 'medical', label: 'Chiropractic clinic' },
+  { key: 'medical', label: 'Physical therapy clinic' },
+  { key: 'medical', label: 'Therapy / counseling practice' },
+  { key: 'medical', label: 'Mental health clinic' },
+  { key: 'medical', label: 'Dermatology clinic' },
+  { key: 'medical', label: 'Optometry / eye clinic' },
+  { key: 'medical', label: 'Nutritionist / dietitian' },
+  { key: 'medical', label: 'Acupuncture clinic' },
+  { key: 'medical', label: 'Fertility clinic' },
+  { key: 'medical', label: 'Urgent care clinic' },
+  { key: 'medical', label: 'Telehealth platform' },
+  { key: 'medical', label: 'Home health service' },
+
+  // ── Legal / finance niches ──
+  { key: 'legal', label: 'Family law firm' },
+  { key: 'legal', label: 'Corporate law firm' },
+  { key: 'legal', label: 'Immigration law firm' },
+  { key: 'legal', label: 'Criminal defense law firm' },
+  { key: 'legal', label: 'Personal injury law firm' },
+  { key: 'legal', label: 'Estate planning law firm' },
+  { key: 'legal', label: 'Intellectual property law firm' },
+  { key: 'legal', label: 'Accounting firm' },
+  { key: 'legal', label: 'Tax preparation service' },
+  { key: 'legal', label: 'Bookkeeping service' },
+  { key: 'legal', label: 'Financial planning service' },
+  { key: 'legal', label: 'Insurance agency' },
+
+  // ── Education niches ──
+  { key: 'education', label: 'Tutoring service' },
+  { key: 'education', label: 'Test prep service' },
+  { key: 'education', label: 'Online course platform' },
+  { key: 'education', label: 'Coding bootcamp' },
+  { key: 'education', label: 'Language school' },
+  { key: 'education', label: 'Music school' },
+  { key: 'education', label: 'Art school' },
+  { key: 'education', label: 'Dance school' },
+  { key: 'education', label: 'Private school' },
+  { key: 'education', label: 'Preschool / daycare' },
+  { key: 'education', label: 'Summer camp' },
+  { key: 'education', label: 'Driving school' },
+
+  // ── Nonprofit niches ──
+  { key: 'nonprofit', label: 'Community nonprofit' },
+  { key: 'nonprofit', label: 'Education nonprofit' },
+  { key: 'nonprofit', label: 'Healthcare nonprofit' },
+  { key: 'nonprofit', label: 'Environmental nonprofit' },
+  { key: 'nonprofit', label: 'Arts nonprofit' },
+  { key: 'nonprofit', label: 'Religious organization' },
+  { key: 'nonprofit', label: 'Foundation' },
+  { key: 'nonprofit', label: 'Advocacy group' },
+
+  // ── Creator / personal brand niches ──
+  { key: 'creator', label: 'Personal brand' },
+  { key: 'creator', label: 'Author / writer' },
+  { key: 'creator', label: 'Podcast' },
+  { key: 'creator', label: 'YouTube channel' },
+  { key: 'creator', label: 'TikTok creator' },
+  { key: 'creator', label: 'Instagram creator' },
+  { key: 'creator', label: 'Newsletter / Substack' },
+  { key: 'creator', label: 'Online course creator' },
+  { key: 'creator', label: 'Speaker / coach' },
+  { key: 'creator', label: 'Artist / illustrator' },
+  { key: 'creator', label: 'Musician / band' },
+]
+const INDUSTRIES_VISIBLE = 8
+
+// Rotating placeholder examples for the step-2 typeahead — cycles every
+// few seconds while the input is empty so the user sees the range of
+// specificity the field accepts. Stops as soon as they type.
+const BUSINESS_TYPE_PLACEHOLDERS = [
+  'Italian restaurant',
+  'Specialty coffee shop',
+  'Family law firm',
+  'Vegan bakery',
+  'Hair salon',
+  'SaaS startup',
+  'Yoga studio',
+  'Wedding photographer',
+]
+
+// 5 description suggestions per industry. Falls back to a generic set
+// (in DESCRIPTIONS below) when no industry has been picked yet.
+const SUGGESTIONS_BY_INDUSTRY: Record<string, string[]> = {
+  restaurant: [
+    'A neighbourhood restaurant serving fresh local cuisine',
+    'A family-owned bistro with a seasonal menu',
+    'A modern dining concept focused on craft cocktails',
+    'A casual eatery with house-made pasta and pizza',
+    'A fast-casual spot known for bowls and salads',
+    'A vegan and plant-based restaurant',
+    'A steakhouse with a wood-fired grill',
+    'An Asian fusion restaurant with tasting menus',
+    'A pizzeria with Neapolitan-style sourdough pies',
+    'A farm-to-table restaurant featuring seasonal produce',
+  ],
+  coffee: [
+    'A neighbourhood coffee shop serving single-origin beans and pastries',
+    'A specialty espresso bar with seasonal drinks',
+    'A roastery with retail beans and wholesale accounts',
+    'A café-bookshop hybrid with quiet workspaces',
+    'A drive-through coffee chain with rotating roasts',
+    'A cold-brew and pour-over focused café',
+    'A coffee-and-coworking space for remote workers',
+    'A subscription coffee club with monthly bean drops',
+    'A mobile coffee cart for events and offices',
+    'A third-wave café focused on direct-trade beans',
+  ],
+  boutique: [
+    "A women's clothing boutique focused on slow fashion",
+    "A curated home-goods store with a tight buyer's edit",
+    "A children's clothing brand with playful prints",
+    "A men's clothing boutique with seasonal capsules",
+    'An online-first apparel brand with retail pop-ups',
+    'A vintage and second-hand fashion boutique',
+    'A luxury accessories boutique (bags, scarves, jewellery)',
+    'A maternity and postpartum clothing brand',
+    'A swimwear and resort-wear boutique',
+    'A streetwear and sneaker shop',
+  ],
+  agency: [
+    'A design agency for early-stage startups',
+    'A branding studio specialising in identity systems',
+    'A marketing agency for direct-to-consumer brands',
+    'A copywriting agency for B2B SaaS',
+    'A web design agency for hospitality brands',
+    'A creative agency for restaurant and hospitality brands',
+    'A PR and influencer agency',
+    'A video production studio for brand content',
+    'A digital-first agency for nonprofits',
+    'A growth and performance marketing agency',
+  ],
+  fitness: [
+    'A boutique fitness studio with strength and HIIT classes',
+    'A personal training gym with one-on-one coaching',
+    'A yoga studio with hot and vinyasa classes',
+    'A pilates studio focused on reformer training',
+    'A functional fitness gym with group classes',
+    'A barre and dance fitness studio',
+    "A women's-only fitness studio",
+    'A martial arts gym (BJJ, Muay Thai, MMA)',
+    'A climbing and bouldering gym',
+    'A cycling / spin studio with rhythm classes',
+  ],
+  salon: [
+    'A modern hair salon focused on colour and balayage',
+    'A nail studio with clean, non-toxic polishes',
+    'A skincare clinic offering facials and treatments',
+    'A barbershop for classic and modern cuts',
+    'A medical spa with cosmetic injectables',
+    'A lash extension and brow studio',
+    "A men's grooming lounge with shaves and beard care",
+    'A hair extension and wig specialist studio',
+    'A tanning and airbrush studio',
+    'A holistic day spa with massage and sauna',
+  ],
+  bakery: [
+    'A neighbourhood bakery selling sourdough and pastries',
+    'A specialty cake shop for weddings and birthdays',
+    'A French-style patisserie with viennoiseries',
+    'A vegan bakery focused on plant-based treats',
+    'A cookie company with shippable gift boxes',
+    'A gluten-free bakery',
+    'A cupcake and dessert shop',
+    'A bagel and breakfast café',
+    'A donut shop with rotating speciality flavours',
+    'A pie and tart shop for celebrations and daily slices',
+  ],
+  tech: [
+    'A SaaS company for design teams',
+    'An AI startup building tools for creators',
+    'A developer-tooling product for engineers',
+    'A B2B fintech serving small businesses',
+    'A consumer mobile app for productivity',
+    'A no-code SaaS for non-technical founders',
+    'A cybersecurity consultancy',
+    'A web3 / crypto product',
+    'A healthtech platform for clinics and care teams',
+    'An edtech platform for K-12 schools and teachers',
+  ],
+  bar: [
+    'A craft brewery with a tasting room and seasonal beers',
+    'A neighbourhood bar with creative cocktails and small plates',
+    'A wine bar focused on natural and small-producer wines',
+    'A sports bar with local craft beers and game-day food',
+    'A speakeasy-style cocktail lounge',
+    'A rooftop bar with views and seasonal drinks',
+    'A tiki and tropical-themed cocktail bar',
+    'A whiskey and bourbon-focused lounge',
+    'A brewpub with a kitchen and event space',
+    'A dive bar with live music and happy-hour regulars',
+  ],
+  foodtruck: [
+    'A mobile food truck serving gourmet street food',
+    'A taco truck with a rotating menu of regional Mexican dishes',
+    'A wood-fired pizza truck for events and pop-ups',
+    'A burger and shake truck with locally-sourced beef',
+    'A vegan food truck with bowls and wraps',
+    'A BBQ smoker truck travelling festivals and events',
+    'A dessert truck with ice cream and waffles',
+    'A breakfast truck serving sandwiches and coffee',
+    'A grilled-cheese and comfort-food truck',
+    'A poke bowl and Hawaiian food truck',
+  ],
+  ecommerce: [
+    'A direct-to-consumer skincare brand',
+    'A subscription box for specialty pantry goods',
+    'A handmade jewellery shop on Shopify',
+    'A sustainable home-goods e-commerce store',
+    'An online sneaker and streetwear marketplace',
+    'A pet supplies and treats e-commerce brand',
+    'An eco-friendly cleaning products brand',
+    'A specialty tea and coffee subscription',
+    'An online vintage furniture and decor store',
+    'A handcrafted candles and home-fragrance brand',
+  ],
+  yoga: [
+    'A yoga studio with hot, vinyasa, and restorative classes',
+    'A pilates studio focused on reformer and mat work',
+    'A meditation and breathwork studio',
+    'A travelling yoga retreat company',
+    'An online yoga subscription with weekly live classes',
+    'A prenatal yoga and women\'s wellness studio',
+    'A kids\' yoga and mindfulness studio',
+    'A yoga teacher training and certification programme',
+    'An aerial yoga and silks studio',
+    'A community yoga centre with donation-based classes',
+  ],
+  consulting: [
+    'A management consulting practice for mid-market companies',
+    'A leadership coach for executives in tech',
+    'A growth marketing consultant for B2B startups',
+    'A financial advisor for entrepreneurs and founders',
+    'A business strategy consultant for retail brands',
+    'A nonprofit consulting practice',
+    'A career coach for mid-career professionals',
+    'An HR consultancy for growing teams',
+    'A pricing and revenue strategy consultancy',
+    'A product consultancy for early-stage SaaS',
+  ],
+  realestate: [
+    'A residential real estate agency in a major metro',
+    'A luxury home brokerage focused on high-end properties',
+    'A commercial real estate firm for investors',
+    'A property management company for landlords',
+    'A real-estate developer building boutique condo projects',
+    'A vacation rental and Airbnb management company',
+    'A first-time-buyer real estate agency',
+    'A real estate auction house',
+    'A new construction sales team',
+    'A buyer\'s agent practice serving relocators',
+  ],
+  photo: [
+    'A wedding and engagement photography studio',
+    'A portrait and family photographer',
+    'A commercial product and food photography studio',
+    'A real estate and architecture photographer',
+    'A documentary and lifestyle photographer',
+    'A school and senior portrait photographer',
+    'A drone photography and videography studio',
+    'A pet and animal photography studio',
+    'A boudoir and intimate portrait studio',
+    'A travel and editorial photographer',
+  ],
+  wedding: [
+    'A full-service wedding planning company',
+    'A wedding venue with on-site catering',
+    'A florist specialising in weddings and events',
+    'A bridal boutique with custom gowns',
+    'A wedding stationery and invitation studio',
+    'A destination wedding planning company',
+    'A wedding officiant service',
+    'A wedding video and film production studio',
+    'A wedding DJ and live-music booking service',
+    'A small ceremony and elopement planner',
+  ],
+  trades: [
+    'A residential construction and remodelling company',
+    'A licensed plumbing and HVAC contractor',
+    'An electrical services company for homes and businesses',
+    'A roofing and exterior contractor',
+    'A custom carpentry and cabinetry workshop',
+    'A landscape design and installation company',
+    'A pool installation and maintenance contractor',
+    'A solar installation and renewable-energy company',
+    'A painting and finishing contractor',
+    'A flooring and tile installation specialist',
+  ],
+  cleaning: [
+    'A residential cleaning service for homes and apartments',
+    'A commercial cleaning company for offices and retail',
+    'A move-in / move-out and deep cleaning specialist',
+    'An eco-friendly cleaning service with non-toxic products',
+    'A post-construction cleaning company',
+    'A window-cleaning specialist for homes and high-rises',
+    'A carpet and upholstery cleaning service',
+    'A laundromat and laundry pickup service',
+    'A pressure-washing and exterior cleaning company',
+    'A vacation rental and short-term turnover service',
+  ],
+  pet: [
+    'A veterinary clinic for dogs, cats, and small animals',
+    'A pet grooming and boarding facility',
+    'A dog walking and pet sitting service',
+    'A pet supply and treats e-commerce brand',
+    'A pet training school for puppies and adult dogs',
+    'A mobile pet grooming service',
+    'A doggy daycare with outdoor play areas',
+    'A pet photography studio',
+    'A dog daycare and overnight boarding facility',
+    'A holistic and natural pet wellness brand',
+  ],
+  medical: [
+    'A family medicine clinic with primary care',
+    'A dental practice with cosmetic and general dentistry',
+    'A chiropractic and wellness clinic',
+    'A dermatology and skincare medical practice',
+    'A physical therapy and rehabilitation centre',
+    'A pediatrics clinic for kids and families',
+    'A women\'s health and OB-GYN practice',
+    'A mental health and counselling practice',
+    'An urgent care and walk-in clinic',
+    'An optometry practice with eyewear retail',
+  ],
+  legal: [
+    'A boutique law firm focused on small business',
+    'A family and estate planning attorney',
+    'A CPA firm offering tax and accounting services',
+    'A bookkeeping service for small businesses and freelancers',
+    'A financial planning practice for individuals and families',
+    'An immigration law practice',
+    'A personal injury law firm',
+    'A real estate closing attorney',
+    'An employment and labour law practice',
+    'A criminal defence attorney',
+  ],
+  education: [
+    'A private tutoring service for K–12 students',
+    'An online course platform for design and creativity',
+    'A test prep service for SAT, ACT, and graduate exams',
+    'A music school offering lessons in piano, guitar, and voice',
+    'An after-school enrichment programme for kids',
+    'A coding bootcamp for adults',
+    'A language school for adult learners',
+    'A daycare and preschool',
+    'A homeschooling co-op and curriculum publisher',
+    'A STEM camp and workshops for kids',
+  ],
+  nonprofit: [
+    'A nonprofit focused on community food access',
+    'An environmental conservation organisation',
+    'A youth mentorship and education foundation',
+    'A nonprofit gallery supporting emerging artists',
+    'An animal rescue and adoption organisation',
+    'A mental health awareness organisation',
+    'A women\'s empowerment foundation',
+    'A homelessness outreach nonprofit',
+    'A literacy and adult education nonprofit',
+    'A refugee and immigration support organisation',
+  ],
+  creator: [
+    'A personal brand for a creator, coach, or speaker',
+    'A podcast covering business, design, or lifestyle',
+    'A YouTube channel with educational or entertainment content',
+    'A newsletter publishing weekly essays',
+    'An online community for hobbyists or professionals',
+    'An author and book writer',
+    'A speaker and workshop facilitator',
+    'A photographer-influencer and content creator',
+    'A Twitch streamer and gaming creator',
+    'A digital course creator and educator',
+  ],
+  // 'other' has no industry-specific data — it falls back to the generic
+  // DESCRIPTIONS list via the `?? DESCRIPTIONS` guard in FormSteps.
+}
+
+// Industry-aware tagline suggestions (10 each, for a 5 + Show-5-more
+// dropdown). Falls back to TAGLINES.
+const TAGLINES_BY_INDUSTRY: Record<string, string[]> = {
+  restaurant: ['Made with love. Served fresh.', 'Where the neighbourhood eats.', 'Real food. Real people.', 'Crafted plates, every day.', 'Open table. Open hearts.', 'A seat at our table.', 'Taste the difference.', 'From kitchen to table.', 'Eat happy. Live well.', 'Fresh ingredients, honest cooking.'],
+  coffee:     ['Brewed daily. Loved fully.', 'Roasted in-house, served with care.', 'Your morning, made better.', 'Small batch, big flavour.', 'From bean to cup.', 'A daily ritual, made better.', 'Quietly excellent coffee.', 'One cup at a time.', 'Single-origin, simply made.', 'Coffee for the curious.'],
+  boutique:   ['Thoughtfully curated.', 'Style that lasts.', 'Found, not bought.', 'For the everyday and beyond.', 'Quality you can feel.', 'Better pieces, fewer choices.', 'Made for the modern wardrobe.', 'Less, but better.', 'Style with a story.', 'Discover the difference.'],
+  agency:     ['Bold work for bold brands.', 'Strategy meets craft.', 'Brands worth remembering.', 'Where ideas take shape.', 'Built to be different.', 'Brands with backbone.', 'Smart design. Sharp strategy.', 'We build what others copy.', 'Brand-building, made simple.', 'For brands that mean something.'],
+  fitness:    ['Move with purpose.', 'Stronger every day.', 'Fitness, redefined.', 'Show up. Push through.', 'Your strongest self awaits.', 'Train smart. Train often.', 'Built for the long haul.', 'Better, every session.', 'Sweat is the new black.', 'Earn your strength.'],
+  salon:      ['Where confidence begins.', 'Crafted with care.', 'Beauty, on your terms.', 'Your best look, always.', 'Pampered. Polished. Perfected.', 'The art of looking good.', 'Walk in. Glow out.', 'Beauty that feels like you.', 'Your daily glow-up.', 'Where self-care happens.'],
+  bakery:     ['Baked fresh, with love.', 'A little bit of everything good.', 'Sweet moments, daily.', 'From oven to table.', 'Made by hand. Loved by all.', 'Where sourdough lives.', 'Crumbs of happiness.', 'Open early. Baked fresh.', 'Small batch. Big flavour.', 'Every loaf, a love letter.'],
+  tech:       ['Built for builders.', 'Software that just works.', 'Power. Simplified.', 'Smart tech for smart teams.', 'Innovation, delivered.', 'Less plumbing. More building.', 'Tools that get out of the way.', 'Designed for makers.', 'Faster, simpler, smarter.', 'Work better, together.'],
+  bar:        ['Cheers to the everyday.', 'Pour over expectations.', 'Where the night begins.', 'Drink well. Live well.', 'Crafted pours, every time.', 'A good pour, every time.', 'Better drinks. Better nights.', 'Stay a while.', 'Mixed with intention.', 'Where good nights happen.'],
+  foodtruck:  ['Fast food, finer flavour.', 'Chasing flavour, town to town.', 'Real food on the road.', 'Find us. Eat well.', 'Big taste. Small wheels.', 'Made fresh. Served hot.', 'Street food, properly done.', 'Where flavour rolls in.', 'Quick bites, slow craft.', 'Catch us if you can.'],
+  ecommerce:  ['Delivered to your door.', 'Discover the best.', 'Shop better. Live better.', 'Curated for you.', 'Made for the modern home.', 'Better products, fewer clicks.', 'Built around you.', 'Designed to last.', 'Shop with intention.', 'Less stuff. More quality.'],
+  yoga:       ['Breathe. Move. Be.', 'Where the world slows down.', 'Your practice, your pace.', 'Mindfulness in motion.', 'Find your centre.', 'A quieter kind of strong.', 'Show up for yourself.', 'Begin again, daily.', 'Stronger, softer, here.', 'Move with the breath.'],
+  consulting: ['Clarity for the complex.', 'Strategy that ships.', 'Plans that work.', 'Make better decisions.', 'Grow with confidence.', 'Clear thinking, delivered.', 'Plans that move the needle.', 'Cut through the noise.', 'Smart advice, plainly said.', 'The unfair advantage you need.'],
+  realestate: ['Find your way home.', 'Doors opened daily.', 'Where homes find people.', 'Local. Knowledgeable. Yours.', 'Your home, our mission.', 'Real estate, redefined.', 'Homes worth coming home to.', 'Your move, our expertise.', 'From listing to keys.', 'Where home begins.'],
+  photo:      ['Capturing what matters.', 'Stills that speak.', 'Moments, made to last.', 'Light. Frame. Forever.', 'See the story.', 'Stories told in light.', 'Honest moments, beautifully kept.', 'Made to remember.', 'Frame the everyday.', 'Pictures that stay with you.'],
+  wedding:    ['For the day of your life.', 'Love, exactly as you imagined.', 'Beautiful weddings, simply done.', 'Forever, framed perfectly.', 'Your day, your way.', 'A wedding, beautifully planned.', 'Every detail. Every moment.', 'Love, well celebrated.', 'Crafted for two.', 'Your once-in-a-lifetime, done well.'],
+  trades:     ['Built to last.', 'Quality you can rely on.', 'Done right the first time.', 'Honest work. Honest prices.', 'Your home, in good hands.', 'Skilled hands. Honest work.', 'On time. On budget. Built right.', 'The craftsmen you can call.', 'Done well. Done once.', 'When it has to be right.'],
+  cleaning:   ['Cleaner than clean.', 'A fresh start, every visit.', 'Spotless. Effortless.', 'Leave the cleaning to us.', 'Clean home, calm mind.', 'Tidied. Trusted. Done.', 'A cleaner kind of clean.', 'Sparkle, on schedule.', 'Spotless, on repeat.', 'Cleaning you can feel.'],
+  pet:        ['Loving every paw.', 'Care that wags.', 'For the family with fur.', 'Happy pets, happy homes.', 'Where pets are family.', 'For the love of pets.', 'Tails that wag, hearts that smile.', 'Where pets feel at home.', 'Care, paw-fect every time.', 'Healthy pets. Happy people.'],
+  medical:    ['Care, close to home.', 'Your health, our priority.', 'Healing, with heart.', 'A practice you can trust.', 'Wellness, simplified.', 'Compassionate care, every visit.', 'Where care comes first.', 'Healing, the personal way.', 'Care that listens.', 'Better health begins here.'],
+  legal:      ['Counsel you can count on.', 'Clarity in every case.', 'Practical answers, real results.', 'On your side. Every step.', 'Your story, well told.', 'When the stakes are high.', 'Clear advice. Strong defence.', 'Law, made plain.', 'Counsel that fights for you.', 'Your case, our craft.'],
+  education:  ['Where learning begins.', 'Brighter minds. Brighter futures.', 'Education, reimagined.', 'Curiosity, fed.', 'Learn. Grow. Thrive.', 'Learning that sticks.', 'A school for the curious.', 'Where minds get sharper.', 'Teaching that lights you up.', 'Curiosity, served daily.'],
+  nonprofit:  ['Change, together.', 'Built on hope.', 'For a better tomorrow.', 'Small acts. Big change.', 'Make the difference.', 'A force for good.', 'Every gift, every life.', 'Hope, in action.', 'Lifting where we live.', 'Together, we can.'],
+  creator:    ['Built from the inside out.', 'Story, told well.', 'Find your voice.', 'Where ideas grow.', 'Real talk. Real impact.', 'Made by hand. Made with care.', 'Where curiosity lives.', 'Stories worth your time.', 'Honest, useful, ongoing.', 'Just press play.'],
+}
+
+// Industry-aware services (12 each, for a pill-cloud "pick 3 of 12" UX).
+// Falls back to SERVICES when industry is 'other' or missing.
+const SERVICES_BY_INDUSTRY: Record<string, string[]> = {
+  restaurant: ['Dine-in service', 'Takeout and delivery', 'Catering and private events', 'Bar and craft cocktails', 'Weekend brunch', 'Outdoor patio seating', 'Lunch specials', 'Wine pairings', 'Live music nights', 'Online ordering', 'Gift cards', 'Loyalty programme'],
+  coffee:     ['Espresso and pour-over', 'Pastries and baked goods', 'Whole bean retail', 'Wi-fi and seating', 'Event coffee catering', 'Cold brew on tap', 'Smoothies and juices', 'Coffee subscriptions', 'Loyalty rewards', 'Merchandise (mugs, beans)', 'Barista classes', 'Drive-through'],
+  boutique:   ['In-store shopping', 'Online and ship-to-home', 'Personal styling', 'Gift wrapping', 'Alterations and repairs', 'New arrivals weekly', 'Local pickup', 'Bridal and special occasion', 'Loyalty rewards', 'Gift cards', 'Wholesale to other shops', 'Custom orders'],
+  agency:     ['Brand strategy and naming', 'Logo and identity design', 'Website design and build', 'Marketing and social campaigns', 'Content and copywriting', 'Packaging design', 'Photography and art direction', 'Brand guidelines', 'Pitch deck design', 'Motion graphics', 'Email design', 'SEO and analytics'],
+  fitness:    ['Group fitness classes', 'Personal training', 'Nutrition coaching', 'Open gym membership', 'Corporate wellness', 'Drop-in classes', 'Bootcamps and challenges', 'Online workout library', 'Recovery and mobility', 'Meal planning', 'Childcare during classes', 'Locker rooms and showers'],
+  salon:      ['Haircuts and styling', 'Colour and highlights', 'Manicures and pedicures', 'Facials and skincare', 'Waxing and brows', 'Bridal hair and makeup', 'Hair treatments and masks', 'Lash lifts and tints', 'Spray tans', 'Massage therapy', 'Eyelash extensions', 'Loyalty rewards'],
+  bakery:     ['Daily breads and pastries', 'Custom cakes and orders', 'Coffee and seating', 'Wholesale to cafés', 'Event boxes and platters', 'Birthday and celebration cakes', 'Wedding cakes', 'Sandwiches and salads', 'Cooking classes', 'Gift baskets', 'Holiday specials', 'Catering trays'],
+  tech:       ['SaaS subscriptions', 'API integrations', 'Onboarding and support', 'Custom enterprise plans', 'Documentation and dev tools', 'Free trial', 'Self-serve plans', 'Data migration', 'Single sign-on (SSO)', 'Analytics and reporting', 'Slack / Teams integrations', 'Mobile and desktop apps'],
+  bar:        ['Craft cocktails and beer', 'Wine list and tastings', 'Small-plate menu', 'Private events and bookings', 'Live music nights', 'Happy hour specials', 'Sports viewing', 'Trivia and karaoke nights', 'Outdoor patio', 'Bottle service', 'Custom cocktail menus', 'Brewery / distillery tours'],
+  foodtruck:  ['Daily street menu', 'Event and festival catering', 'Private bookings', 'Wholesale and pop-ups', 'Online ordering and pickup', 'Weekly schedule and locations', 'Loyalty stamp card', 'Office lunch deliveries', 'Birthday parties', 'Group catering packages', 'Vegan and gluten-free options', 'Brunch on weekends'],
+  ecommerce:  ['Online storefront', 'Direct-to-consumer shipping', 'Subscription boxes', 'Wholesale accounts', 'Returns and exchanges', 'Gift cards', 'Loyalty programme', 'Free shipping over X', 'Order tracking', 'Live chat support', 'Customer reviews', 'International shipping'],
+  yoga:       ['Group yoga classes', 'Pilates and reformer', 'Workshops and retreats', 'Private sessions', 'Teacher training', 'Aerial yoga', 'Sound bath sessions', 'Wellness coaching', 'Class packages', 'Drop-in rates', 'Yoga therapy', 'Childcare during classes'],
+  consulting: ['Strategy consulting', 'Coaching and advisory', 'Workshops and training', 'Project-based engagements', 'Fractional executive roles', 'Audits and assessments', 'Implementation support', 'Team training', 'Speaking and keynotes', 'Productized services', 'Retainer engagements', 'Reports and research'],
+  realestate: ['Buyer representation', 'Seller listings and marketing', 'Property management', 'Investment advisory', 'Rental and leasing', 'Open houses', 'Virtual tours', 'Home staging', 'Mortgage referrals', 'Relocation services', 'New construction sales', 'Property valuations'],
+  photo:      ['Portrait and headshot sessions', 'Wedding and event coverage', 'Commercial and product shoots', 'Real estate photography', 'Editing and retouching', 'Photo prints and albums', 'Online galleries', 'Headshot day sessions', 'Brand content packages', 'Engagement shoots', 'Aerial / drone footage', 'Studio rental'],
+  wedding:    ['Full-service planning', 'Day-of coordination', 'Venue sourcing', 'Florals and design', 'Vendor management', 'Officiant services', 'Stationery and invitations', 'Honeymoon planning', 'Rehearsal dinner coordination', 'Welcome bags', 'Engagement parties', 'Wedding videography'],
+  trades:     ['Residential remodelling', 'Repairs and maintenance', 'New construction', 'Emergency service', 'Free estimates', 'Same-day service', 'Financing options', 'Warranties', 'Inspections and assessments', 'Permit handling', '24-hour emergency line', 'Annual maintenance plans'],
+  cleaning:   ['Recurring residential cleans', 'Move-in / move-out deep clean', 'Commercial and office cleaning', 'Post-construction cleanup', 'Carpet and upholstery', 'Pet-friendly cleaning', 'Eco-friendly products', 'Window cleaning', 'Pressure washing', 'Vacation rental turnovers', 'Free quotes', 'One-time deep cleans'],
+  pet:        ['Veterinary care', 'Grooming and bathing', 'Boarding and daycare', 'Training and behaviour', 'Pet supplies and food', 'Mobile grooming', 'Dental cleanings', 'Vaccinations', 'Microchipping', 'Senior pet care', 'Online appointment booking', 'In-home visits'],
+  medical:    ['Primary care visits', 'Specialist consultations', 'Preventive screenings', 'Telehealth appointments', 'Lab work and diagnostics', 'Same-day appointments', 'Insurance accepted', 'Online patient portal', 'Vaccinations and immunisations', 'In-house imaging', 'Care coordination', 'Wellness programmes'],
+  legal:      ['Consultations and advice', 'Document drafting and review', 'Court representation', 'Estate and succession planning', 'Tax and accounting', 'Free initial consultation', 'Flat-fee services', 'Payment plans', 'Mediation and arbitration', 'Notary services', 'After-hours appointments', 'Multilingual staff'],
+  education:  ['Group classes', 'Private tutoring', 'Test preparation', 'Online courses', 'Workshops and camps', 'Free trial lesson', 'In-person and virtual classes', 'Small group classes', 'Year-round enrolment', 'College counselling', 'Scholarship opportunities', 'Special needs support'],
+  nonprofit:  ['Direct programmes and services', 'Volunteer opportunities', 'Fundraising and donations', 'Community partnerships', 'Advocacy and outreach', 'Monthly giving programme', 'Corporate sponsorships', 'Major gifts', 'Planned giving', 'Annual gala and events', 'Volunteer training', 'Community workshops'],
+  creator:    ['Original content (video, audio, written)', 'Sponsorships and partnerships', 'Speaking and appearances', 'Courses and digital products', 'Community membership', 'Affiliate links and partnerships', 'Brand collaborations', 'Newsletter sponsorships', 'Live events and meetups', 'Coaching and consulting', '1:1 sessions', 'Merchandise and merch drops'],
+}
+
+const DESCRIPTIONS = [
+  'AI-powered logo design platform',
+  'Automated brand identity generator',
+  'Instant logo creation using artificial intelligence',
+  'AI design tool for startups and small businesses',
+  'Smart branding suite with logo generation',
+  'On-demand logo maker with AI creativity',
+  'AI graphic design assistant for entrepreneurs',
+  'Machine learning-powered visual identity builder',
+  'Logo and brand kit generator for businesses',
+  'AI-driven design studio for custom logos',
+]
+
+const SERVICES = [
+  'AI-generated logo designs from text prompts',
+  'Custom color palette generation',
+  'Brand kit creation with logos and assets',
+  'Typography and font pairing suggestions',
+  'Logo variations for social media and print',
+  'One-click logo resizing and formatting',
+  'SVG and vector file export',
+  'Business card and stationery mockups',
+  'Animated logo generation',
+  'AI-powered brand name suggestions',
+  'Favicon and app icon creation',
+  'Logo style quiz for brand discovery',
+]
+
+const TAGLINES = [
+  'Design Smarter. Brand Faster.',
+  'Your Brand, Instantly.',
+  'AI Meets Identity.',
+  'Logos That Think.',
+  'From Idea to Icon.',
+  'Branding at the Speed of AI.',
+  'Smart Design. Bold Brands.',
+  'Create. Generate. Own.',
+  'Your Logo, Reimagined.',
+  'Where AI Builds Brands.',
+]
+
+// 12 brand-feel words — pick exactly 3. Trimmed from the original 18
+// (which had near-duplicates like Reliable/Steady/Safe) so the grid
+// stays symmetric: 12 ÷ 2 cols = 6 rows mobile, 12 ÷ 3 cols = 4 rows
+// desktop. Same layout as Step 4 Offerings.
+const IMPRESSIONS = [
+  'Reliable', 'Trustworthy', 'Genuine',
+  'Modern', 'Fresh', 'Bold',
+  'Playful', 'Elegant', 'Premium',
+  'Friendly', 'Innovative', 'Sophisticated',
+]
+
+type Palette = {
+  name: string
+  colors: { name: string; hex: string; desc: string }[]
+}
+
+type PaletteWithHint = Palette & { hint: string }
+
+const PALETTES: PaletteWithHint[] = [
+  {
+    name: 'Bold',
+    hint: 'Punchy and high-energy',
+    colors: [
+      { name: 'Crimson',  hex: '#DC2626', desc: 'A confident, attention-grabbing red' },
+      { name: 'Charcoal', hex: '#1F2937', desc: 'Anchors the palette with depth' },
+      { name: 'Cream',    hex: '#FEF3C7', desc: 'Softens the contrast' },
+    ],
+  },
+  {
+    name: 'Cool',
+    hint: 'Calm and trustworthy',
+    colors: [
+      { name: 'Deep Navy', hex: '#1E3A5F', desc: 'Conveys authority and trust' },
+      { name: 'Sky Blue',  hex: '#3B82F6', desc: 'Adds clarity and approachability' },
+      { name: 'Soft Mint', hex: '#A7F3D0', desc: 'A fresh, modern accent' },
+    ],
+  },
+  {
+    name: 'Warm',
+    hint: 'Friendly and inviting',
+    colors: [
+      { name: 'Burnt Orange', hex: '#EA580C', desc: 'Bright and welcoming' },
+      { name: 'Brick',        hex: '#9A3412', desc: 'Grounds the palette with warmth' },
+      { name: 'Buttercream',  hex: '#FEF3C7', desc: 'A soft, cosy backdrop' },
+    ],
+  },
+  {
+    name: 'Earthy',
+    hint: 'Natural and grounded',
+    colors: [
+      { name: 'Terracotta', hex: '#C2410C', desc: 'A rich, organic warmth' },
+      { name: 'Olive',      hex: '#65A30D', desc: 'Steady and natural' },
+      { name: 'Sand',       hex: '#FED7AA', desc: 'A neutral, calming base' },
+    ],
+  },
+  {
+    name: 'Elegant',
+    hint: 'Refined and premium',
+    colors: [
+      { name: 'Charcoal',   hex: '#1F2937', desc: 'Sophisticated and timeless' },
+      { name: 'Blush',      hex: '#F9A8D4', desc: 'Soft, modern, distinctive' },
+      { name: 'Champagne',  hex: '#FDE68A', desc: 'A subtle premium accent' },
+    ],
+  },
+  {
+    name: 'Mono',
+    hint: 'Minimal and timeless',
+    colors: [
+      { name: 'Black',      hex: '#111827', desc: 'Sharp and definitive' },
+      { name: 'Mid Grey',   hex: '#6B7280', desc: 'Balances the contrast' },
+      { name: 'Light Grey', hex: '#E5E7EB', desc: 'Quiet and clean' },
+    ],
+  },
+]
+
+const LOGO_TYPES = [
+  { name: 'Wordmark',         pct: 35, desc: 'Brand name only, styled with custom typography', ex: 'Google, Coca-Cola, FedEx' },
+  { name: 'Combination Mark', pct: 22, desc: 'Icon paired with text, the most versatile', ex: 'Adidas, Doritos, Lacoste' },
+  { name: 'Abstract Mark',    pct: 20, desc: 'Non-representational geometric form, unique and ownable', ex: 'Pepsi, Airbnb, BP' },
+  { name: 'Lettermark',       pct: 15, desc: 'Initials only, compact and memorable', ex: 'IBM, HBO, CNN' },
+  { name: 'Brandmark',        pct: 5,  desc: 'Icon only, no text — requires strong recognition', ex: 'Apple, Nike, Twitter' },
+  { name: 'Emblem',           pct: 3,  desc: 'Text inside a shape like a badge or seal', ex: 'Starbucks, Harley-Davidson' },
+]
+
+const STYLE_ICONS: Record<string, React.ReactNode> = {
+  Wordmark: (
+    <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
+      <text x="60" y="42" textAnchor="middle" fontFamily="'DM Serif Display', Georgia, serif" fontSize="34" fontWeight="700" fill="currentColor" letterSpacing="-0.5">Aa</text>
+    </svg>
+  ),
+  'Combination Mark': (
+    <svg viewBox="0 0 140 60" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
+      <circle cx="26" cy="30" r="14" fill="currentColor" />
+      <text x="92" y="42" textAnchor="middle" fontFamily="'DM Serif Display', Georgia, serif" fontSize="28" fontWeight="700" fill="currentColor" letterSpacing="-0.5">Aa</text>
+    </svg>
+  ),
+  'Abstract Mark': (
+    <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
+      <path d="M40 10 L66 25 L66 55 L40 70 L14 55 L14 25 Z" fill="currentColor" />
+    </svg>
+  ),
+  Lettermark: (
+    <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
+      <text x="40" y="62" textAnchor="middle" fontFamily="'DM Serif Display', Georgia, serif" fontSize="68" fontWeight="800" fill="currentColor" letterSpacing="-2">A</text>
+    </svg>
+  ),
+  Brandmark: (
+    <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
+      <circle cx="40" cy="40" r="26" fill="currentColor" />
+    </svg>
+  ),
+  Emblem: (
+    <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
+      <circle cx="40" cy="40" r="30" fill="none" stroke="currentColor" strokeWidth="2.5" />
+      <circle cx="40" cy="40" r="24" fill="none" stroke="currentColor" strokeWidth="1" />
+      <text x="40" y="46" textAnchor="middle" fontFamily="'DM Serif Display', Georgia, serif" fontSize="14" fontWeight="700" fill="currentColor" letterSpacing="3">AB</text>
+    </svg>
+  ),
+}
+
+const GEN_PHASES = [
+  'Sketching wordmark options…',
+  'Exploring icon directions…',
+  'Trying letterforms and spacing…',
+  'Applying your colour palette…',
+  'Tidying up the final set…',
+]
+
+const LOGO_PRICE = 49
+const PREVIEW_COUNT = 10
+
+// Real coffee-shop logo previews. We have 5 unique images; the results
+// grid shows them cycled twice (10 slots total).
+const PREVIEW_LOGOS = [
+  '/preview-logos/coffee-1.png',
+  '/preview-logos/coffee-2.png',
+  '/preview-logos/coffee-3.png',
+  '/preview-logos/coffee-4.png',
+  '/preview-logos/coffee-5.png',
+]
+const RESERVATION_MINUTES = 30
+
+/* ------------------------------------------------------------------ */
+/* tokens used widely below                                            */
+/* ------------------------------------------------------------------ */
+
+const monoLabel: CSSProperties = {
+  fontFamily: 'var(--m-font-sans), sans-serif',
+  fontSize: 11,
+  fontWeight: 700,
+  letterSpacing: '0.14em',
+  textTransform: 'uppercase',
+  color: 'var(--m-brand-strong)',
+}
+
+const stepEyebrow: CSSProperties = {
+  fontFamily: 'var(--m-font-sans), sans-serif',
+  fontSize: 11,
+  fontWeight: 700,
+  letterSpacing: '0.12em',
+  textTransform: 'uppercase',
+  color: 'var(--m-brand)',
+}
+
+/* ------------------------------------------------------------------ */
+/* page                                                                */
+/* ------------------------------------------------------------------ */
+
+type Phase = 'form' | 'brief' | 'auth' | 'generating' | 'results'
+
+function isValidEmail(v: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())
+}
+
+export default function LogoOnboarding() {
+  const [phase, setPhase] = useState<Phase>('form')
+  const [step, setStep] = useState(1)
+  const [animating, setAnimating] = useState(false)
+
+  // Mock-style form state, full 7 steps.
+  const [brandName, setBrandName] = useState('')
+  const [nameStyle, setNameStyle] = useState('')
+  const [industry, setIndustry] = useState<string | null>(null)
+  const [description, setDescription] = useState('')
+  const [services, setServices] = useState<string[]>([])
+  const [tagline, setTagline] = useState('')
+  const [impressions, setImpressions] = useState<string[]>([])
+  const [paletteIndex, setPaletteIndex] = useState<number | null>(null)
+  const [logoTypeIndex, setLogoTypeIndex] = useState<number | null>(null)
+  const [email, setEmail] = useState('')
+
+  // Generating screen — rotating phase text, auto-advances.
+  const [genLine, setGenLine] = useState(0)
+  useEffect(() => {
+    if (phase !== 'generating') return
+    setGenLine(0)
+    const tick = setInterval(
+      () => setGenLine((l) => Math.min(l + 1, GEN_PHASES.length - 1)),
+      650,
+    )
+    const done = setTimeout(() => setPhase('results'), 3400)
+    return () => {
+      clearInterval(tick)
+      clearTimeout(done)
+    }
+  }, [phase])
+
+  // Reservation timer — kicks in once results render.
+  const [reservedAt, setReservedAt] = useState<number | null>(null)
+  const [now, setNow] = useState<number>(() => Date.now())
+  useEffect(() => {
+    if (phase !== 'results') return
+    if (reservedAt === null) setReservedAt(Date.now())
+    const id = setInterval(() => setNow(Date.now()), 1000)
+    return () => clearInterval(id)
+  }, [phase, reservedAt])
+  const msLeft = reservedAt ? Math.max(0, reservedAt + RESERVATION_MINUTES * 60_000 - now) : RESERVATION_MINUTES * 60_000
+  const mLeft = Math.floor(msLeft / 60_000)
+  const sLeft = Math.floor((msLeft % 60_000) / 1000)
+  const timerTone: 'normal' | 'warn' | 'critical' = msLeft <= 60_000 ? 'critical' : msLeft <= 5 * 60_000 ? 'warn' : 'normal'
+
+  // Per-card unlock state (mock checkout).
+  const [unlocked, setUnlocked] = useState<boolean[]>(() => Array(PREVIEW_COUNT).fill(false))
+  const [checkoutFor, setCheckoutFor] = useState<number | null>(null)
+
+
+  const palette = useMemo(
+    () => (paletteIndex !== null ? PALETTES[paletteIndex] : null),
+    [paletteIndex],
+  )
+
+  // `brand` is used in onboarding copy ("What does Rose offer?"). The
+  // logo artwork respects nameStyle/casing; copy always title-cases the
+  // first letter so we never address the user with "what does rose…".
+  const brand = (() => {
+    const raw = brandName.trim()
+    if (!raw) return 'your brand'
+    return raw.charAt(0).toUpperCase() + raw.slice(1)
+  })()
+  const formattedBrand = applyCase(brandName.trim() || 'Your Brand', nameStyle)
+
+  /* nav */
+
+  function canProceed() {
+    if (step === 1) return brandName.trim().length > 0
+    if (step === 2) return industry !== null
+    if (step === 3) return description.length > 0
+    if (step === 4) return services.length === 3
+    if (step === 5) return tagline.length > 0
+    if (step === 6) return impressions.length === 3
+    if (step === 7) return paletteIndex !== null
+    // Step 8 — the final step. Generate is always enabled; if the user
+    // didn't pick a style, goNext() auto-selects Wordmark (most popular).
+    if (step === 8) return true
+    return false
+  }
+
+  // Per-step "Let AI pick" handler. Returns null when the step requires
+  // genuine user input (1: Name, 2: Industry) — those have no AI fallback.
+  // Otherwise: filling defaults flips canProceed to true and the footer
+  // swaps from the AI button to Continue automatically.
+  function aiInfoForStep(): { onPick: () => void; label: string } | null {
+    if (step === 3) {
+      const pool = industry ? SUGGESTIONS_BY_INDUSTRY[industry] ?? DESCRIPTIONS : DESCRIPTIONS
+      return {
+        onPick: () => {
+          if (pool.length === 0) return
+          setDescription(pool[Math.floor(Math.random() * pool.length)])
+        },
+        label: 'Let AI pick a description',
+      }
+    }
+    if (step === 4) {
+      const pool = industry ? SERVICES_BY_INDUSTRY[industry] ?? SERVICES : SERVICES
+      return {
+        onPick: () => {
+          const shuffled = [...pool].sort(() => Math.random() - 0.5)
+          setServices(shuffled.slice(0, Math.min(3, shuffled.length)))
+        },
+        label: 'Let AI pick 3 offerings',
+      }
+    }
+    if (step === 5) {
+      const pool = industry ? TAGLINES_BY_INDUSTRY[industry] ?? TAGLINES : TAGLINES
+      return {
+        onPick: () => {
+          if (pool.length === 0) return
+          setTagline(pool[Math.floor(Math.random() * pool.length)])
+        },
+        label: 'Let AI pick a tagline',
+      }
+    }
+    if (step === 6) {
+      return {
+        onPick: () => {
+          const shuffled = [...IMPRESSIONS].sort(() => Math.random() - 0.5)
+          setImpressions(shuffled.slice(0, 3))
+        },
+        label: 'Let AI pick 3 words',
+      }
+    }
+    if (step === 7) {
+      return {
+        onPick: () => {
+          const aiIdx = PALETTES.findIndex((pal) => /ai/i.test(pal.name))
+          setPaletteIndex(aiIdx >= 0 ? aiIdx : Math.floor(Math.random() * PALETTES.length))
+        },
+        label: 'Let AI pick a palette',
+      }
+    }
+    // Step 8 — no separate AI button. The "Generate my logos" CTA
+    // auto-picks Wordmark (index 0) if the user skipped a selection.
+    return null
+  }
+
+  function transitionTo(fn: () => void) {
+    setAnimating(true)
+    setTimeout(() => {
+      fn()
+      setAnimating(false)
+    }, 280)
+  }
+
+  function goNext() {
+    if (step < TOTAL_STEPS) {
+      transitionTo(() => setStep((s) => s + 1))
+    } else {
+      // S1 flow — no brief review screen between Step 8 and auth.
+      // If the user didn't pick a style, default to Wordmark (most popular).
+      if (logoTypeIndex === null) setLogoTypeIndex(0)
+      transitionTo(() => setPhase('auth'))
+    }
+  }
+
+  function goBack() {
+    if (phase === 'auth') {
+      transitionTo(() => setPhase('form'))
+    } else if (step > 1) {
+      transitionTo(() => setStep((s) => s - 1))
+    }
+  }
+
+  function authContinue() {
+    // Mock auth — real version would round-trip Google SSO or magic-link.
+    transitionTo(() => setPhase('generating'))
+  }
+
+  function toggleService(s: string) {
+    setServices((cur) =>
+      cur.includes(s)
+        ? cur.filter((x) => x !== s)
+        : cur.length < 3
+        ? [...cur, s]
+        : cur,
+    )
+  }
+
+  function toggleImpression(w: string) {
+    setImpressions((cur) =>
+      cur.includes(w)
+        ? cur.filter((x) => x !== w)
+        : cur.length < 3
+        ? [...cur, w]
+        : cur,
+    )
+  }
+
+  const progress =
+    phase === 'brief' || phase === 'auth' || phase === 'generating' || phase === 'results'
+      ? 100
+      : ((step - 1) / TOTAL_STEPS) * 100
+
+  return (
+    <div style={{ minHeight: '100vh', background: 'var(--m-brand-bg)', display: 'flex', flexDirection: 'column' }}>
+      <style>{`
+        @keyframes nStartFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes nStartSpin { to { transform: rotate(360deg); } }
+        @keyframes nPreviewStream { from { opacity: 0; transform: translateY(10px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes nDrawerSlide { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        @keyframes nDrawerSlideMobile { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .n-start-input:focus { border-color: var(--m-brand) !important; box-shadow: 0 0 0 3px var(--m-brand-soft); }
+        .n-preview-card { transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
+        .n-preview-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(0,0,0,0.14); border-color: var(--m-brand) !important; }
+        .n-preview-stream { opacity: 0; animation: nPreviewStream 0.55s cubic-bezier(0.22,1,0.36,1) both; }
+        @media (prefers-reduced-motion: reduce) {
+          .n-preview-stream { animation: none; opacity: 1; }
+        }
+      `}</style>
+
+      {/* ───────────── header — S1 layout ─────────────
+          Row 1: centered wordmark (with close × top-right)
+          Row 2: progress bar (dark INK fill, not the CTA colour)
+          Row 3: ← Back left  •  step circle right */}
+      <header
+        style={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 50,
+          background: 'var(--m-surface)',
+          borderBottom: '1px solid var(--m-border)',
+        }}
+      >
+        <div style={{ maxWidth: 960, margin: '0 auto', padding: '18px 24px 14px' }}>
+          {/* Row 1 — centered wordmark */}
+          <div className="relative flex items-center justify-center">
+            <a href="/design-n" className="inline-flex items-center" aria-label="Logo.AI home" style={{ textDecoration: 'none' }}>
+              <span
+                style={{
+                  fontFamily: 'var(--m-font-wordmark), serif',
+                  fontSize: 24,
+                  lineHeight: 1,
+                  letterSpacing: '-0.02em',
+                  color: 'var(--m-ink)',
+                }}
+              >
+                LOGO<span style={{ color: 'var(--m-brand)' }}>.</span>AI
+              </span>
+            </a>
+            <a
+              href="/design-n"
+              aria-label="Exit onboarding"
+              className="absolute"
+              style={{
+                right: 0,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                color: 'var(--m-text-soft)',
+                textDecoration: 'none',
+                fontSize: 22,
+                lineHeight: 1,
+                cursor: 'pointer',
+              }}
+            >
+              ×
+            </a>
+          </div>
+
+          {/* Row 2 — progress bar (dark, not the CTA colour) */}
+          {phase !== 'results' && (
+            <div
+              style={{
+                height: 6,
+                background: 'var(--m-surface-alt)',
+                borderRadius: 9999,
+                overflow: 'hidden',
+                marginTop: 16,
+              }}
+            >
+              <div
+                style={{
+                  height: '100%',
+                  width: `${progress}%`,
+                  borderRadius: 9999,
+                  background: 'var(--m-ink)',
+                  transition: 'width 0.55s cubic-bezier(0.22,1,0.36,1)',
+                }}
+              />
+            </div>
+          )}
+
+          {/* Row 3 — Back link on the left, step-number circle on the right */}
+          {phase !== 'results' && (
+            <div
+              className="flex items-center justify-between"
+              style={{ marginTop: 14, minHeight: 28 }}
+            >
+              {((phase === 'form' && step > 1) || phase === 'brief' || phase === 'auth') ? (
+                <button
+                  type="button"
+                  onClick={goBack}
+                  aria-label="Go back"
+                  className="m-sans inline-flex items-center"
+                  style={{
+                    gap: 6,
+                    background: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: 'var(--m-text-soft)',
+                    fontSize: 14,
+                    fontWeight: 500,
+                    padding: 0,
+                    transition: 'color 0.15s ease',
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--m-ink)' }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--m-text-soft)' }}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <line x1="19" y1="12" x2="5" y2="12" />
+                    <polyline points="12 19 5 12 12 5" />
+                  </svg>
+                  <span>Back</span>
+                </button>
+              ) : (
+                <span />
+              )}
+
+              {phase === 'form' && (
+                <span
+                  className="m-display inline-flex items-center justify-center"
+                  style={{
+                    width: 28,
+                    height: 28,
+                    borderRadius: '50%',
+                    background: 'var(--m-brand)',
+                    color: '#FFFFFF',
+                    fontSize: 13,
+                    fontWeight: 700,
+                    fontVariantNumeric: 'tabular-nums',
+                  }}
+                  aria-label={`Step ${step} of ${TOTAL_STEPS}`}
+                >
+                  {step}
+                </span>
+              )}
+            </div>
+          )}
+
+          {/* No urgency timer on results — previews don't actually expire,
+              users can regenerate freely. Manufactured urgency would feel
+              cheap and contradict the "unlimited generations" promise. */}
+        </div>
+      </header>
+
+      {/* ───────────── content ───────────── */}
+      <main
+        style={{
+          flex: 1,
+          maxWidth: 720,
+          width: '100%',
+          margin: '0 auto',
+          padding: phase === 'results' ? '32px 16px 120px' : '72px 24px 140px',
+          opacity: animating ? 0 : 1,
+          transform: animating ? 'translateY(12px)' : 'translateY(0)',
+          transition: 'opacity 0.28s cubic-bezier(0.22,1,0.36,1), transform 0.28s cubic-bezier(0.22,1,0.36,1)',
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >
+        {phase === 'form' && (
+          <FormSteps
+            step={step}
+            brand={brand}
+            brandName={brandName}
+            setBrandName={setBrandName}
+            nameStyle={nameStyle}
+            setNameStyle={setNameStyle}
+            industry={industry}
+            setIndustry={setIndustry}
+            description={description}
+            setDescription={setDescription}
+            services={services}
+            toggleService={toggleService}
+            setServices={setServices}
+            tagline={tagline}
+            setTagline={setTagline}
+            onSkipTagline={() => transitionTo(() => { setTagline(''); setStep((s) => s + 1) })}
+            impressions={impressions}
+            toggleImpression={toggleImpression}
+            setImpressions={setImpressions}
+            paletteIndex={paletteIndex}
+            setPaletteIndex={setPaletteIndex}
+            logoTypeIndex={logoTypeIndex}
+            setLogoTypeIndex={setLogoTypeIndex}
+          />
+        )}
+
+        {phase === 'brief' && (
+          <BrandBrief
+            brand={formattedBrand}
+            description={description}
+            services={services}
+            tagline={tagline}
+            impressions={impressions}
+            palette={palette}
+            logoType={logoTypeIndex !== null ? LOGO_TYPES[logoTypeIndex] : null}
+            onGenerate={() => transitionTo(() => setPhase('auth'))}
+          />
+        )}
+
+        {phase === 'auth' && (
+          <AuthWall
+            email={email}
+            onEmailChange={setEmail}
+            onContinue={authContinue}
+            /* Back lives in the page header now, no inline back inside AuthWall. */
+          />
+        )}
+
+        {phase === 'generating' && (
+          <Generating brand={formattedBrand} line={GEN_PHASES[genLine]} />
+        )}
+
+        {phase === 'results' && (
+          <Results
+            brandName={brandName}
+            tagline={tagline}
+            palette={palette}
+            logoTypeIndex={logoTypeIndex}
+            unlocked={unlocked}
+            onTap={(i) => {
+              if (unlocked[i]) {
+                window.alert('Mock: downloading HD pack for logo #' + (i + 1))
+              } else {
+                setCheckoutFor(i)
+              }
+            }}
+            onStartOver={() => {
+              setPhase('form')
+              setStep(1)
+            }}
+          />
+        )}
+      </main>
+
+      {/* ───────────── S1-style single-button sticky footer (form only).
+          When the step isn't filled yet AND has an AI default, the slot
+          shows the AI button; the moment the user picks/types, it flips
+          to Continue. ───────────── */}
+      {phase === 'form' && (() => {
+        const ai = aiInfoForStep()
+        return (
+          <FooterNav
+            onNext={goNext}
+            canProceed={canProceed()}
+            nextLabel={step === TOTAL_STEPS ? 'Generate my logos' : 'Continue'}
+            aiPick={ai?.onPick}
+            aiLabel={ai?.label}
+          />
+        )
+      })()}
+
+      {/* ───────────── checkout modal ───────────── */}
+      <NCheckoutModal
+        open={checkoutFor !== null}
+        index={checkoutFor ?? 0}
+        price={LOGO_PRICE}
+        preview={
+          checkoutFor !== null ? (
+            <img
+              src={PREVIEW_LOGOS[checkoutFor % PREVIEW_LOGOS.length]}
+              alt={`Logo preview ${checkoutFor + 1}`}
+              style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 16 }}
+            />
+          ) : null
+        }
+        onClose={() => setCheckoutFor(null)}
+        onPaid={() => {
+          setUnlocked((u) => {
+            const next = u.slice()
+            if (checkoutFor !== null) next[checkoutFor] = true
+            return next
+          })
+          // Persist brand snapshot so the dashboard reflects the user's
+          // actual brand (name, tagline, palette) instead of the sample.
+          if (typeof window !== 'undefined') {
+            try {
+              const industryLabel =
+                INDUSTRIES.find((i) => i.key === industry)?.label ?? ''
+              const logoStyleName =
+                logoTypeIndex !== null ? LOGO_TYPES[logoTypeIndex]?.name : ''
+              window.localStorage.setItem(
+                'logoai:brand',
+                JSON.stringify({
+                  name: formattedBrand,
+                  tagline,
+                  industry: industryLabel,
+                  style: logoStyleName,
+                  palette: palette?.colors ?? [],
+                }),
+              )
+            } catch {
+              /* localStorage unavailable — fall back to dashboard default */
+            }
+          }
+        }}
+      />
+
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* form steps                                                          */
+/* ------------------------------------------------------------------ */
+
+type FormProps = {
+  step: number
+  brand: string
+  brandName: string
+  setBrandName: (v: string) => void
+  nameStyle: string
+  setNameStyle: (v: string) => void
+  industry: string | null
+  setIndustry: (v: string | null) => void
+  description: string
+  setDescription: (v: string) => void
+  services: string[]
+  toggleService: (s: string) => void
+  setServices: (v: string[]) => void
+  tagline: string
+  setTagline: (v: string) => void
+  onSkipTagline: () => void
+  impressions: string[]
+  toggleImpression: (w: string) => void
+  setImpressions: (v: string[]) => void
+  paletteIndex: number | null
+  setPaletteIndex: (i: number) => void
+  logoTypeIndex: number | null
+  setLogoTypeIndex: (i: number) => void
+}
+
+/* ------------------------------------------------------------------ */
+/* IndustryCombobox — search + browse picker for step 2.               */
+/* Empty + focused → dropdown shows the 8 most common industries.      */
+/* Typing → dropdown filters to substring matches across all 25.       */
+/* Pick → input fills with the industry label; small × clears.         */
+/* ------------------------------------------------------------------ */
+
+function IndustryCombobox({
+  industry,
+  setIndustry,
+}: {
+  industry: string | null
+  setIndustry: (k: string) => void
+}) {
+  const [query, setQuery] = useState('')
+  const [open, setOpen] = useState(false)
+  const [phIdx, setPhIdx] = useState(0)
+  const wrapRef = useRef<HTMLDivElement | null>(null)
+  const inputRef = useRef<HTMLInputElement | null>(null)
+
+  // Rotating placeholder — cycles through example business types every
+  // ~2.6s while the input is empty. Pauses (the placeholder is hidden by
+  // the user's text anyway) once they start typing or have a committed pick.
+  useEffect(() => {
+    if (query.trim().length > 0 || industry) return
+    const id = setInterval(() => {
+      setPhIdx((i) => (i + 1) % BUSINESS_TYPE_PLACEHOLDERS.length)
+    }, 2600)
+    return () => clearInterval(id)
+  }, [query, industry])
+
+  // Sync the visible input value with the picked industry's label.
+  const selectedLabel = useMemo(() => {
+    if (!industry) return ''
+    return INDUSTRIES.find((i) => i.key === industry)?.label ?? ''
+  }, [industry])
+
+  // Filter list. Substring match across the full taxonomy (~350 entries).
+  // Empty query → no dropdown items at all (type-to-find UX, matching
+  // businessplan.ai). Placeholder + helper text guide the user instead of
+  // a browse-all surface.
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    if (!q) return [] as typeof INDUSTRIES
+    return INDUSTRIES.filter((ind) => ind.label.toLowerCase().includes(q))
+  }, [query])
+
+  // Outside-click / Escape close the dropdown.
+  useEffect(() => {
+    if (!open) return
+    function onDocClick(e: MouseEvent) {
+      if (!wrapRef.current) return
+      if (!wrapRef.current.contains(e.target as Node)) setOpen(false)
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        setOpen(false)
+        inputRef.current?.blur()
+      }
+    }
+    document.addEventListener('mousedown', onDocClick)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onDocClick)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+
+  const inputValue = industry && !query ? selectedLabel : query
+
+  function commit(key: string) {
+    setIndustry(key)
+    setQuery('')
+    setOpen(false)
+    inputRef.current?.blur()
+  }
+  function clear() {
+    setIndustry('' as unknown as string) // resets state; gating handles null/''
+    setQuery('')
+    // Don't auto-open on clear — focus + empty input should stay clean,
+    // matching the no-suggestions-until-typing UX.
+    setOpen(false)
+    setTimeout(() => inputRef.current?.focus(), 0)
+  }
+
+  return (
+    <div ref={wrapRef} className="relative">
+      <label
+        htmlFor="n-industry"
+        className="m-sans block"
+        style={{ fontSize: 12, color: 'var(--m-text-soft)', marginBottom: 6, fontWeight: 600, letterSpacing: '0.04em' }}
+      >
+        Start typing — we&rsquo;ll suggest options
+      </label>
+      <div className="relative">
+        <input
+          id="n-industry"
+          ref={inputRef}
+          type="text"
+          value={inputValue}
+          onChange={(e) => {
+            const v = e.target.value
+            setQuery(v)
+            // Typing while a value is committed → switch to "edit" mode.
+            if (industry) setIndustry('' as unknown as string)
+            // Open dropdown only once there is a query to match against —
+            // empty input shows no list (placeholder/helper text guide).
+            setOpen(v.trim().length > 0)
+          }}
+          onFocus={() => {
+            // Only re-open the dropdown on focus if there's already a query
+            // to filter against. Empty + focused stays clean.
+            if (query.trim().length > 0) setOpen(true)
+          }}
+          placeholder={BUSINESS_TYPE_PLACEHOLDERS[phIdx]}
+          autoComplete="off"
+          className="n-start-input m-sans w-full"
+          style={{ ...textInputStyle, paddingRight: industry ? 40 : 16 }}
+        />
+        {industry && (
+          <button
+            type="button"
+            onClick={clear}
+            aria-label="Clear industry"
+            className="absolute"
+            style={{
+              right: 10,
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: 26,
+              height: 26,
+              borderRadius: '50%',
+              border: 'none',
+              background: 'transparent',
+              color: 'var(--m-text-soft)',
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 16,
+              lineHeight: 1,
+              transition: 'background 0.15s ease, color 0.15s ease',
+            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--m-surface-alt)'; (e.currentTarget as HTMLElement).style.color = 'var(--m-ink)' }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent'; (e.currentTarget as HTMLElement).style.color = 'var(--m-text-soft)' }}
+          >
+            ×
+          </button>
+        )}
+      </div>
+
+      {open && filtered.length > 0 && (
+        <div
+          style={{
+            position: 'absolute',
+            zIndex: 10,
+            left: 0,
+            right: 0,
+            marginTop: 6,
+            maxHeight: 320,
+            overflowY: 'auto',
+            background: 'var(--m-surface)',
+            border: '1px solid var(--m-border)',
+            borderRadius: 12,
+            boxShadow: '0 12px 32px rgba(0,0,0,0.10)',
+            padding: 6,
+          }}
+        >
+          {filtered.map((ind) => {
+              const isSel = industry === ind.key
+              return (
+                <button
+                  key={ind.key}
+                  type="button"
+                  onClick={() => commit(ind.key)}
+                  className="m-sans w-full text-left"
+                  style={{
+                    display: 'block',
+                    padding: '10px 12px',
+                    borderRadius: 8,
+                    border: 'none',
+                    background: isSel ? 'var(--m-brand-soft)' : 'transparent',
+                    color: isSel ? 'var(--m-brand-strong)' : 'var(--m-ink)',
+                    fontSize: 14,
+                    fontWeight: isSel ? 700 : 500,
+                    cursor: 'pointer',
+                    transition: 'background 0.12s ease',
+                  }}
+                  onMouseEnter={(e) => { if (!isSel) (e.currentTarget as HTMLElement).style.background = 'var(--m-surface-alt)' }}
+                  onMouseLeave={(e) => { if (!isSel) (e.currentTarget as HTMLElement).style.background = 'transparent' }}
+                >
+                  {ind.label}
+                </button>
+              )
+            })}
+        </div>
+      )}
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* DescriptionCombobox — same pattern as IndustryCombobox but for     */
+/* free-text values. One input that you can type freely into OR pick   */
+/* a suggestion from the dropdown. No separate textarea.               */
+/* ------------------------------------------------------------------ */
+
+function SuggestionCombobox({
+  id,
+  label,
+  value,
+  onChange,
+  suggestions,
+  placeholder,
+}: {
+  id: string
+  label: string
+  value: string
+  onChange: (v: string) => void
+  suggestions: string[]
+  placeholder: string
+}) {
+  const [open, setOpen] = useState(false)
+  const [showAll, setShowAll] = useState(false)
+  const VISIBLE = 5
+  const visibleSuggestions = showAll ? suggestions : suggestions.slice(0, VISIBLE)
+  const wrapRef = useRef<HTMLDivElement | null>(null)
+  const inputRef = useRef<HTMLInputElement | null>(null)
+
+  useEffect(() => {
+    if (!open) return
+    function onDocClick(e: MouseEvent) {
+      if (!wrapRef.current) return
+      if (!wrapRef.current.contains(e.target as Node)) setOpen(false)
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        setOpen(false)
+        inputRef.current?.blur()
+      }
+    }
+    document.addEventListener('mousedown', onDocClick)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onDocClick)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+
+  return (
+    <div ref={wrapRef} className="relative">
+      <label
+        htmlFor={id}
+        className="m-sans block"
+        style={{ fontSize: 12, color: 'var(--m-text-soft)', marginBottom: 6, fontWeight: 600, letterSpacing: '0.04em' }}
+      >
+        {label}
+      </label>
+      <input
+        id={id}
+        ref={inputRef}
+        type="text"
+        value={value}
+        onChange={(e) => {
+          onChange(e.target.value)
+          if (!open) setOpen(true)
+        }}
+        onFocus={() => setOpen(true)}
+        placeholder={placeholder}
+        autoComplete="off"
+        className="n-start-input m-sans w-full"
+        style={textInputStyle}
+      />
+
+      {open && suggestions.length > 0 && (
+        <div
+          role="listbox"
+          aria-label="Description suggestions"
+          style={{
+            position: 'absolute',
+            zIndex: 10,
+            left: 0,
+            right: 0,
+            marginTop: 6,
+            maxHeight: 320,
+            overflowY: 'auto',
+            background: 'var(--m-surface)',
+            border: '1px solid var(--m-border)',
+            borderRadius: 12,
+            boxShadow: '0 12px 32px rgba(0,0,0,0.10)',
+            padding: 6,
+          }}
+        >
+          <p
+            className="m-sans"
+            style={{
+              padding: '6px 12px 4px',
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              color: 'var(--m-text-soft)',
+            }}
+          >
+            Suggestions
+          </p>
+          {visibleSuggestions.map((s) => {
+            const isSel = value === s
+            return (
+              <button
+                key={s}
+                type="button"
+                onClick={() => {
+                  onChange(s)
+                  setOpen(false)
+                  inputRef.current?.blur()
+                }}
+                className="m-sans w-full text-left"
+                style={{
+                  display: 'block',
+                  padding: '10px 12px',
+                  borderRadius: 8,
+                  border: 'none',
+                  background: isSel ? 'var(--m-brand-soft)' : 'transparent',
+                  color: isSel ? 'var(--m-brand-strong)' : 'var(--m-ink)',
+                  fontSize: 14,
+                  fontWeight: isSel ? 700 : 500,
+                  cursor: 'pointer',
+                  transition: 'background 0.12s ease',
+                }}
+                onMouseEnter={(e) => { if (!isSel) (e.currentTarget as HTMLElement).style.background = 'var(--m-surface-alt)' }}
+                onMouseLeave={(e) => { if (!isSel) (e.currentTarget as HTMLElement).style.background = 'transparent' }}
+              >
+                {s}
+              </button>
+            )
+          })}
+          {suggestions.length > VISIBLE && (
+            <button
+              type="button"
+              onClick={() => setShowAll((v) => !v)}
+              className="m-sans w-full"
+              style={{
+                marginTop: 2,
+                padding: '8px 12px',
+                borderRadius: 8,
+                border: 'none',
+                background: 'transparent',
+                color: 'var(--m-brand-strong)',
+                fontSize: 13,
+                fontWeight: 600,
+                cursor: 'pointer',
+                textAlign: 'left',
+              }}
+            >
+              {showAll ? 'Show fewer' : `Show ${suggestions.length - VISIBLE} more`}
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* ServicesCombobox — multi-select pick-3. Chip-input pattern: picked  */
+/* services appear as removable chips above the input; the input opens */
+/* a dropdown of suggestions to add from. Press Enter to commit a      */
+/* typed-in custom service. Stops accepting input at the 3-limit.      */
+/* ------------------------------------------------------------------ */
+
+function ServicesCombobox({
+  selected,
+  onToggle,
+  suggestions,
+  max,
+}: {
+  selected: string[]
+  onToggle: (s: string) => void
+  suggestions: string[]
+  max: number
+}) {
+  const [open, setOpen] = useState(false)
+  const [query, setQuery] = useState('')
+  const [showAll, setShowAll] = useState(false)
+  const VISIBLE = 5
+  const wrapRef = useRef<HTMLDivElement | null>(null)
+  const inputRef = useRef<HTMLInputElement | null>(null)
+
+  useEffect(() => {
+    if (!open) return
+    function onDocClick(e: MouseEvent) {
+      if (!wrapRef.current) return
+      if (!wrapRef.current.contains(e.target as Node)) setOpen(false)
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        setOpen(false)
+        inputRef.current?.blur()
+      }
+    }
+    document.addEventListener('mousedown', onDocClick)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onDocClick)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [open])
+
+  // Dropdown shows suggestions that aren't already picked, optionally
+  // filtered by the typed query.
+  const remaining = useMemo(
+    () => suggestions.filter((s) => !selected.includes(s)),
+    [suggestions, selected],
+  )
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    if (!q) return remaining
+    return remaining.filter((s) => s.toLowerCase().includes(q))
+  }, [query, remaining])
+  const visibleFiltered = !query.trim() && !showAll
+    ? filtered.slice(0, VISIBLE)
+    : filtered
+
+  const atMax = selected.length >= max
+
+  function commit(service: string) {
+    if (atMax) return
+    if (selected.includes(service)) return
+    onToggle(service)
+    setQuery('')
+  }
+  function commitCustom() {
+    const trimmed = query.trim()
+    if (!trimmed || atMax || selected.includes(trimmed)) return
+    onToggle(trimmed)
+    setQuery('')
+  }
+
+  const allDone = selected.length === max
+
+  return (
+    <div ref={wrapRef} className="relative">
+      <div className="flex items-center justify-between" style={{ marginBottom: 8 }}>
+        <label
+          htmlFor="n-services"
+          className="m-sans block"
+          style={{ fontSize: 12, color: 'var(--m-text-soft)', fontWeight: 600, letterSpacing: '0.04em' }}
+        >
+          Pick {max} services
+        </label>
+        <span
+          className="m-sans"
+          style={{
+            fontSize: 12,
+            fontWeight: 600,
+            color: allDone ? 'var(--m-success)' : 'var(--m-text-soft)',
+          }}
+        >
+          {selected.length}/{max} selected
+        </span>
+      </div>
+
+      {/* Chips */}
+      {selected.length > 0 && (
+        <div className="flex flex-wrap" style={{ gap: 6, marginBottom: 10 }}>
+          {selected.map((s) => (
+            <span
+              key={s}
+              className="m-sans inline-flex items-center"
+              style={{
+                gap: 6,
+                padding: '6px 4px 6px 10px',
+                borderRadius: 9999,
+                background: 'var(--m-brand-soft)',
+                color: 'var(--m-brand-strong)',
+                fontSize: 13,
+                fontWeight: 600,
+                border: '1px solid var(--m-brand)',
+              }}
+            >
+              <span>{s}</span>
+              <button
+                type="button"
+                onClick={() => onToggle(s)}
+                aria-label={`Remove ${s}`}
+                style={{
+                  width: 20,
+                  height: 20,
+                  borderRadius: '50%',
+                  border: 'none',
+                  background: 'transparent',
+                  cursor: 'pointer',
+                  color: 'var(--m-brand-strong)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 14,
+                  lineHeight: 1,
+                  transition: 'background 0.15s ease',
+                }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(193,101,69,0.18)' }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
+              >
+                ×
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Input */}
+      <input
+        id="n-services"
+        ref={inputRef}
+        type="text"
+        value={query}
+        onChange={(e) => {
+          setQuery(e.target.value)
+          if (!open) setOpen(true)
+        }}
+        onFocus={() => { if (!atMax) setOpen(true) }}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault()
+            commitCustom()
+          }
+        }}
+        placeholder={
+          atMax
+            ? `${max} picked — remove one to add another`
+            : 'Type to add a service, or pick from the list'
+        }
+        disabled={atMax}
+        autoComplete="off"
+        className="n-start-input m-sans w-full"
+        style={{
+          ...textInputStyle,
+          opacity: atMax ? 0.65 : 1,
+          cursor: atMax ? 'not-allowed' : 'text',
+        }}
+      />
+
+      {/* Dropdown */}
+      {open && !atMax && filtered.length > 0 && (
+        <div
+          role="listbox"
+          aria-label="Service suggestions"
+          style={{
+            position: 'absolute',
+            zIndex: 10,
+            left: 0,
+            right: 0,
+            marginTop: 6,
+            maxHeight: 320,
+            overflowY: 'auto',
+            background: 'var(--m-surface)',
+            border: '1px solid var(--m-border)',
+            borderRadius: 12,
+            boxShadow: '0 12px 32px rgba(0,0,0,0.10)',
+            padding: 6,
+          }}
+        >
+          <p
+            className="m-sans"
+            style={{
+              padding: '6px 12px 4px',
+              fontSize: 11,
+              fontWeight: 700,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              color: 'var(--m-text-soft)',
+            }}
+          >
+            Suggestions
+          </p>
+          {visibleFiltered.map((s) => (
+            <button
+              key={s}
+              type="button"
+              role="option"
+              aria-selected={false}
+              onClick={() => commit(s)}
+              className="m-sans w-full text-left"
+              style={{
+                display: 'block',
+                padding: '10px 12px',
+                borderRadius: 8,
+                border: 'none',
+                background: 'transparent',
+                color: 'var(--m-ink)',
+                fontSize: 14,
+                fontWeight: 500,
+                cursor: 'pointer',
+                transition: 'background 0.12s ease',
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--m-surface-alt)' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
+            >
+              {s}
+            </button>
+          ))}
+          {!query.trim() && filtered.length > VISIBLE && (
+            <button
+              type="button"
+              onClick={() => setShowAll((v) => !v)}
+              className="m-sans w-full"
+              style={{
+                marginTop: 2,
+                padding: '8px 12px',
+                borderRadius: 8,
+                border: 'none',
+                background: 'transparent',
+                color: 'var(--m-brand-strong)',
+                fontSize: 13,
+                fontWeight: 600,
+                cursor: 'pointer',
+                textAlign: 'left',
+              }}
+            >
+              {showAll ? 'Show fewer' : `Show ${filtered.length - VISIBLE} more`}
+            </button>
+          )}
+          {query.trim() && !filtered.some((s) => s.toLowerCase() === query.trim().toLowerCase()) && (
+            <button
+              type="button"
+              onClick={commitCustom}
+              className="m-sans w-full text-left"
+              style={{
+                marginTop: 2,
+                padding: '10px 12px',
+                borderRadius: 8,
+                border: 'none',
+                background: 'transparent',
+                color: 'var(--m-brand-strong)',
+                fontSize: 13,
+                fontWeight: 600,
+                cursor: 'pointer',
+              }}
+            >
+              + Add &ldquo;{query.trim()}&rdquo; as a custom service
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function FormSteps(p: FormProps) {
+  const { step } = p
+  // Long lists collapse to 5 by default with a "Show more" link — 10/12
+  // is too many to scan in a single glance.
+  const [descExpanded, setDescExpanded] = useState(false)
+  const [servicesExpanded, setServicesExpanded] = useState(false)
+  const [industriesExpanded, setIndustriesExpanded] = useState(false)
+  // Auto-expand the industries grid if the user has picked something
+  // outside the default 8 (so the chosen tile isn't hidden when they
+  // return to step 2 via Back).
+  useEffect(() => {
+    if (!industriesExpanded && p.industry) {
+      const visibleKeys = INDUSTRIES.slice(0, INDUSTRIES_VISIBLE).map((i) => i.key)
+      if (!visibleKeys.includes(p.industry)) setIndustriesExpanded(true)
+    }
+  }, [p.industry, industriesExpanded])
+  const visibleIndustries = industriesExpanded
+    ? INDUSTRIES
+    : INDUSTRIES.slice(0, INDUSTRIES_VISIBLE)
+  const DESC_VISIBLE = 5
+  const SERVICES_VISIBLE = 5
+  // All suggestion lists filter by the picked industry. If no industry
+  // picked yet (or industry is 'other'), fall back to the generic mock
+  // lists. Keeps the data accurate to the user's business instead of
+  // pushing LOGO.AI-themed suggestions at everyone.
+  // Static suggestions only — live AI suggestions are disconnected. The
+  // /api/suggest route and useLiveSuggestions hook remain in the codebase
+  // and can be re-enabled by re-wiring descList / taglineList through them.
+  const descList = p.industry
+    ? SUGGESTIONS_BY_INDUSTRY[p.industry] ?? DESCRIPTIONS
+    : DESCRIPTIONS
+  const servicesList = p.industry
+    ? SERVICES_BY_INDUSTRY[p.industry] ?? SERVICES
+    : SERVICES
+  const taglineList = p.industry
+    ? TAGLINES_BY_INDUSTRY[p.industry] ?? TAGLINES
+    : TAGLINES
+  const visibleDescriptions = descExpanded ? descList : descList.slice(0, DESC_VISIBLE)
+  const visibleServices = servicesExpanded ? servicesList : servicesList.slice(0, SERVICES_VISIBLE)
+  const title =
+    step === 1 ? "What's your business name?" :
+    step === 2 ? `What kind of business is ${p.brand}?` :
+    step === 3 ? `What does ${p.brand} do?` :
+    step === 4 ? `What does ${p.brand} offer?` :
+    step === 5 ? 'Want to add a tagline?' :
+    step === 6 ? `What first impression should ${p.brand} make?` :
+    step === 7 ? `Pick the colours for ${p.brand}` :
+    /* 8 */     'Which logo style do you prefer?'
+  const sub =
+    step === 1 ? "We'll print this exact name on your logos." :
+    step === 2 ? 'The more specific, the better.' :
+    step === 3 ? 'Pick a suggestion that fits, or write your own.' :
+    step === 4 ? 'Pick the 3 that best describe what you offer.' :
+    step === 5 ? "Optional — but a great tagline adds personality and sticks in people's minds." :
+    step === 6 ? 'Pick 3 words that define how your brand should feel to people.' :
+    step === 7 ? 'Pick the colour direction that feels right. White background stays default.' :
+    /* 8 */     (() => {
+                  const label = INDUSTRIES.find((i) => i.key === p.industry)?.label.toLowerCase()
+                  return label
+                    ? `The most popular styles for ${label} brands like ${p.brand || 'yours'}.`
+                    : `The most popular styles for brands like ${p.brand || 'yours'}.`
+                })()
+
+  return (
+    <div>
+      {/* S1-style step header — heading + sub, no eyebrow chip, centered */}
+      <div className="text-center" style={{ marginBottom: 44 }}>
+        <h2
+          className="m-display"
+          style={{
+            fontSize: 'clamp(22px, 4.4vw, 32px)',
+            fontWeight: 700,
+            lineHeight: 1.2,
+            letterSpacing: '-0.02em',
+            color: 'var(--m-ink)',
+            margin: 0,
+          }}
+        >
+          {title}
+        </h2>
+        <p
+          className="m-sans"
+          style={{
+            marginTop: 10,
+            fontSize: 16,
+            color: 'var(--m-text-muted)',
+            lineHeight: 1.5,
+            maxWidth: 520,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}
+        >
+          {sub}
+        </p>
+      </div>
+
+      {/* Step 1 — Business Name. Casing pills live beneath the input and
+          show the user's typed name transformed into each case; clicking
+          a pill commits the transform to the input. */}
+      {step === 1 && (
+        <div className="flex flex-col" style={{ gap: 16 }}>
+          <div>
+            <label className="m-sans block" style={{ fontSize: 12, color: 'var(--m-text-soft)', marginBottom: 6, fontWeight: 600, letterSpacing: '0.04em' }}>
+              Logo name
+            </label>
+            <input
+              type="text"
+              value={p.brandName}
+              onChange={(e) => {
+                p.setBrandName(e.target.value)
+                // Typing manually breaks the "last pill" link.
+                if (p.nameStyle) p.setNameStyle('')
+              }}
+              placeholder="e.g. Velvet Roast"
+              autoFocus
+              className="n-start-input m-sans w-full"
+              style={textInputStyle}
+            />
+          </div>
+          {/* Casing block only appears once the user has started typing —
+              empty pills with no name aren't useful. Duplicate transforms
+              (e.g. lowercase + camelCase produce the same string on a
+              single-word name) are deduped so the user never sees two
+              identical pills. */}
+          {p.brandName.trim().length > 0 && (() => {
+            const seen = new Set<string>()
+            const uniqueStyles = NAME_STYLES.filter((s) => {
+              const preview = applyCase(p.brandName, s)
+              if (seen.has(preview)) return false
+              seen.add(preview)
+              return true
+            })
+            return (
+              <div style={{ animation: 'nStartFade 0.3s ease' }}>
+                <label className="m-sans block" style={{ fontSize: 12, color: 'var(--m-text-soft)', marginBottom: 8, fontWeight: 600, letterSpacing: '0.04em' }}>
+                  Preferred styling <span style={{ fontWeight: 400 }}>— optional</span>
+                </label>
+                <div className="flex flex-wrap" style={{ gap: 8 }}>
+                  {uniqueStyles.map((s) => {
+                    const preview = applyCase(p.brandName, s)
+                    const selected = p.brandName === preview && p.nameStyle === s
+                    return (
+                      <Pill
+                        key={s}
+                        selected={selected}
+                        onClick={() => {
+                          p.setBrandName(applyCase(p.brandName, s))
+                          p.setNameStyle(s)
+                        }}
+                      >
+                        {preview}
+                      </Pill>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          })()}
+        </div>
+      )}
+
+      {/* Step 2 — Industry (autocomplete combobox: focus shows 8 default,
+          typing filters all 25 by substring, click selects). Owns the
+          screen so the busy "industry + description" Step 2 problem
+          disappears. */}
+      {step === 2 && (
+        <IndustryCombobox
+          industry={p.industry}
+          setIndustry={(k) => {
+            p.setIndustry(k)
+            // Switching industry invalidates a previously-picked suggestion
+            // from another industry — clear it so step 3 re-picks.
+            const newList = SUGGESTIONS_BY_INDUSTRY[k] ?? []
+            if (p.description && !newList.includes(p.description)) {
+              p.setDescription('')
+            }
+          }}
+        />
+      )}
+
+      {/* Step 3 — Description. Single combobox: type freely OR pick from
+          industry-aware suggestions in the dropdown. No separate textarea. */}
+      {step === 3 && (
+        <SuggestionCombobox
+          id="n-description"
+          label="Describe your business"
+          value={p.description}
+          onChange={p.setDescription}
+          suggestions={descList}
+          placeholder={descList[0] ? `e.g. ${descList[0]}` : 'Describe your business in a sentence'}
+        />
+      )}
+
+      {/* Step 4 — Offerings (products / services). Uniform 2-col / 3-col
+          grid for visual symmetry — pill-cloud got ragged with mixed-
+          length labels. Industry-aware list; max 3 picks. */}
+      {step === 4 && (
+        <div className="flex flex-col" style={{ gap: 16 }}>
+          <CountHeader label="Pick 3 offerings" count={p.services.length} target={3} />
+          <div className="grid grid-cols-2 sm:grid-cols-3" style={{ gap: 10 }}>
+            {servicesList.map((s) => {
+              const selected = p.services.includes(s)
+              const disabled = !selected && p.services.length >= 3
+              return (
+                <button
+                  key={s}
+                  type="button"
+                  disabled={disabled}
+                  onClick={() => p.toggleService(s)}
+                  className="m-sans inline-flex items-center"
+                  style={{
+                    gap: 10,
+                    width: '100%',
+                    minHeight: 72,
+                    padding: '14px 16px',
+                    borderRadius: 12,
+                    border: '1.5px solid',
+                    borderColor: selected ? 'var(--m-brand)' : 'var(--m-border)',
+                    background: selected ? 'var(--m-brand-soft)' : 'var(--m-surface)',
+                    color: disabled ? 'var(--m-text-faint)' : selected ? 'var(--m-ink)' : 'var(--m-text)',
+                    fontSize: 15,
+                    fontWeight: selected ? 600 : 500,
+                    lineHeight: 1.35,
+                    cursor: disabled ? 'not-allowed' : 'pointer',
+                    opacity: disabled ? 0.55 : 1,
+                    textAlign: 'left',
+                    transition: 'border-color 0.15s ease, background 0.15s ease, color 0.15s ease',
+                  }}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="inline-flex items-center justify-center shrink-0"
+                    style={{
+                      width: 22,
+                      height: 22,
+                      borderRadius: '50%',
+                      border: selected ? 'none' : '1.5px solid var(--m-border-medium)',
+                      background: selected ? 'var(--m-brand)' : 'transparent',
+                      color: '#FFFFFF',
+                      fontSize: 12,
+                      transition: 'background 0.15s ease, border-color 0.15s ease',
+                    }}
+                  >
+                    {selected && '✓'}
+                  </span>
+                  <span style={{ flex: 1 }}>{s}</span>
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Step 5 — Tagline. Same combobox pattern as steps 2 and 3 —
+          type a custom tagline or pick one from the (industry-filtered)
+          dropdown. Continue is always enabled here since tagline is
+          optional. */}
+      {step === 5 && (
+        <SuggestionCombobox
+          id="n-tagline"
+          label="Tagline"
+          value={p.tagline}
+          onChange={p.setTagline}
+          suggestions={taglineList}
+          placeholder="Type a tagline or pick one"
+        />
+      )}
+
+      {/* Step 6 — Impression. Uniform grid matching Step 4's "Offerings"
+          pattern exactly (2 cols mobile / 3 cols desktop). 18 items divide
+          cleanly into both: 9 rows on mobile, 6 rows on desktop — no
+          half-empty trailing row. */}
+      {step === 6 && (
+        <div className="flex flex-col" style={{ gap: 16 }}>
+          <CountHeader label="Pick 3 words" count={p.impressions.length} target={3} />
+          <div className="grid grid-cols-2 sm:grid-cols-3" style={{ gap: 10 }}>
+            {IMPRESSIONS.map((w) => {
+              const selected = p.impressions.includes(w)
+              const disabled = !selected && p.impressions.length >= 3
+              return (
+                <button
+                  key={w}
+                  type="button"
+                  disabled={disabled}
+                  onClick={() => p.toggleImpression(w)}
+                  className="m-sans inline-flex items-center"
+                  style={{
+                    gap: 10,
+                    width: '100%',
+                    minHeight: 60,
+                    padding: '14px 16px',
+                    borderRadius: 12,
+                    border: '1.5px solid',
+                    borderColor: selected ? 'var(--m-brand)' : 'var(--m-border)',
+                    background: selected ? 'var(--m-brand-soft)' : 'var(--m-surface)',
+                    color: disabled ? 'var(--m-text-faint)' : selected ? 'var(--m-ink)' : 'var(--m-text)',
+                    fontSize: 15,
+                    fontWeight: selected ? 600 : 500,
+                    lineHeight: 1.35,
+                    cursor: disabled ? 'not-allowed' : 'pointer',
+                    opacity: disabled ? 0.55 : 1,
+                    textAlign: 'left',
+                    transition: 'border-color 0.15s ease, background 0.15s ease, color 0.15s ease',
+                  }}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="inline-flex items-center justify-center shrink-0"
+                    style={{
+                      width: 22,
+                      height: 22,
+                      borderRadius: '50%',
+                      border: selected ? 'none' : '1.5px solid var(--m-border-medium)',
+                      background: selected ? 'var(--m-brand)' : 'transparent',
+                      color: '#FFFFFF',
+                      fontSize: 12,
+                      transition: 'background 0.15s ease, border-color 0.15s ease',
+                    }}
+                  >
+                    {selected && '✓'}
+                  </span>
+                  <span style={{ flex: 1 }}>{w}</span>
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Step 7 — Colours. 2-col grid of expanded palette cards. Each card
+          shows a full-width swatch strip + one-word universal label + a
+          short hint. Native title attr provides extra guidance on hover. */}
+      {step === 7 && (
+        <div className="grid grid-cols-2" style={{ gap: 12 }}>
+          {PALETTES.map((pal, i) => {
+            const selected = p.paletteIndex === i
+            return (
+              <button
+                key={pal.name}
+                type="button"
+                onClick={() => p.setPaletteIndex(i)}
+                title={`${pal.name} — ${pal.hint}`}
+                className="m-sans text-left relative flex flex-col"
+                style={{
+                  padding: 14,
+                  borderRadius: 14,
+                  border: '1.5px solid',
+                  borderColor: selected ? 'var(--m-brand)' : 'var(--m-border)',
+                  background: selected ? 'var(--m-brand-soft)' : 'var(--m-surface)',
+                  cursor: 'pointer',
+                  transition: 'border-color 0.15s ease, background 0.15s ease',
+                }}
+              >
+                <span
+                  className="flex overflow-hidden"
+                  style={{
+                    borderRadius: 10,
+                    border: '1px solid var(--m-border)',
+                    height: 80,
+                    width: '100%',
+                  }}
+                >
+                  {pal.colors.map((c) => (
+                    <span
+                      key={c.hex}
+                      style={{ flex: 1, background: c.hex }}
+                    />
+                  ))}
+                </span>
+                <span className="flex flex-col" style={{ marginTop: 12, gap: 3 }}>
+                  <span
+                    className="m-display"
+                    style={{ fontSize: 17, fontWeight: 600, color: 'var(--m-ink)', lineHeight: 1.2 }}
+                  >
+                    {pal.name}
+                  </span>
+                  <span
+                    className="m-sans"
+                    style={{ fontSize: 13, color: 'var(--m-text-soft)', lineHeight: 1.35 }}
+                  >
+                    {pal.hint}
+                  </span>
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="inline-flex items-center justify-center"
+                  style={{
+                    position: 'absolute',
+                    top: 18,
+                    right: 18,
+                    width: 22,
+                    height: 22,
+                    borderRadius: '50%',
+                    border: selected ? 'none' : '1.5px solid rgba(255,255,255,0.85)',
+                    background: selected ? 'var(--m-brand)' : 'rgba(0,0,0,0.15)',
+                    color: '#FFFFFF',
+                    fontSize: 12,
+                    backdropFilter: 'blur(2px)',
+                  }}
+                >
+                  {selected && '✓'}
+                </span>
+              </button>
+            )
+          })}
+        </div>
+      )}
+
+      {/* Step 8 — Logo Style. Visual thumbnail grid. Each card shows a
+          generic illustration of that style; description, popularity %,
+          and real-world examples appear on hover. 6 styles in a 3-col
+          row (2 rows total) so all options fit on screen without scroll. */}
+      {step === 8 && (
+        <div className="grid grid-cols-3" style={{ gap: 10 }}>
+          {LOGO_TYPES.map((lt, i) => {
+            const selected = p.logoTypeIndex === i
+            return (
+              <button
+                key={lt.name}
+                type="button"
+                onClick={() => p.setLogoTypeIndex(i)}
+                className="group relative m-sans overflow-hidden"
+                style={{
+                  aspectRatio: '1 / 1',
+                  borderRadius: 14,
+                  border: '1.5px solid',
+                  borderColor: selected ? 'var(--m-brand)' : 'var(--m-border)',
+                  background: selected ? 'var(--m-brand-soft)' : 'var(--m-surface)',
+                  cursor: 'pointer',
+                  transition: 'border-color 0.15s ease, background 0.15s ease',
+                }}
+              >
+                <span
+                  className="flex items-center justify-center"
+                  style={{
+                    position: 'absolute',
+                    top: 16,
+                    left: 14,
+                    right: 14,
+                    bottom: 44,
+                    color: 'var(--m-ink)',
+                  }}
+                >
+                  {STYLE_ICONS[lt.name]}
+                </span>
+                <span
+                  className="m-display"
+                  style={{
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    bottom: 14,
+                    textAlign: 'center',
+                    fontSize: 14,
+                    fontWeight: 600,
+                    color: 'var(--m-ink)',
+                  }}
+                >
+                  {lt.name}
+                </span>
+                <span
+                  className="flex flex-col justify-center opacity-0 group-hover:opacity-100"
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    padding: 18,
+                    background: 'rgba(17, 24, 39, 0.94)',
+                    color: '#FFFFFF',
+                    transition: 'opacity 0.18s ease',
+                    pointerEvents: 'none',
+                    textAlign: 'left',
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: 'var(--m-font-sans), sans-serif',
+                      fontSize: 10,
+                      fontWeight: 700,
+                      padding: '3px 8px',
+                      borderRadius: 999,
+                      background: 'rgba(255,255,255,0.18)',
+                      color: '#FFFFFF',
+                      letterSpacing: '0.04em',
+                      textTransform: 'uppercase',
+                      alignSelf: 'flex-start',
+                      marginBottom: 8,
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    Used by {lt.pct}% of brands
+                  </span>
+                  <span className="m-display" style={{ fontSize: 16, fontWeight: 700, display: 'block', marginBottom: 8 }}>{lt.name}</span>
+                  <span style={{ fontSize: 12, lineHeight: 1.45, color: 'rgba(255,255,255,0.92)', display: 'block' }}>
+                    {lt.desc}
+                  </span>
+                  <span style={{ fontSize: 11, lineHeight: 1.45, marginTop: 8, fontStyle: 'italic', color: 'rgba(255,255,255,0.65)', display: 'block' }}>
+                    e.g. {lt.ex}
+                  </span>
+                </span>
+                {selected && (
+                  <span
+                    aria-hidden="true"
+                    className="inline-flex items-center justify-center"
+                    style={{
+                      position: 'absolute',
+                      top: 10,
+                      right: 10,
+                      width: 22,
+                      height: 22,
+                      borderRadius: '50%',
+                      background: 'var(--m-brand)',
+                      color: '#FFFFFF',
+                      fontSize: 12,
+                      zIndex: 2,
+                    }}
+                  >
+                    ✓
+                  </span>
+                )}
+              </button>
+            )
+          })}
+        </div>
+      )}
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* Brand brief                                                         */
+/* ------------------------------------------------------------------ */
+
+function BrandBrief({
+  brand,
+  description,
+  services,
+  tagline,
+  impressions,
+  palette,
+  logoType,
+  onGenerate,
+}: {
+  brand: string
+  description: string
+  services: string[]
+  tagline: string
+  impressions: string[]
+  palette: Palette | null
+  logoType: { name: string } | null
+  onGenerate: () => void
+}) {
+  return (
+    <div>
+      <div style={{ textAlign: 'center', marginBottom: 32 }}>
+        <div style={{ ...monoLabel, color: 'var(--m-brand-strong)', marginBottom: 8 }}>Your Brand Brief</div>
+        <h1
+          className="m-display"
+          style={{
+            fontSize: 'clamp(28px, 5.4vw, 36px)',
+            fontWeight: 700,
+            color: 'var(--m-ink)',
+            margin: 0,
+            letterSpacing: '-0.02em',
+          }}
+        >
+          {brand}
+        </h1>
+        {tagline && (
+          <p className="m-sans" style={{ fontSize: 15, color: 'var(--m-text-soft)', marginTop: 8, fontStyle: 'italic' }}>
+            &ldquo;{tagline}&rdquo;
+          </p>
+        )}
+      </div>
+
+      <div
+        className="flex flex-col"
+        style={{
+          background: 'var(--m-surface)',
+          border: '1px solid var(--m-border)',
+          borderRadius: 16,
+          padding: 28,
+          gap: 22,
+        }}
+      >
+        {[
+          { label: 'Business',    value: description || '—' },
+          { label: 'Services',    value: services.join(', ') || '—' },
+          { label: 'Tagline',     value: tagline || 'None' },
+          { label: 'Impression',  value: impressions.join(', ') || '—' },
+        ].map((row) => (
+          <div key={row.label}>
+            <div style={{ ...monoLabel, marginBottom: 6 }}>{row.label}</div>
+            <div className="m-sans" style={{ fontSize: 15, color: 'var(--m-ink)', lineHeight: 1.5 }}>
+              {row.value}
+            </div>
+          </div>
+        ))}
+
+        <div>
+          <div style={{ ...monoLabel, marginBottom: 10 }}>Colors</div>
+          <div className="flex flex-col" style={{ gap: 10 }}>
+            {palette &&
+              palette.colors.map((c) => (
+                <div key={c.hex} className="flex items-start" style={{ gap: 10 }}>
+                  <div
+                    style={{
+                      width: 28,
+                      height: 28,
+                      borderRadius: 8,
+                      background: c.hex,
+                      border: '1px solid var(--m-border)',
+                      flexShrink: 0,
+                    }}
+                  />
+                  <div>
+                    <div className="flex items-center" style={{ gap: 6 }}>
+                      <span className="m-sans" style={{ fontSize: 13, color: 'var(--m-ink)', fontWeight: 600 }}>{c.name}</span>
+                      <span className="m-sans" style={{ fontSize: 11, color: 'var(--m-text-soft)' }}>{c.hex}</span>
+                    </div>
+                    <div className="m-sans" style={{ fontSize: 11, color: 'var(--m-text-soft)', marginTop: 1, lineHeight: 1.4 }}>
+                      {c.desc}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            <div className="flex items-center" style={{ gap: 10 }}>
+              <div
+                style={{ width: 28, height: 28, borderRadius: 8, background: '#FFFFFF', border: '1px solid var(--m-border)' }}
+              />
+              <div>
+                <div className="m-sans" style={{ fontSize: 13, color: 'var(--m-ink)', fontWeight: 600 }}>Background</div>
+                <div className="m-sans" style={{ fontSize: 11, color: 'var(--m-text-soft)' }}>#FFFFFF</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style={{ ...monoLabel, marginBottom: 6 }}>Logo Type</div>
+          <div className="m-sans" style={{ fontSize: 15, color: 'var(--m-ink)' }}>
+            {logoType ? logoType.name : '—'}
+          </div>
+        </div>
+      </div>
+
+      <div style={{ textAlign: 'center', marginTop: 32 }}>
+        <button
+          type="button"
+          onClick={onGenerate}
+          className="m-cta-btn m-sans inline-flex items-center gap-2"
+          style={{
+            padding: '14px 32px',
+            borderRadius: 12,
+            border: 'none',
+            color: '#FFFFFF',
+            fontSize: 15,
+            fontWeight: 600,
+            cursor: 'pointer',
+            boxShadow: '0 6px 24px rgba(217,119,87,0.30)',
+          }}
+        >
+          Generate logo prompts ✦
+        </button>
+      </div>
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* Generating                                                          */
+/* ------------------------------------------------------------------ */
+
+function Generating({ brand, line }: { brand: string; line: string }) {
+  return (
+    <div className="mx-auto flex flex-col items-center text-center" style={{ maxWidth: 480, paddingTop: 40 }}>
+      <span
+        style={{
+          width: 56,
+          height: 56,
+          borderRadius: '50%',
+          border: '3px solid var(--m-brand-soft)',
+          borderTopColor: 'var(--m-brand)',
+          animation: 'nStartSpin 0.8s linear infinite',
+        }}
+      />
+      <h1 className="m-display" style={{ marginTop: 28, fontSize: 'clamp(22px, 4vw, 28px)', fontWeight: 700, color: 'var(--m-ink)' }}>
+        Creating logos for {brand}…
+      </h1>
+      <p key={line} className="m-body" style={{ marginTop: 8, color: 'var(--m-text-soft)', animation: 'nStartFade 0.3s ease' }}>
+        {line}
+      </p>
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* Auth Wall — ports HEADSHOT S1's TrialAuthWall layout. Sits between  */
+/* the Brand Brief and the Generating screen as a sign-in gate.        */
+/* ------------------------------------------------------------------ */
+
+function AuthWall({
+  email,
+  onEmailChange,
+  onContinue,
+  onBack,
+}: {
+  email: string
+  onEmailChange: (v: string) => void
+  onContinue: () => void
+  onBack?: () => void
+}) {
+  const valid = isValidEmail(email)
+  return (
+    <div className="relative" style={{ minHeight: 'calc(100vh - 200px)' }}>
+      {onBack && (
+        <button
+          type="button"
+          onClick={onBack}
+          aria-label="Go back"
+          className="m-sans inline-flex items-center gap-1.5"
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            background: 'transparent',
+            border: 'none',
+            cursor: 'pointer',
+            color: 'var(--m-text-muted)',
+            fontSize: 14,
+          }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
+          </svg>
+          <span>Back</span>
+        </button>
+      )}
+
+      <div className="flex flex-col items-center" style={{ paddingTop: 40 }}>
+        {/* Headline + sub */}
+        <h1
+          className="m-display text-center"
+          style={{
+            maxWidth: 720,
+            fontSize: 'clamp(22px, 4.4vw, 28px)',
+            fontWeight: 700,
+            lineHeight: 1.25,
+            color: 'var(--m-ink)',
+            margin: 0,
+          }}
+        >
+          Your logos are ready to preview
+        </h1>
+        <p
+          className="m-sans text-center"
+          style={{ marginTop: 10, maxWidth: 560, fontSize: 16, color: 'var(--m-text-muted)' }}
+        >
+          Sign in to view them — no payment needed yet.
+        </p>
+
+        {/* Auth card */}
+        <div
+          className="w-full"
+          style={{
+            maxWidth: 480,
+            marginTop: 32,
+            padding: 28,
+            background: 'var(--m-surface)',
+            border: '1px solid var(--m-border)',
+            borderRadius: 16,
+            boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+          }}
+        >
+          <button
+            type="button"
+            onClick={onContinue}
+            className="m-sans w-full inline-flex items-center justify-center gap-2.5"
+            style={{
+              padding: '14px 16px',
+              borderRadius: 8,
+              border: '1px solid var(--m-border)',
+              background: 'var(--m-surface)',
+              color: 'var(--m-ink)',
+              fontSize: 15,
+              fontWeight: 500,
+              cursor: 'pointer',
+              transition: 'background 0.15s ease',
+            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--m-surface-alt)' }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--m-surface)' }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A11.96 11.96 0 0 0 0 12c0 1.94.46 3.77 1.28 5.4l3.56-2.77.01-.54z" fill="#FBBC05" />
+              <path d="M12 4.75c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 1.09 14.97 0 12 0 7.7 0 3.99 2.47 2.18 6.07l3.66 2.84c.87-2.6 3.3-4.16 6.16-4.16z" fill="#EA4335" />
+            </svg>
+            <span>Continue with Google</span>
+          </button>
+
+          <div className="flex items-center" style={{ marginTop: 20, gap: 16 }}>
+            <span style={{ height: 1, flex: 1, background: 'var(--m-border)' }} />
+            <span className="m-sans" style={{ fontSize: 13, color: 'var(--m-text-soft)' }}>Or continue with email</span>
+            <span style={{ height: 1, flex: 1, background: 'var(--m-border)' }} />
+          </div>
+
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => onEmailChange(e.target.value)}
+            placeholder="Enter your email address"
+            autoComplete="email"
+            className="n-start-input m-sans w-full"
+            style={{
+              marginTop: 20,
+              padding: '14px 16px',
+              borderRadius: 8,
+              border: '1px solid var(--m-border)',
+              background: 'var(--m-surface)',
+              fontSize: 15,
+              color: 'var(--m-ink)',
+              outline: 'none',
+              transition: 'border-color 0.15s ease, box-shadow 0.15s ease',
+            }}
+          />
+          <button
+            type="button"
+            onClick={() => valid && onContinue()}
+            disabled={!valid}
+            className="m-sans w-full"
+            style={{
+              marginTop: 12,
+              padding: '14px 16px',
+              borderRadius: 8,
+              border: 'none',
+              background: valid ? 'var(--m-ink)' : 'var(--m-border-medium)',
+              color: '#FFFFFF',
+              fontSize: 15,
+              fontWeight: 500,
+              cursor: valid ? 'pointer' : 'not-allowed',
+              opacity: valid ? 1 : 0.7,
+              transition: 'opacity 0.15s ease, background 0.15s ease',
+            }}
+          >
+            Continue with email
+          </button>
+
+          <p className="m-sans text-center" style={{ marginTop: 14, fontSize: 12, color: 'var(--m-text-soft)' }}>
+            New accounts are subject to our{' '}
+            <a href="/terms" style={{ color: 'var(--m-text-muted)', textDecoration: 'underline' }}>Terms</a>{' '}and{' '}
+            <a href="/privacy" style={{ color: 'var(--m-text-muted)', textDecoration: 'underline' }}>Privacy Policy</a>.
+          </p>
+        </div>
+
+        {/* Trust strip */}
+        <div
+          className="inline-flex items-center"
+          style={{ marginTop: 28, gap: 8, fontFamily: 'var(--m-font-sans), sans-serif', fontSize: 13, color: 'var(--m-text-muted)' }}
+        >
+          <span style={{ fontWeight: 700, color: 'var(--m-ink)' }}>Trusted by 180,000+ brands</span>
+          <span style={{ color: 'var(--m-text-soft)' }}>·</span>
+          <span className="inline-flex items-center" style={{ gap: 4 }}>
+            <span className="inline-flex" style={{ gap: 2 }}>
+              {Array.from({ length: 5 }).map((_, i) => (
+                <svg key={i} width="13" height="13" viewBox="0 0 24 24" fill="#16A34A" aria-hidden="true">
+                  <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" />
+                </svg>
+              ))}
+            </span>
+            <span>4.9/5 verified rating</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* AuthGateModal — same UI pattern as AuthWall, presented as a modal    */
+/* that fires only when a signed-out user taps a locked logo card.      */
+/* ------------------------------------------------------------------ */
+
+function AuthGateModal({
+  open,
+  email,
+  onEmailChange,
+  onContinue,
+  onClose,
+}: {
+  open: boolean
+  email: string
+  onEmailChange: (v: string) => void
+  onContinue: () => void
+  onClose: () => void
+}) {
+  useEffect(() => {
+    if (!open) return
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', onEsc)
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onEsc)
+      document.body.style.overflow = prev
+    }
+  }, [open, onClose])
+
+  if (!open) return null
+  const valid = isValidEmail(email)
+
+  return (
+    <div
+      role="presentation"
+      onClick={onClose}
+      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto"
+      style={{
+        background: 'rgba(0,0,0,0.55)',
+        backdropFilter: 'blur(6px)',
+        WebkitBackdropFilter: 'blur(6px)',
+        padding: '40px 16px',
+      }}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="n-authgate-title"
+        onClick={(e) => e.stopPropagation()}
+        className="w-full"
+        style={{
+          maxWidth: 480,
+          background: 'var(--m-surface)',
+          borderRadius: 16,
+          boxShadow: '0 24px 60px rgba(0,0,0,0.35)',
+          overflow: 'hidden',
+        }}
+      >
+        {/* close button */}
+        <div
+          className="flex items-center justify-between"
+          style={{ padding: '14px 18px', borderBottom: '1px solid var(--m-border)' }}
+        >
+          <span
+            className="m-display"
+            style={{ fontFamily: 'var(--m-font-wordmark), serif', fontSize: 18, color: 'var(--m-ink)', letterSpacing: '-0.02em' }}
+          >
+            LOGO<span style={{ color: 'var(--m-brand)' }}>.</span>AI
+          </span>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="m-sans"
+            style={{
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              color: 'var(--m-text-soft)',
+              fontSize: 22,
+              lineHeight: 1,
+            }}
+          >
+            ×
+          </button>
+        </div>
+
+        <div style={{ padding: 28 }}>
+          <h2
+            id="n-authgate-title"
+            className="m-display text-center"
+            style={{
+              fontSize: 'clamp(20px, 4vw, 24px)',
+              fontWeight: 700,
+              lineHeight: 1.25,
+              color: 'var(--m-ink)',
+              margin: 0,
+            }}
+          >
+            Sign in to download this logo
+          </h2>
+          <p
+            className="m-sans text-center"
+            style={{ marginTop: 8, fontSize: 14, color: 'var(--m-text-muted)' }}
+          >
+            One quick sign-in keeps your logo safe so you can come back to it any time.
+          </p>
+
+          <button
+            type="button"
+            onClick={onContinue}
+            className="m-sans w-full inline-flex items-center justify-center gap-2.5"
+            style={{
+              marginTop: 24,
+              padding: '14px 16px',
+              borderRadius: 8,
+              border: '1px solid var(--m-border)',
+              background: 'var(--m-surface)',
+              color: 'var(--m-ink)',
+              fontSize: 15,
+              fontWeight: 500,
+              cursor: 'pointer',
+              transition: 'background 0.15s ease',
+            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--m-surface-alt)' }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--m-surface)' }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4" />
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18A11.96 11.96 0 0 0 0 12c0 1.94.46 3.77 1.28 5.4l3.56-2.77.01-.54z" fill="#FBBC05" />
+              <path d="M12 4.75c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 1.09 14.97 0 12 0 7.7 0 3.99 2.47 2.18 6.07l3.66 2.84c.87-2.6 3.3-4.16 6.16-4.16z" fill="#EA4335" />
+            </svg>
+            <span>Continue with Google</span>
+          </button>
+
+          <div className="flex items-center" style={{ marginTop: 20, gap: 16 }}>
+            <span style={{ height: 1, flex: 1, background: 'var(--m-border)' }} />
+            <span className="m-sans" style={{ fontSize: 13, color: 'var(--m-text-soft)' }}>Or continue with email</span>
+            <span style={{ height: 1, flex: 1, background: 'var(--m-border)' }} />
+          </div>
+
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => onEmailChange(e.target.value)}
+            placeholder="Enter your email address"
+            autoComplete="email"
+            autoFocus
+            className="n-start-input m-sans w-full"
+            style={{
+              marginTop: 18,
+              padding: '14px 16px',
+              borderRadius: 8,
+              border: '1px solid var(--m-border)',
+              background: 'var(--m-surface)',
+              fontSize: 15,
+              color: 'var(--m-ink)',
+              outline: 'none',
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && valid) onContinue()
+            }}
+          />
+          <button
+            type="button"
+            onClick={() => valid && onContinue()}
+            disabled={!valid}
+            className="m-sans w-full"
+            style={{
+              marginTop: 12,
+              padding: '14px 16px',
+              borderRadius: 8,
+              border: 'none',
+              background: valid ? 'var(--m-ink)' : 'var(--m-border-medium)',
+              color: '#FFFFFF',
+              fontSize: 15,
+              fontWeight: 500,
+              cursor: valid ? 'pointer' : 'not-allowed',
+              opacity: valid ? 1 : 0.7,
+              transition: 'opacity 0.15s ease, background 0.15s ease',
+            }}
+          >
+            Continue with email
+          </button>
+
+          <p className="m-sans text-center" style={{ marginTop: 14, fontSize: 12, color: 'var(--m-text-soft)' }}>
+            New accounts are subject to our{' '}
+            <a href="/terms" style={{ color: 'var(--m-text-muted)', textDecoration: 'underline' }}>Terms</a>{' '}and{' '}
+            <a href="/privacy" style={{ color: 'var(--m-text-muted)', textDecoration: 'underline' }}>Privacy Policy</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* RefinePanel — slide-in drawer (desktop) / bottom sheet (mobile)      */
+/* that exposes the optional refinements (tagline, palette, logo type, */
+/* casing). Apply re-runs the generating animation.                      */
+/* ------------------------------------------------------------------ */
+
+function RefinePanel({
+  open,
+  onClose,
+  onApply,
+  tagline,
+  setTagline,
+  paletteIndex,
+  setPaletteIndex,
+  logoTypeIndex,
+  setLogoTypeIndex,
+  nameStyle,
+  setNameStyle,
+}: {
+  open: boolean
+  onClose: () => void
+  onApply: () => void
+  tagline: string
+  setTagline: (v: string) => void
+  paletteIndex: number | null
+  setPaletteIndex: (i: number) => void
+  logoTypeIndex: number | null
+  setLogoTypeIndex: (i: number) => void
+  nameStyle: string
+  setNameStyle: (v: string) => void
+}) {
+  useEffect(() => {
+    if (!open) return
+    const onEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', onEsc)
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.removeEventListener('keydown', onEsc)
+      document.body.style.overflow = prev
+    }
+  }, [open, onClose])
+
+  if (!open) return null
+
+  return (
+    <div
+      role="presentation"
+      onClick={onClose}
+      className="fixed inset-0 z-50 flex justify-end"
+      style={{ background: 'rgba(0,0,0,0.45)', backdropFilter: 'blur(4px)' }}
+    >
+      <aside
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="n-refine-title"
+        onClick={(e) => e.stopPropagation()}
+        className="flex flex-col"
+        style={{
+          width: 'min(420px, 100%)',
+          height: '100%',
+          background: 'var(--m-surface)',
+          boxShadow: '-10px 0 30px rgba(0,0,0,0.18)',
+          animation: 'nDrawerSlide 0.28s cubic-bezier(0.22,1,0.36,1)',
+        }}
+      >
+        {/* header */}
+        <div
+          className="flex items-center justify-between shrink-0"
+          style={{ padding: '14px 20px', borderBottom: '1px solid var(--m-border)' }}
+        >
+          <div>
+            <h2 id="n-refine-title" className="m-display" style={{ fontSize: 17, fontWeight: 700, color: 'var(--m-ink)', margin: 0 }}>
+              Refine
+            </h2>
+            <p className="m-sans" style={{ marginTop: 2, fontSize: 12, color: 'var(--m-text-soft)' }}>
+              Tweak anything — preview re-rolls free.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="m-sans"
+            style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--m-text-soft)', fontSize: 24, lineHeight: 1 }}
+          >
+            ×
+          </button>
+        </div>
+
+        {/* body — scrollable */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: 20 }}>
+          {/* Tagline */}
+          <RefineSection title="Tagline">
+            <div className="flex flex-col" style={{ gap: 6 }}>
+              {TAGLINES.slice(0, 6).map((t) => {
+                const sel = tagline === t
+                return (
+                  <button
+                    key={t}
+                    type="button"
+                    onClick={() => setTagline(sel ? '' : t)}
+                    className="m-sans text-left"
+                    style={{
+                      padding: '10px 12px',
+                      borderRadius: 8,
+                      border: '1px solid',
+                      borderColor: sel ? 'var(--m-brand)' : 'var(--m-border)',
+                      background: sel ? 'var(--m-brand-soft)' : 'var(--m-surface)',
+                      color: sel ? 'var(--m-ink)' : 'var(--m-text-muted)',
+                      fontSize: 13,
+                      fontStyle: 'italic',
+                      cursor: 'pointer',
+                      transition: 'border-color 0.15s ease, background 0.15s ease, color 0.15s ease',
+                    }}
+                  >
+                    &ldquo;{t}&rdquo;
+                  </button>
+                )
+              })}
+              <button
+                type="button"
+                onClick={() => setTagline('')}
+                className="m-sans"
+                style={{
+                  marginTop: 6,
+                  padding: '8px 12px',
+                  borderRadius: 8,
+                  border: '1px dashed var(--m-border)',
+                  background: 'transparent',
+                  color: 'var(--m-text-soft)',
+                  fontSize: 12,
+                  cursor: 'pointer',
+                }}
+              >
+                No tagline
+              </button>
+            </div>
+          </RefineSection>
+
+          {/* Palette */}
+          <RefineSection title="Colours">
+            <div className="flex flex-col" style={{ gap: 8 }}>
+              {PALETTES.map((pal, i) => {
+                const sel = paletteIndex === i
+                return (
+                  <button
+                    key={pal.name}
+                    type="button"
+                    onClick={() => setPaletteIndex(i)}
+                    className="text-left flex items-center"
+                    style={{
+                      gap: 12,
+                      padding: 10,
+                      borderRadius: 10,
+                      border: '2px solid',
+                      borderColor: sel ? 'var(--m-brand)' : 'var(--m-border)',
+                      background: sel ? 'var(--m-brand-soft)' : 'var(--m-surface)',
+                      cursor: 'pointer',
+                      transition: 'border-color 0.15s ease, background 0.15s ease',
+                    }}
+                  >
+                    <span className="flex shrink-0" style={{ borderRadius: 6, overflow: 'hidden', border: '1px solid var(--m-border)' }}>
+                      {pal.colors.map((c) => (
+                        <span key={c.hex} style={{ width: 16, height: 28, background: c.hex }} />
+                      ))}
+                    </span>
+                    <span className="m-sans" style={{ fontSize: 13, fontWeight: 600, color: 'var(--m-ink)' }}>
+                      {pal.name}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+          </RefineSection>
+
+          {/* Logo type */}
+          <RefineSection title="Logo type">
+            <div className="flex flex-col" style={{ gap: 6 }}>
+              {LOGO_TYPES.map((lt, i) => {
+                const sel = logoTypeIndex === i
+                return (
+                  <button
+                    key={lt.name}
+                    type="button"
+                    onClick={() => setLogoTypeIndex(i)}
+                    className="m-sans text-left flex items-center justify-between"
+                    style={{
+                      gap: 8,
+                      padding: '10px 12px',
+                      borderRadius: 8,
+                      border: '1px solid',
+                      borderColor: sel ? 'var(--m-brand)' : 'var(--m-border)',
+                      background: sel ? 'var(--m-brand-soft)' : 'var(--m-surface)',
+                      color: 'var(--m-ink)',
+                      fontSize: 13,
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      transition: 'border-color 0.15s ease, background 0.15s ease',
+                    }}
+                  >
+                    <span>{lt.name}</span>
+                    <span style={{ fontSize: 11, color: 'var(--m-text-soft)', fontWeight: 500 }}>{lt.pct}%</span>
+                  </button>
+                )
+              })}
+            </div>
+          </RefineSection>
+
+          {/* Casing — the option I pulled out of step 1 */}
+          <RefineSection title="Name casing">
+            <div className="flex flex-wrap" style={{ gap: 8 }}>
+              <Pill selected={nameStyle === ''} onClick={() => setNameStyle('')}>Auto</Pill>
+              {NAME_STYLES.map((s) => (
+                <Pill key={s} selected={nameStyle === s} onClick={() => setNameStyle(s)}>
+                  {s}
+                </Pill>
+              ))}
+            </div>
+          </RefineSection>
+        </div>
+
+        {/* footer apply bar */}
+        <div
+          className="shrink-0 flex items-center gap-3"
+          style={{
+            padding: '14px 20px max(14px, env(safe-area-inset-bottom))',
+            borderTop: '1px solid var(--m-border)',
+            background: 'var(--m-surface)',
+          }}
+        >
+          <button
+            type="button"
+            onClick={onClose}
+            className="m-sans"
+            style={{
+              flex: '0 0 auto',
+              padding: '10px 16px',
+              borderRadius: 8,
+              border: '1px solid var(--m-border)',
+              background: 'transparent',
+              color: 'var(--m-text-muted)',
+              fontSize: 14,
+              fontWeight: 500,
+              cursor: 'pointer',
+            }}
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onClick={onApply}
+            className="m-cta-btn m-sans inline-flex items-center justify-center gap-2"
+            style={{
+              flex: 1,
+              padding: '12px 18px',
+              borderRadius: 8,
+              border: 'none',
+              color: '#FFFFFF',
+              fontSize: 14,
+              fontWeight: 700,
+              cursor: 'pointer',
+              boxShadow: '0 4px 12px rgba(217,119,87,0.30)',
+            }}
+          >
+            Re-roll my logos
+            <span aria-hidden="true">✦</span>
+          </button>
+        </div>
+      </aside>
+    </div>
+  )
+}
+
+function RefineSection({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <section style={{ marginBottom: 22 }}>
+      <h3
+        className="m-display"
+        style={{ marginBottom: 10, fontSize: 14, fontWeight: 700, color: 'var(--m-ink)', letterSpacing: '-0.01em' }}
+      >
+        {title}
+      </h3>
+      {children}
+    </section>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* Results                                                             */
+/* ------------------------------------------------------------------ */
+
+function Results({
+  brandName,
+  tagline,
+  palette,
+  logoTypeIndex,
+  unlocked,
+  onTap,
+  onStartOver,
+}: {
+  brandName: string
+  tagline: string
+  palette: Palette | null
+  logoTypeIndex: number | null
+  unlocked: boolean[]
+  onTap: (i: number) => void
+  onStartOver: () => void
+}) {
+  return (
+    <div className="mx-auto w-full px-2 sm:px-4" style={{ maxWidth: 1600 }}>
+      <div className="flex flex-col items-center text-center">
+        <div style={{ ...monoLabel }}>Your logos are ready</div>
+        <h1
+          className="m-display"
+          style={{
+            marginTop: 8,
+            fontSize: 'clamp(24px, 4vw, 34px)',
+            fontWeight: 700,
+            lineHeight: 1.2,
+            color: 'var(--m-ink)',
+          }}
+        >
+          Pick the one you love — {(() => {
+            const n = brandName.trim()
+            if (!n) return 'there'
+            return n.charAt(0).toUpperCase() + n.slice(1)
+          })()}
+        </h1>
+        <p className="m-body" style={{ marginTop: 10, maxWidth: 560, color: 'var(--m-text-soft)' }}>
+          Download HD files in every format for{' '}
+          <strong style={{ color: 'var(--m-ink)', fontWeight: 700 }}>${LOGO_PRICE} one-time</strong>.
+          Yours forever. No subscription.
+        </p>
+      </div>
+
+      <div
+        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5"
+        style={{ gap: 20, marginTop: 36 }}
+      >
+        {Array.from({ length: PREVIEW_COUNT }).map((_, i) => {
+          const isUnlocked = unlocked[i]
+          const previewSrc = PREVIEW_LOGOS[i % PREVIEW_LOGOS.length]
+          return (
+            <button
+              key={i}
+              type="button"
+              onClick={() => onTap(i)}
+              aria-label={isUnlocked ? `Download HD pack for logo ${i + 1}` : `Download logo ${i + 1} for $${LOGO_PRICE}`}
+              className="n-preview-card n-preview-stream group relative overflow-hidden text-left"
+              style={{
+                aspectRatio: '1 / 1',
+                borderRadius: 14,
+                border: '1px solid var(--m-border)',
+                background: '#FFFFFF',
+                padding: 0,
+                cursor: 'pointer',
+                animationDelay: `${i * 110}ms`,
+              }}
+            >
+              <img
+                src={previewSrc}
+                alt={`Logo preview ${i + 1}`}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', padding: 4 }}
+              />
+              {!isUnlocked && <WatermarkOverlay />}
+
+              {/* Hover pill — small white pill at the bottom of the card.
+                  Fades in on desktop hover; logo art stays fully visible. */}
+              {!isUnlocked && (
+                <span
+                  aria-hidden="true"
+                  className="absolute opacity-0 group-hover:opacity-100"
+                  style={{
+                    bottom: 10,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    transition: 'opacity 0.18s ease',
+                    pointerEvents: 'none',
+                  }}
+                >
+                  <span
+                    className="m-sans inline-flex items-center"
+                    style={{
+                      gap: 6,
+                      padding: '7px 14px',
+                      borderRadius: 9999,
+                      background: '#FFFFFF',
+                      color: 'var(--m-ink)',
+                      fontSize: 11,
+                      fontWeight: 700,
+                      letterSpacing: '0.02em',
+                      border: '1px solid var(--m-border)',
+                      boxShadow: '0 6px 16px rgba(0,0,0,0.18)',
+                      whiteSpace: 'nowrap',
+                    }}
+                  >
+                    Get for ${LOGO_PRICE}
+                    <span aria-hidden="true" style={{ color: 'var(--m-brand)' }}>→</span>
+                  </span>
+                </span>
+              )}
+
+              {isUnlocked && (
+                <span
+                  className="absolute"
+                  style={{
+                    top: 8,
+                    left: 8,
+                    padding: '4px 8px',
+                    borderRadius: 9999,
+                    background: 'var(--m-success)',
+                    color: '#FFFFFF',
+                    fontFamily: 'var(--m-font-sans), sans-serif',
+                    fontSize: 10,
+                    fontWeight: 700,
+                    letterSpacing: '0.04em',
+                  }}
+                >
+                  PURCHASED
+                </span>
+              )}
+            </button>
+          )
+        })}
+      </div>
+
+      {/* Value reassurance — S1 pattern. Reinforces what unlock gives you. */}
+      <div
+        className="m-sans"
+        style={{
+          marginTop: 32,
+          padding: '20px 24px',
+          borderRadius: 16,
+          border: '1px solid var(--m-border)',
+          background: 'var(--m-surface-alt, #FAF7F4)',
+          textAlign: 'center',
+        }}
+      >
+        <div className="m-display" style={{ fontSize: 15, fontWeight: 700, color: 'var(--m-ink)', marginBottom: 6 }}>
+          What you get for $49
+        </div>
+        <div style={{ fontSize: 13, color: 'var(--m-text-muted)', lineHeight: 1.55 }}>
+          HD PNG · vector SVG · print PDF & EPS · light and dark variants · full commercial license
+        </div>
+      </div>
+
+      <div className="flex flex-col items-center" style={{ marginTop: 24, gap: 6 }}>
+        <button
+          type="button"
+          onClick={onStartOver}
+          className="m-sans"
+          style={{ fontSize: 13, fontWeight: 600, color: 'var(--m-text-soft)', background: 'transparent', border: 'none', cursor: 'pointer' }}
+        >
+          Want something different? Generate again
+        </button>
+      </div>
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* sub-components                                                      */
+/* ------------------------------------------------------------------ */
+
+const textInputStyle: CSSProperties = {
+  width: '100%',
+  padding: '14px 16px',
+  borderRadius: 12,
+  border: '1px solid var(--m-border)',
+  background: 'var(--m-surface)',
+  fontFamily: 'var(--m-font-sans), sans-serif',
+  fontSize: 16,
+  color: 'var(--m-ink)',
+  outline: 'none',
+  boxSizing: 'border-box',
+  transition: 'border-color 0.2s ease',
+}
+
+function Pill({
+  selected,
+  onClick,
+  children,
+}: {
+  selected: boolean
+  onClick: () => void
+  children: ReactNode
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="m-sans"
+      style={{
+        padding: '8px 16px',
+        borderRadius: 8,
+        border: '1px solid',
+        borderColor: selected ? 'var(--m-brand)' : 'var(--m-border)',
+        background: selected ? 'var(--m-brand-soft)' : 'var(--m-surface)',
+        color: selected ? 'var(--m-brand-strong)' : 'var(--m-text-muted)',
+        fontSize: 13,
+        fontWeight: 500,
+        cursor: 'pointer',
+        transition: 'border-color 0.15s ease, background 0.15s ease, color 0.15s ease',
+      }}
+    >
+      {children}
+    </button>
+  )
+}
+
+function ListRow({
+  selected,
+  disabled = false,
+  onClick,
+  number,
+  showCheckWhenSelected = false,
+  children,
+}: {
+  selected: boolean
+  disabled?: boolean
+  onClick: () => void
+  number: number
+  showCheckWhenSelected?: boolean
+  children: ReactNode
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      className="m-sans text-left flex items-center"
+      style={{
+        gap: 10,
+        padding: '12px 14px',
+        borderRadius: 10,
+        border: '1px solid',
+        borderColor: selected ? 'var(--m-brand)' : 'var(--m-border)',
+        background: selected ? 'var(--m-brand-soft)' : 'var(--m-surface)',
+        color: disabled ? 'var(--m-text-faint)' : selected ? 'var(--m-ink)' : 'var(--m-text-muted)',
+        fontSize: 14,
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        opacity: disabled ? 0.55 : 1,
+        transition: 'border-color 0.15s ease, background 0.15s ease, color 0.15s ease',
+      }}
+    >
+      <span
+        className="inline-flex items-center justify-center flex-shrink-0"
+        style={{
+          width: 22,
+          height: 22,
+          borderRadius: 6,
+          fontSize: 11,
+          fontWeight: 700,
+          background: selected ? 'var(--m-brand)' : 'var(--m-border)',
+          color: selected ? '#FFFFFF' : 'var(--m-text-soft)',
+          fontFamily: 'var(--m-font-sans), sans-serif',
+        }}
+      >
+        {selected && showCheckWhenSelected ? '✓' : number}
+      </span>
+      {children}
+    </button>
+  )
+}
+
+function CountHeader({ label, count, target }: { label: string; count: number; target: number }) {
+  // S1-style section header — display-font semibold label, right-aligned
+  // count badge. No uppercase monospace.
+  const done = count === target
+  return (
+    <div className="flex items-center justify-between" style={{ marginBottom: 14 }}>
+      <span
+        className="m-display"
+        style={{ fontSize: 17, fontWeight: 600, color: 'var(--m-ink)', letterSpacing: '-0.01em' }}
+      >
+        {label}
+      </span>
+      <span
+        className="m-sans"
+        style={{
+          fontSize: 13,
+          fontWeight: 600,
+          color: done ? 'var(--m-success)' : 'var(--m-text-soft)',
+        }}
+      >
+        {count}/{target} selected
+      </span>
+    </div>
+  )
+}
+
+// "Let AI decide" — small text-button that lives at the bottom of each
+// optional step. Click → onPick() fills the step's field with a sensible
+// default. Continue stays available; we don't auto-advance.
+function AIDecideLink({ onPick, label }: { onPick: () => void; label: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onPick}
+      className="m-sans inline-flex items-center justify-center"
+      style={{
+        alignSelf: 'center',
+        gap: 6,
+        marginTop: 4,
+        padding: '8px 16px',
+        borderRadius: 9999,
+        border: '1px dashed var(--m-brand-soft)',
+        background: 'transparent',
+        color: 'var(--m-brand-strong)',
+        fontSize: 13,
+        fontWeight: 600,
+        cursor: 'pointer',
+        transition: 'background 0.15s ease, border-color 0.15s ease',
+      }}
+      onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--m-brand-soft)'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--m-brand)' }}
+      onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent'; (e.currentTarget as HTMLElement).style.borderColor = 'var(--m-brand-soft)' }}
+    >
+      <span aria-hidden="true">✦</span>
+      <span>{label}</span>
+    </button>
+  )
+}
+
+function SectionHeading({ children }: { children: ReactNode }) {
+  // Used for non-count section labels (e.g. "AI suggestions",
+  // "AI-generated taglines"). Same S1 typographic treatment as CountHeader.
+  return (
+    <div
+      className="m-display"
+      style={{ marginBottom: 12, fontSize: 17, fontWeight: 600, color: 'var(--m-ink)', letterSpacing: '-0.01em' }}
+    >
+      {children}
+    </div>
+  )
+}
+
+function FooterNav({
+  onNext,
+  canProceed,
+  nextLabel,
+  aiPick,
+  aiLabel,
+}: {
+  onNext: () => void
+  canProceed: boolean
+  nextLabel: string
+  aiPick?: () => void
+  aiLabel?: string
+}) {
+  // Single CTA in the footer. When the user hasn't engaged with the step
+  // yet AND the step has an AI default, the slot shows a "✦ Let AI pick"
+  // button. The moment they make any selection (canProceed flips true),
+  // it swaps to Continue. Steps without an AI option (1, 2) still show
+  // a disabled Continue until valid.
+  const showAi = !canProceed && Boolean(aiPick && aiLabel)
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 50,
+        background: '#FFFFFF',
+        borderTop: '1px solid var(--m-border)',
+        padding: '16px 24px max(16px, env(safe-area-inset-bottom))',
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+    >
+      {showAi ? (
+        <button
+          type="button"
+          onClick={aiPick}
+          className="m-sans inline-flex items-center justify-center gap-2"
+          style={{
+            width: '100%',
+            maxWidth: 360,
+            padding: '14px 24px',
+            borderRadius: 8,
+            border: '1.5px dashed var(--m-brand)',
+            background: 'var(--m-brand-soft)',
+            color: 'var(--m-brand-strong)',
+            fontSize: 16,
+            fontWeight: 700,
+            cursor: 'pointer',
+            transition: 'background 0.15s ease',
+          }}
+          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'rgba(217,119,87,0.18)' }}
+          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--m-brand-soft)' }}
+        >
+          <span aria-hidden="true">✦</span>
+          <span>{aiLabel}</span>
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={onNext}
+          disabled={!canProceed}
+          className="m-sans"
+          style={{
+            width: '100%',
+            maxWidth: 360,
+            padding: '14px 24px',
+            borderRadius: 8,
+            border: 'none',
+            background: 'var(--m-brand)',
+            color: '#FFFFFF',
+            fontSize: 16,
+            fontWeight: 600,
+            cursor: canProceed ? 'pointer' : 'not-allowed',
+            opacity: canProceed ? 1 : 0.5,
+            transition: 'opacity 0.15s ease',
+          }}
+        >
+          {nextLabel}
+        </button>
+      )}
+    </div>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/* shared visuals (logo art + watermark + reservation badge)           */
+/* ------------------------------------------------------------------ */
+
+function WatermarkOverlay() {
+  const tiles = Array.from({ length: 48 })
+  return (
+    <span
+      aria-hidden="true"
+      style={{
+        position: 'absolute',
+        inset: 0,
+        display: 'grid',
+        gridTemplateColumns: 'repeat(6, 1fr)',
+        gridTemplateRows: 'repeat(8, 1fr)',
+        pointerEvents: 'none',
+        transform: 'rotate(-28deg) scale(1.6)',
+        transformOrigin: 'center',
+        opacity: 0.18,
+      }}
+    >
+      {tiles.map((_, i) => (
+        <span
+          key={i}
+          className="m-sans"
+          style={{
+            fontSize: 11,
+            fontWeight: 700,
+            letterSpacing: '0.18em',
+            color: 'var(--m-ink-deep)',
+            textAlign: 'center',
+            alignSelf: 'center',
+          }}
+        >
+          LOGO.AI
+        </span>
+      ))}
+    </span>
+  )
+}
+
+function initialsOf(name: string) {
+  const parts = name.trim().split(/\s+/).filter(Boolean)
+  if (!parts.length) return 'LA'
+  return (parts[0][0] + (parts[1]?.[0] ?? parts[0][1] ?? '')).toUpperCase()
+}
+
+function applyCase(s: string, style: string) {
+  if (!style) return s
+  if (style === 'all lowercase') return s.toLowerCase()
+  if (style === 'ALL CAPS') return s.toUpperCase()
+  if (style === 'Title Case') return s.replace(/\b\w/g, (m) => m.toUpperCase()).replace(/(?!\b)\w+/g, (w) => w.toLowerCase())
+  if (style === 'camelCase') {
+    const parts = s.split(/\s+/).filter(Boolean)
+    if (!parts.length) return s
+    return parts[0].toLowerCase() + parts.slice(1).map((p) => p[0].toUpperCase() + p.slice(1).toLowerCase()).join('')
+  }
+  return s
+}
+
+function LogoArtwork({
+  variant,
+  name,
+  tagline,
+  palette,
+  logoTypeIndex,
+}: {
+  variant: number
+  name: string
+  tagline: string
+  palette: Palette | null
+  logoTypeIndex: number | null
+}) {
+  const display = name.trim() || 'Your Brand'
+  const colors = palette
+    ? palette.colors.map((c) => c.hex)
+    : ['#B5532E', '#E8C9B0', '#6B4423', '#8A9B6E']
+  const [c0, c1, c2] = colors
+  // Step 7 — Logo type biases which set of variants to draw. We map type index → preferred variants
+  // and rotate within them so the user sees 10 logos in their chosen layout family.
+  const typeFamilies: Record<number, number[]> = {
+    0: [0, 1, 5, 7], // Wordmark
+    1: [4, 6, 2],    // Combination Mark
+    2: [4, 6, 8],    // Abstract Mark
+    3: [2, 8],       // Lettermark
+    4: [8, 6],       // Brandmark
+    5: [3, 8],       // Emblem
+  }
+  const family = logoTypeIndex !== null ? typeFamilies[logoTypeIndex] : null
+  const familyVariant = family && family.length ? family[variant % family.length] : variant % 10
+  return <LogoArt variant={familyVariant} display={display} tagline={tagline} c0={c0} c1={c1} c2={c2} />
+}
+
+function LogoArt({
+  variant,
+  display,
+  tagline,
+  c0,
+  c1,
+  c2,
+}: {
+  variant: number
+  display: string
+  tagline: string
+  c0: string
+  c1: string
+  c2: string
+}) {
+  const initials = initialsOf(display)
+  const wordmark = (color: string, size = 26) => (
+    <span style={{ fontFamily: 'var(--m-font-wordmark), serif', fontSize: size, color, letterSpacing: '-0.02em', lineHeight: 1 }}>
+      {display}
+    </span>
+  )
+  const taglineLine = (color: string) =>
+    tagline ? (
+      <span className="m-sans" style={{ fontSize: 10, letterSpacing: '0.18em', textTransform: 'uppercase', color }}>
+        {tagline}
+      </span>
+    ) : null
+  const base: CSSProperties = {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    padding: 20,
+    textAlign: 'center',
+    overflow: 'hidden',
+    background: '#FFFFFF',
+  }
+  switch (variant) {
+    case 0:
+      return (
+        <div style={base}>
+          {wordmark(c0, 26)}
+          {taglineLine(c2)}
+        </div>
+      )
+    case 1:
+      return (
+        <div style={base}>
+          <span className="m-display" style={{ fontWeight: 800, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.04em', color: c0 }}>
+            {display}
+          </span>
+          <span style={{ width: 28, height: 3, borderRadius: 2, background: c1 }} />
+        </div>
+      )
+    case 2:
+      return (
+        <div style={{ ...base, gap: 10 }}>
+          <span
+            className="m-display"
+            style={{ width: 46, height: 46, borderRadius: '50%', background: c0, color: '#FFFFFF', fontWeight: 800, fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          >
+            {initials}
+          </span>
+          <span className="m-sans" style={{ fontWeight: 700, fontSize: 14, color: c2, letterSpacing: '0.04em' }}>{display}</span>
+        </div>
+      )
+    case 3:
+      return (
+        <div style={{ ...base, background: c2 }}>
+          {wordmark('#FFFFFF', 24)}
+          {taglineLine(c1)}
+        </div>
+      )
+    case 4:
+      return (
+        <div style={{ ...base, flexDirection: 'row', gap: 10 }}>
+          <span style={{ width: 26, height: 26, borderRadius: 6, background: c0 }} />
+          <span className="m-display" style={{ fontWeight: 700, fontSize: 19, color: c2 }}>{display}</span>
+        </div>
+      )
+    case 5:
+      return (
+        <div style={base}>
+          <span className="m-display" style={{ fontWeight: 600, fontSize: 22, color: c2, textTransform: 'lowercase' }}>
+            {display}
+            <span style={{ color: c0 }}>.</span>
+          </span>
+        </div>
+      )
+    case 6:
+      return (
+        <div style={{ ...base, background: c1 }}>
+          <span style={{ width: 30, height: 30, borderRadius: 8, background: c2 }} />
+          <span className="m-display" style={{ fontWeight: 700, fontSize: 19, color: c2 }}>{display}</span>
+          {taglineLine(c0)}
+        </div>
+      )
+    case 7:
+      return (
+        <div style={base}>
+          <span style={{ fontFamily: 'var(--m-font-wordmark), serif', fontStyle: 'italic', fontWeight: 600, fontSize: 26, color: c0 }}>
+            {display}
+          </span>
+          <span style={{ width: 50, height: 1, background: c2 }} />
+          {taglineLine(c2)}
+        </div>
+      )
+    case 8:
+      return (
+        <div style={{ ...base, gap: 8 }}>
+          <span
+            style={{
+              width: 50,
+              height: 50,
+              borderRadius: '50%',
+              border: `2px solid ${c0}`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: c0,
+              fontFamily: 'var(--m-font-wordmark), serif',
+              fontSize: 22,
+            }}
+          >
+            {initials[0]}
+          </span>
+          <span className="m-sans" style={{ fontWeight: 700, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase', color: c2 }}>{display}</span>
+        </div>
+      )
+    default:
+      return (
+        <div style={{ ...base, background: c0 }}>
+          <span style={{ fontFamily: 'var(--m-font-wordmark), serif', fontSize: 26, color: '#FFFFFF', letterSpacing: '-0.02em' }}>
+            {display}
+          </span>
+          {taglineLine(c1)}
+        </div>
+      )
+  }
+}
+
+function IconLock() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="7" width="10" height="7" rx="1.5" />
+      <path d="M5.5 7V5a2.5 2.5 0 0 1 5 0v2" />
+    </svg>
+  )
+}
+

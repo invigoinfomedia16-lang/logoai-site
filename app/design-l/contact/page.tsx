@@ -15,7 +15,7 @@ const CONTACT_METHODS = [
   },
   {
     title: 'Support',
-    body: 'Need help with your account, a logo, or the brand kit?',
+    body: 'Need help with your account or your logo?',
     email: 'support@logo.ai',
     response: 'Response within 24 hours',
   },

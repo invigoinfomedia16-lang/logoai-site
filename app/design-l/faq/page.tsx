@@ -18,7 +18,7 @@ function getFAQ(): Category[] {
     title: 'The basics',
     qas: [
       { q: 'Is it really free?', a: 'Yes — free to create, free to download. No hidden fees, no credit card, no catch.' },
-      { q: 'Why are you offering this for free?', a: "Because the best marketing is a product people can't stop showing off. Try it, love it, tell a friend — that's the plan. We're also betting that most founders will upgrade to the paid brand kit once they see what it does for their launch." },
+      { q: 'Why are you offering this for free?', a: "Because the best marketing is a product people can't stop showing off. Generating and previewing your logo is completely free — you only pay $49 if you find one you love and want to keep." },
       { q: 'Will my logo be unique?', a: 'Every logo is designed from scratch for your brand. No templates. No reused assets. Every logo built for your brand, not pulled from a library.' },
       { q: 'How is this different from other AI logo makers?', a: 'Most AI logo makers stitch together templates and stock elements. LOGO.AI designs from scratch using real design principles — so what you get is original, intentional, and yours alone.' },
       { q: 'When does LOGO.AI launch?', a: 'June 2026. Claim your free logo now — before all 2,000,000 free spots are gone.' },
@@ -38,13 +38,13 @@ function getFAQ(): Category[] {
       { q: 'Do I own my logo?', a: "Yes — once you download it, it's yours. Full commercial and personal rights, no strings attached." },
       { q: 'Can I use my logo for my business?', a: 'Absolutely — personal, commercial, digital, print, everywhere. Once you download it, there are no restrictions, no royalties, no attribution required.' },
       { q: 'Is my logo trademark-safe?', a: "Every logo is designed to be original and distinct. We can't guarantee trademark clearance though — if you plan to register it, run a quick legal check first." },
-      { q: 'What file formats will I get?', a: 'High-resolution PNG with a transparent background at launch. SVG and PDF coming soon.' },
+      { q: 'What file formats will I get?', a: 'Every format you need — PNG, SVG, PDF, and EPS — all with a transparent background. Ready for web, print, and signage.' },
     ],
   },
   {
-    title: 'Pricing & brand kit',
+    title: 'Pricing',
     qas: [
-      { q: 'How much does the Brand Kit cost?', a: 'Pricing will be announced at launch. The logo itself stays free forever — the brand kit is an optional paid upgrade for founders who want the full package: app icons, social assets, business cards, letterhead, mockups, and more.' },
+      { q: 'How much does a logo cost?', a: 'Generating and previewing your logo is completely free. If you find one you love, it’s $49 once — no subscriptions, no add-ons, no surprises. That includes every file format (PNG, SVG, PDF, EPS), transparent backgrounds, re-download anytime, a full commercial license, and our 100% satisfaction guarantee.' },
     ],
   },
   {

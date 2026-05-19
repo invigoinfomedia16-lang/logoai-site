@@ -65,11 +65,11 @@ const SECTIONS: Section[] = [
   },
   {
     num: '4',
-    title: 'The paid brand kit',
+    title: 'Your purchase',
     body: (
       <>
-        <p>If you purchase the paid brand kit, the same ownership rights in Section 3 apply to all assets you receive.</p>
-        <p><strong>Refunds:</strong> If you&apos;re not satisfied with your brand kit purchase, contact us at <a href="mailto:support@logo.ai" className="l-link">support@logo.ai</a> within 14 days of purchase for a full refund. After 14 days, purchases are final unless otherwise required by law.</p>
+        <p>When you purchase a logo from LOGO.AI ($49 one-time), you receive your logo in every format we offer (PNG, SVG, PDF, EPS), with a transparent background and a full commercial license. The same ownership rights described in Section 3 apply to all files you receive.</p>
+        <p><strong>Refunds:</strong> We back every purchase with a 100% satisfaction guarantee. If you&apos;re not satisfied with your logo, contact us at <a href="mailto:support@logo.ai" className="l-link">support@logo.ai</a> within 14 days of purchase for a full refund. After 14 days, purchases are final unless otherwise required by law.</p>
       </>
     ),
   },

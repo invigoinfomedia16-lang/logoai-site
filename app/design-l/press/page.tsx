@@ -44,11 +44,11 @@ const PRESS_KIT_DESCRIPTIONS = [
   },
   {
     label: 'Medium version',
-    body: "LOGO.AI is an AI-powered logo generator launching June 2026. Unlike template-based tools, it's trained on real design principles — color theory, typography pairing, negative space — to generate original, studio-quality logos in 60 seconds. 2,000,000 free logos available at launch, with a paid brand kit for founders who want the full package.",
+    body: "LOGO.AI is an AI-powered logo generator launching June 2026. Unlike template-based tools, it's trained on real design principles — color theory, typography pairing, negative space — to generate original, studio-quality logos in 60 seconds. Generate and preview free, pay $49 only when you find a logo you love.",
   },
   {
     label: 'Full version',
-    body: 'LOGO.AI is an AI logo generator launching June 2026, with claims open now. The platform designs professional, original logos in under sixty seconds using proprietary AI trained on real design principles — color theory, typography pairing, negative space, and visual hierarchy. Unlike traditional logo makers that recombine templates, LOGO.AI generates unique designs tailored to each brand. The company is headquartered in San Francisco, with teams in Singapore, Tallinn, and Dubai. 2,000,000 free logos are being offered at launch on a first-come, first-served basis, with a full paid brand kit — app icons, social kits, business cards, letterhead, mockups, and more — available alongside.',
+    body: 'LOGO.AI is an AI logo generator launching June 2026, with claims open now. The platform designs professional, original logos in under sixty seconds using proprietary AI trained on real design principles — color theory, typography pairing, negative space, and visual hierarchy. Unlike traditional logo makers that recombine templates, LOGO.AI generates unique designs tailored to each brand. The company is headquartered in San Francisco, with teams in Singapore, Tallinn, and Dubai. Generating and previewing logos is completely free; founders pay $49 once for the logo they love, which includes every file format (PNG, SVG, PDF, EPS), a transparent background, re-download access, a full commercial license, and a 100% satisfaction guarantee.',
   },
 ]
 

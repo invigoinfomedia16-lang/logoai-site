@@ -19,8 +19,13 @@ body {
   color: #F5F5F5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
   scroll-behavior: smooth;
+}
+
+/* overflow-x:hidden lives on body only — placing it on <html> breaks
+   position: sticky for descendants (e.g. the sticky site header). */
+body {
+  overflow-x: hidden;
 }
 
 ::selection {

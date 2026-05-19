@@ -196,8 +196,8 @@ export const FAQ_ITEMS = [
     a: "We design logos to reduce look-alike risks. However, we can't guarantee trademark approval. We recommend doing a quick legal check.",
   },
   {
-    q: 'Why are you offering this for free?',
-    a: "We want 2,000,000 founders to experience LOGO.AI firsthand. Once you see the quality, we know you'll come back for brand kits, social assets, and more.",
+    q: 'Why is it free to generate and preview?',
+    a: "We're 100% confident you'll find a logo you love. Generate and preview as many times as you want — pay $49 once when you find the one. If nothing fits, walk away with no charge.",
   },
   {
     q: 'When does LOGO.AI launch?',

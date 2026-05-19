@@ -49,7 +49,7 @@ const SEGMENTS: Segment[] = [
       "No $5K design bill before you've made your first sale",
       'Same quality a local agency would deliver',
       'Ready for print, web, and signage',
-      "Full brand kit available when you're ready to scale",
+      'Every file format you need — PNG, SVG, PDF, and EPS — included',
     ],
     quote: "I'm not a designer. I didn't have to be. The logo just showed up looking like it came from a studio.",
     attribution: 'Sarah Mitchell — Founder, Greenleaf Co. (E-commerce)',
@@ -80,7 +80,7 @@ const SEGMENTS: Segment[] = [
     bullets: [
       'Works at 16 pixels and at 16 inches',
       'Transparent PNG ready for any background',
-      'Brand kit includes social templates, packaging-ready assets, and mockups',
+      'Every format you need — PNG, SVG, PDF, EPS — for product labels, packaging, and screens',
       "Original design — so your brand doesn't look like every other DTC store",
     ],
     quote: "I've rebranded three companies. This was the only one that didn't take six weeks.",

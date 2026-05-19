@@ -38,7 +38,7 @@ const SECTIONS: Section[] = [
         </ul>
         <p><strong>We do not collect:</strong></p>
         <ul>
-          <li>Payment information (not until you purchase the paid brand kit)</li>
+          <li>Payment information (only when you purchase a logo)</li>
           <li>Social security numbers, government IDs, or financial account details</li>
           <li>Data from other accounts unless you explicitly share it</li>
         </ul>
@@ -78,7 +78,7 @@ const SECTIONS: Section[] = [
           <li><strong>Cloud hosting providers</strong> — to store and serve our product</li>
           <li><strong>Email service providers</strong> — to send account and support emails</li>
           <li><strong>Analytics providers</strong> — to understand how our product is used (anonymized where possible)</li>
-          <li><strong>Payment processors</strong> — if and when you purchase the paid brand kit</li>
+          <li><strong>Payment processors</strong> — if and when you purchase a logo</li>
         </ul>
         <p>All partners are contractually bound to protect your data and use it only for the specific services they provide to us.</p>
       </>

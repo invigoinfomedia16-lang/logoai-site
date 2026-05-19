@@ -1,6 +1,6 @@
 'use client'
 
-// Product — what LOGO.AI does + how it works + core features + brand kit.
+// Product — what LOGO.AI does + how it works + core features + what you get.
 // Copy verbatim from CONTENT/NEW/PRODUCT.docx.
 
 import Link from 'next/link'
@@ -35,18 +35,12 @@ const FEATURES = [
   { Icon: GlobeHemisphereWest,   title: 'Works everywhere',               body: 'Built for web, print, and apps — so your brand stays consistent at every size, in every context.' },
 ]
 
-const BRAND_KIT_ITEMS = [
-  { title: 'App Icons',          body: 'App Store and Google Play ready, iOS + Android.' },
-  { title: 'Social Kit',         body: 'Profiles, covers, stories. Sized perfectly for every platform.' },
-  { title: 'Brand Colors',       body: 'HEX, RGB, CMYK. Web and print.' },
-  { title: 'Font Guide',         body: 'Matched fonts for headlines, body, and accents.' },
-  { title: 'Brand Guide',        body: "Usage rules, spacing, do's and don'ts." },
-  { title: 'Business Card',      body: 'Print-ready front and back.' },
-  { title: 'Web Assets',         body: 'Favicons, OG images, optimized graphics.' },
-  { title: 'Email Signature',    body: 'Branded with your logo, colors, and links.' },
-  { title: 'Letterhead',         body: 'Proposals, contracts, letters.' },
-  { title: 'Invoice Design',     body: 'A layout that makes you look established from day one.' },
-  { title: 'Mockups',            body: 'Your logo on shirts, cards, signage, and more.' },
+const WHAT_YOU_GET = [
+  { title: 'Every format you need', body: 'PNG, SVG, PDF, and EPS — ready for web, print, signage, anywhere.' },
+  { title: 'Transparent background', body: 'Drops cleanly onto any color or photo, no white box.' },
+  { title: 'Re-download anytime',    body: 'Lost a file? Log in and grab it again. Forever.' },
+  { title: 'Full commercial license',body: 'Personal, commercial, digital, print — no royalties, no attribution.' },
+  { title: '100% satisfaction guarantee', body: 'If you’re not happy with your logo, we’ll make it right.' },
 ]
 
 export default function ProductPage() {
@@ -60,7 +54,7 @@ export default function ProductPage() {
             Everything LOGO.AI can do for your brand
           </p>
           <p className="dk-body-lg max-w-[680px]" style={{ color: 'rgba(21,20,26,0.7)' }}>
-            An original logo in 60 seconds. A full brand kit designed around it. All powered by AI trained on real design principles.
+            An original logo in 60 seconds. In every format you need. All powered by AI trained on real design principles.
           </p>
         </div>
       </LSection>
@@ -178,49 +172,30 @@ export default function ProductPage() {
         </div>
       </LSection>
 
-      {/* What you get — Free + Brand Kit */}
+      {/* What you get — single tier, $49 one-time */}
       <LSection tone="alt">
-        <LSectionHeader eyebrow="What you get" title="Your logo is free. The rest of your brand comes with it." />
+        <LSectionHeader eyebrow="What you get" title="One logo. Every format. $49 once." />
         <div className="max-w-[720px] mx-auto text-center mb-10">
           <p className="dk-body-lg" style={{ color: 'rgba(21,20,26,0.7)' }}>
-            Most founders need more than a logo. So we built everything else too — business cards, social assets, app icons, mockups, the works. All designed to match your logo.
+            Generate and preview free. Pay $49 once when you find a logo you love — and walk away with every file you need to launch.
           </p>
         </div>
 
-        <div className="max-w-[820px] mx-auto flex flex-col gap-6">
-          {/* Free — compact callout */}
-          <div
-            style={{
-              background: '#FFFFFF',
-              borderRadius: 20,
-              padding: 32,
-              border: '2px solid #7543E3',
-            }}
-          >
-            <p className="dk-caption mb-3" style={{ color: '#7543E3', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 700 }}>
-              Free
-            </p>
-            <h3 className="dk-h3 mb-3" style={{ color: '#15141A' }}>Logo Files</h3>
-            <p className="dk-body-lg m-0" style={{ color: 'rgba(21,20,26,0.7)' }}>
-              High-res PNG with transparent background. SVG, JPG, and PDF coming soon.
-            </p>
-          </div>
-
-          {/* Brand Kit — expanded card with 2-col items grid */}
+        <div className="max-w-[820px] mx-auto">
           <div
             style={{
               background: '#FFFFFF',
               borderRadius: 20,
               padding: 'clamp(28px, 4vw, 40px)',
-              border: '1px solid rgba(32,18,58,0.08)',
+              border: '2px solid #7543E3',
             }}
           >
-            <p className="dk-caption mb-3" style={{ color: 'rgba(21,20,26,0.55)', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 700 }}>
-              Brand Kit — paid upgrade
+            <p className="dk-caption mb-3" style={{ color: '#7543E3', textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 700 }}>
+              $49 one-time
             </p>
-            <h3 className="dk-h3 mb-6" style={{ color: '#15141A' }}>Everything to launch your brand</h3>
+            <h3 className="dk-h3 mb-6" style={{ color: '#15141A' }}>Everything that comes with your logo</h3>
             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 sm:gap-x-8 gap-y-5 list-none p-0 m-0">
-              {BRAND_KIT_ITEMS.map((item, i) => (
+              {WHAT_YOU_GET.map((item, i) => (
                 <li key={i}>
                   <p className="dk-body m-0 mb-1" style={{ color: '#15141A', fontWeight: 600 }}>
                     {item.title}
@@ -236,7 +211,7 @@ export default function ProductPage() {
 
         <div className="max-w-[720px] mx-auto text-center mt-10">
           <p className="dk-body-lg" style={{ color: '#15141A', fontWeight: 500 }}>
-            The logo is free. The rest is a paid upgrade.
+            No subscriptions. No upsells. Just your logo, ready to use.
           </p>
         </div>
       </LSection>

@@ -45,7 +45,7 @@ const STEPS = [
       label: 'What you get',
       body: 'A real logo. An original design. Yours to use anywhere, forever.',
     },
-    tail: 'Want more? The full brand kit — business cards, app icons, social templates, mockups — is available as a paid upgrade whenever you\'re ready.',
+    tail: 'Every format you need is included: PNG, SVG, PDF, and EPS — all with a transparent background. Pay $49 once when you find a logo you love, then re-download anytime.',
   },
 ]
 

@@ -34,10 +34,10 @@ const DIFFERENTIATORS = [
   },
   {
     num: '04',
-    title: 'It gives you more than a logo',
-    lede: "Most tools stop at the logo. LOGO.AI doesn't.",
-    body: 'Other logo makers hand you a file and walk away. LOGO.AI gives you a full brand system — business cards, social assets, app icons, mockups, the works. All designed to match.',
-    tag: 'The logo is free. The brand kit is a paid upgrade, ready the moment you need it.',
+    title: 'It gives you every format you need',
+    lede: "One purchase. Every file. Ready for anywhere your brand shows up.",
+    body: 'Other logo makers hand you a low-res PNG and charge extra for the rest. LOGO.AI gives you PNG, SVG, PDF, and EPS — all with a transparent background, all with a full commercial license, all included.',
+    tag: 'Generate and preview free. Pay $49 once for the logo you love.',
   },
   {
     num: '05',
@@ -57,7 +57,7 @@ const COMPARISON: Row[] = [
   { label: 'Originality',                            logoai: true,                       designer: true,               otherAI: false },
   { label: 'Trained on real design principles',      logoai: true,                       designer: 'N/A',              otherAI: false },
   { label: 'Understands your brand',                 logoai: true,                       designer: true,               otherAI: false },
-  { label: 'Full brand system',                      logoai: true,                       designer: 'Custom quote',     otherAI: false },
+  { label: 'Every file format included',             logoai: true,                       designer: 'Custom quote',     otherAI: false },
   { label: 'Revisions needed',                       logoai: 'None',                     designer: 'Multiple rounds',  otherAI: 'Trial and error' },
 ]
 
