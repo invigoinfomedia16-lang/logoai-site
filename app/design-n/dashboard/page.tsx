@@ -299,11 +299,7 @@ export default function DashboardPage() {
               aspectRatio: '5 / 3',
             }}
           >
-            <img
-              src="/preview-logos/coffee-1.png"
-              alt={`${BRAND.name} logo`}
-              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', padding: 32 }}
-            />
+            <LogoArtwork variant="wordmark" colorMode={colorMode} />
           </div>
 
           <div className="flex flex-col" style={{ gap: 16 }}>
@@ -559,11 +555,7 @@ function FilesTab({ colorMode }: { colorMode: 'full' | 'dark' | 'mono' }) {
             className="relative"
             style={{ aspectRatio: '4 / 3', background: 'var(--m-surface-alt)' }}
           >
-            <img
-              src="/preview-logos/coffee-1.png"
-              alt={`${BRAND.name} logo`}
-              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', padding: 32 }}
-            />
+            <LogoArtwork variant="wordmark" colorMode="full" />
           </div>
           <div className="flex flex-col" style={{ padding: 14, gap: 10 }}>
             <div>
