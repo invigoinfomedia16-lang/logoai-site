@@ -49,9 +49,9 @@ const STEPS = [
 // Preview tiles use existing logo gallery images so the visual carries some
 // "real product" feel without depending on HEADSHOT-only assets.
 const PREVIEWS = [
-  ['/Images/Logos/restaurant-logo-1.webp', '/Images/Logos/coffee-shop-logo-1.webp', '/Images/Logos/bakery-logo-1.webp'],
-  ['/Images/Logos/barbershop-logo-1.webp', '/Images/Logos/hair-salon-logo-1.webp', '/Images/Logos/nail-studio-logo-1.webp'],
-  ['/Images/Logos/clothing-brand-logo-1.webp', '/Images/Logos/gym-logo-1.webp', '/Images/Logos/tattoo-studio-logo-1.webp'],
+  ['/images/Logos/restaurant-logo-1.webp', '/images/Logos/coffee-shop-logo-1.webp', '/images/Logos/bakery-logo-1.webp'],
+  ['/images/Logos/barbershop-logo-1.webp', '/images/Logos/hair-salon-logo-1.webp', '/images/Logos/nail-studio-logo-1.webp'],
+  ['/images/Logos/clothing-brand-logo-1.webp', '/images/Logos/gym-logo-1.webp', '/images/Logos/tattoo-studio-logo-1.webp'],
 ]
 
 export default function MHowItWorks() {

@@ -24,18 +24,18 @@ function StarIcon({ size = 14 }: { size?: number }) {
 }
 
 const HERO_LOGOS = [
-  '/Images/Logos/restaurant-logo-1.webp',
-  '/Images/Logos/coffee-shop-logo-1.webp',
-  '/Images/Logos/bakery-logo-1.webp',
-  '/Images/Logos/food-truck-logo-1.webp',
-  '/Images/Logos/barbershop-logo-1.webp',
-  '/Images/Logos/hair-salon-logo-1.webp',
-  '/Images/Logos/nail-studio-logo-1.webp',
-  '/Images/Logos/boutique-logo-1.webp',
-  '/Images/Logos/clothing-brand-logo-1.webp',
-  '/Images/Logos/gym-logo-1.webp',
-  '/Images/Logos/cleaning-service-logo-1.webp',
-  '/Images/Logos/tattoo-studio-logo-1.webp',
+  '/images/Logos/restaurant-logo-1.webp',
+  '/images/Logos/coffee-shop-logo-1.webp',
+  '/images/Logos/bakery-logo-1.webp',
+  '/images/Logos/food-truck-logo-1.webp',
+  '/images/Logos/barbershop-logo-1.webp',
+  '/images/Logos/hair-salon-logo-1.webp',
+  '/images/Logos/nail-studio-logo-1.webp',
+  '/images/Logos/boutique-logo-1.webp',
+  '/images/Logos/clothing-brand-logo-1.webp',
+  '/images/Logos/gym-logo-1.webp',
+  '/images/Logos/cleaning-service-logo-1.webp',
+  '/images/Logos/tattoo-studio-logo-1.webp',
 ]
 
 export default function NHero() {

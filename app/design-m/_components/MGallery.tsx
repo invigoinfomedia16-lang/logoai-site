@@ -1,29 +1,29 @@
 // Gallery — two horizontally-scrolling marquee rows of LOGO.AI-generated
 // example logos, mirroring HEADSHOT's gallery pattern. Uses real logo
-// images from /Images/Logos so the section feels concrete.
+// images from /images/Logos so the section feels concrete.
 
 import Image from 'next/image'
 
 const ROW_A = [
-  '/Images/Logos/restaurant-logo-1.webp',
-  '/Images/Logos/coffee-shop-logo-1.webp',
-  '/Images/Logos/bakery-logo-1.webp',
-  '/Images/Logos/food-truck-logo-1.webp',
-  '/Images/Logos/barbershop-logo-1.webp',
-  '/Images/Logos/hair-salon-logo-1.webp',
-  '/Images/Logos/nail-studio-logo-1.webp',
-  '/Images/Logos/boutique-logo-1.webp',
+  '/images/Logos/restaurant-logo-1.webp',
+  '/images/Logos/coffee-shop-logo-1.webp',
+  '/images/Logos/bakery-logo-1.webp',
+  '/images/Logos/food-truck-logo-1.webp',
+  '/images/Logos/barbershop-logo-1.webp',
+  '/images/Logos/hair-salon-logo-1.webp',
+  '/images/Logos/nail-studio-logo-1.webp',
+  '/images/Logos/boutique-logo-1.webp',
 ]
 
 const ROW_B = [
-  '/Images/Logos/clothing-brand-logo-1.webp',
-  '/Images/Logos/gym-logo-1.webp',
-  '/Images/Logos/cleaning-service-logo-1.webp',
-  '/Images/Logos/landscaping-company-logo-1.webp',
-  '/Images/Logos/pet-grooming-logo-1.webp',
-  '/Images/Logos/e-commerce-brand-logo-7.webp',
-  '/Images/Logos/content-creator-logo-1.webp',
-  '/Images/Logos/tattoo-studio-logo-1.webp',
+  '/images/Logos/clothing-brand-logo-1.webp',
+  '/images/Logos/gym-logo-1.webp',
+  '/images/Logos/cleaning-service-logo-1.webp',
+  '/images/Logos/landscaping-company-logo-1.webp',
+  '/images/Logos/pet-grooming-logo-1.webp',
+  '/images/Logos/e-commerce-brand-logo-7.webp',
+  '/images/Logos/content-creator-logo-1.webp',
+  '/images/Logos/tattoo-studio-logo-1.webp',
 ]
 
 function MarqueeRow({ tiles }: { tiles: string[] }) {
