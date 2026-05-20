@@ -174,26 +174,16 @@ Return the 6 types in descending order of "pct".`
 
   if (req.kind === 'industry') {
     const q = (req.query ?? '').trim()
-    return `You power a business-type typeahead for a logo generator. The user is typing into a "Business Type" search box and has entered: "${q}".
+    return `You power a business-type typeahead for a logo generator. The user has typed "${q}" into a "Business Type" search box.
 
-Return 8-10 SPECIFIC business-type suggestions that are variations on "${q}". Cover this spread:
-- The 2-3 most literal, common interpretations of "${q}" first.
-- A mobile / on-location version (e.g. "Mobile auto detailing").
-- A luxury / premium version (e.g. "Luxury car detailing").
-- An eco-friendly / sustainable version (e.g. "Eco-friendly auto detailing").
-- A scale variation — solo/boutique vs franchise/chain (e.g. "Auto detailing franchise").
-- 1-2 adjacent / related business types the user might also mean.
+Return 8-10 specific business types the user is likely searching for.
 
 Rules:
-- Each is a short label, 1-4 words. Be SPECIFIC, never broad — "Personal injury lawyer" not "Legal", "Hot yoga studio" not "Fitness".
-- Sentence case (capitalize first word only) unless a proper noun.
-- No duplicates. No descriptions — just the label.
-- RELEVANCE IS STRICT: every suggestion must be a plausible completion or
-  variation of "${q}". Either a word in the label starts with "${q}", or the
-  label contains "${q}". NEVER include an unrelated business type — e.g. for
-  "fa" return "Fashion boutique" / "Fast food restaurant" / "Family diner",
-  but NOT "Financial advisor" (no word starts with "fa").
-- If "${q}" is too short or vague to interpret, return 8 common, popular business types instead.
+- RELEVANCE: every suggestion must clearly relate to "${q}" — either the suggestion begins with "${q}", or "${q}" appears as a whole word within it. NEVER return an unrelated business type. (For "fa": "Fashion boutique", "Fast food restaurant", "Family diner" are valid; "Financial advisor" is NOT — no word starts with "fa".)
+- ORDER: list the suggestions that BEGIN WITH "${q}" first — they are the most likely matches — then the rest.
+- If "${q}" already reads as a complete business type, you may add a few natural variations of it (mobile, premium, eco-friendly, franchise, etc.) — but ONLY when "${q}" still appears within them.
+- Be specific, not broad: a precise niche ("Personal injury lawyer") over a generic category ("Legal").
+- Each label: 1-4 words, sentence case, no duplicates, no descriptions — just the label.
 
 Respond with ONLY a JSON object of shape: { "suggestions": ["...", "...", ...] }`
   }

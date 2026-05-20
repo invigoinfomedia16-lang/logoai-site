@@ -824,24 +824,26 @@ function IndustryCombobox({
     return s.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
   }
 
-  // Relevance filter + ordering for the AI typeahead. A suggestion is kept
-  // only if it relates to the typed text — either a word in it starts with
-  // the query, or it contains the query as a substring (so variations like
-  // "Mobile auto detailing" for "auto" survive, while unrelated guesses
-  // like "Financial advisor" for "fa" are dropped). Ordering: word-prefix
-  // matches first (A–Z), then the remaining contained-variations (A–Z).
+  // Relevance filter + ordering for the AI typeahead.
+  //  - Keep a suggestion if a word in it starts with the query, or it
+  //    contains the query (so "Mobile auto detailing" survives for "auto",
+  //    while "Financial advisor" is dropped for "fa").
+  //  - Order: suggestions whose WHOLE LABEL starts with the query come
+  //    first (A–Z) — so the top of the list matches what the user typed —
+  //    then the rest (A–Z).
   const displayMatches = (() => {
     const q = query.trim().toLowerCase()
     if (!q) return [] as string[]
-    const wordPrefix = (label: string) =>
+    const labelStarts = (label: string) => label.toLowerCase().startsWith(q)
+    const wordStarts = (label: string) =>
       label.toLowerCase().split(/\s+/).some((w) => w.startsWith(q))
     const relevant = aiMatches.filter(
-      (m) => wordPrefix(m) || m.toLowerCase().includes(q),
+      (m) => wordStarts(m) || m.toLowerCase().includes(q),
     )
     const byAlpha = (a: string, b: string) => a.localeCompare(b)
-    const prefixHits = relevant.filter(wordPrefix).sort(byAlpha)
-    const rest = relevant.filter((m) => !wordPrefix(m)).sort(byAlpha)
-    return [...prefixHits, ...rest]
+    const starts = relevant.filter(labelStarts).sort(byAlpha)
+    const rest = relevant.filter((m) => !labelStarts(m)).sort(byAlpha)
+    return [...starts, ...rest]
   })()
 
   // Offline / AI-failure fallback — substring match against the small
