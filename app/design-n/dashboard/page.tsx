@@ -651,7 +651,7 @@ function Tag({ children }: { children: ReactNode }) {
       className="m-sans"
       style={{
         padding: '4px 10px',
-        borderRadius: 9999,
+        borderRadius: 'var(--m-radius-md)',
         background: 'var(--m-surface-alt)',
         color: 'var(--m-text-muted)',
         fontSize: 12,

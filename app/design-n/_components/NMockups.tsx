@@ -30,7 +30,7 @@ function CategoryPill({
       className="flex-shrink-0 cursor-pointer m-sans"
       style={{
         padding: '10px 18px',
-        borderRadius: 'var(--m-radius-pill)',
+        borderRadius: 'var(--m-radius-md)',
         border: active
           ? '1px solid var(--m-brand)'
           : hovered
