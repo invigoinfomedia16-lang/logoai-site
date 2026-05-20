@@ -27,21 +27,6 @@ import {
 } from 'react'
 import NCheckoutModal from '../_components/NCheckoutModal'
 import { useLiveSuggestions, isString, isPalette, isStyle, type PaletteShape, type StyleShape } from './useLiveSuggestions'
-
-// Module-level mirror of the latest live-AI lists for the grid steps. The
-// AI-pick handlers in aiInfoForStep() live in the parent (LogoOnboarding)
-// but the useLiveSuggestions hooks fire inside FormSteps — so this ref is
-// the simplest bridge to make AI-picked values come from the SAME list that
-// the grid renders. FormSteps writes via useEffect; aiInfoForStep reads.
-const liveListsRef: {
-  impressions: string[]
-  palettes: PaletteShape[]
-  styles: StyleShape[]
-} = {
-  impressions: [],
-  palettes: [],
-  styles: [],
-}
 import { INDUSTRY_FALLBACK, type IndustryEntry } from './data/industries'
 import { SUGGESTIONS_BY_INDUSTRY, DESCRIPTIONS } from './data/suggestions'
 import { SERVICES_BY_INDUSTRY, SERVICES } from './data/services'
@@ -135,6 +120,11 @@ export default function LogoOnboarding() {
   // FormSteps (focus) and the footer AI-pick handler can flip them.
   const [descTriggered, setDescTriggered] = useState(false)
   const [taglineTriggered, setTaglineTriggered] = useState(false)
+  // True from when the user clicks "Let AI pick" until the live AI list for
+  // the step has loaded and a pick has been made. While pending, the footer
+  // shows "Picking…" instead of swapping straight to Continue — so the user
+  // always sees the suggestions populate before they can advance.
+  const [aiPickPending, setAiPickPending] = useState(false)
   const [email, setEmail] = useState('')
 
   // Generating screen — rotating phase text, auto-advances.
@@ -187,6 +177,12 @@ export default function LogoOnboarding() {
   })()
   const formattedBrand = applyCase(brandName.trim() || 'Your Brand', nameStyle)
 
+  // Cancel any in-flight "Let AI pick" when the step changes — a pending
+  // pick belongs to one step only.
+  useEffect(() => {
+    setAiPickPending(false)
+  }, [step])
+
   // Demo-mode: persist the brand snapshot to localStorage on every input
   // change so the dashboard reflects the user's actual brand even if they
   // navigate there without completing checkout. Production logic (only
@@ -232,60 +228,39 @@ export default function LogoOnboarding() {
   // genuine user input (1: Name, 2: Industry) — those have no AI fallback.
   // Otherwise: filling defaults flips canProceed to true and the footer
   // swaps from the AI button to Continue automatically.
+  //
+  // The actual pick is DEFERRED — clicking only triggers the live AI fetch
+  // and sets `aiPickPending`. FormSteps performs the pick from the live
+  // list once it has loaded (see the pick-resolver effect there). This way
+  // the user always sees the suggestions populate before Continue appears,
+  // and the picked value comes from the real AI list, not a static stand-in.
   function aiInfoForStep(): { onPick: () => void; label: string } | null {
     if (step === 3) {
-      const pool = industry ? SUGGESTIONS_BY_INDUSTRY[industry] ?? DESCRIPTIONS : DESCRIPTIONS
       return {
         onPick: () => {
-          // Flip trigger so the rows + live AI call fire too.
-          setDescTriggered(true)
-          if (pool.length === 0) return
-          setDescription(pool[Math.floor(Math.random() * pool.length)])
+          setDescTriggered(true) // reveals the rows + enables the AI fetch
+          setAiPickPending(true)
         },
         label: 'Let AI pick a description',
       }
     }
     if (step === 4) {
-      const pool = industry ? TAGLINES_BY_INDUSTRY[industry] ?? TAGLINES : TAGLINES
       return {
         onPick: () => {
           setTaglineTriggered(true)
-          if (pool.length === 0) return
-          setTagline(pool[Math.floor(Math.random() * pool.length)])
+          setAiPickPending(true)
         },
         label: 'Let AI pick a tagline',
       }
     }
     if (step === 5) {
-      return {
-        onPick: () => {
-          // Pick from the SAME list the grid is rendering (live AI or static
-          // fallback). Otherwise the picked words wouldn't appear selected.
-          const pool = liveListsRef.impressions.length > 0 ? liveListsRef.impressions : IMPRESSIONS
-          const shuffled = [...pool].sort(() => Math.random() - 0.5)
-          setImpressions(shuffled.slice(0, 3))
-        },
-        label: 'Let AI pick 3 words',
-      }
+      return { onPick: () => setAiPickPending(true), label: 'Let AI pick 3 words' }
     }
     if (step === 6) {
-      return {
-        onPick: () => {
-          const pool = liveListsRef.palettes.length > 0 ? liveListsRef.palettes : PALETTES
-          setPaletteIndex(Math.floor(Math.random() * pool.length))
-        },
-        label: 'Let AI pick a palette',
-      }
+      return { onPick: () => setAiPickPending(true), label: 'Let AI pick a palette' }
     }
     if (step === 7) {
-      return {
-        onPick: () => {
-          // Pick the most popular style (first in the live ordering — AI
-          // returns them sorted descending by popularity %).
-          setLogoTypeIndex(0)
-        },
-        label: 'Let AI pick the style',
-      }
+      return { onPick: () => setAiPickPending(true), label: 'Let AI pick the style' }
     }
     return null
   }
@@ -546,6 +521,8 @@ export default function LogoOnboarding() {
             setPaletteIndex={setPaletteIndex}
             logoTypeIndex={logoTypeIndex}
             setLogoTypeIndex={setLogoTypeIndex}
+            aiPickPending={aiPickPending}
+            onAiPickResolved={() => setAiPickPending(false)}
           />
         )}
 
@@ -610,6 +587,7 @@ export default function LogoOnboarding() {
             nextLabel={step === TOTAL_STEPS ? 'Generate my logos' : 'Continue'}
             aiPick={ai?.onPick}
             aiLabel={ai?.label}
+            aiPickPending={aiPickPending}
           />
         )
       })()}
@@ -697,6 +675,10 @@ type FormProps = {
   setPaletteIndex: (i: number) => void
   logoTypeIndex: number | null
   setLogoTypeIndex: (i: number) => void
+  // "Let AI pick" is pending — FormSteps resolves it once the step's live
+  // AI list has loaded, then calls onAiPickResolved to clear it.
+  aiPickPending: boolean
+  onAiPickResolved: () => void
 }
 
 /* ------------------------------------------------------------------ */
@@ -862,12 +844,15 @@ function IndustryCombobox({
     setTimeout(() => inputRef.current?.focus(), 0)
   }
 
-  // Whether the typed text already exactly matches a shown option — if so,
-  // the "Use …" free-text row is redundant and hidden.
+  // The "Use …" free-text row is only an escape hatch for a business type
+  // the suggestions don't cover. Hide it whenever the typed text already
+  // appears inside a shown suggestion (e.g. typing "auto" while "Auto
+  // repair shop" is listed) — otherwise it's just noise mid-typing.
   const queryLc = query.trim().toLowerCase()
-  const queryMatchesShown =
-    INDUSTRY_FALLBACK.some((i) => i.label.toLowerCase() === queryLc) ||
-    aiMatches.some((m) => m.toLowerCase() === queryLc)
+  const queryCovered =
+    queryLc.length === 0 ||
+    aiMatches.some((m) => m.toLowerCase().includes(queryLc)) ||
+    fallbackDisplay.some((i) => i.label.toLowerCase().includes(queryLc))
 
   const rowStyle: React.CSSProperties = {
     display: 'block',
@@ -1058,10 +1043,10 @@ function IndustryCombobox({
             </>
           )}
 
-          {/* Free-text fallback — accept any business type so the user is
-              never blocked. Hidden while the AI is still searching, and
-              when the query already exactly matches a shown option. */}
-          {status !== 'loading' && !queryMatchesShown && (
+          {/* Free-text escape hatch — only shown when the suggestions
+              don't already cover what was typed, so the user is never
+              blocked on a niche the AI missed. */}
+          {status !== 'loading' && !queryCovered && (
             <button
               type="button"
               onClick={() => commit(slugify(query) || 'custom', query.trim())}
@@ -1978,14 +1963,46 @@ function FormSteps(p: FormProps) {
   })
   const descList = liveDesc.suggestions
   const taglineList = liveTagline.suggestions
-  // Mirror the live lists into the module-level ref so the parent's
-  // aiInfoForStep handlers can pick from the SAME list the grid shows.
-  useEffect(() => { liveListsRef.impressions = liveImpression.suggestions }, [liveImpression.suggestions])
-  useEffect(() => { liveListsRef.palettes = livePalettes.suggestions }, [livePalettes.suggestions])
-  useEffect(() => { liveListsRef.styles = liveStyles.suggestions }, [liveStyles.suggestions])
   const impressionsList = liveImpression.suggestions
   const palettesList = livePalettes.suggestions
   const stylesList = liveStyles.suggestions
+
+  // Pick-resolver — when the user clicked "Let AI pick", wait until the
+  // current step's live AI list has finished loading ('done'), then make
+  // the pick from that live list and clear the pending flag. This ensures
+  // the picked value comes from the real AI suggestions (not a static
+  // stand-in) and the footer shows "Picking…" until the list is visible.
+  useEffect(() => {
+    if (!p.aiPickPending) return
+    const hook =
+      step === 3 ? liveDesc :
+      step === 4 ? liveTagline :
+      step === 5 ? liveImpression :
+      step === 6 ? livePalettes :
+      step === 7 ? liveStyles : null
+    if (!hook) { p.onAiPickResolved(); return }
+    if (hook.status !== 'done') return // 'idle' / 'loading' → keep waiting
+
+    if (step === 3 && descList.length > 0) {
+      p.setDescription(descList[Math.floor(Math.random() * descList.length)])
+    } else if (step === 4 && taglineList.length > 0) {
+      p.setTagline(taglineList[Math.floor(Math.random() * taglineList.length)])
+    } else if (step === 5 && impressionsList.length > 0) {
+      const shuffled = [...impressionsList].sort(() => Math.random() - 0.5)
+      p.setImpressions(shuffled.slice(0, 3))
+    } else if (step === 6 && palettesList.length > 0) {
+      p.setPaletteIndex(Math.floor(Math.random() * palettesList.length))
+    } else if (step === 7) {
+      // AI returns styles sorted by popularity — index 0 is the top pick.
+      p.setLogoTypeIndex(0)
+    }
+    p.onAiPickResolved()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    p.aiPickPending, step,
+    liveDesc.status, liveTagline.status, liveImpression.status,
+    livePalettes.status, liveStyles.status,
+  ])
   const visibleDescriptions = descExpanded ? descList : descList.slice(0, DESC_VISIBLE)
   const visibleTaglines = taglineExpanded ? taglineList : taglineList.slice(0, DESC_VISIBLE)
   const visibleServices = servicesExpanded ? servicesList : servicesList.slice(0, SERVICES_VISIBLE)
@@ -3711,19 +3728,23 @@ function FooterNav({
   nextLabel,
   aiPick,
   aiLabel,
+  aiPickPending,
 }: {
   onNext: () => void
   canProceed: boolean
   nextLabel: string
   aiPick?: () => void
   aiLabel?: string
+  aiPickPending?: boolean
 }) {
   // Single CTA in the footer. When the user hasn't engaged with the step
   // yet AND the step has an AI default, the slot shows a "✦ Let AI pick"
   // button. The moment they make any selection (canProceed flips true),
   // it swaps to Continue. Steps without an AI option (1, 2) still show
   // a disabled Continue until valid.
-  const showAi = !canProceed && Boolean(aiPick && aiLabel)
+  // While an AI pick is pending, the slot shows a disabled "Picking…" so
+  // the user can't skip ahead before the suggestions have loaded.
+  const showAi = !canProceed && !aiPickPending && Boolean(aiPick && aiLabel)
   return (
     <div
       style={{
@@ -3740,7 +3761,39 @@ function FooterNav({
       }}
     >
       <div style={{ width: '100%', maxWidth: 720, display: 'flex', justifyContent: 'center', gap: 12 }}>
-        {showAi && aiPick ? (
+        {aiPickPending ? (
+          <button
+            type="button"
+            disabled
+            className="m-sans"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 10,
+              padding: '14px 32px',
+              borderRadius: 'var(--m-radius-md)',
+              border: '1px solid var(--m-brand-soft)',
+              background: 'transparent',
+              color: 'var(--m-brand)',
+              fontSize: 16,
+              fontWeight: 600,
+              cursor: 'wait',
+            }}
+          >
+            <span
+              style={{
+                width: 16,
+                height: 16,
+                borderRadius: '50%',
+                border: '2px solid var(--m-brand-soft)',
+                borderTopColor: 'var(--m-brand)',
+                display: 'inline-block',
+                animation: 'nStartSpin 0.7s linear infinite',
+              }}
+            />
+            Picking…
+          </button>
+        ) : showAi && aiPick ? (
           <button
             type="button"
             onClick={aiPick}

@@ -33,10 +33,19 @@ interface Ctx<T> {
   minCount?: number
 }
 
+export type SuggestStatus = 'idle' | 'loading' | 'done'
+
 interface Result<T> {
   suggestions: T[]
   loading: boolean
   source: 'static' | 'live'
+  // Lifecycle for the current context: 'idle' before a fetch is needed,
+  // 'loading' while a request is in flight, 'done' once it resolves
+  // (success OR failure) or a cache hit. Callers that need to act "once
+  // suggestions are ready" should wait for 'done' — it is the only
+  // reliable settled signal (`loading` briefly reads false before the
+  // fetch effect runs).
+  status: SuggestStatus
 }
 
 // Module-level cache so multi-component re-mounts share fetched results.
@@ -59,7 +68,7 @@ export function useLiveSuggestions<T>(ctx: Ctx<T>): Result<T> {
   const minCount = ctx.minCount ?? 3
 
   const [suggestions, setSuggestions] = useState<T[]>(cached ?? ctx.fallback)
-  const [loading, setLoading] = useState<boolean>(enabled && !cached)
+  const [status, setStatus] = useState<SuggestStatus>(cached ? 'done' : 'idle')
   const [source, setSource] = useState<'static' | 'live'>(cached ? 'live' : 'static')
 
   const reqRef = useRef(0)
@@ -67,22 +76,26 @@ export function useLiveSuggestions<T>(ctx: Ctx<T>): Result<T> {
   useEffect(() => {
     if (!enabled) {
       setSuggestions(ctx.fallback)
-      setLoading(false)
+      setStatus('idle')
       setSource('static')
       return
     }
     if (cached) {
       setSuggestions(cached)
-      setLoading(false)
+      setStatus('done')
       setSource('live')
       return
     }
 
     const reqId = ++reqRef.current
-    setLoading(true)
+    setStatus('loading')
     setSource('static')
 
     const controller = new AbortController()
+    // Safety timeout — never leave a caller stuck waiting on a hung
+    // request; abort after 12s and settle ('done') on the fallback list.
+    const timeoutId = setTimeout(() => controller.abort(), 12000)
+
     fetch('/api/suggest', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -105,18 +118,22 @@ export function useLiveSuggestions<T>(ctx: Ctx<T>): Result<T> {
           setSuggestions(validated)
           setSource('live')
         }
-        setLoading(false)
+        setStatus('done')
       })
       .catch(() => {
         if (reqRef.current !== reqId) return
-        setLoading(false)
+        setStatus('done')
       })
+      .finally(() => clearTimeout(timeoutId))
 
-    return () => controller.abort()
+    return () => {
+      clearTimeout(timeoutId)
+      controller.abort()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key, enabled])
 
-  return { suggestions, loading, source }
+  return { suggestions, loading: status === 'loading', source, status }
 }
 
 // Common validators for the supported item shapes.
