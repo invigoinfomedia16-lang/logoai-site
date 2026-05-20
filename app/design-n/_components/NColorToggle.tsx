@@ -9,8 +9,21 @@
 import { useEffect, useState } from 'react'
 import { BRAND_COLORS, BRAND_COLOR_KEY, type BrandVars } from './brandColors'
 
+const BRAND_PROPS = [
+  '--m-brand',
+  '--m-brand-strong',
+  '--m-brand-deep',
+  '--m-brand-soft',
+  '--m-brand-bg',
+  '--m-brand-glow',
+] as const
+
+function themeEl(): HTMLElement | null {
+  return document.querySelector('.m-theme') as HTMLElement | null
+}
+
 function applyVars(v: BrandVars) {
-  const el = document.querySelector('.m-theme') as HTMLElement | null
+  const el = themeEl()
   if (!el) return
   el.style.setProperty('--m-brand', v.brand)
   el.style.setProperty('--m-brand-strong', v.strong)
@@ -20,8 +33,16 @@ function applyVars(v: BrandVars) {
   el.style.setProperty('--m-brand-glow', v.glow)
 }
 
+// Drop the inline overrides → falls back to the layout's terracotta default.
+function clearVars() {
+  const el = themeEl()
+  if (!el) return
+  BRAND_PROPS.forEach((p) => el.style.removeProperty(p))
+}
+
 export default function NColorToggle() {
-  const [active, setActive] = useState(0)
+  // -1 = no override (the terracotta default). 0..n = a BRAND_COLORS option.
+  const [active, setActive] = useState(-1)
 
   // Reflect the saved choice on mount (the layout already applied the
   // variables pre-paint — this just syncs the toggle's active state).
@@ -49,6 +70,16 @@ export default function NColorToggle() {
     }
   }
 
+  function reset() {
+    setActive(-1)
+    clearVars()
+    try {
+      localStorage.removeItem(BRAND_COLOR_KEY)
+    } catch {
+      /* ignore */
+    }
+  }
+
   return (
     <div
       style={{
@@ -69,14 +100,41 @@ export default function NColorToggle() {
     >
       <div
         style={{
-          fontSize: 10,
-          fontWeight: 700,
-          letterSpacing: '0.06em',
-          textTransform: 'uppercase',
-          color: 'var(--m-text-soft)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: 12,
         }}
       >
-        Brand colour · {BRAND_COLORS[active].name}
+        <span
+          style={{
+            fontSize: 10,
+            fontWeight: 700,
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+            color: 'var(--m-text-soft)',
+          }}
+        >
+          Brand colour · {active >= 0 ? BRAND_COLORS[active].name : 'Default'}
+        </span>
+        <button
+          type="button"
+          onClick={reset}
+          disabled={active < 0}
+          style={{
+            border: 'none',
+            background: 'transparent',
+            padding: 0,
+            fontSize: 10,
+            fontWeight: 700,
+            letterSpacing: '0.04em',
+            textTransform: 'uppercase',
+            color: active < 0 ? 'var(--m-border-medium)' : 'var(--m-brand)',
+            cursor: active < 0 ? 'default' : 'pointer',
+          }}
+        >
+          Reset
+        </button>
       </div>
       <div style={{ display: 'flex', gap: 8 }}>
         {BRAND_COLORS.map((c, i) => {

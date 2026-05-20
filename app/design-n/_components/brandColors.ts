@@ -24,19 +24,10 @@ export type BrandColorOption = {
 // only the CTA + accents change (per request).
 const NEUTRAL_BG = '#F0EEE6'
 
+// The default (current) design-n colour is terracotta — defined in the
+// layout's <style> block, not here. The toggle offers the 3 alternatives
+// below; "Reset" returns to that terracotta default.
 export const BRAND_COLORS: BrandColorOption[] = [
-  {
-    // Current design-n colour.
-    name: 'Terracotta',
-    vars: {
-      brand: '#D97757',
-      strong: '#C16545',
-      deep: '#A85735',
-      soft: '#F5E2DA',
-      bg: NEUTRAL_BG,
-      glow: '#E89A7E',
-    },
-  },
   {
     // design-l's exact Purple Heart CTA + accent treatment.
     name: 'Purple (L)',
