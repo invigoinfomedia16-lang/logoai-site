@@ -13,6 +13,7 @@ export type BrandVars = {
   soft: string    // light tint — soft backgrounds, hover borders
   bg: string      // tinted section / funnel background (matches the brand)
   glow: string    // lighter accent glow
+  onDark: string  // brand accent on dark backgrounds (e.g. footer logo dot)
 }
 
 export type BrandColorOption = {
@@ -35,6 +36,7 @@ export const BRAND_COLORS: BrandColorOption[] = [
       soft: '#EBE2FF',
       bg: '#F5F0FF',
       glow: '#C7A8FF',
+      onDark: '#7543E3',
     },
   },
   {
@@ -49,6 +51,7 @@ export const BRAND_COLORS: BrandColorOption[] = [
       soft: '#DBEAFE',
       bg: '#EFF6FF',
       glow: '#8EC5FF',
+      onDark: '#2B7FFF',
     },
   },
   {
@@ -61,10 +64,12 @@ export const BRAND_COLORS: BrandColorOption[] = [
       soft: '#FCE3DB',
       bg: '#FDF0EB',
       glow: '#F4926F',
+      onDark: '#E7420F',
     },
   },
   {
-    // Solid black CTA — neutral light-grey section tint.
+    // Solid black CTA — neutral light-grey section tint. onDark is white
+    // so the footer logo dot stays visible on the dark footer.
     name: 'Black',
     vars: {
       brand: '#1A1A1A',
@@ -73,6 +78,7 @@ export const BRAND_COLORS: BrandColorOption[] = [
       soft: '#E5E5E5',
       bg: '#F2F2F1',
       glow: '#525252',
+      onDark: '#FFFFFF',
     },
   },
 ]

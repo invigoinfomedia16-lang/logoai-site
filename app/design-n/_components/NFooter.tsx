@@ -83,7 +83,7 @@ export default function NFooter() {
                 whiteSpace: 'nowrap',
               }}
             >
-              LOGO<span style={{ color: 'var(--m-brand)' }}>.</span>AI
+              LOGO<span style={{ color: 'var(--m-brand-on-dark)' }}>.</span>AI
             </span>
           </a>
           <p

@@ -16,6 +16,7 @@ const BRAND_PROPS = [
   '--m-brand-soft',
   '--m-brand-bg',
   '--m-brand-glow',
+  '--m-brand-on-dark',
 ] as const
 
 function themeEl(): HTMLElement | null {
@@ -31,6 +32,7 @@ function applyVars(v: BrandVars) {
   el.style.setProperty('--m-brand-soft', v.soft)
   el.style.setProperty('--m-brand-bg', v.bg)
   el.style.setProperty('--m-brand-glow', v.glow)
+  el.style.setProperty('--m-brand-on-dark', v.onDark)
 }
 
 // Drop the inline overrides → falls back to the layout's terracotta default.

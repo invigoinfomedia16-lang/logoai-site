@@ -49,6 +49,10 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --m-brand-soft: #F5E2DA;
           --m-brand-bg: #F0EEE6;
           --m-brand-glow: #E89A7E;
+          /* Brand accent for use on dark backgrounds (e.g. footer logo
+             dot). Equals --m-brand for colours that read on dark; the
+             Black theme overrides it to white so the dot stays visible. */
+          --m-brand-on-dark: #D97757;
 
           --m-ink-deep: #0A0A0A;
           --m-ink: #101828;
@@ -205,7 +209,7 @@ export default function NLayout({ children }: { children: ReactNode }) {
               BRAND_COLOR_KEY,
             )});if(!n)return;var M=${JSON.stringify(
               Object.fromEntries(BRAND_COLORS.map((c) => [c.name, c.vars])),
-            )};var v=M[n];if(!v)return;var s=document.currentScript.parentElement.style;s.setProperty('--m-brand',v.brand);s.setProperty('--m-brand-strong',v.strong);s.setProperty('--m-brand-deep',v.deep);s.setProperty('--m-brand-soft',v.soft);s.setProperty('--m-brand-bg',v.bg);s.setProperty('--m-brand-glow',v.glow);}catch(e){}})();`,
+            )};var v=M[n];if(!v)return;var s=document.currentScript.parentElement.style;s.setProperty('--m-brand',v.brand);s.setProperty('--m-brand-strong',v.strong);s.setProperty('--m-brand-deep',v.deep);s.setProperty('--m-brand-soft',v.soft);s.setProperty('--m-brand-bg',v.bg);s.setProperty('--m-brand-glow',v.glow);s.setProperty('--m-brand-on-dark',v.onDark);}catch(e){}})();`,
           }}
         />
         {children}
