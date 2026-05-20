@@ -1963,6 +1963,9 @@ function FormSteps(p: FormProps) {
     kind: 'tagline',
     brand: p.brandName,
     industry: industryLabel,
+    // Feed the Step 3 description too — taglines must reflect what the
+    // business actually does, not just its industry category.
+    description: p.description || undefined,
     fallback: staticTaglineList,
     enabled: step === 4 && taglineTriggered,
     validate: isString,

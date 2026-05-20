@@ -70,45 +70,22 @@ Generate exactly 10 distinct description options. Respond with ONLY a JSON objec
   }
 
   if (req.kind === 'tagline') {
-    return `You are helping a small-business owner pick a short tagline for their brand. Each tagline must be 3-7 words, punchy, memorable, and specific. No trailing full stops.
-
-CRITICAL RULES:
-1. Each of the 10 taglines MUST cover a DIFFERENT angle. Mix these:
-   - ACTION: a verb invitation ("Pour over. Take notes.")
-   - CRAFT: nodding to the method ("Slow-roasted since dawn")
-   - PROMISE: a specific outcome ("Lunch in twelve minutes")
-   - ATTITUDE: a stance or worldview ("Spice that doesn't apologise")
-   - WORDPLAY: a clever phrase or twist ("Brewed for the long game")
-   - PLACE: a sense of where ("Made on the corner")
-   - SENSORY: a taste, sound, texture ("Crackle, steam, repeat")
-
-2. AVOID these cliché taglines:
-   - "Just do it" / "Think different" / anything that copies a famous brand
-   - "Quality you can taste / trust / feel"
-   - "Experience the difference"
-   - "[verb] better"
-   - "Where [adjective] meets [adjective]"
-   - "Your daily [anything]"
-
-3. Each tagline must feel different from the others — not 10 variations of the same idea.
-
-GOOD EXAMPLES:
-- "Slow-brewed, never slow served"
-- "From the wok, to the table"
-- "Two ingredients, no shortcuts"
-- "Friday-night dough, every night"
-- "Pour over. Take a breath."
-- "Sourdough, soup, sourdough."
-
-BAD EXAMPLES (lazy / generic):
-- "Quality you can taste"
-- "Brewed with love"
-- "Coffee, perfected"
-- "Where flavour meets passion"
+    return `You are writing short brand taglines for ONE specific business. Here is that business:
 
 ${ctx}
 
-Generate exactly 10 distinct taglines following the rules above. Respond with ONLY a JSON object of shape: { "suggestions": ["...", "...", ...] }`
+Write 10 tagline options for THIS business.
+
+REQUIREMENTS:
+- 3-7 words each. Punchy, memorable, easy to say aloud. No trailing full stop.
+- EVERY tagline must clearly fit THIS business — its industry and what it actually does (per the description above). Never use a theme, product, place, or feeling that does not apply to it. (A commercial cleaning company's taglines must not mention "home"; a law firm's must not mention "flavour"; match the real business.)
+- Base the taglines mainly on the DESCRIPTION and INDUSTRY above. The brand name is light context — you may occasionally play on it, but most taglines should stand on what the business does.
+- Vary the angle across the 10: what they do, the benefit/outcome for the customer, the attitude/tone, a touch of wordplay — but every one grounded in this business.
+- The 10 must feel distinct from each other, not one idea reworded.
+
+AVOID clichés: "Quality you can taste / trust / feel", "Experience the difference", "[verb] better", "Where [x] meets [y]", "Your daily [x]", and anything copying a famous brand ("Just do it", "Think different").
+
+Respond with ONLY a JSON object of shape: { "suggestions": ["...", "...", ...] }`
   }
 
   if (req.kind === 'impression') {
@@ -214,7 +191,7 @@ export async function POST(req: Request) {
       model: MODEL,
       messages: [{ role: 'user', content: prompt }],
       temperature:
-        body.kind === 'palette' || body.kind === 'style'
+        body.kind === 'palette' || body.kind === 'style' || body.kind === 'tagline'
           ? 0.7
           : body.kind === 'industry'
           ? 0.4
