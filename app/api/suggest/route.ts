@@ -188,6 +188,11 @@ Rules:
 - Each is a short label, 1-4 words. Be SPECIFIC, never broad — "Personal injury lawyer" not "Legal", "Hot yoga studio" not "Fitness".
 - Sentence case (capitalize first word only) unless a proper noun.
 - No duplicates. No descriptions — just the label.
+- RELEVANCE IS STRICT: every suggestion must be a plausible completion or
+  variation of "${q}". Either a word in the label starts with "${q}", or the
+  label contains "${q}". NEVER include an unrelated business type — e.g. for
+  "fa" return "Fashion boutique" / "Fast food restaurant" / "Family diner",
+  but NOT "Financial advisor" (no word starts with "fa").
 - If "${q}" is too short or vague to interpret, return 8 common, popular business types instead.
 
 Respond with ONLY a JSON object of shape: { "suggestions": ["...", "...", ...] }`

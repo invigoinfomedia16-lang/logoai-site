@@ -822,6 +822,26 @@ function IndustryCombobox({
     return s.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
   }
 
+  // Relevance filter + ordering for the AI typeahead. A suggestion is kept
+  // only if it relates to the typed text — either a word in it starts with
+  // the query, or it contains the query as a substring (so variations like
+  // "Mobile auto detailing" for "auto" survive, while unrelated guesses
+  // like "Financial advisor" for "fa" are dropped). Ordering: word-prefix
+  // matches first (A–Z), then the remaining contained-variations (A–Z).
+  const displayMatches = (() => {
+    const q = query.trim().toLowerCase()
+    if (!q) return [] as string[]
+    const wordPrefix = (label: string) =>
+      label.toLowerCase().split(/\s+/).some((w) => w.startsWith(q))
+    const relevant = aiMatches.filter(
+      (m) => wordPrefix(m) || m.toLowerCase().includes(q),
+    )
+    const byAlpha = (a: string, b: string) => a.localeCompare(b)
+    const prefixHits = relevant.filter(wordPrefix).sort(byAlpha)
+    const rest = relevant.filter((m) => !wordPrefix(m)).sort(byAlpha)
+    return [...prefixHits, ...rest]
+  })()
+
   // Offline / AI-failure fallback — substring match against the small
   // built-in category list. If nothing matches, show the whole list so
   // the user always has something to pick.
@@ -840,7 +860,9 @@ function IndustryCombobox({
     if (!q) return
     const exact = INDUSTRY_FALLBACK.find((i) => i.label.toLowerCase() === q.toLowerCase())
     if (exact) return commit(exact.key, exact.label)
-    if (aiMatches.length > 0) return commit(slugify(aiMatches[0]) || 'custom', aiMatches[0])
+    if (displayMatches.length > 0) {
+      return commit(slugify(displayMatches[0]) || 'custom', displayMatches[0])
+    }
     if (fallbackFiltered.length > 0) {
       return commit(fallbackFiltered[0].key, fallbackFiltered[0].label)
     }
@@ -862,7 +884,7 @@ function IndustryCombobox({
   const queryLc = query.trim().toLowerCase()
   const queryCovered =
     queryLc.length === 0 ||
-    aiMatches.some((m) => m.toLowerCase().includes(queryLc)) ||
+    displayMatches.some((m) => m.toLowerCase().includes(queryLc)) ||
     fallbackDisplay.some((i) => i.label.toLowerCase().includes(queryLc))
 
   const rowStyle: React.CSSProperties = {
@@ -1009,9 +1031,9 @@ function IndustryCombobox({
             </div>
           )}
 
-          {/* AI suggestions — the live result for whatever was typed. */}
+          {/* AI suggestions — relevance-filtered, prefix-matches first. */}
           {status === 'ready' &&
-            aiMatches.map((label) => (
+            displayMatches.map((label) => (
               <button
                 key={`ai-${label}`}
                 type="button"
@@ -1025,8 +1047,11 @@ function IndustryCombobox({
               </button>
             ))}
 
-          {/* Offline / AI-failure fallback — built-in common categories. */}
-          {status === 'error' && (
+          {/* Offline / AI-failure fallback — built-in common categories.
+              Also shown when the AI replied but nothing survived the
+              relevance filter, so the dropdown is never left empty. */}
+          {(status === 'error' ||
+            (status === 'ready' && displayMatches.length === 0)) && (
             <>
               <div
                 className="m-sans"
@@ -1067,12 +1092,9 @@ function IndustryCombobox({
               className="m-sans w-full text-left"
               style={{
                 ...rowStyle,
-                marginTop:
-                  (status === 'ready' && aiMatches.length > 0) || status === 'error' ? 4 : 0,
+                marginTop: status !== 'idle' ? 4 : 0,
                 borderTop:
-                  (status === 'ready' && aiMatches.length > 0) || status === 'error'
-                    ? '1px solid var(--m-border)'
-                    : 'none',
+                  status !== 'idle' ? '1px solid var(--m-border)' : 'none',
               }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--m-surface-alt)' }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
