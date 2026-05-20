@@ -42,7 +42,7 @@ const liveListsRef: {
   palettes: [],
   styles: [],
 }
-import { INDUSTRIES, INDUSTRIES_VISIBLE } from './data/industries'
+import { INDUSTRY_FALLBACK, type IndustryEntry } from './data/industries'
 import { SUGGESTIONS_BY_INDUSTRY, DESCRIPTIONS } from './data/suggestions'
 import { SERVICES_BY_INDUSTRY, SERVICES } from './data/services'
 import { TAGLINES_BY_INDUSTRY, TAGLINES } from './data/taglines'
@@ -194,7 +194,6 @@ export default function LogoOnboarding() {
   useEffect(() => {
     if (typeof window === 'undefined' || !brandName.trim()) return
     try {
-      const industryLabel = INDUSTRIES.find((i) => i.key === industry)?.label ?? ''
       const logoStyleName = logoTypeIndex !== null ? LOGO_TYPES[logoTypeIndex]?.name ?? '' : ''
       window.localStorage.setItem(
         'logoai:brand',
@@ -209,7 +208,7 @@ export default function LogoOnboarding() {
     } catch {
       /* localStorage unavailable — dashboard falls back to its default */
     }
-  }, [formattedBrand, brandName, tagline, industry, logoTypeIndex, palette])
+  }, [formattedBrand, brandName, tagline, industryLabel, logoTypeIndex, palette])
 
   /* nav */
 
@@ -641,8 +640,6 @@ export default function LogoOnboarding() {
           // actual brand (name, tagline, palette) instead of the sample.
           if (typeof window !== 'undefined') {
             try {
-              const industryLabel =
-                INDUSTRIES.find((i) => i.key === industry)?.label ?? ''
               const logoStyleName =
                 logoTypeIndex !== null ? LOGO_TYPES[logoTypeIndex]?.name : ''
               window.localStorage.setItem(
@@ -703,16 +700,19 @@ type FormProps = {
 }
 
 /* ------------------------------------------------------------------ */
-/* IndustryCombobox — search + browse picker for step 2.               */
-/* Typing → dropdown shows substring matches across the ~560-entry     */
-/* taxonomy AND live AI-generated matches for whatever was typed, so   */
-/* niches outside the static list still get suggestions.               */
-/* Pick → input fills with the industry label; small × clears.         */
+/* IndustryCombobox — AI-powered business-type picker for step 2.       */
+/* Typing → debounced AI call returns 8-10 specific business-type       */
+/* variations; a "Searching…" row shows while it thinks. If the AI      */
+/* call fails (or the user is offline) a small built-in category list   */
+/* is shown instead so the form always works. Results are cached per    */
+/* query. Pick → input fills with the label; small × clears.            */
 /* ------------------------------------------------------------------ */
 
 // Module-level cache for AI industry typeahead results, keyed by the
 // lowercased query. Survives re-mounts so re-typing a query is instant.
 const industryAiCache = new Map<string, string[]>()
+
+type IndustryStatus = 'idle' | 'loading' | 'ready' | 'error'
 
 function IndustryCombobox({
   industry,
@@ -727,53 +727,34 @@ function IndustryCombobox({
 }) {
   const [query, setQuery] = useState('')
   const [open, setOpen] = useState(false)
-  // Live AI typeahead matches for the current query (supplements the
-  // static taxonomy so off-list niches still get suggestions).
+  // Live AI typeahead state. `aiMatches` holds the AI suggestions for the
+  // current query; `status` drives what the dropdown shows.
   const [aiMatches, setAiMatches] = useState<string[]>([])
-  const [aiLoading, setAiLoading] = useState(false)
+  const [status, setStatus] = useState<IndustryStatus>('idle')
   const aiReqRef = useRef(0)
   const wrapRef = useRef<HTMLDivElement | null>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
 
-  // Filter list. Substring match across the full taxonomy (~560 entries).
-  // Empty query → no dropdown items at all (type-to-find UX, matching
-  // businessplan.ai). Placeholder + helper text guide the user instead of
-  // a browse-all surface.
-  // Dedupe by label so the dropdown never shows the same label twice (some
-  // labels appear under multiple keys, e.g. "Career coaching" exists under
-  // both 'consulting' and 'education'). First occurrence wins.
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    if (!q) return [] as typeof INDUSTRIES
-    const seen = new Set<string>()
-    return INDUSTRIES.filter((ind) => {
-      if (!ind.label.toLowerCase().includes(q)) return false
-      if (seen.has(ind.label)) return false
-      seen.add(ind.label)
-      return true
-    })
-  }, [query])
-
-  // Live AI typeahead. Debounced 450ms after the user stops typing; the
-  // result merges into the dropdown beneath the static taxonomy matches.
-  // Cached per-query so re-typing is instant. Fails silent — the static
-  // list + free-text fallback always keep the step usable.
+  // Live AI typeahead. Debounced ~1/3s after the user stops typing. The
+  // result is cached per query so re-typing the same word is instant and
+  // free. If the call fails or returns nothing, status flips to 'error'
+  // and the dropdown falls back to the small built-in category list.
   useEffect(() => {
     const q = query.trim()
     if (q.length < 2 || industry) {
       setAiMatches([])
-      setAiLoading(false)
+      setStatus('idle')
       return
     }
     const cacheKey = q.toLowerCase()
     const cached = industryAiCache.get(cacheKey)
     if (cached) {
       setAiMatches(cached)
-      setAiLoading(false)
+      setStatus(cached.length > 0 ? 'ready' : 'error')
       return
     }
     const reqId = ++aiReqRef.current
-    setAiLoading(true)
+    setStatus('loading')
     const controller = new AbortController()
     const timer = setTimeout(() => {
       fetch('/api/suggest', {
@@ -786,19 +767,25 @@ function IndustryCombobox({
         .then((data: { suggestions?: unknown[] }) => {
           if (aiReqRef.current !== reqId) return
           const list = Array.isArray(data.suggestions)
-            ? (data.suggestions.filter(
-                (x) => typeof x === 'string' && x.trim().length > 0,
-              ) as string[])
+            ? (data.suggestions
+                .filter((x) => typeof x === 'string' && x.trim().length > 0)
+                .map((x) => (x as string).trim()) as string[])
             : []
-          industryAiCache.set(cacheKey, list)
-          setAiMatches(list)
-          setAiLoading(false)
+          if (list.length > 0) {
+            industryAiCache.set(cacheKey, list)
+            setAiMatches(list)
+            setStatus('ready')
+          } else {
+            setAiMatches([])
+            setStatus('error')
+          }
         })
         .catch(() => {
           if (aiReqRef.current !== reqId) return
-          setAiLoading(false)
+          setAiMatches([])
+          setStatus('error')
         })
-    }, 450)
+    }, 333)
     return () => {
       clearTimeout(timer)
       controller.abort()
@@ -826,9 +813,8 @@ function IndustryCombobox({
     }
   }, [open])
 
-  // Display the niche label the user actually clicked (e.g. "Chinese
-  // restaurant"), not the broad-category label (which would always be
-  // the first INDUSTRIES entry sharing the key, i.e. "Restaurant").
+  // Display the label the user actually picked once committed; otherwise
+  // mirror whatever they're typing.
   const inputValue = industry && !query ? industryLabel : query
 
   function commit(key: string, label: string) {
@@ -838,34 +824,34 @@ function IndustryCombobox({
     setOpen(false)
     inputRef.current?.blur()
   }
-  // Slug for free-text industries not in the taxonomy. Downstream lookups
-  // (SUGGESTIONS_BY_INDUSTRY etc.) all fall back gracefully on unknown keys.
+  // Slug key for an industry. Downstream lookups all fall back gracefully
+  // on unknown keys, so any free-text or AI industry is safe.
   function slugify(s: string): string {
     return s.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
   }
-  // AI matches not already covered by a static taxonomy result (deduped
-  // case-insensitively by label).
-  const aiOnly = (() => {
-    const staticLabels = new Set(filtered.map((i) => i.label.toLowerCase()))
-    const seen = new Set<string>()
-    return aiMatches.filter((m) => {
-      const lc = m.trim().toLowerCase()
-      if (!lc || staticLabels.has(lc) || seen.has(lc)) return false
-      seen.add(lc)
-      return true
-    })
-  })()
 
-  // Enter / blur commit: exact label match wins, else the top static
-  // result, else the top AI match, else the typed text is accepted as a
-  // custom industry so the user is never trapped off the taxonomy.
+  // Offline / AI-failure fallback — substring match against the small
+  // built-in category list. If nothing matches, show the whole list so
+  // the user always has something to pick.
+  const fallbackFiltered = (() => {
+    const q = query.trim().toLowerCase()
+    if (!q) return [] as IndustryEntry[]
+    return INDUSTRY_FALLBACK.filter((i) => i.label.toLowerCase().includes(q))
+  })()
+  const fallbackDisplay = fallbackFiltered.length > 0 ? fallbackFiltered : INDUSTRY_FALLBACK
+
+  // Enter / blur commit: exact built-in match wins, else the top AI match,
+  // else the top fallback match, else the typed text is accepted as a
+  // custom industry so the user is never trapped.
   function tryCommit() {
     const q = query.trim()
     if (!q) return
-    const exact = INDUSTRIES.find((i) => i.label.toLowerCase() === q.toLowerCase())
+    const exact = INDUSTRY_FALLBACK.find((i) => i.label.toLowerCase() === q.toLowerCase())
     if (exact) return commit(exact.key, exact.label)
-    if (filtered.length > 0) return commit(filtered[0].key, filtered[0].label)
-    if (aiOnly.length > 0) return commit(slugify(aiOnly[0]) || 'custom', aiOnly[0])
+    if (aiMatches.length > 0) return commit(slugify(aiMatches[0]) || 'custom', aiMatches[0])
+    if (fallbackFiltered.length > 0) {
+      return commit(fallbackFiltered[0].key, fallbackFiltered[0].label)
+    }
     commit(slugify(q) || 'custom', q)
   }
   function clear() {
@@ -874,6 +860,26 @@ function IndustryCombobox({
     setQuery('')
     setOpen(false)
     setTimeout(() => inputRef.current?.focus(), 0)
+  }
+
+  // Whether the typed text already exactly matches a shown option — if so,
+  // the "Use …" free-text row is redundant and hidden.
+  const queryLc = query.trim().toLowerCase()
+  const queryMatchesShown =
+    INDUSTRY_FALLBACK.some((i) => i.label.toLowerCase() === queryLc) ||
+    aiMatches.some((m) => m.toLowerCase() === queryLc)
+
+  const rowStyle: React.CSSProperties = {
+    display: 'block',
+    padding: '10px 12px',
+    borderRadius: 8,
+    border: 'none',
+    background: 'transparent',
+    color: 'var(--m-ink)',
+    fontSize: 14,
+    fontWeight: 500,
+    cursor: 'pointer',
+    transition: 'background 0.12s ease',
   }
 
   return (
@@ -899,13 +905,11 @@ function IndustryCombobox({
               setIndustry('' as unknown as string)
               setIndustryLabel('')
             }
-            // Open dropdown only once there is a query to match against —
-            // empty input shows no list (placeholder/helper text guide).
+            // Open dropdown only once there is a query — empty input shows
+            // no list (clean empty state; helper text guides instead).
             setOpen(v.trim().length > 0)
           }}
           onFocus={() => {
-            // Only re-open the dropdown on focus if there's already a query
-            // to filter against. Empty + focused stays clean.
             if (query.trim().length > 0) setOpen(true)
           }}
           onKeyDown={(e) => {
@@ -978,115 +982,98 @@ function IndustryCombobox({
             padding: 6,
           }}
         >
-          {filtered.map((ind) => {
-              // Note: many entries share the same `key` (e.g. 30+ restaurant
-              // niches all use key='restaurant'). React keys must be unique
-              // per-list, so we use the label here — labels ARE unique across
-              // the full INDUSTRIES taxonomy.
-              const isSel = industry === ind.key && industryLabel === ind.label
-              return (
-                <button
-                  key={ind.label}
-                  type="button"
-                  onClick={() => commit(ind.key, ind.label)}
-                  className="m-sans w-full text-left"
-                  style={{
-                    display: 'block',
-                    padding: '10px 12px',
-                    borderRadius: 8,
-                    border: 'none',
-                    background: isSel ? 'var(--m-brand-soft)' : 'transparent',
-                    color: isSel ? 'var(--m-brand-strong)' : 'var(--m-ink)',
-                    fontSize: 14,
-                    fontWeight: isSel ? 700 : 500,
-                    cursor: 'pointer',
-                    transition: 'background 0.12s ease',
-                  }}
-                  onMouseEnter={(e) => { if (!isSel) (e.currentTarget as HTMLElement).style.background = 'var(--m-surface-alt)' }}
-                  onMouseLeave={(e) => { if (!isSel) (e.currentTarget as HTMLElement).style.background = 'transparent' }}
-                >
-                  {ind.label}
-                </button>
-              )
-            })}
-
-          {/* Live AI matches — niches generated for whatever was typed,
-              shown beneath the static taxonomy results. */}
-          {(aiLoading || aiOnly.length > 0) && (
+          {/* Searching… — shown while the AI is thinking. */}
+          {status === 'loading' && (
             <div
               className="m-sans"
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: 6,
-                padding: '8px 12px 4px',
-                marginTop: filtered.length > 0 ? 4 : 0,
-                borderTop: filtered.length > 0 ? '1px solid var(--m-border)' : 'none',
-                fontSize: 11,
-                fontWeight: 700,
-                letterSpacing: '0.04em',
-                textTransform: 'uppercase',
+                gap: 8,
+                padding: '12px',
+                fontSize: 14,
                 color: 'var(--m-text-soft)',
               }}
             >
-              ✨ AI suggestions
-              {aiLoading && (
-                <span style={{ fontWeight: 500, textTransform: 'none', letterSpacing: 0 }}>
-                  — finding matches…
-                </span>
-              )}
+              <span
+                style={{
+                  width: 14,
+                  height: 14,
+                  borderRadius: '50%',
+                  border: '2px solid var(--m-border-medium)',
+                  borderTopColor: 'var(--m-brand)',
+                  display: 'inline-block',
+                  animation: 'nStartSpin 0.7s linear infinite',
+                }}
+              />
+              Searching…
             </div>
           )}
-          {aiOnly.map((label) => (
-            <button
-              key={`ai-${label}`}
-              type="button"
-              onClick={() => commit(slugify(label) || 'custom', label)}
-              className="m-sans w-full text-left"
-              style={{
-                display: 'block',
-                padding: '10px 12px',
-                borderRadius: 8,
-                border: 'none',
-                background: 'transparent',
-                color: 'var(--m-ink)',
-                fontSize: 14,
-                fontWeight: 500,
-                cursor: 'pointer',
-                transition: 'background 0.12s ease',
-              }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--m-surface-alt)' }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
-            >
-              {label}
-            </button>
-          ))}
 
-          {/* Free-text fallback — accept any industry not in the taxonomy
-              so the user is never blocked. Hidden when the query already
-              exactly matches a listed label. */}
-          {!INDUSTRIES.some(
-            (i) => i.label.toLowerCase() === query.trim().toLowerCase(),
-          ) && (
+          {/* AI suggestions — the live result for whatever was typed. */}
+          {status === 'ready' &&
+            aiMatches.map((label) => (
+              <button
+                key={`ai-${label}`}
+                type="button"
+                onClick={() => commit(slugify(label) || 'custom', label)}
+                className="m-sans w-full text-left"
+                style={rowStyle}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--m-surface-alt)' }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
+              >
+                {label}
+              </button>
+            ))}
+
+          {/* Offline / AI-failure fallback — built-in common categories. */}
+          {status === 'error' && (
+            <>
+              <div
+                className="m-sans"
+                style={{
+                  padding: '8px 12px 4px',
+                  fontSize: 11,
+                  fontWeight: 700,
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase',
+                  color: 'var(--m-text-soft)',
+                }}
+              >
+                Common categories
+              </div>
+              {fallbackDisplay.map((ind) => (
+                <button
+                  key={`fb-${ind.key}-${ind.label}`}
+                  type="button"
+                  onClick={() => commit(ind.key, ind.label)}
+                  className="m-sans w-full text-left"
+                  style={rowStyle}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--m-surface-alt)' }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
+                >
+                  {ind.label}
+                </button>
+              ))}
+            </>
+          )}
+
+          {/* Free-text fallback — accept any business type so the user is
+              never blocked. Hidden while the AI is still searching, and
+              when the query already exactly matches a shown option. */}
+          {status !== 'loading' && !queryMatchesShown && (
             <button
               type="button"
               onClick={() => commit(slugify(query) || 'custom', query.trim())}
               className="m-sans w-full text-left"
               style={{
-                display: 'block',
-                padding: '10px 12px',
-                marginTop: filtered.length > 0 || aiOnly.length > 0 ? 4 : 0,
+                ...rowStyle,
+                marginTop:
+                  (status === 'ready' && aiMatches.length > 0) || status === 'error' ? 4 : 0,
                 borderTop:
-                  filtered.length > 0 || aiOnly.length > 0
+                  (status === 'ready' && aiMatches.length > 0) || status === 'error'
                     ? '1px solid var(--m-border)'
                     : 'none',
-                borderRadius: 8,
-                background: 'transparent',
-                color: 'var(--m-ink)',
-                fontSize: 14,
-                fontWeight: 500,
-                cursor: 'pointer',
-                transition: 'background 0.12s ease',
               }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--m-surface-alt)' }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
@@ -1913,21 +1900,8 @@ function FormSteps(p: FormProps) {
   const [descExpanded, setDescExpanded] = useState(false)
   const [taglineExpanded, setTaglineExpanded] = useState(false)
   const [servicesExpanded, setServicesExpanded] = useState(false)
-  const [industriesExpanded, setIndustriesExpanded] = useState(false)
   // Trigger flags come from the parent (LogoOnboarding) — see FormProps.
   const { descTriggered, setDescTriggered, taglineTriggered, setTaglineTriggered } = p
-  // Auto-expand the industries grid if the user has picked something
-  // outside the default 8 (so the chosen tile isn't hidden when they
-  // return to step 2 via Back).
-  useEffect(() => {
-    if (!industriesExpanded && p.industry) {
-      const visibleKeys = INDUSTRIES.slice(0, INDUSTRIES_VISIBLE).map((i) => i.key)
-      if (!visibleKeys.includes(p.industry)) setIndustriesExpanded(true)
-    }
-  }, [p.industry, industriesExpanded])
-  const visibleIndustries = industriesExpanded
-    ? INDUSTRIES
-    : INDUSTRIES.slice(0, INDUSTRIES_VISIBLE)
   const DESC_VISIBLE = 5
   const SERVICES_VISIBLE = 5
   // All suggestion lists filter by the picked industry. If no industry
@@ -1948,10 +1922,9 @@ function FormSteps(p: FormProps) {
   const staticTaglineList = p.industry
     ? TAGLINES_BY_INDUSTRY[p.industry] ?? TAGLINES
     : TAGLINES
-  // Prefer the exact niche the user picked (e.g. "Chinese restaurant"),
-  // falling back to the broad-category label for the picked key.
-  const industryLabel = p.industryLabel
-    || (p.industry ? INDUSTRIES.find((i) => i.key === p.industry)?.label ?? null : null)
+  // The exact business type the user picked (AI suggestion, fallback
+  // category, or their own free text) — fed to the AI for niche context.
+  const industryLabel = p.industryLabel || null
   const liveDesc = useLiveSuggestions<string>({
     kind: 'description',
     brand: p.brandName,
@@ -2032,7 +2005,7 @@ function FormSteps(p: FormProps) {
     step === 5 ? 'Pick 3 words that define how your brand should feel to people.' :
     step === 6 ? 'Pick the colour direction that feels right. White background stays default.' :
     /* 7 */     (() => {
-                  const label = INDUSTRIES.find((i) => i.key === p.industry)?.label.toLowerCase()
+                  const label = p.industryLabel?.trim().toLowerCase()
                   return label
                     ? `The most popular styles for ${label} brands like ${p.brand || 'yours'}.`
                     : `The most popular styles for brands like ${p.brand || 'yours'}.`
