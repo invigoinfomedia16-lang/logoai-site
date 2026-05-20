@@ -20,7 +20,7 @@ import { NextResponse } from 'next/server'
 
 const MODEL = 'gpt-4o-mini'
 
-type SuggestKind = 'description' | 'tagline' | 'impression' | 'palette' | 'style'
+type SuggestKind = 'description' | 'tagline' | 'impression' | 'palette' | 'style' | 'industry'
 
 interface SuggestRequest {
   kind: SuggestKind
@@ -28,6 +28,8 @@ interface SuggestRequest {
   industry?: string
   niche?: string
   description?: string
+  // Partial text the user is typing — used by the 'industry' typeahead.
+  query?: string
 }
 
 function ctxBlock(req: SuggestRequest): string {
@@ -170,6 +172,21 @@ Respond with ONLY a JSON object of shape:
 Return the 6 types in descending order of "pct".`
   }
 
+  if (req.kind === 'industry') {
+    const q = (req.query ?? '').trim()
+    return `You are powering an industry / business-type typeahead for a logo generator. The user is typing into a search box and has entered: "${q}".
+
+Return 8 SPECIFIC business types or niches that match or closely relate to what they typed. Rules:
+- Each must be a short label, 1-4 words (e.g. "YouTube content creator", "Podcast producer", "Wedding photographer", "Sourdough bakery").
+- Be SPECIFIC, not broad — prefer "Personal injury lawyer" over "Legal", "Vegan restaurant" over "Food".
+- The first 3-4 results should be the closest, most literal matches to "${q}".
+- The remaining results can be related niches the user might also mean.
+- Capitalize the first word only (sentence case), unless a proper noun.
+- No duplicates. No descriptions — just the label.
+
+Respond with ONLY a JSON object of shape: { "suggestions": ["...", "...", ...] }`
+  }
+
   // Should never reach
   return ''
 }
@@ -198,7 +215,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ suggestions: [], reason: 'bad-json' })
   }
 
-  const validKinds: SuggestKind[] = ['description', 'tagline', 'impression', 'palette', 'style']
+  const validKinds: SuggestKind[] = ['description', 'tagline', 'impression', 'palette', 'style', 'industry']
   if (!body.kind || !validKinds.includes(body.kind)) {
     return NextResponse.json({ suggestions: [], reason: 'bad-kind' })
   }
@@ -208,12 +225,14 @@ export async function POST(req: Request) {
     const prompt = buildPrompt(body)
 
     // Palette responses are larger (nested structure) — give more headroom.
-    const maxTokens = body.kind === 'palette' ? 1500 : body.kind === 'style' ? 900 : 800
+    // Industry typeahead is small (8 short labels) and latency-sensitive.
+    const maxTokens =
+      body.kind === 'palette' ? 1500 : body.kind === 'style' ? 900 : body.kind === 'industry' ? 300 : 800
 
     const completion = await openai.chat.completions.create({
       model: MODEL,
       messages: [{ role: 'user', content: prompt }],
-      temperature: body.kind === 'palette' || body.kind === 'style' ? 0.7 : 0.85,
+      temperature: body.kind === 'palette' || body.kind === 'style' ? 0.7 : body.kind === 'industry' ? 0.4 : 0.85,
       max_tokens: maxTokens,
       response_format: { type: 'json_object' },
     })
