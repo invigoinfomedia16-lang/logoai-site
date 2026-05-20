@@ -1,11 +1,9 @@
 'use client'
 
-// Mockup Showcase — Design N. Mirrors the purple L design's mockup section:
-// 16 industry category tabs + a single auto-rotating carousel (one mockup at
-// a time, 1460/760 frame) wrapped in the L-design "frame" treatment
-// (gradient-mesh padded container + vignette), with pagination dots below.
-// Recolored to the terracotta palette. Copy from the LOGOAI landing-page
-// doc, section 6.
+// Mockup Showcase — Design N. 16 industry category tabs + a single
+// auto-rotating carousel (one mockup at a time, 1460/760 frame) in a plain
+// padded container, with pagination dots below. Copy from the LOGOAI
+// landing-page doc, section 6.
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
@@ -124,50 +122,24 @@ export default function NMockups() {
           </div>
         </div>
 
-        {/* Frame — gradient-mesh padded container (mirrors the L design frame,
-            recolored to the terracotta palette) */}
+        {/* Frame — plain padded container around the carousel. */}
         <div
           className="w-full relative overflow-hidden"
           style={{
             padding: 'clamp(16px, 4vw, 48px)',
-            background: 'var(--m-brand-deep)',
+            background: 'var(--m-surface)',
+            border: '1px solid var(--m-border)',
             borderRadius: 20,
           }}
         >
-          {/* Gradient mesh + vignette */}
-          <svg
-            className="absolute inset-0 w-full h-full pointer-events-none"
-            preserveAspectRatio="xMidYMid slice"
-            viewBox="0 0 1600 800"
-            aria-hidden="true"
-          >
-            <defs>
-              <radialGradient id="n-mock-a" cx="25%" cy="28%" r="55%">
-                <stop offset="0%" stopColor="#E89A7E" stopOpacity="0.75" />
-                <stop offset="100%" stopColor="#E89A7E" stopOpacity="0" />
-              </radialGradient>
-              <radialGradient id="n-mock-b" cx="78%" cy="74%" r="55%">
-                <stop offset="0%" stopColor="#D97757" stopOpacity="0.85" />
-                <stop offset="100%" stopColor="#D97757" stopOpacity="0" />
-              </radialGradient>
-              <radialGradient id="n-mock-vig" cx="50%" cy="50%" r="75%">
-                <stop offset="55%" stopColor="#2A1810" stopOpacity="0" />
-                <stop offset="100%" stopColor="#2A1810" stopOpacity="0.55" />
-              </radialGradient>
-            </defs>
-            <rect width="1600" height="800" fill="url(#n-mock-a)" />
-            <rect width="1600" height="800" fill="url(#n-mock-b)" />
-            <rect width="1600" height="800" fill="url(#n-mock-vig)" />
-          </svg>
-
           {/* Carousel frame — one mockup at a time, crossfade */}
           <div
-            className="relative z-10 overflow-hidden"
+            className="relative overflow-hidden"
             style={{
               aspectRatio: '1460/760',
               borderRadius: 12,
               background: '#141413',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.18)',
             }}
           >
             {mockups.map((src, i) => (
