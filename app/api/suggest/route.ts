@@ -46,33 +46,27 @@ function buildPrompt(req: SuggestRequest): string {
   const ctx = ctxBlock(req)
 
   if (req.kind === 'description') {
-    return `You help a business owner pick a plain one-line description of their business, shown as click-to-pick options in a logo tool. Their brand name and industry / business type are in the context below.
+    return `You help a business owner pick a one-line description of their business, shown as click-to-pick options in a logo tool. Their brand name and industry / business type are in the context below.
 
-Produce 8 description options. ALL 8 describe the SAME business (the one in the context) — they are alternative plain phrasings the user picks ONE from. They are NOT 8 different businesses.
+Produce 10 description options. Each option describes a genuinely DIFFERENT, recognizable VARIANT of that business type — a different specialty, format, focus, customer base, or model — so the user can pick whichever is closest to their real business.
 
-EVERY option follows this structure:
-"A <neutral adjective> <business type> <serving | offering | providing | specializing in | dedicated to> <what it offers>."
-- Vary the adjective and the verb across the 8 options.
-- Keep the business type and what-it-offers consistent across all 8.
+For example, for "coffee shop" the 10 variants could include: a specialty / third-wave coffee shop, a grab-and-go espresso bar, a coffee shop and bakery, a coffee shop with a coworking space, a drive-through coffee shop, a neighborhood café, a coffee roastery with a café, a dessert-and-coffee spot, and so on. For any other industry, find the equivalent real-world variants.
 
-Match the STYLE of these real examples exactly (shown here for a café — adapt the structure to the business in the context):
-- "A community-focused café serving organic, locally sourced beverages."
-- "A cozy café offering organic, locally sourced drinks and snacks."
-- "An eco-friendly café specializing in organic, locally sourced beverages."
-- "A local café providing organic drinks in a welcoming environment."
-- "A café dedicated to organic, locally sourced beverages and community engagement."
-- "A sustainable café serving organic drinks with a focus on local sourcing."
-Plain, factual, 8-14 words, all describing ONE café — only the adjective, verb and phrasing change. Mild repetition across the options is expected and CORRECT.
+STYLE — match these exactly (plain and factual; examples for a café):
+- "A specialty café focused on single-origin coffee and pour-over brewing."
+- "A grab-and-go café serving quick espresso drinks and pastries for commuters."
+- "A café and bakery offering coffee alongside fresh bread and pastries."
+- "A neighborhood café with a relaxed atmosphere, light bites, and indoor seating."
+Each option: ONE plain sentence, 8-15 words, starting with "A" or "An".
 
 RULES:
-- Describe the business only from the context. You MAY state the obvious offerings of that business TYPE (a bakery sells bread and pastries; a jam company makes jams and preserves) — that is general knowledge, not invention.
-- NEVER invent specifics: no product names or flavours, no people / family / founder / backstory, no places or cities, no dates or years, no customer quotes.
-- NO storytelling and NO sensory or marketing language ("bursts with flavour", "at dawn", "evokes", "tells a story").
-- Neutral adjectives only, e.g.: community-focused, cozy, local, independent, eco-friendly, sustainable, modern, small-batch, handcrafted, artisan, family-run, friendly, welcoming, boutique, dedicated.
+- All 10 must be CLEARLY DISTINCT variants — never a reworded copy of another. The user should tell them apart at a glance.
+- Stay plain and factual. NO storytelling, NO marketing or sensory language ("bursts with flavour", "evokes", "tells a story", "lovingly", "at dawn").
+- Do NOT invent fabricated specifics — no made-up product names, no people / family / founder / backstory, no cities or countries, no dates. (Recognizable business variants and the obvious offerings of a business type are fine — fabricated facts are not.)
 
 ${ctx}
 
-Generate exactly 8 plain description options in this style. Respond with ONLY a JSON object of shape: { "suggestions": ["...", "...", ...] }`
+Generate exactly 10 distinct description options. Respond with ONLY a JSON object of shape: { "suggestions": ["...", "...", ...] }`
   }
 
   if (req.kind === 'tagline') {
@@ -225,7 +219,7 @@ export async function POST(req: Request) {
           : body.kind === 'industry'
           ? 0.4
           : body.kind === 'description'
-          ? 0.25 // very low — plain, literal descriptions, no creative drift
+          ? 0.5 // moderate — distinct variants, but still plain (no invented stories)
           : 0.85,
       max_tokens: maxTokens,
       response_format: { type: 'json_object' },
