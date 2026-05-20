@@ -732,7 +732,9 @@ function IndustryCombobox({
   // and the dropdown falls back to the small built-in category list.
   useEffect(() => {
     const q = query.trim()
-    if (q.length < 2 || industry) {
+    // Fire from the very first character — suggestions update on every
+    // keystroke (debounced) as the user keeps typing.
+    if (q.length < 1 || industry) {
       setAiMatches([])
       setStatus('idle')
       return
