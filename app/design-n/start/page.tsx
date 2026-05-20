@@ -55,6 +55,29 @@ const TAGLINE_CLICHES = [
 const isCleanTagline = (x: unknown): x is string =>
   isString(x) && !TAGLINE_CLICHES.some((re) => re.test(x))
 
+// Step 6 — "Use my own colours". paletteIndex === CUSTOM_PALETTE_INDEX means
+// the user's own colours are selected instead of an AI palette.
+const CUSTOM_PALETTE_INDEX = -1
+
+// Coerce any string to a valid 6-digit hex (native colour inputs require it).
+function safeHex(h: string): string {
+  return /^#[0-9a-fA-F]{6}$/.test(h.trim()) ? h.trim() : '#000000'
+}
+
+// Build a PaletteShape from the user's 3 custom hex colours, so a custom
+// palette flows through the logo art exactly like an AI-generated one.
+function customPaletteShape(colors: string[]): PaletteShape {
+  const roles = ['Primary', 'Secondary', 'Accent']
+  return {
+    name: 'My colours',
+    hint: 'Your own brand colours',
+    colors: [0, 1, 2].map((i) => {
+      const hex = safeHex(colors[i] ?? '#000000')
+      return { name: hex.toUpperCase(), hex, desc: roles[i] }
+    }),
+  }
+}
+
 /* ------------------------------------------------------------------ */
 /* data — verbatim from the mock                                       */
 /* ------------------------------------------------------------------ */
@@ -130,6 +153,13 @@ export default function LogoOnboarding() {
   const [tagline, setTagline] = useState('')
   const [impressions, setImpressions] = useState<string[]>([])
   const [paletteIndex, setPaletteIndex] = useState<number | null>(null)
+  // The user's own 3 brand colours, used when they pick "Use my own colours"
+  // on Step 6 (paletteIndex === CUSTOM_PALETTE_INDEX).
+  const [customColors, setCustomColors] = useState<string[]>([
+    '#D97757',
+    '#2A2A2A',
+    '#F0EEE6',
+  ])
   const [logoTypeIndex, setLogoTypeIndex] = useState<number | null>(null)
   // Trigger flags — true once the user has interacted with the description /
   // tagline step (focus or AI-pick). Controls when the API fires and when
@@ -179,10 +209,11 @@ export default function LogoOnboarding() {
   const [checkoutFor, setCheckoutFor] = useState<number | null>(null)
 
 
-  const palette = useMemo(
-    () => (paletteIndex !== null ? PALETTES[paletteIndex] : null),
-    [paletteIndex],
-  )
+  const palette = useMemo(() => {
+    if (paletteIndex === CUSTOM_PALETTE_INDEX) return customPaletteShape(customColors)
+    if (paletteIndex !== null && paletteIndex >= 0) return PALETTES[paletteIndex] ?? null
+    return null
+  }, [paletteIndex, customColors])
 
   // `brand` is used in onboarding copy ("What does Rose offer?"). The
   // logo artwork respects nameStyle/casing; copy always title-cases the
@@ -540,6 +571,8 @@ export default function LogoOnboarding() {
             setImpressions={setImpressions}
             paletteIndex={paletteIndex}
             setPaletteIndex={setPaletteIndex}
+            customColors={customColors}
+            setCustomColors={setCustomColors}
             logoTypeIndex={logoTypeIndex}
             setLogoTypeIndex={setLogoTypeIndex}
             aiPickPending={aiPickPending}
@@ -694,6 +727,8 @@ type FormProps = {
   setImpressions: (v: string[]) => void
   paletteIndex: number | null
   setPaletteIndex: (i: number) => void
+  customColors: string[]
+  setCustomColors: (c: string[]) => void
   logoTypeIndex: number | null
   setLogoTypeIndex: (i: number) => void
   // "Let AI pick" is pending — FormSteps resolves it once the step's live
@@ -2457,6 +2492,99 @@ function FormSteps(p: FormProps) {
           })}
           </div>
           )}
+
+          {/* Use my own colours — for users who already have brand colours.
+              Full-width card below the AI palettes. */}
+          {(() => {
+            const customSelected = p.paletteIndex === CUSTOM_PALETTE_INDEX
+            const roles = ['Primary', 'Secondary', 'Accent']
+            const updateColor = (idx: number, v: string) => {
+              const next = p.customColors.slice()
+              next[idx] = v
+              p.setCustomColors(next)
+            }
+            return (
+              <div
+                className="m-sans"
+                style={{
+                  padding: 14,
+                  borderRadius: 14,
+                  border: '1.5px solid',
+                  borderColor: customSelected ? 'var(--m-brand)' : 'var(--m-border)',
+                  background: customSelected ? 'var(--m-brand-soft)' : 'var(--m-surface)',
+                  transition: 'border-color 0.15s ease, background 0.15s ease',
+                }}
+              >
+                <button
+                  type="button"
+                  onClick={() => p.setPaletteIndex(CUSTOM_PALETTE_INDEX)}
+                  className="m-sans text-left w-full flex items-center"
+                  style={{ gap: 12, background: 'transparent', border: 'none', cursor: 'pointer', padding: 0 }}
+                >
+                  <span
+                    className="flex overflow-hidden shrink-0"
+                    style={{ borderRadius: 8, border: '1px solid var(--m-border)', height: 44, width: 110 }}
+                  >
+                    {[0, 1, 2].map((i) => (
+                      <span key={i} style={{ flex: 1, background: safeHex(p.customColors[i] ?? '#000000') }} />
+                    ))}
+                  </span>
+                  <span className="flex flex-col" style={{ gap: 2, flex: 1 }}>
+                    <span className="m-display" style={{ fontSize: 17, fontWeight: 600, color: 'var(--m-ink)', lineHeight: 1.2 }}>
+                      Use my own colours
+                    </span>
+                    <span style={{ fontSize: 13, color: 'var(--m-text-soft)', lineHeight: 1.35 }}>
+                      Already have brand colours? Enter them here.
+                    </span>
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="inline-flex items-center justify-center shrink-0"
+                    style={{
+                      width: 22,
+                      height: 22,
+                      borderRadius: '50%',
+                      border: customSelected ? 'none' : '1.5px solid var(--m-border-medium)',
+                      background: customSelected ? 'var(--m-brand)' : 'transparent',
+                      color: '#FFFFFF',
+                      fontSize: 12,
+                    }}
+                  >
+                    {customSelected && '✓'}
+                  </span>
+                </button>
+
+                {customSelected && (
+                  <div className="flex flex-col" style={{ gap: 8, marginTop: 14 }}>
+                    {[0, 1, 2].map((i) => (
+                      <div key={i} className="flex items-center" style={{ gap: 10 }}>
+                        <input
+                          type="color"
+                          value={safeHex(p.customColors[i] ?? '#000000')}
+                          onChange={(e) => updateColor(i, e.target.value)}
+                          aria-label={`${roles[i]} colour`}
+                          style={{ width: 40, height: 40, borderRadius: 8, border: '1px solid var(--m-border)', padding: 2, cursor: 'pointer', background: 'var(--m-surface)' }}
+                        />
+                        <input
+                          type="text"
+                          value={p.customColors[i] ?? ''}
+                          onChange={(e) => updateColor(i, e.target.value)}
+                          placeholder="#RRGGBB"
+                          spellCheck={false}
+                          maxLength={7}
+                          className="n-start-input m-sans"
+                          style={{ ...textInputStyle, flex: 1 }}
+                        />
+                        <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--m-text-soft)', width: 70, flexShrink: 0 }}>
+                          {roles[i]}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )
+          })()}
         </div>
       )}
 
