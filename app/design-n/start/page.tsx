@@ -2292,7 +2292,7 @@ function FormSteps(p: FormProps) {
         <div className="flex flex-col" style={{ gap: 16 }}>
           <div>
             <label htmlFor="n-tagline-input" className="m-sans block" style={{ fontSize: 12, color: 'var(--m-text-soft)', marginBottom: 6, fontWeight: 600, letterSpacing: '0.04em' }}>
-              Tagline
+              Your tagline
             </label>
             <input
               id="n-tagline-input"
@@ -2301,6 +2301,7 @@ function FormSteps(p: FormProps) {
               onChange={(e) => p.setTagline(e.target.value)}
               onFocus={() => setTaglineTriggered(true)}
               autoComplete="off"
+              placeholder="Already have a tagline? Type it here — or pick one below"
               className="n-start-input m-sans w-full"
               style={textInputStyle}
             />
