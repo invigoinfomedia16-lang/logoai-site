@@ -52,6 +52,18 @@ export const BRAND_COLORS: BrandColorOption[] = [
     },
   },
   {
+    // Vermillion orange-red CTA (requested exact brand hex #E7420F).
+    name: 'Vermillion',
+    vars: {
+      brand: '#E7420F',
+      strong: '#C8390C',
+      deep: '#AE320A',
+      soft: '#FCE3DB',
+      bg: '#FDF0EB',
+      glow: '#F4926F',
+    },
+  },
+  {
     // Solid black CTA — neutral light-grey section tint.
     name: 'Black',
     vars: {
