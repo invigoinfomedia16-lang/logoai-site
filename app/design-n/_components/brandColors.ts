@@ -11,7 +11,7 @@ export type BrandVars = {
   strong: string  // strong text accents (e.g. the "4.9/5" rating figure)
   deep: string    // CTA hover background
   soft: string    // light tint — soft backgrounds, hover borders
-  bg: string      // page / funnel background (kept neutral across colours)
+  bg: string      // tinted section / funnel background (matches the brand)
   glow: string    // lighter accent glow
 }
 
@@ -20,48 +20,46 @@ export type BrandColorOption = {
   vars: BrandVars
 }
 
-// Neutral funnel/hero background — same warm off-white for every colour so
-// only the CTA + accents change (per request).
-const NEUTRAL_BG = '#F0EEE6'
-
 // The default (current) design-n colour is terracotta — defined in the
 // layout's <style> block, not here. The toggle offers the 3 alternatives
 // below; "Reset" returns to that terracotta default.
 export const BRAND_COLORS: BrandColorOption[] = [
   {
     // design-l's exact Purple Heart CTA + accent treatment.
+    // bg = design-l's own alt-section lavender.
     name: 'Purple (L)',
     vars: {
       brand: '#7543E3',
       strong: '#6132BC',
       deep: '#5F2EB4',
       soft: '#EBE2FF',
-      bg: NEUTRAL_BG,
+      bg: '#F5F0FF',
       glow: '#C7A8FF',
     },
   },
   {
     // HEADSHOT's exact CTA blue (Tailwind blue-500/600/700), pulled from
-    // HEADSHOT/DESIGN_TOKENS.md — --color-brand #2B7FFF is its primary CTA.
+    // HEADSHOT/DESIGN_TOKENS.md — --color-brand #2B7FFF is its primary CTA,
+    // --color-brand-bg #EFF6FF its tinted section background.
     name: 'Headshot Blue',
     vars: {
       brand: '#2B7FFF',
       strong: '#155DFC',
       deep: '#1447E6',
       soft: '#DBEAFE',
-      bg: NEUTRAL_BG,
+      bg: '#EFF6FF',
       glow: '#8EC5FF',
     },
   },
   {
-    // Solid black CTA.
+    // Solid black CTA — neutral light-grey section tint.
     name: 'Black',
     vars: {
       brand: '#1A1A1A',
       strong: '#000000',
       deep: '#000000',
       soft: '#E5E5E5',
-      bg: NEUTRAL_BG,
+      bg: '#F2F2F1',
       glow: '#525252',
     },
   },
