@@ -49,14 +49,15 @@ function buildPrompt(req: SuggestRequest): string {
     return `You are helping a small-business owner fill in a one-sentence description of THEIR OWN business, for an AI logo generator. Their brand name and industry are in the context below. Produce 10 description options they can pick from or lightly edit.
 
 WHAT A GOOD OPTION IS:
-- It reads like a plain, real description of what the business does — not a slogan, not a story.
-- All 10 describe the SAME business (the one in the context). They are alternative wordings the user chooses between — NOT 10 different businesses.
+- It reads like a plain, factual description of what the business does — a statement, not a slogan, not a story. Most should start with "A ..." or "We ...".
+- All 10 describe the SAME business (the one in the context). They are alternative PHRASINGS the user chooses between — NOT 10 different businesses.
 - 8-16 words, clear and natural. Mix first-person ("We make...") and neutral ("A studio that...") phrasings.
-- Vary the wording, length, and which facet leads (what they make / who it serves / how it works) — but every option must stay consistent and plausible for that one business.
+- The 10 options WILL be similar to each other — that is correct and expected. They differ only in wording and in which plain facet leads (what it makes / who it serves / how it works).
 
 STRICT — NEVER DO THIS:
-- Do NOT invent specifics the user did not provide — no made-up product names, flavours, founder or family backstory, locations, dates, or customer quotes. Describe the business only at the level its industry tells you.
-- Do NOT write storytelling or marketing copy ("Each jar holds a story...", "bursts with flavour", "lovingly crafted").
+- Do NOT invent ANY specific the user did not provide — no product names, no flavours, no founder/family/backstory, no locations, no dates, no customer types beyond the obvious, no sensory adjectives. If you are unsure whether a detail is real, leave it out.
+- Do NOT add invented detail just to make the 10 options sound different from each other. Similar-but-accurate beats distinct-but-invented, every time.
+- Do NOT write storytelling or marketing copy ("Each jar holds a story...", "bursts with flavour", "lovingly crafted", "evokes the feeling of...").
 - Avoid clichés: "made with love", "quality you can taste", "your go-to", "in the heart of", "elevating the experience".
 
 EXAMPLE — for a bakery, GOOD options look like:
@@ -216,7 +217,14 @@ export async function POST(req: Request) {
     const completion = await openai.chat.completions.create({
       model: MODEL,
       messages: [{ role: 'user', content: prompt }],
-      temperature: body.kind === 'palette' || body.kind === 'style' ? 0.7 : body.kind === 'industry' ? 0.4 : 0.85,
+      temperature:
+        body.kind === 'palette' || body.kind === 'style'
+          ? 0.7
+          : body.kind === 'industry'
+          ? 0.4
+          : body.kind === 'description'
+          ? 0.4 // low — plain, consistent, literal descriptions (no creative drift)
+          : 0.85,
       max_tokens: maxTokens,
       response_format: { type: 'json_object' },
     })
