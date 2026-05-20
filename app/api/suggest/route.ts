@@ -46,37 +46,33 @@ function buildPrompt(req: SuggestRequest): string {
   const ctx = ctxBlock(req)
 
   if (req.kind === 'description') {
-    return `You help a business owner pick a plain one-line description of their business for a logo tool. Their brand + industry are in the context below.
+    return `You help a business owner pick a plain one-line description of their business, shown as click-to-pick options in a logo tool. Their brand name and industry / business type are in the context below.
 
-Produce 8 description options. Each is ONE plain, factual sentence — what the business is and what it offers. Nothing more. 6-14 words.
+Produce 8 description options. ALL 8 describe the SAME business (the one in the context) — they are alternative plain phrasings the user picks ONE from. They are NOT 8 different businesses.
 
-A description follows this shape:
-  [the business type] + [what it makes / sells / does] + (optionally) ONE neutral qualifier.
+EVERY option follows this structure:
+"A <neutral adjective> <business type> <serving | offering | providing | specializing in | dedicated to> <what it offers>."
+- Vary the adjective and the verb across the 8 options.
+- Keep the business type and what-it-offers consistent across all 8.
 
-The ONLY qualifiers you may add: small-batch, handmade, handcrafted, artisan, local, online, made-to-order, custom, independent, family-run. At most one per sentence, only if it fits the industry. Add nothing else.
+Match the STYLE of these real examples exactly (shown here for a café — adapt the structure to the business in the context):
+- "A community-focused café serving organic, locally sourced beverages."
+- "A cozy café offering organic, locally sourced drinks and snacks."
+- "An eco-friendly café specializing in organic, locally sourced beverages."
+- "A local café providing organic drinks in a welcoming environment."
+- "A café dedicated to organic, locally sourced beverages and community engagement."
+- "A sustainable café serving organic drinks with a focus on local sourcing."
+Plain, factual, 8-14 words, all describing ONE café — only the adjective, verb and phrasing change. Mild repetition across the options is expected and CORRECT.
 
-ABSOLUTELY FORBIDDEN — including any of these makes the description WRONG, because the user never told you them:
-- specific product names or flavours (e.g. "fig jam", "lavender blueberry", "sourdough")
-- any person, family member, founder, or backstory ("grandma", "my travels", "inspired by")
-- any place ("countryside kitchen", "our town", a city or country)
-- times, dates, or seasons-as-story ("at dawn", "summer evenings", "since 1990")
-- sensory or marketing language ("bursts with flavour", "cozy", "vibrant", "evokes", "delight")
-- customer quotes, ratings, or "loved by..."
-
-If you cannot reach 8 without inventing, REPEAT the core idea in different plain words. Plain and slightly repetitive is REQUIRED. Colourful and invented is a FAILURE.
-
-GOOD (for a jam company — notice: plain, factual, no invented detail):
-- "A small-batch company that makes and sells fruit jams and preserves."
-- "We make handmade jams, marmalades, and fruit spreads."
-- "An artisan jam business selling fruit preserves online and at local markets."
-- "A jam maker offering a range of fruit preserves and spreads."
-BAD (invented detail — NEVER do this):
-- "Inspired by grandma's recipes, small-batch fig jam with a hint of vanilla."
-- "Crafted at dawn in our countryside kitchen, every jar bursts with flavour."
+RULES:
+- Describe the business only from the context. You MAY state the obvious offerings of that business TYPE (a bakery sells bread and pastries; a jam company makes jams and preserves) — that is general knowledge, not invention.
+- NEVER invent specifics: no product names or flavours, no people / family / founder / backstory, no places or cities, no dates or years, no customer quotes.
+- NO storytelling and NO sensory or marketing language ("bursts with flavour", "at dawn", "evokes", "tells a story").
+- Neutral adjectives only, e.g.: community-focused, cozy, local, independent, eco-friendly, sustainable, modern, small-batch, handcrafted, artisan, family-run, friendly, welcoming, boutique, dedicated.
 
 ${ctx}
 
-Generate exactly 8 plain description options for the business above. Respond with ONLY a JSON object of shape: { "suggestions": ["...", "...", ...] }`
+Generate exactly 8 plain description options in this style. Respond with ONLY a JSON object of shape: { "suggestions": ["...", "...", ...] }`
   }
 
   if (req.kind === 'tagline') {
