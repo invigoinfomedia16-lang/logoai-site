@@ -287,18 +287,9 @@ export default function LogoOnboarding() {
   // the user always sees the suggestions populate before Continue appears,
   // and the picked value comes from the real AI list, not a static stand-in.
   function aiInfoForStep(): { onPick: () => void; label: string } | null {
-    // Only step 4 (tagline) has a "Let AI pick" button. Step 3 lets the
-    // user pick a suggestion or type their own; steps 5-7 auto-preselect
-    // the best option on arrival — all just show Continue.
-    if (step === 4) {
-      return {
-        onPick: () => {
-          setTaglineTriggered(true)
-          setAiPickPending(true)
-        },
-        label: 'Let AI pick a tagline',
-      }
-    }
+    // No step has a "Let AI pick" button. Steps 3 & 4 — pick a suggestion
+    // or type your own; steps 5-7 auto-preselect the best option on
+    // arrival. Every step's footer is just Continue.
     return null
   }
 
