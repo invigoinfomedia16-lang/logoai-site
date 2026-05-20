@@ -47,7 +47,10 @@ export default function NHero() {
       data-n-hero
       className="w-full pt-2 pb-16 md:pb-24"
       style={{
-        background: 'linear-gradient(to bottom, rgba(240,238,230,0.95) 0%, rgba(240,238,230,0.4) 60%, var(--m-surface) 100%)',
+        // Tinted with --m-brand-bg so the hero follows the brand-colour
+        // toggle, same as every other section. Fades brand tint → white.
+        background:
+          'linear-gradient(to bottom, var(--m-brand-bg) 0%, color-mix(in srgb, var(--m-brand-bg) 50%, var(--m-surface)) 58%, var(--m-surface) 100%)',
       }}
     >
       <div className="px-5 sm:px-10 md:px-16 lg:px-[120px] xl:px-[192px]">
