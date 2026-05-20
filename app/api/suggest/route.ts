@@ -136,19 +136,31 @@ Respond with ONLY a JSON object of shape:
   }
 
   if (req.kind === 'style') {
-    return `You are helping a small-business owner pick a logo style. The 6 industry-standard logo types are fixed: Wordmark, Combination Mark, Abstract Mark, Lettermark, Brandmark, Emblem. For THIS brand, generate brand-aware data for each: estimate what % of brands in this industry use each type (must sum to ~100), and provide industry-relevant real-world examples for each type.
+    return `You are helping a small-business owner choose a logo style. There are 6 standard logo types: Wordmark, Combination Mark, Abstract Mark, Lettermark, Brandmark, Emblem.
 
 ${ctx}
 
-For each of the 6 logo types, return:
-- "name": one of: "Wordmark", "Combination Mark", "Abstract Mark", "Lettermark", "Brandmark", "Emblem"
-- "pct": integer 0-100, what percentage of brands in this industry use this type (all 6 should sum to ~100)
-- "desc": one short sentence describing the type
-- "ex": 3 real-world examples (well-known brands in or adjacent to this industry that use this type), comma-separated
+For THIS specific industry, estimate how common each of the 6 types is, and give real examples.
 
-Respond with ONLY a JSON object of shape:
-{ "suggestions": [ { "name": "Wordmark", "pct": 35, "desc": "...", "ex": "X, Y, Z" }, ... ] }
-Return the 6 types in descending order of "pct".`
+CRITICAL — the percentages MUST be genuinely specific to this industry:
+- Do NOT use a stock or default spread. The numbers for a law firm, a craft brewery, a tech startup, and a children's brand must look clearly DIFFERENT from one another.
+- The most-used type is NOT always Wordmark — it depends entirely on the industry. Guidance:
+  • Law firms, consultancies, finance, real estate → Wordmark, Lettermark, Emblem lead (traditional, initials, crests).
+  • Tech / SaaS / startups / apps → Wordmark and Abstract Mark lead.
+  • Craft breweries, coffee roasters, sports teams, outdoor brands → Emblem, Brandmark, Combination Mark lead (badges, illustrative).
+  • Fashion, beauty, luxury → Wordmark and Lettermark lead (elegant type, monograms).
+  • Food trucks, kids' brands, pet businesses → Combination Mark, Brandmark, Emblem lead (friendly, illustrative).
+- FIRST reason about which 2-3 types genuinely dominate THIS industry, THEN assign percentages to reflect that. The top type may be anywhere from 25% to 50%, depending on how strongly it dominates.
+- All 6 percentages are integers, each at least 2, summing to ~100.
+
+For each of the 6 logo types return:
+- "name": exactly one of: "Wordmark", "Combination Mark", "Abstract Mark", "Lettermark", "Brandmark", "Emblem"
+- "pct": integer — share of brands in THIS industry that use this type
+- "desc": one short sentence describing the type
+- "ex": 3 real, well-known brands in or adjacent to this industry that use this type, comma-separated
+
+Return the 6 types in descending order of "pct". Respond with ONLY a JSON object of shape:
+{ "suggestions": [ { "name": "...", "pct": <integer>, "desc": "...", "ex": "X, Y, Z" }, ... ] }`
   }
 
   if (req.kind === 'industry') {
