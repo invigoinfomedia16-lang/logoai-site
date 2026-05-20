@@ -21,6 +21,9 @@ interface Ctx<T> {
   industry?: string | null
   niche?: string
   description?: string
+  // Mood / feel words the user picked at step 5 — fed into the palette
+  // request so colours reflect them. Comma-joined string.
+  impressions?: string
   fallback: T[]
   // Whether to actually call the API. Pass false to suppress (e.g. when the
   // user hasn't filled in brand name yet, or the step is not visible).
@@ -58,6 +61,7 @@ function ctxKey<T>(c: Ctx<T>): string {
     c.industry ?? '',
     c.niche ?? '',
     c.description ?? '',
+    c.impressions ?? '',
   ].join('|')
 }
 
@@ -105,6 +109,7 @@ export function useLiveSuggestions<T>(ctx: Ctx<T>): Result<T> {
         industry: ctx.industry ?? undefined,
         niche: ctx.niche ?? undefined,
         description: ctx.description ?? undefined,
+        impressions: ctx.impressions ?? undefined,
       }),
       signal: controller.signal,
     })

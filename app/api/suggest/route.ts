@@ -28,6 +28,8 @@ interface SuggestRequest {
   industry?: string
   niche?: string
   description?: string
+  // Mood / feel words picked at step 5 — used by the 'palette' kind.
+  impressions?: string
   // Partial text the user is typing — used by the 'industry' typeahead.
   query?: string
 }
@@ -38,6 +40,7 @@ function ctxBlock(req: SuggestRequest): string {
     req.industry ? `Industry: ${req.industry}` : '',
     req.niche ? `Niche / type: ${req.niche}` : '',
     req.description ? `Description: ${req.description}` : '',
+    req.impressions ? `Mood / feel words the owner picked: ${req.impressions}` : '',
   ].filter(Boolean)
   return lines.join('\n')
 }
@@ -109,6 +112,14 @@ Generate exactly 12 distinct single-word mood adjectives. Respond with ONLY a JS
 
   if (req.kind === 'palette') {
     return `You are helping a small-business owner pick a brand colour palette. Generate 6 distinct palettes specifically suitable for THIS brand. Tailor heavily to industry and niche — a Sichuan hot-pot restaurant should get red/gold/charcoal Chinese-restaurant aesthetics, a yoga studio should get earth tones (sage, terracotta, cream), a tech SaaS should get blues/slates/electric accents. Each palette should be cohesive and printable.
+
+IMPORTANT — if "Mood / feel words" are given in the context below, the palettes MUST reflect them; this is the strongest signal. For example:
+- "Calm / Grounded / Soulful" → soft, muted, earthy tones; low contrast.
+- "Bold / Energetic / Modern" → vivid, saturated colours; high contrast.
+- "Luxurious / Elegant / Premium" → deep, rich tones with gold, black, or jewel accents.
+- "Playful / Friendly / Fun" → bright, cheerful colours.
+- "Trustworthy / Professional / Reliable" → blues, slates, restrained neutrals.
+Every one of the 6 palettes should feel consistent with the chosen mood words.
 
 ${ctx}
 

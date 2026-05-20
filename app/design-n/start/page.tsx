@@ -2007,6 +2007,8 @@ function FormSteps(p: FormProps) {
     brand: p.brandName,
     industry: industryLabel,
     description: p.description || undefined,
+    // Step 5's picked mood words — the strongest signal for colour.
+    impressions: p.impressions.length > 0 ? p.impressions.join(', ') : undefined,
     fallback: PALETTES,
     enabled: step === 6,
     validate: isPalette,
