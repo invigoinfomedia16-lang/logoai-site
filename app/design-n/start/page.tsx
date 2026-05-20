@@ -716,6 +716,11 @@ function IndustryCombobox({
   const aiReqRef = useRef(0)
   const wrapRef = useRef<HTMLDivElement | null>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
+  // True once a value is committed. The deferred onBlur handler reads this
+  // (a ref, always current) instead of the `industry` prop — otherwise its
+  // stale closure would re-run tryCommit() after a dropdown click and
+  // overwrite the user's pick with the first AI suggestion.
+  const committedRef = useRef(false)
 
   // Live AI typeahead. Debounced ~1/3s after the user stops typing. The
   // result is cached per query so re-typing the same word is instant and
@@ -800,6 +805,7 @@ function IndustryCombobox({
   const inputValue = industry && !query ? industryLabel : query
 
   function commit(key: string, label: string) {
+    committedRef.current = true
     setIndustry(key)
     setIndustryLabel(label)
     setQuery('')
@@ -837,6 +843,7 @@ function IndustryCombobox({
     commit(slugify(q) || 'custom', q)
   }
   function clear() {
+    committedRef.current = false
     setIndustry('' as unknown as string) // resets state; gating handles null/''
     setIndustryLabel('')
     setQuery('')
@@ -887,6 +894,7 @@ function IndustryCombobox({
             setQuery(v)
             // Typing while a value is committed → switch to "edit" mode.
             if (industry) {
+              committedRef.current = false
               setIndustry('' as unknown as string)
               setIndustryLabel('')
             }
@@ -908,9 +916,11 @@ function IndustryCombobox({
           onBlur={() => {
             // Clicking away with text typed but nothing committed would
             // otherwise leave Continue disabled. Defer so a dropdown-row
-            // click registers first; then commit the typed text.
+            // click registers first; then commit the typed text — but only
+            // if that click DIDN'T already commit (committedRef, not the
+            // stale `industry` closure, is the reliable check here).
             setTimeout(() => {
-              if (!industry && query.trim().length > 0) tryCommit()
+              if (!committedRef.current && query.trim().length > 0) tryCommit()
             }, 150)
           }}
           placeholder="e.g. Italian restaurant"
