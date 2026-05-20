@@ -38,6 +38,23 @@ import { LOGO_TYPES, STYLE_ICONS } from './data/logoTypes'
 import { GEN_PHASES } from './data/genPhases'
 import { LOGO_PRICE, PREVIEW_COUNT, PREVIEW_LOGOS, RESERVATION_MINUTES } from './data/constants'
 
+// Hard cliché filter for tagline suggestions — a safety net under the
+// prompt's no-cliché rule. Any AI tagline matching one of these shapes is
+// dropped before it ever reaches the user.
+const TAGLINE_CLICHES = [
+  /\bwhere\b[^,]*\bmeets\b/i,
+  /\b(experience|taste|see) the difference\b/i,
+  /\bquality you can\b/i,
+  /\byour daily\b/i,
+  /\bone\s+\w+\s+at a time\b/i,
+  /\bredefin(e|ing|ed)\b/i,
+  /\belevate your\b/i,
+  /\bjust do it\b/i,
+  /\bthink different\b/i,
+]
+const isCleanTagline = (x: unknown): x is string =>
+  isString(x) && !TAGLINE_CLICHES.some((re) => re.test(x))
+
 /* ------------------------------------------------------------------ */
 /* data — verbatim from the mock                                       */
 /* ------------------------------------------------------------------ */
@@ -1968,7 +1985,8 @@ function FormSteps(p: FormProps) {
     description: p.description || undefined,
     fallback: staticTaglineList,
     enabled: step === 4 && taglineTriggered,
-    validate: isString,
+    // Reject any tagline that slips a cliché past the prompt.
+    validate: isCleanTagline,
   })
   // Live AI for Step 5 (Impression). Brand-aware mood words specific to the
   // industry — e.g. a law firm gets "Discreet / Authoritative / Sharp"

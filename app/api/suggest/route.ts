@@ -83,7 +83,18 @@ REQUIREMENTS:
 - Vary the angle across the 10: what they do, the benefit/outcome for the customer, the attitude/tone, a touch of wordplay — but every one grounded in this business.
 - The 10 must feel distinct from each other, not one idea reworded.
 
-AVOID clichés: "Quality you can taste / trust / feel", "Experience the difference", "[verb] better", "Where [x] meets [y]", "Your daily [x]", and anything copying a famous brand ("Just do it", "Think different").
+HARD RULE — ZERO CLICHÉS. The following are BANNED. Never output a tagline that matches or even loosely resembles one of these shapes:
+- "Where [x] meets [y]"
+- "Experience the difference" / "Taste the difference" / "See the difference"
+- "Quality you can [taste / trust / feel]"
+- "[verb] better" (e.g. "Clean better")
+- "Your daily [x]"
+- "One [x] at a time"
+- "[noun], redefined" / "Redefining [x]"
+- "Elevate your [x]"
+- anything copying a famous brand ("Just do it", "Think different", "I'm lovin' it")
+
+FINAL STEP — before you respond, re-read all 10 taglines and replace ANY that match or resemble a banned shape above. A single cliché in the output is a failure.
 
 Respond with ONLY a JSON object of shape: { "suggestions": ["...", "...", ...] }`
   }
