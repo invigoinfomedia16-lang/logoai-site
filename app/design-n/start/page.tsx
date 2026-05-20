@@ -870,7 +870,8 @@ function IndustryCombobox({
     const byAlpha = (a: string, b: string) => a.localeCompare(b)
     const starts = relevant.filter(labelStarts).sort(byAlpha)
     const rest = relevant.filter((m) => !labelStarts(m)).sort(byAlpha)
-    return [...starts, ...rest]
+    // Suggestions display (and commit) in lowercase.
+    return [...starts, ...rest].map((s) => s.toLowerCase())
   })()
 
   // Offline / AI-failure fallback — substring match against the small
@@ -1101,13 +1102,13 @@ function IndustryCombobox({
                 <button
                   key={`fb-${ind.key}-${ind.label}`}
                   type="button"
-                  onClick={() => commit(ind.key, ind.label)}
+                  onClick={() => commit(ind.key, ind.label.toLowerCase())}
                   className="m-sans w-full text-left"
                   style={rowStyle}
                   onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--m-surface-alt)' }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
                 >
-                  {ind.label}
+                  {ind.label.toLowerCase()}
                 </button>
               ))}
             </>
