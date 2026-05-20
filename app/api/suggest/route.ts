@@ -46,31 +46,37 @@ function buildPrompt(req: SuggestRequest): string {
   const ctx = ctxBlock(req)
 
   if (req.kind === 'description') {
-    return `You are helping a small-business owner fill in a one-sentence description of THEIR OWN business, for an AI logo generator. Their brand name and industry are in the context below. Produce 10 description options they can pick from or lightly edit.
+    return `You help a business owner pick a plain one-line description of their business for a logo tool. Their brand + industry are in the context below.
 
-WHAT A GOOD OPTION IS:
-- It reads like a plain, factual description of what the business does — a statement, not a slogan, not a story. Most should start with "A ..." or "We ...".
-- All 10 describe the SAME business (the one in the context). They are alternative PHRASINGS the user chooses between — NOT 10 different businesses.
-- 8-16 words, clear and natural. Mix first-person ("We make...") and neutral ("A studio that...") phrasings.
-- The 10 options WILL be similar to each other — that is correct and expected. They differ only in wording and in which plain facet leads (what it makes / who it serves / how it works).
+Produce 8 description options. Each is ONE plain, factual sentence — what the business is and what it offers. Nothing more. 6-14 words.
 
-STRICT — NEVER DO THIS:
-- Do NOT invent ANY specific the user did not provide — no product names, no flavours, no founder/family/backstory, no locations, no dates, no customer types beyond the obvious, no sensory adjectives. If you are unsure whether a detail is real, leave it out.
-- Do NOT add invented detail just to make the 10 options sound different from each other. Similar-but-accurate beats distinct-but-invented, every time.
-- Do NOT write storytelling or marketing copy ("Each jar holds a story...", "bursts with flavour", "lovingly crafted", "evokes the feeling of...").
-- Avoid clichés: "made with love", "quality you can taste", "your go-to", "in the heart of", "elevating the experience".
+A description follows this shape:
+  [the business type] + [what it makes / sells / does] + (optionally) ONE neutral qualifier.
 
-EXAMPLE — for a bakery, GOOD options look like:
-- "A neighbourhood bakery making fresh bread and pastries daily."
-- "We bake handmade breads, cakes, and pastries from scratch."
-- "A small-batch bakery specialising in sourdough and seasonal pastries."
-EXAMPLE — BAD options (invent specifics / tell a story — never do this):
-- "Each loaf carries my grandmother's recipe and a story of home."
-- "We hand-fold our croissants at dawn so every bite bursts with butter."
+The ONLY qualifiers you may add: small-batch, handmade, handcrafted, artisan, local, online, made-to-order, custom, independent, family-run. At most one per sentence, only if it fits the industry. Add nothing else.
+
+ABSOLUTELY FORBIDDEN — including any of these makes the description WRONG, because the user never told you them:
+- specific product names or flavours (e.g. "fig jam", "lavender blueberry", "sourdough")
+- any person, family member, founder, or backstory ("grandma", "my travels", "inspired by")
+- any place ("countryside kitchen", "our town", a city or country)
+- times, dates, or seasons-as-story ("at dawn", "summer evenings", "since 1990")
+- sensory or marketing language ("bursts with flavour", "cozy", "vibrant", "evokes", "delight")
+- customer quotes, ratings, or "loved by..."
+
+If you cannot reach 8 without inventing, REPEAT the core idea in different plain words. Plain and slightly repetitive is REQUIRED. Colourful and invented is a FAILURE.
+
+GOOD (for a jam company — notice: plain, factual, no invented detail):
+- "A small-batch company that makes and sells fruit jams and preserves."
+- "We make handmade jams, marmalades, and fruit spreads."
+- "An artisan jam business selling fruit preserves online and at local markets."
+- "A jam maker offering a range of fruit preserves and spreads."
+BAD (invented detail — NEVER do this):
+- "Inspired by grandma's recipes, small-batch fig jam with a hint of vanilla."
+- "Crafted at dawn in our countryside kitchen, every jar bursts with flavour."
 
 ${ctx}
 
-Generate exactly 10 distinct description options for the business in the context above. Respond with ONLY a JSON object of shape: { "suggestions": ["...", "...", ...] }`
+Generate exactly 8 plain description options for the business above. Respond with ONLY a JSON object of shape: { "suggestions": ["...", "...", ...] }`
   }
 
   if (req.kind === 'tagline') {
@@ -223,7 +229,7 @@ export async function POST(req: Request) {
           : body.kind === 'industry'
           ? 0.4
           : body.kind === 'description'
-          ? 0.4 // low — plain, consistent, literal descriptions (no creative drift)
+          ? 0.25 // very low — plain, literal descriptions, no creative drift
           : 0.85,
       max_tokens: maxTokens,
       response_format: { type: 'json_object' },
