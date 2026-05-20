@@ -287,8 +287,9 @@ export default function LogoOnboarding() {
   // the user always sees the suggestions populate before Continue appears,
   // and the picked value comes from the real AI list, not a static stand-in.
   function aiInfoForStep(): { onPick: () => void; label: string } | null {
-    // Step 3 (description) has no "Let AI pick" button — the user picks a
-    // suggestion or writes their own; the footer just shows Continue.
+    // Only step 4 (tagline) has a "Let AI pick" button. Step 3 lets the
+    // user pick a suggestion or type their own; steps 5-7 auto-preselect
+    // the best option on arrival — all just show Continue.
     if (step === 4) {
       return {
         onPick: () => {
@@ -297,15 +298,6 @@ export default function LogoOnboarding() {
         },
         label: 'Let AI pick a tagline',
       }
-    }
-    if (step === 5) {
-      return { onPick: () => setAiPickPending(true), label: 'Let AI pick 3 words' }
-    }
-    if (step === 6) {
-      return { onPick: () => setAiPickPending(true), label: 'Let AI pick a palette' }
-    }
-    if (step === 7) {
-      return { onPick: () => setAiPickPending(true), label: 'Let AI pick the style' }
     }
     return null
   }
@@ -2060,42 +2052,44 @@ function FormSteps(p: FormProps) {
   const palettesList = livePalettes.suggestions
   const stylesList = liveStyles.suggestions
 
-  // Pick-resolver — when the user clicked "Let AI pick", wait until the
-  // current step's live AI list has finished loading ('done'), then make
-  // the pick from that live list and clear the pending flag. This ensures
-  // the picked value comes from the real AI suggestions (not a static
-  // stand-in) and the footer shows "Picking…" until the list is visible.
+  // Pick-resolver — step 4's "Let AI pick a tagline": wait until the live
+  // tagline list has loaded ('done'), then pick one and clear the pending
+  // flag. The footer shows "Picking…" until the list is ready.
   useEffect(() => {
     if (!p.aiPickPending) return
-    const hook =
-      step === 3 ? liveDesc :
-      step === 4 ? liveTagline :
-      step === 5 ? liveImpression :
-      step === 6 ? livePalettes :
-      step === 7 ? liveStyles : null
-    if (!hook) { p.onAiPickResolved(); return }
-    if (hook.status !== 'done') return // 'idle' / 'loading' → keep waiting
-
-    if (step === 3 && descList.length > 0) {
-      p.setDescription(descList[Math.floor(Math.random() * descList.length)])
-    } else if (step === 4 && taglineList.length > 0) {
+    if (step !== 4) { p.onAiPickResolved(); return }
+    if (liveTagline.status !== 'done') return // keep waiting
+    if (taglineList.length > 0) {
       p.setTagline(taglineList[Math.floor(Math.random() * taglineList.length)])
-    } else if (step === 5 && impressionsList.length > 0) {
-      const shuffled = [...impressionsList].sort(() => Math.random() - 0.5)
-      p.setImpressions(shuffled.slice(0, 3))
-    } else if (step === 6 && palettesList.length > 0) {
-      p.setPaletteIndex(Math.floor(Math.random() * palettesList.length))
-    } else if (step === 7) {
-      // AI returns styles sorted by popularity — index 0 is the top pick.
-      p.setLogoTypeIndex(0)
     }
     p.onAiPickResolved()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    p.aiPickPending, step,
-    liveDesc.status, liveTagline.status, liveImpression.status,
-    livePalettes.status, liveStyles.status,
-  ])
+  }, [p.aiPickPending, step, liveTagline.status])
+
+  // Auto-preselect — steps 5-7 have no "Let AI pick" button. Once the live
+  // AI list for the step loads, the best option(s) are filled in so the
+  // footer can show Continue. The user can still adjust the selection;
+  // this only fills an empty selection, never overrides a user's choice.
+  useEffect(() => {
+    if (
+      step === 5 && liveImpression.status === 'done' &&
+      p.impressions.length === 0 && impressionsList.length > 0
+    ) {
+      p.setImpressions(impressionsList.slice(0, 3))
+    } else if (
+      step === 6 && livePalettes.status === 'done' &&
+      p.paletteIndex === null && palettesList.length > 0
+    ) {
+      p.setPaletteIndex(0)
+    } else if (
+      step === 7 && liveStyles.status === 'done' &&
+      p.logoTypeIndex === null && stylesList.length > 0
+    ) {
+      // AI returns styles sorted by popularity — index 0 is the top pick.
+      p.setLogoTypeIndex(0)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step, liveImpression.status, livePalettes.status, liveStyles.status])
   const visibleDescriptions = descExpanded ? descList : descList.slice(0, DESC_VISIBLE)
   const visibleTaglines = taglineExpanded ? taglineList : taglineList.slice(0, DESC_VISIBLE)
   const visibleServices = servicesExpanded ? servicesList : servicesList.slice(0, SERVICES_VISIBLE)
