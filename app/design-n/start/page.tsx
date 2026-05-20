@@ -777,6 +777,22 @@ function IndustryCombobox({
     setOpen(false)
     inputRef.current?.blur()
   }
+  // Slug for free-text industries not in the taxonomy. Downstream lookups
+  // (SUGGESTIONS_BY_INDUSTRY etc.) all fall back gracefully on unknown keys.
+  function slugify(s: string): string {
+    return s.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+  }
+  // Enter / blur commit: exact label match wins, else the top filtered
+  // result, else the typed text is accepted as a custom industry so the
+  // user is never trapped on an industry outside the ~560-entry list.
+  function tryCommit() {
+    const q = query.trim()
+    if (!q) return
+    const exact = INDUSTRIES.find((i) => i.label.toLowerCase() === q.toLowerCase())
+    if (exact) return commit(exact.key, exact.label)
+    if (filtered.length > 0) return commit(filtered[0].key, filtered[0].label)
+    commit(slugify(q) || 'custom', q)
+  }
   function clear() {
     setIndustry('' as unknown as string) // resets state; gating handles null/''
     setIndustryLabel('')
@@ -817,6 +833,22 @@ function IndustryCombobox({
             // to filter against. Empty + focused stays clean.
             if (query.trim().length > 0) setOpen(true)
           }}
+          onKeyDown={(e) => {
+            // Enter commits whatever is typed (match or free-text) so the
+            // user can proceed without hunting for a dropdown row to click.
+            if (e.key === 'Enter') {
+              e.preventDefault()
+              tryCommit()
+            }
+          }}
+          onBlur={() => {
+            // Clicking away with text typed but nothing committed would
+            // otherwise leave Continue disabled. Defer so a dropdown-row
+            // click registers first; then commit the typed text.
+            setTimeout(() => {
+              if (!industry && query.trim().length > 0) tryCommit()
+            }, 150)
+          }}
           placeholder="e.g. Italian restaurant"
           autoComplete="off"
           className="n-start-input m-sans w-full"
@@ -854,7 +886,7 @@ function IndustryCombobox({
         )}
       </div>
 
-      {open && filtered.length > 0 && (
+      {open && query.trim().length > 0 && (
         <div
           style={{
             position: 'absolute',
@@ -902,6 +934,35 @@ function IndustryCombobox({
                 </button>
               )
             })}
+          {/* Free-text fallback — accept any industry not in the taxonomy
+              so the user is never blocked. Hidden when the query already
+              exactly matches a listed label. */}
+          {!INDUSTRIES.some(
+            (i) => i.label.toLowerCase() === query.trim().toLowerCase(),
+          ) && (
+            <button
+              type="button"
+              onClick={() => commit(slugify(query) || 'custom', query.trim())}
+              className="m-sans w-full text-left"
+              style={{
+                display: 'block',
+                padding: '10px 12px',
+                marginTop: filtered.length > 0 ? 4 : 0,
+                borderTop: filtered.length > 0 ? '1px solid var(--m-border)' : 'none',
+                borderRadius: 8,
+                background: 'transparent',
+                color: 'var(--m-ink)',
+                fontSize: 14,
+                fontWeight: 500,
+                cursor: 'pointer',
+                transition: 'background 0.12s ease',
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--m-surface-alt)' }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'transparent' }}
+            >
+              Use &ldquo;<span style={{ fontWeight: 700 }}>{query.trim()}</span>&rdquo;
+            </button>
+          )}
         </div>
       )}
     </div>
