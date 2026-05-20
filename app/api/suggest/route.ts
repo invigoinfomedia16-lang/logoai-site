@@ -46,47 +46,30 @@ function buildPrompt(req: SuggestRequest): string {
   const ctx = ctxBlock(req)
 
   if (req.kind === 'description') {
-    return `You are helping a small-business owner pick a one-sentence description of their brand for an AI logo generator. Each description must be 10-15 words, founder-voiced, and CONCRETE — not generic marketing copy.
+    return `You are helping a small-business owner fill in a one-sentence description of THEIR OWN business, for an AI logo generator. Their brand name and industry are in the context below. Produce 10 description options they can pick from or lightly edit.
 
-CRITICAL RULES:
-1. Each of the 10 descriptions MUST cover a DIFFERENT angle from this list. Use each angle at most twice:
-   - WHAT: the actual product or service in plain words
-   - WHO: a specific audience or customer segment
-   - VIBE: the feel, mood, or aesthetic
-   - METHOD: the craft, process, or how it's made
-   - ORIGIN: founder story, heritage, or backstory
-   - SCALE: solo / neighbourhood / national / niche
-   - PROMISE: the unique thing they deliver
-   - PHYSICAL: the space, location, or environment
+WHAT A GOOD OPTION IS:
+- It reads like a plain, real description of what the business does — not a slogan, not a story.
+- All 10 describe the SAME business (the one in the context). They are alternative wordings the user chooses between — NOT 10 different businesses.
+- 8-16 words, clear and natural. Mix first-person ("We make...") and neutral ("A studio that...") phrasings.
+- Vary the wording, length, and which facet leads (what they make / who it serves / how it works) — but every option must stay consistent and plausible for that one business.
 
-2. AVOID these cliché phrases entirely (they appear in 80% of bad AI outputs):
-   - "serving fresh / locally-sourced"
-   - "perfect for busy families / professionals"
-   - "made with love / passion / care"
-   - "quality you can taste"
-   - "in the heart of"
-   - "for the modern [anything]"
-   - "your go-to spot"
-   - "elevating the [anything] experience"
+STRICT — NEVER DO THIS:
+- Do NOT invent specifics the user did not provide — no made-up product names, flavours, founder or family backstory, locations, dates, or customer quotes. Describe the business only at the level its industry tells you.
+- Do NOT write storytelling or marketing copy ("Each jar holds a story...", "bursts with flavour", "lovingly crafted").
+- Avoid clichés: "made with love", "quality you can taste", "your go-to", "in the heart of", "elevating the experience".
 
-3. Each description should include AT LEAST ONE CONCRETE DETAIL — a specific dish, a place, a customer type, a process, a material, a time of day. Avoid abstract adjectives.
-
-GOOD EXAMPLES (notice the variety of angles, specificity, and rhythm):
-- "Single-origin pour-over coffee for early-shift workers and freelancers."
-- "Two siblings, one wood-fired oven, sourdough pizza Tuesday through Saturday."
-- "Hand-pulled noodles and chilli oil from a third-generation Sichuan family."
-- "Open-kitchen tapas bar where every plate finishes at the table."
-- "Catering for tech offices that want lunches engineers actually eat."
-
-BAD EXAMPLES (notice the sameness, vagueness, and clichés — DO NOT do this):
-- "A neighbourhood restaurant serving fresh, locally-sourced cuisine."
-- "Authentic Chinese dishes made fresh for our local community."
-- "Family-owned restaurant serving traditional recipes with care."
-- "Casual dining experience featuring beloved favourites."
+EXAMPLE — for a bakery, GOOD options look like:
+- "A neighbourhood bakery making fresh bread and pastries daily."
+- "We bake handmade breads, cakes, and pastries from scratch."
+- "A small-batch bakery specialising in sourdough and seasonal pastries."
+EXAMPLE — BAD options (invent specifics / tell a story — never do this):
+- "Each loaf carries my grandmother's recipe and a story of home."
+- "We hand-fold our croissants at dawn so every bite bursts with butter."
 
 ${ctx}
 
-Generate exactly 10 distinct one-sentence descriptions following the rules above. Make each one feel like a different writer wrote it. Respond with ONLY a JSON object of shape: { "suggestions": ["...", "...", ...] }`
+Generate exactly 10 distinct description options for the business in the context above. Respond with ONLY a JSON object of shape: { "suggestions": ["...", "...", ...] }`
   }
 
   if (req.kind === 'tagline') {
