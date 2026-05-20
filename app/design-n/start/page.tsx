@@ -287,15 +287,8 @@ export default function LogoOnboarding() {
   // the user always sees the suggestions populate before Continue appears,
   // and the picked value comes from the real AI list, not a static stand-in.
   function aiInfoForStep(): { onPick: () => void; label: string } | null {
-    if (step === 3) {
-      return {
-        onPick: () => {
-          setDescTriggered(true) // reveals the rows + enables the AI fetch
-          setAiPickPending(true)
-        },
-        label: 'Let AI pick a description',
-      }
-    }
+    // Step 3 (description) has no "Let AI pick" button — the user picks a
+    // suggestion or writes their own; the footer just shows Continue.
     if (step === 4) {
       return {
         onPick: () => {
