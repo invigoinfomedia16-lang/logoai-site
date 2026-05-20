@@ -178,9 +178,13 @@ export default function LogoOnboarding() {
   const formattedBrand = applyCase(brandName.trim() || 'Your Brand', nameStyle)
 
   // Cancel any in-flight "Let AI pick" when the step changes — a pending
-  // pick belongs to one step only.
+  // pick belongs to one step only. Also kick off Step 3 / 4 suggestion
+  // generation the moment the user lands so they see a skeleton loading
+  // (not a blank step) and the AI list is ready sooner.
   useEffect(() => {
     setAiPickPending(false)
+    if (step === 3) setDescTriggered(true)
+    if (step === 4) setTaglineTriggered(true)
   }, [step])
 
   // Demo-mode: persist the brand snapshot to localStorage on every input
@@ -2175,13 +2179,14 @@ function FormSteps(p: FormProps) {
             />
           </div>
 
-          {/* Show loading text while AI is generating; show rows only once
-              suggestions are ready (live AI result, or static fallback if AI
-              errored). Never mix the two visible at once. */}
-          {descTriggered && liveDesc.loading && (
+          {/* Skeleton while the AI is still generating (idle OR loading) —
+              gated on status, not `loading`, so the static fallback never
+              flashes for a frame before the request starts. Rows show only
+              once the request has settled ('done'). */}
+          {descTriggered && liveDesc.status !== 'done' && (
             <LiveSuggestionStatus loading={true} />
           )}
-          {descTriggered && !liveDesc.loading && (
+          {descTriggered && liveDesc.status === 'done' && (
             <SuggestionRows
               label="Suggestions"
               items={visibleDescriptions}
@@ -2216,10 +2221,10 @@ function FormSteps(p: FormProps) {
             />
           </div>
 
-          {taglineTriggered && liveTagline.loading && (
+          {taglineTriggered && liveTagline.status !== 'done' && (
             <LiveSuggestionStatus loading={true} />
           )}
-          {taglineTriggered && !liveTagline.loading && (
+          {taglineTriggered && liveTagline.status === 'done' && (
             <SuggestionRows
               label="Suggestions"
               items={visibleTaglines}
