@@ -541,7 +541,6 @@ export default function LogoOnboarding() {
             setServices={setServices}
             tagline={tagline}
             setTagline={setTagline}
-            onSkipTagline={() => transitionTo(() => { setTagline(''); setStep((s) => s + 1) })}
             impressions={impressions}
             toggleImpression={toggleImpression}
             setImpressions={setImpressions}
@@ -618,6 +617,7 @@ export default function LogoOnboarding() {
             aiPick={ai?.onPick}
             aiLabel={ai?.label}
             aiPickPending={aiPickPending}
+            onSkip={step === 4 ? () => { setTagline(''); goNext() } : undefined}
           />
         )
       })()}
@@ -697,7 +697,6 @@ type FormProps = {
   setServices: (v: string[]) => void
   tagline: string
   setTagline: (v: string) => void
-  onSkipTagline: () => void
   impressions: string[]
   toggleImpression: (w: string) => void
   setImpressions: (v: string[]) => void
@@ -2300,30 +2299,8 @@ function FormSteps(p: FormProps) {
               onPick={p.setTagline}
             />
           )}
-
-          {/* True skip path — tagline is genuinely optional. Clears any
-              typed value and jumps to the next step. */}
-          <button
-            type="button"
-            onClick={p.onSkipTagline}
-            className="m-sans"
-            style={{
-              alignSelf: 'center',
-              marginTop: 8,
-              padding: '6px 12px',
-              background: 'transparent',
-              border: 'none',
-              color: 'var(--m-text-soft)',
-              fontSize: 13,
-              fontWeight: 500,
-              cursor: 'pointer',
-              textDecoration: 'underline',
-              textDecorationColor: 'var(--m-border-medium)',
-              textUnderlineOffset: 3,
-            }}
-          >
-            Skip — no tagline
-          </button>
+          {/* Skip is a footer button now (FooterNav onSkip) — tagline is
+              optional, see the parent's FooterNav for step 4. */}
         </div>
       )}
 
@@ -3901,6 +3878,7 @@ function FooterNav({
   aiPick,
   aiLabel,
   aiPickPending,
+  onSkip,
 }: {
   onNext: () => void
   canProceed: boolean
@@ -3908,6 +3886,9 @@ function FooterNav({
   aiPick?: () => void
   aiLabel?: string
   aiPickPending?: boolean
+  // When set (Step 4 — optional tagline), a secondary "Skip for now"
+  // button shows beside the main CTA.
+  onSkip?: () => void
 }) {
   // Single CTA in the footer. When the user hasn't engaged with the step
   // yet AND the step has an AI default, the slot shows a "✦ Let AI pick"
@@ -3933,6 +3914,25 @@ function FooterNav({
       }}
     >
       <div style={{ width: '100%', maxWidth: 720, display: 'flex', justifyContent: 'center', gap: 12 }}>
+        {onSkip && (
+          <button
+            type="button"
+            onClick={onSkip}
+            className="m-sans"
+            style={{
+              padding: '14px 28px',
+              borderRadius: 'var(--m-radius-md)',
+              border: '1px solid var(--m-border-medium)',
+              background: 'transparent',
+              color: 'var(--m-text-muted)',
+              fontSize: 16,
+              fontWeight: 600,
+              cursor: 'pointer',
+            }}
+          >
+            Skip for now
+          </button>
+        )}
         {aiPickPending ? (
           <button
             type="button"
