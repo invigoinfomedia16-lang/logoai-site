@@ -5,6 +5,7 @@
 
 import MHeader from '../design-m/_components/MHeader'
 import NReveal from './_components/NReveal'
+import NColorToggle from './_components/NColorToggle'
 import NStickyCTA from './_components/NStickyCTA'
 import NHero from './_components/NHero'
 import NRiskFree from './_components/NRiskFree'
@@ -42,6 +43,7 @@ export default function DesignNHome() {
       </main>
       <NFooter />
       <NStickyCTA />
+      <NColorToggle />
     </>
   )
 }

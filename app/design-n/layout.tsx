@@ -7,6 +7,7 @@
 import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans, Open_Sans, DM_Serif_Display } from 'next/font/google'
+import { BRAND_COLORS, BRAND_COLOR_KEY } from './_components/brandColors'
 
 export const metadata: Metadata = {
   title: 'Logo.AI — Professional logos in 60 seconds',
@@ -195,6 +196,18 @@ export default function NLayout({ children }: { children: ReactNode }) {
         }
       ` }} />
       <div className={`m-theme ${plusJakartaSans.variable} ${openSans.variable} ${dmSerifDisplay.variable}`}>
+        {/* Colour-toggle applier — re-applies the brand colour the user
+            picked on the landing page (NColorToggle) so the choice carries
+            across every design-n page. Runs pre-paint to avoid a flash. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var n=localStorage.getItem(${JSON.stringify(
+              BRAND_COLOR_KEY,
+            )});if(!n)return;var M=${JSON.stringify(
+              Object.fromEntries(BRAND_COLORS.map((c) => [c.name, c.vars])),
+            )};var v=M[n];if(!v)return;var s=document.currentScript.parentElement.style;s.setProperty('--m-brand',v.brand);s.setProperty('--m-brand-strong',v.strong);s.setProperty('--m-brand-deep',v.deep);s.setProperty('--m-brand-soft',v.soft);s.setProperty('--m-brand-bg',v.bg);s.setProperty('--m-brand-glow',v.glow);}catch(e){}})();`,
+          }}
+        />
         {children}
       </div>
     </>
