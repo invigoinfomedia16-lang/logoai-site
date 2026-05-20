@@ -2060,7 +2060,9 @@ function FormSteps(p: FormProps) {
     validate: isStyle,
   })
   const descList = liveDesc.suggestions
-  const taglineList = liveTagline.suggestions
+  // The tagline API over-generates (14) so enough survive the cliché
+  // filter; cap to 10 here so the step shows exactly "5 + Show 5 more".
+  const taglineList = liveTagline.suggestions.slice(0, 10)
   const impressionsList = liveImpression.suggestions
   const palettesList = livePalettes.suggestions
   const stylesList = liveStyles.suggestions

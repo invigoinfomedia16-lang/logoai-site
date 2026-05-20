@@ -77,14 +77,14 @@ Generate exactly 10 distinct description options. Respond with ONLY a JSON objec
 
 ${ctx}
 
-Write 10 tagline options for THIS business.
+Write 14 tagline options for THIS business.
 
 REQUIREMENTS:
 - 3-7 words each. Punchy, memorable, easy to say aloud. No trailing full stop.
 - EVERY tagline must clearly fit THIS business — its industry and what it actually does (per the description above). Never use a theme, product, place, or feeling that does not apply to it. (A commercial cleaning company's taglines must not mention "home"; a law firm's must not mention "flavour"; match the real business.)
 - Base the taglines mainly on the DESCRIPTION and INDUSTRY above. The brand name is light context — you may occasionally play on it, but most taglines should stand on what the business does.
-- Vary the angle across the 10: what they do, the benefit/outcome for the customer, the attitude/tone, a touch of wordplay — but every one grounded in this business.
-- The 10 must feel distinct from each other, not one idea reworded.
+- Vary the angle across the 14: what they do, the benefit/outcome for the customer, the attitude/tone, a touch of wordplay — but every one grounded in this business.
+- All 14 must feel distinct from each other, not one idea reworded.
 
 HARD RULE — ZERO CLICHÉS. The following are BANNED. Never output a tagline that matches or even loosely resembles one of these shapes:
 - "Where [x] meets [y]"
@@ -97,7 +97,7 @@ HARD RULE — ZERO CLICHÉS. The following are BANNED. Never output a tagline th
 - "Elevate your [x]"
 - anything copying a famous brand ("Just do it", "Think different", "I'm lovin' it")
 
-FINAL STEP — before you respond, re-read all 10 taglines and replace ANY that match or resemble a banned shape above. A single cliché in the output is a failure.
+FINAL STEP — before you respond, re-read all 14 taglines and replace ANY that match or resemble a banned shape above. A single cliché in the output is a failure.
 
 Respond with ONLY a JSON object of shape: { "suggestions": ["...", "...", ...] }`
   }
