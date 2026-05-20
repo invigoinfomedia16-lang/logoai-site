@@ -1613,6 +1613,27 @@ function LiveSuggestionStatus({
   )
 }
 
+// Steps 5-7 auto-preselect the best option(s). This note tells the user
+// that — and that they're free to change the selection.
+function PreselectNote() {
+  return (
+    <p
+      className="m-sans"
+      style={{
+        padding: '10px 14px',
+        borderRadius: 'var(--m-radius-md)',
+        background: 'var(--m-brand-soft)',
+        color: 'var(--m-brand-strong)',
+        fontSize: 13,
+        fontWeight: 500,
+        lineHeight: 1.45,
+      }}
+    >
+      We&rsquo;ve selected the best-fit options for your brand — change any you&rsquo;d like.
+    </p>
+  )
+}
+
 // Row-based suggestion list — used on Steps 3 (description) and 4 (tagline).
 // Shows `visibleCount` items by default with a "Show N more" toggle; clicking
 // a row populates the input. Selected row gets a brand-soft background.
@@ -2311,6 +2332,7 @@ function FormSteps(p: FormProps) {
       {step === 5 && (
         <div className="flex flex-col" style={{ gap: 16 }}>
           <CountHeader label="Pick 3 words" count={p.impressions.length} target={3} />
+          {!liveImpression.loading && <PreselectNote />}
           {liveImpression.loading ? (
             <SkeletonGrid shape="chip" count={12} />
           ) : (
@@ -2373,6 +2395,7 @@ function FormSteps(p: FormProps) {
           while AI generates brand-aware palettes, then real grid. */}
       {step === 6 && (
         <div className="flex flex-col" style={{ gap: 10 }}>
+          {!livePalettes.loading && <PreselectNote />}
           {livePalettes.loading ? (
             <SkeletonGrid shape="palette" count={6} />
           ) : (
@@ -2552,6 +2575,7 @@ function FormSteps(p: FormProps) {
           row. Skeleton while AI computes brand-specific popularity. */}
       {step === 7 && (
         <div className="flex flex-col" style={{ gap: 10 }}>
+          {!liveStyles.loading && <PreselectNote />}
           {liveStyles.loading ? (
             <SkeletonGrid shape="style" count={6} />
           ) : (
