@@ -101,7 +101,7 @@ export default function NMockups() {
         <div className="relative w-full">
           <div
             className="md:hidden absolute right-0 top-0 bottom-0 w-10 pointer-events-none z-10"
-            style={{ background: 'linear-gradient(to right, transparent, var(--m-brand-bg))' }}
+            style={{ background: 'linear-gradient(to right, transparent, var(--m-surface))' }}
             aria-hidden="true"
           />
           <div

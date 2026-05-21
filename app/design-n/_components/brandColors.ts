@@ -11,14 +11,22 @@ export type BrandVars = {
   strong: string  // strong text accents (e.g. the "4.9/5" rating figure)
   deep: string    // CTA hover background
   soft: string    // light tint — soft backgrounds, hover borders
-  bg: string      // tinted section / funnel background (matches the brand)
+  bg: string      // tinted section / funnel background — may be a gradient
   glow: string    // lighter accent glow
   onDark: string  // brand accent on dark backgrounds (e.g. footer logo dot)
+  // Optional full hero background override (e.g. a gradient). When set it
+  // replaces the hero's default tint→white fade; when omitted, that fade
+  // is used — so colours without it leave the hero unchanged.
+  heroTint?: string
 }
 
 export type BrandColorOption = {
   name: string
   vars: BrandVars
+  // Optional swatch background for the toggle dot — defaults to vars.brand.
+  // Used when the brand colour alone doesn't represent the theme (e.g. a
+  // gradient theme whose brand is black).
+  swatch?: string
 }
 
 // The default (current) design-n colour is terracotta — defined in the
@@ -83,20 +91,21 @@ export const BRAND_COLORS: BrandColorOption[] = [
   },
   {
     // Character.AI Safety Center palette (from the Figma capture). The
-    // design has one blue accent — #0066FF (Blue Ribbon) — on a #FAFAFA
-    // (Alabaster) page surface. brand + bg are the design's exact values;
-    // strong/deep/soft/glow are shades of that blue for hover/tint states
-    // (the design only defines a single literal blue).
+    // design is black + white with a soft pastel radial gradient as its
+    // tint — cyan #C6F9FF → pink #F2D0FF → cream #FFFDEA (the exact stops
+    // from the Figma "Topics" section). CTAs are pure black; surfaces white.
     name: 'Character.AI',
     vars: {
-      brand: '#0066FF',
-      strong: '#0057D9',
-      deep: '#0049B8',
-      soft: '#DCE8FF',
-      bg: '#FAFAFA',
-      glow: '#5C9CFF',
-      onDark: '#0066FF',
+      brand: '#000000',
+      strong: '#000000',
+      deep: '#000000',
+      soft: '#ECE3F5',
+      bg: 'radial-gradient(130% 130% at 15% 0%, #C6F9FF 0%, #F2D0FF 50%, #FFFDEA 100%)',
+      glow: '#6E6E6E',
+      onDark: '#FFFFFF',
+      heroTint: 'radial-gradient(130% 130% at 15% 0%, #C6F9FF 0%, #F2D0FF 50%, #FFFDEA 100%)',
     },
+    swatch: 'radial-gradient(130% 130% at 15% 0%, #C6F9FF 0%, #F2D0FF 50%, #FFFDEA 100%)',
   },
 ]
 

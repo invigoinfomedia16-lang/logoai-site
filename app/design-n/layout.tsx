@@ -209,7 +209,7 @@ export default function NLayout({ children }: { children: ReactNode }) {
               BRAND_COLOR_KEY,
             )});if(!n)return;var M=${JSON.stringify(
               Object.fromEntries(BRAND_COLORS.map((c) => [c.name, c.vars])),
-            )};var v=M[n];if(!v)return;var s=document.currentScript.parentElement.style;s.setProperty('--m-brand',v.brand);s.setProperty('--m-brand-strong',v.strong);s.setProperty('--m-brand-deep',v.deep);s.setProperty('--m-brand-soft',v.soft);s.setProperty('--m-brand-bg',v.bg);s.setProperty('--m-brand-glow',v.glow);s.setProperty('--m-brand-on-dark',v.onDark);}catch(e){}})();`,
+            )};var v=M[n];if(!v)return;var s=document.currentScript.parentElement.style;s.setProperty('--m-brand',v.brand);s.setProperty('--m-brand-strong',v.strong);s.setProperty('--m-brand-deep',v.deep);s.setProperty('--m-brand-soft',v.soft);s.setProperty('--m-brand-bg',v.bg);s.setProperty('--m-brand-glow',v.glow);s.setProperty('--m-brand-on-dark',v.onDark);if(v.heroTint)s.setProperty('--m-hero-tint',v.heroTint);}catch(e){}})();`,
           }}
         />
         {children}

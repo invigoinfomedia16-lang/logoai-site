@@ -17,6 +17,7 @@ const BRAND_PROPS = [
   '--m-brand-bg',
   '--m-brand-glow',
   '--m-brand-on-dark',
+  '--m-hero-tint',
 ] as const
 
 function themeEl(): HTMLElement | null {
@@ -33,6 +34,10 @@ function applyVars(v: BrandVars) {
   el.style.setProperty('--m-brand-bg', v.bg)
   el.style.setProperty('--m-brand-glow', v.glow)
   el.style.setProperty('--m-brand-on-dark', v.onDark)
+  // Optional full hero-background override; remove it when the colour
+  // doesn't define one so the hero falls back to its default fade.
+  if (v.heroTint) el.style.setProperty('--m-hero-tint', v.heroTint)
+  else el.style.removeProperty('--m-hero-tint')
 }
 
 // Drop the inline overrides → falls back to the layout's terracotta default.
@@ -152,7 +157,7 @@ export default function NColorToggle() {
                 width: 30,
                 height: 30,
                 borderRadius: '50%',
-                background: c.vars.brand,
+                background: c.swatch ?? c.vars.brand,
                 border: isActive ? '2px solid var(--m-ink)' : '2px solid #FFFFFF',
                 boxShadow: isActive
                   ? '0 0 0 2px var(--m-ink)'

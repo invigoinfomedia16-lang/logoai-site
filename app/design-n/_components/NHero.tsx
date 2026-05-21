@@ -48,9 +48,11 @@ export default function NHero() {
       className="w-full pt-2 pb-16 md:pb-24"
       style={{
         // Tinted with --m-brand-bg so the hero follows the brand-colour
-        // toggle, same as every other section. Fades brand tint → white.
+        // toggle. Fades brand tint → white. A colour can override the whole
+        // hero background via --m-hero-tint (e.g. the Character.AI gradient);
+        // when unset, the fade below is used — so other toggles are unchanged.
         background:
-          'linear-gradient(to bottom, var(--m-brand-bg) 0%, color-mix(in srgb, var(--m-brand-bg) 50%, var(--m-surface)) 58%, var(--m-surface) 100%)',
+          'var(--m-hero-tint, linear-gradient(to bottom, var(--m-brand-bg) 0%, color-mix(in srgb, var(--m-brand-bg) 50%, var(--m-surface)) 58%, var(--m-surface) 100%))',
       }}
     >
       <div className="px-5 sm:px-10 md:px-16 lg:px-[120px] xl:px-[192px]">
