@@ -3599,7 +3599,7 @@ function Results({
   return (
     <div className="mx-auto w-full px-2 sm:px-4" style={{ maxWidth: 1600 }}>
       <div className="flex flex-col items-center text-center">
-        <div style={{ ...monoLabel }}>Your logos are ready</div>
+        <div style={{ ...monoLabel }}>Here are your logos</div>
         <h1
           className="m-display"
           style={{
@@ -3738,7 +3738,7 @@ function Results({
           className="m-sans"
           style={{ fontSize: 13, fontWeight: 600, color: 'var(--m-text-soft)', background: 'transparent', border: 'none', cursor: 'pointer' }}
         >
-          Want something different? Generate again
+          Not loving these? Generate again
         </button>
       </div>
     </div>
