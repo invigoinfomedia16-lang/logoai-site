@@ -232,22 +232,27 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-no-mark: #6A7282;
           /* Green check icons (Risk-Free, Pricing, How-It-Works) → black. */
           --n-check: #000000;
+          /* Onboarding funnel → monochrome: green success states, the green
+             "verified" rating stars, and the multi-colour Google logo all
+             go black under this theme. */
+          --m-success: #000000;
+          --m-success-bright: #000000;
+          --m-success-bold: #000000;
+          --n-rating-star: #000000;
+          --n-glogo: #000000;
           /* Black mockup frame; pure-black footer; white footer ticks. */
           --n-mockup-frame-bg: #000000;
           --n-mockup-frame-border: #000000;
           --n-footer-bg: #000000;
           --n-footer-check: #FFFFFF;
           /* The single use of the pastel gradient — the "See It In The Real
-             World" mockups band, matching the Figma "Topics" band. Layered
-             so the colour stays vivid on this tall section (a single radial
-             stretched over the full height washed the colours out): a solid
-             #F2D0FF pink base, a #FFFDEA cream wash down the right side, and
-             a #C6F9FF cyan glow in the top-left corner — cyan → pink → cream,
-             same as the Figma. vw sizing keeps it proportional at any width. */
-          --n-mockups-bg:
-            radial-gradient(48vw 48vw at 0% -10vw, #C6F9FF 0%, #C6F9FF 14%, rgba(198,249,255,0) 70%),
-            linear-gradient(100deg, rgba(255,253,234,0) 60%, #FFFDEA 94%),
-            #F2D0FF;
+             World" mockups band. The EXACT Figma "Topics" radial gradient:
+             stops #C6F9FF → #F2D0FF → #FFFDEA, and geometry derived straight
+             from the Figma node's gradient transform matrix
+             (matrix(161.28 0 0 170.13 126.28 -271.48), r=10, in a 1928-wide
+             box) → centre 6.55%/-14.08vw, radii 83.65vw × 88.24vw. vw units
+             keep the Figma's true proportions at any viewport width. */
+          --n-mockups-bg: radial-gradient(83.65vw 88.24vw at 6.55% -14.08vw, #C6F9FF 0%, #F2D0FF 50%, #FFFDEA 100%);
           /* The band dissolves into a grainy, cloudy edge instead of a hard
              line: a vertical fade composited (default 'add') over an SVG
              fractal-noise layer — solid through the middle, breaking into

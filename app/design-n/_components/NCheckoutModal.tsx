@@ -35,21 +35,21 @@ function LockIcon({ size = 14 }: { size?: number }) {
 }
 function CheckIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00A63E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ stroke: 'var(--n-check, #00A63E)' }} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <polyline points="20 6 9 17 4 12" />
     </svg>
   )
 }
 function ShieldIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00A63E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ stroke: 'var(--n-check, #00A63E)' }} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
     </svg>
   )
 }
 function ClockIcon() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00A63E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style={{ stroke: 'var(--n-check, #00A63E)' }} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <circle cx="12" cy="12" r="10" />
       <polyline points="12 6 12 12 16 14" />
     </svg>
@@ -228,7 +228,7 @@ export default function NCheckoutModal({ open, index, price, preview, onClose, o
                 animation: 'nCoScale 0.4s ease-out',
               }}
             >
-              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#00A63E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" style={{ stroke: 'var(--n-check, #00A63E)' }} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M20 6 9 17l-5-5" />
               </svg>
             </div>
@@ -314,7 +314,7 @@ export default function NCheckoutModal({ open, index, price, preview, onClose, o
                 color: 'var(--m-text-soft)',
               }}
             >
-              <span style={{ letterSpacing: '0.12em', color: '#16A34A' }}>★★★★★</span>{' '}
+              <span style={{ letterSpacing: '0.12em', color: 'var(--n-rating-star, #16A34A)' }}>★★★★★</span>{' '}
               <strong style={{ color: 'var(--m-ink)' }}>4.9/5</strong> Verified Average Rating · Trusted by{' '}
               <strong style={{ color: 'var(--m-ink)' }}>180,000+</strong> brands
             </div>
