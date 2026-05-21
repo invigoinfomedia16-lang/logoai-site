@@ -28,10 +28,12 @@ const ROWS: Row[] = [
   { feature: 'One-time payment (no subscription)', freelance: true, otherAI: false, logoai: true },
 ]
 
+// Yes/No icons — colours are themeable: the Character.AI toggle overrides
+// --n-yes / --n-no / --n-no-mark to render them monochrome.
 function CheckIcon() {
   return (
     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-label="Yes">
-      <circle cx="11" cy="11" r="11" fill="#00A63E" />
+      <circle cx="11" cy="11" r="11" style={{ fill: 'var(--n-yes, #00A63E)' }} />
       <path d="M6.5 11.25L9.5 14.25L15.5 7.5" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
@@ -40,8 +42,8 @@ function CheckIcon() {
 function CrossIcon() {
   return (
     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-label="No">
-      <circle cx="11" cy="11" r="11" fill="#FB2C36" />
-      <path d="M7.5 7.5L14.5 14.5M14.5 7.5L7.5 14.5" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="11" cy="11" r="11" style={{ fill: 'var(--n-no, #FB2C36)' }} />
+      <path d="M7.5 7.5L14.5 14.5M14.5 7.5L7.5 14.5" style={{ stroke: 'var(--n-no-mark, #FFFFFF)' }} strokeWidth="2" strokeLinecap="round" />
     </svg>
   )
 }

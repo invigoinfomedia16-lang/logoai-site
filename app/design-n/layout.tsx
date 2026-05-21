@@ -214,6 +214,11 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-cta-fg-soft: var(--m-text-soft);
           --n-cta-btn-bg: #000000;
           --n-cta-btn-fg: #FFFFFF;
+          /* Comparison-table yes/no icons → monochrome (black tick,
+             light-grey cross with a dark mark). */
+          --n-yes: #000000;
+          --n-no: #E5E7EB;
+          --n-no-mark: #6A7282;
         }
         .m-theme[data-brand-color="character-ai"] [data-n-mockup-frame] {
           background: #000000;
