@@ -27,6 +27,8 @@ export type BrandColorOption = {
   // Used when the brand colour alone doesn't represent the theme (e.g. a
   // gradient theme whose brand is black).
   swatch?: string
+  // When true, this colour hides the hero logo carousel on the landing page.
+  hideHeroCarousel?: boolean
 }
 
 // The default (current) design-n colour is terracotta — defined in the
@@ -106,6 +108,7 @@ export const BRAND_COLORS: BrandColorOption[] = [
       heroTint: 'radial-gradient(130% 130% at 15% 0%, #C6F9FF 0%, #F2D0FF 50%, #FFFDEA 100%)',
     },
     swatch: 'radial-gradient(130% 130% at 15% 0%, #C6F9FF 0%, #F2D0FF 50%, #FFFDEA 100%)',
+    hideHeroCarousel: true,
   },
 ]
 

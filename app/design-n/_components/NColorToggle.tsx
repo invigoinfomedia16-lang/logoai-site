@@ -47,6 +47,15 @@ function clearVars() {
   BRAND_PROPS.forEach((p) => el.style.removeProperty(p))
 }
 
+// data-hide-hero-carousel on .m-theme drives a CSS rule that hides the
+// landing-page hero carousel (used by the Character.AI theme).
+function setHideCarousel(hide: boolean) {
+  const el = themeEl()
+  if (!el) return
+  if (hide) el.setAttribute('data-hide-hero-carousel', '')
+  else el.removeAttribute('data-hide-hero-carousel')
+}
+
 export default function NColorToggle() {
   // -1 = no override (the terracotta default). 0..n = a BRAND_COLORS option.
   const [active, setActive] = useState(-1)
@@ -61,6 +70,7 @@ export default function NColorToggle() {
       if (idx >= 0) {
         setActive(idx)
         applyVars(BRAND_COLORS[idx].vars)
+        setHideCarousel(!!BRAND_COLORS[idx].hideHeroCarousel)
       }
     } catch {
       /* localStorage unavailable — default colour stays */
@@ -70,6 +80,7 @@ export default function NColorToggle() {
   function pick(i: number) {
     setActive(i)
     applyVars(BRAND_COLORS[i].vars)
+    setHideCarousel(!!BRAND_COLORS[i].hideHeroCarousel)
     try {
       localStorage.setItem(BRAND_COLOR_KEY, BRAND_COLORS[i].name)
     } catch {
@@ -80,6 +91,7 @@ export default function NColorToggle() {
   function reset() {
     setActive(-1)
     clearVars()
+    setHideCarousel(false)
     try {
       localStorage.removeItem(BRAND_COLOR_KEY)
     } catch {
