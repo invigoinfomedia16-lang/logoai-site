@@ -115,10 +115,13 @@ export const BRAND_COLORS: BrandColorOption[] = [
       bg: '#FAFAFA',
       glow: '#6E6E6E',
       onDark: '#FFFFFF',
-      // The hero is plain off-white #FAFAFA, exactly like the Figma's hero —
-      // the pastel gradient is NOT on the hero. It appears once, on the
-      // mockups band (--n-mockups-bg).
-      heroTint: '#FAFAFA',
+      // A whisper of the brand pastels on the hero — a very faint
+      // cyan → lilac wash that fades to pure white well before the section
+      // ends, so it merges seamlessly into the white section below (no
+      // edge). Far softer than the mockups band, which stays the one bold
+      // use of the gradient.
+      heroTint:
+        'linear-gradient(to bottom, #EBF5FB 0%, #F3EDFA 46%, #FFFFFF 88%)',
     },
     swatch: 'radial-gradient(130% 130% at 15% 0%, #C6F9FF 0%, #F2D0FF 50%, #FFFDEA 100%)',
     hideHeroCarousel: true,
