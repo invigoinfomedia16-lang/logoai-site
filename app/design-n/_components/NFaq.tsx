@@ -109,7 +109,7 @@ export default function NFaq() {
         <div className="flex flex-col gap-4 items-center text-center w-full">
           <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>FAQ</p>
           <h2 className="m-h2" style={{ color: 'var(--m-ink)' }}>
-            Your questions, answered.
+            Your questions, answered
           </h2>
           <p className="m-sub">
             Everything you need to know before you start.

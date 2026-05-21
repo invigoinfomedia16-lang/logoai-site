@@ -75,7 +75,7 @@ export default function NCompare() {
         {/* Heading */}
         <div className="flex flex-col gap-4 items-center text-center">
           <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>Why Logo.AI</p>
-          <h2 className="m-h2">Better, faster, cheaper.</h2>
+          <h2 className="m-h2">Better, faster, cheaper</h2>
           <p className="m-sub max-w-[640px]">
             See how we compare to a freelance designer or other AI tools.
           </p>

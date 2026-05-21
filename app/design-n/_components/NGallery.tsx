@@ -76,7 +76,7 @@ export default function NGallery() {
         <div className="flex flex-col gap-4 items-center text-center w-full">
           <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>See For Yourself</p>
           <h2 className="m-h2" style={{ color: 'var(--m-ink-deep)' }}>
-            None of these came from a designer.
+            None of these came from a designer
           </h2>
           <p className="m-sub max-w-[760px]">
             Every logo below was made by our AI from a short brand description. They look like a

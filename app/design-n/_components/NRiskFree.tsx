@@ -47,7 +47,7 @@ export default function NRiskFree() {
         {/* Heading */}
         <div className="flex flex-col gap-4 items-center text-center">
           <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>Risk-Free</p>
-          <h2 className="m-h2">Pay only if you love your logo.</h2>
+          <h2 className="m-h2">Pay only if you love your logo</h2>
           <p className="m-sub max-w-[680px]">
             We&apos;re 100% confident you&apos;ll find a logo you love. But if you don&apos;t, you don&apos;t pay.
           </p>

@@ -37,7 +37,7 @@ export default function NPricing() {
         {/* Heading */}
         <div className="flex flex-col gap-4 items-center text-center">
           <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>Pricing</p>
-          <h2 className="m-h2">Professional logos at an unbelievable price.</h2>
+          <h2 className="m-h2">Professional logos at an unbelievable price</h2>
           <p className="m-sub max-w-[640px]">
             Designers charge $1,500+ for the same quality. We charge a fraction of that. Free to
             generate and preview, pay only if you love it.

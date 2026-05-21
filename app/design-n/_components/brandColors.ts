@@ -102,10 +102,15 @@ export const BRAND_COLORS: BrandColorOption[] = [
       strong: '#000000',
       deep: '#000000',
       soft: '#ECE3F5',
-      bg: 'radial-gradient(130% 130% at 15% 0%, #C6F9FF 0%, #F2D0FF 50%, #FFFDEA 100%)',
+      // Sections use a subtle off-white (balanced, like the other toggles);
+      // the pastel gradient is reserved for the hero only.
+      bg: '#FAFAFA',
       glow: '#6E6E6E',
       onDark: '#FFFFFF',
-      heroTint: 'radial-gradient(130% 130% at 15% 0%, #C6F9FF 0%, #F2D0FF 50%, #FFFDEA 100%)',
+      // Hero gradient fades to white at the bottom so it merges seamlessly
+      // into the next section (no hard line) — same as the other toggles.
+      heroTint:
+        'linear-gradient(to bottom, #C6F9FF 0%, #F2D0FF 30%, #FFFDEA 56%, #FFFFFF 100%)',
     },
     swatch: 'radial-gradient(130% 130% at 15% 0%, #C6F9FF 0%, #F2D0FF 50%, #FFFDEA 100%)',
     hideHeroCarousel: true,

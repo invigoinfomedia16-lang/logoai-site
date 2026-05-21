@@ -88,7 +88,7 @@ export default function NMockups() {
         <div className="flex flex-col gap-4 items-center text-center w-full">
           <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>See It In The Real World</p>
           <h2 className="m-h2" style={{ color: 'var(--m-ink-deep)' }}>
-            From favicon to billboard.
+            From favicon to billboard
           </h2>
           <p className="m-sub max-w-[820px]">
             A great logo has to work everywhere — tiny on a browser tab, huge on a storefront,
