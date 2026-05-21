@@ -92,24 +92,27 @@ export const BRAND_COLORS: BrandColorOption[] = [
     },
   },
   {
-    // Character.AI Safety Center palette (from the Figma capture). The
-    // design is black + white with a soft pastel radial gradient as its
-    // tint — cyan #C6F9FF → pink #F2D0FF → cream #FFFDEA (the exact stops
-    // from the Figma "Topics" section). CTAs are pure black; surfaces white.
+    // Character.AI Safety Center palette (from the Figma capture). Matches
+    // the Figma's restraint exactly: the page is near-monochrome — off-white
+    // #FAFAFA surfaces (the Figma's "surface/base" token), white cards, black
+    // panels — and the pastel gradient (cyan #C6F9FF → pink #F2D0FF → cream
+    // #FFFDEA, the exact "Topics" section stops) appears in ONE section only.
     name: 'Character.AI',
     vars: {
       brand: '#000000',
       strong: '#000000',
       deep: '#000000',
-      soft: '#ECE3F5',
-      // Sections use a soft pastel-lilac tint — visible but subtle, on par
-      // with the other toggles' section tints. The full pastel gradient is
-      // reserved for the hero only (so it isn't over-used).
-      bg: '#F5EDF7',
+      // Neutral light-grey for hover borders — no lilac tint.
+      soft: '#EDEDED',
+      // Every tinted section uses the Figma's plain off-white background
+      // (#FAFAFA "Alabaster"). The pastel gradient is NOT used here — it is
+      // reserved for the hero alone, mirroring the Figma where the gradient
+      // appears in just one section and everything else is off-white.
+      bg: '#FAFAFA',
       glow: '#6E6E6E',
       onDark: '#FFFFFF',
-      // Hero gradient fades to white at the bottom so it merges seamlessly
-      // into the next section (no hard line) — same as the other toggles.
+      // The one place the pastel gradient appears — the hero. Fades to white
+      // at the bottom so it merges seamlessly into the next section.
       heroTint:
         'linear-gradient(to bottom, #C6F9FF 0%, #F2D0FF 30%, #FFFDEA 56%, #FFFFFF 100%)',
     },

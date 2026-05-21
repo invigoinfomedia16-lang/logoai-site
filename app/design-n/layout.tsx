@@ -203,9 +203,10 @@ export default function NLayout({ children }: { children: ReactNode }) {
            carousel (e.g. the Character.AI theme). */
         .m-theme[data-hide-hero-carousel] [data-n-hero-carousel] { display: none; }
 
-        /* Character.AI — monochrome treatment: black rating stars, black
-           mockup frame, pure-black footer, and a bottom CTA with no filled
-           band (transparent band, dark text, black button). */
+        /* Character.AI — near-monochrome treatment matching the Figma:
+           off-white #FAFAFA surfaces, white cards, black panels/footer, and
+           the pastel gradient reserved for the hero alone. Black rating
+           stars, black mockup frame, and a bottom CTA with no filled band. */
         .m-theme[data-brand-color="character-ai"] {
           --m-star: #000000;
           /* Text on dark backgrounds → pure #FFFFFF (matching the Figma,
@@ -213,8 +214,9 @@ export default function NLayout({ children }: { children: ReactNode }) {
              default soft greys. */
           --m-text-on-dark: #FFFFFF;
           --m-text-on-dark-muted: #FFFFFF;
-          /* Bottom CTA → a plain tinted section (no band, no card): the
-             section carries the tint, the inner block is transparent. */
+          /* Bottom CTA → a plain off-white section (no band, no card): the
+             section carries the off-white --m-brand-bg, inner block is
+             transparent. */
           --n-cta-section-bg: var(--m-brand-bg);
           --n-cta-band-bg: transparent;
           --n-cta-band-pad: 0;
