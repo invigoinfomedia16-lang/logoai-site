@@ -198,9 +198,6 @@ export default function NLayout({ children }: { children: ReactNode }) {
         @media (max-width: 768px) {
           .m-theme { overflow-x: hidden; }
         }
-
-        /* Black brand theme hides the hero logo carousel. */
-        .m-theme[data-brand-color="black"] [data-n-hero-carousel] { display: none; }
       ` }} />
       <div className={`m-theme ${plusJakartaSans.variable} ${openSans.variable} ${dmSerifDisplay.variable}`}>
         {/* Colour-toggle applier — re-applies the brand colour the user
@@ -212,7 +209,7 @@ export default function NLayout({ children }: { children: ReactNode }) {
               BRAND_COLOR_KEY,
             )});if(!n)return;var M=${JSON.stringify(
               Object.fromEntries(BRAND_COLORS.map((c) => [c.name, c.vars])),
-            )};var v=M[n];if(!v)return;var el=document.currentScript.parentElement;var s=el.style;s.setProperty('--m-brand',v.brand);s.setProperty('--m-brand-strong',v.strong);s.setProperty('--m-brand-deep',v.deep);s.setProperty('--m-brand-soft',v.soft);s.setProperty('--m-brand-bg',v.bg);s.setProperty('--m-brand-glow',v.glow);s.setProperty('--m-brand-on-dark',v.onDark);el.setAttribute('data-brand-color',n.toLowerCase());}catch(e){}})();`,
+            )};var v=M[n];if(!v)return;var s=document.currentScript.parentElement.style;s.setProperty('--m-brand',v.brand);s.setProperty('--m-brand-strong',v.strong);s.setProperty('--m-brand-deep',v.deep);s.setProperty('--m-brand-soft',v.soft);s.setProperty('--m-brand-bg',v.bg);s.setProperty('--m-brand-glow',v.glow);s.setProperty('--m-brand-on-dark',v.onDark);}catch(e){}})();`,
           }}
         />
         {children}
