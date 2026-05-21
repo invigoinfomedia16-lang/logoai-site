@@ -253,15 +253,11 @@ export default function NLayout({ children }: { children: ReactNode }) {
              box) → centre 6.55%/-14.08vw, radii 83.65vw × 88.24vw. vw units
              keep the Figma's true proportions at any viewport width. */
           --n-mockups-bg: radial-gradient(83.65vw 88.24vw at 6.55% -14.08vw, #C6F9FF 0%, #F2D0FF 50%, #FFFDEA 100%);
-          /* The band dissolves into a grainy, cloudy edge instead of a hard
-             line: a vertical fade composited (default 'add') over an SVG
-             fractal-noise layer — solid through the middle, breaking into
-             grain toward the top/bottom so it merges into the off-white. */
+          /* The band fades out top and bottom with a long, smooth feather
+             so it merges seamlessly into the off-white — no hard line, no
+             grain. The fade runs a generous 200px for a soft, gradual blend. */
           --n-mockups-mask:
-            linear-gradient(to bottom, transparent 0, #000 150px, #000 calc(100% - 150px), transparent 100%),
-            url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.025' numOctaves='4' seed='8' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1.5 0 0 0 -0.45'/></filter><rect width='600' height='600' filter='url(%23n)'/></svg>");
-          --n-mockups-mask-size: 100% 100%, 600px 600px;
-          --n-mockups-mask-repeat: no-repeat, repeat;
+            linear-gradient(to bottom, transparent 0, #000 200px, #000 calc(100% - 200px), transparent 100%);
         }
       ` }} />
       <div className={`m-theme ${plusJakartaSans.variable} ${openSans.variable} ${dmSerifDisplay.variable}`}>
