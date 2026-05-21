@@ -102,9 +102,10 @@ export const BRAND_COLORS: BrandColorOption[] = [
       strong: '#000000',
       deep: '#000000',
       soft: '#ECE3F5',
-      // Sections use a subtle off-white (balanced, like the other toggles);
-      // the pastel gradient is reserved for the hero only.
-      bg: '#FAFAFA',
+      // Sections use a soft pastel-lilac tint — visible but subtle, on par
+      // with the other toggles' section tints. The full pastel gradient is
+      // reserved for the hero only (so it isn't over-used).
+      bg: '#F5EDF7',
       glow: '#6E6E6E',
       onDark: '#FFFFFF',
       // Hero gradient fades to white at the bottom so it merges seamlessly
