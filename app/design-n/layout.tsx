@@ -263,6 +263,14 @@ export default function NLayout({ children }: { children: ReactNode }) {
              exact surrounding colour with no tonal step at the edges. */
           --n-mockups-section-bg: var(--m-surface);
         }
+
+        /* Character.AI card hover — the brand-soft border tint is neutral
+           grey here, so the default hover-border barely reads. Darken it to
+           a clear soft grey so cards get a visible hover like other toggles
+           (the lift + shadow already apply theme-independently). */
+        .m-theme[data-brand-color="character-ai"] .m-card-hover:hover {
+          border-color: #C8C8C8;
+        }
       ` }} />
       <div className={`m-theme ${plusJakartaSans.variable} ${openSans.variable} ${dmSerifDisplay.variable}`}>
         {/* Colour-toggle applier — re-applies the brand colour the user

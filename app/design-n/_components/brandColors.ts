@@ -101,7 +101,10 @@ export const BRAND_COLORS: BrandColorOption[] = [
     vars: {
       brand: '#000000',
       strong: '#000000',
-      deep: '#000000',
+      // CTA hover background. Pure black has nothing darker, so the hover
+      // lifts the button to a dark grey instead — visible interaction
+      // feedback, the monochrome equivalent of the other toggles' darken.
+      deep: '#2E2E2E',
       // Neutral light-grey for hover borders — no lilac tint.
       soft: '#EDEDED',
       // Every section uses the Figma's plain off-white background (#FAFAFA
