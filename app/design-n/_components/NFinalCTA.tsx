@@ -39,8 +39,9 @@ export default function NFinalCTA() {
           padding: 'var(--n-cta-band-pad, clamp(48px, 8vw, 104px) clamp(24px, 6vw, 80px))',
         }}
       >
-        <div className="flex flex-col items-center" style={{ maxWidth: 620 }}>
-          <h2 className="m-h2" style={{ color: 'var(--n-cta-fg, #FFFFFF)', whiteSpace: 'normal' }}>
+        <div className="flex flex-col items-center" style={{ maxWidth: 780 }}>
+          {/* Heading uses .m-h1 — same size as the landing-page hero. */}
+          <h2 className="m-h1" style={{ color: 'var(--n-cta-fg, #FFFFFF)', whiteSpace: 'normal' }}>
             Your professional logo is 60 seconds away
           </h2>
           <p className="m-sub mt-4" style={{ color: 'var(--n-cta-fg-sub, rgba(255,255,255,0.86))' }}>

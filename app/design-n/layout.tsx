@@ -238,10 +238,16 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-footer-bg: #000000;
           --n-footer-check: #FFFFFF;
           /* The single use of the pastel gradient — the "See It In The Real
-             World" mockups band. Exact stops + transform from the Figma
-             "Topics" section (radial, origin upper-left, cyan → pink →
-             cream); everything else on the page stays off-white. */
-          --n-mockups-bg: radial-gradient(84% 317% at 7% -51%, #C6F9FF 0%, #F2D0FF 50%, #FFFDEA 100%);
+             World" mockups band, matching the Figma "Topics" band. Layered
+             so the colour stays vivid on this tall section (a single radial
+             stretched over the full height washed the colours out): a solid
+             #F2D0FF pink base, a #FFFDEA cream wash down the right side, and
+             a #C6F9FF cyan glow in the top-left corner — cyan → pink → cream,
+             same as the Figma. vw sizing keeps it proportional at any width. */
+          --n-mockups-bg:
+            radial-gradient(48vw 48vw at 0% -10vw, #C6F9FF 0%, #C6F9FF 14%, rgba(198,249,255,0) 70%),
+            linear-gradient(100deg, rgba(255,253,234,0) 60%, #FFFDEA 94%),
+            #F2D0FF;
         }
       ` }} />
       <div className={`m-theme ${plusJakartaSans.variable} ${openSans.variable} ${dmSerifDisplay.variable}`}>
