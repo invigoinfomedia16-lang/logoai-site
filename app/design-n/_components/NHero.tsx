@@ -107,7 +107,7 @@ export default function NHero() {
       {/* Hero proof band — infinite marquee of logo examples. Vertical
           padding keeps the cards' rounded corners + shadow clear of the
           overflow-hidden clip edge. */}
-      <div className="m-marquee-row relative w-full overflow-hidden py-6 md:py-8" aria-label="Logo examples" role="region">
+      <div data-n-hero-carousel className="m-marquee-row relative w-full overflow-hidden py-6 md:py-8" aria-label="Logo examples" role="region">
         <div className="m-marquee-track">
           {marqueeTiles.map((src, i) => (
             <div key={`${src}-${i}`} className="shrink-0 px-2">

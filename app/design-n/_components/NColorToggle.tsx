@@ -42,6 +42,15 @@ function clearVars() {
   BRAND_PROPS.forEach((p) => el.style.removeProperty(p))
 }
 
+// data-brand-color on .m-theme drives colour-specific CSS (e.g. the Black
+// theme hides the hero carousel). null clears it (terracotta default).
+function setColorAttr(name: string | null) {
+  const el = themeEl()
+  if (!el) return
+  if (name) el.setAttribute('data-brand-color', name.toLowerCase())
+  else el.removeAttribute('data-brand-color')
+}
+
 export default function NColorToggle() {
   // -1 = no override (the terracotta default). 0..n = a BRAND_COLORS option.
   const [active, setActive] = useState(-1)
@@ -56,6 +65,7 @@ export default function NColorToggle() {
       if (idx >= 0) {
         setActive(idx)
         applyVars(BRAND_COLORS[idx].vars)
+        setColorAttr(BRAND_COLORS[idx].name)
       }
     } catch {
       /* localStorage unavailable — default colour stays */
@@ -65,6 +75,7 @@ export default function NColorToggle() {
   function pick(i: number) {
     setActive(i)
     applyVars(BRAND_COLORS[i].vars)
+    setColorAttr(BRAND_COLORS[i].name)
     try {
       localStorage.setItem(BRAND_COLOR_KEY, BRAND_COLORS[i].name)
     } catch {
@@ -75,6 +86,7 @@ export default function NColorToggle() {
   function reset() {
     setActive(-1)
     clearVars()
+    setColorAttr(null)
     try {
       localStorage.removeItem(BRAND_COLOR_KEY)
     } catch {
