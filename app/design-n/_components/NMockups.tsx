@@ -152,10 +152,10 @@ export default function NMockups() {
         <div
           className="w-full relative overflow-hidden"
           style={{
-            padding: 'clamp(16px, 4vw, 48px)',
+            padding: 'clamp(6px, 1vw, 12px)',
             background: 'var(--n-mockup-frame-bg, var(--m-surface))',
             border: '1px solid var(--n-mockup-frame-border, var(--m-border))',
-            borderRadius: 20,
+            borderRadius: 16,
           }}
         >
           {/* Carousel frame — one mockup at a time, crossfade */}
