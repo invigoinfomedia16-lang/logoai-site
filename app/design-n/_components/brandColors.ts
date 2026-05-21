@@ -81,6 +81,23 @@ export const BRAND_COLORS: BrandColorOption[] = [
       onDark: '#FFFFFF',
     },
   },
+  {
+    // Character.AI Safety Center palette (from the Figma capture). The
+    // design has one blue accent — #0066FF (Blue Ribbon) — on a #FAFAFA
+    // (Alabaster) page surface. brand + bg are the design's exact values;
+    // strong/deep/soft/glow are shades of that blue for hover/tint states
+    // (the design only defines a single literal blue).
+    name: 'Character.AI',
+    vars: {
+      brand: '#0066FF',
+      strong: '#0057D9',
+      deep: '#0049B8',
+      soft: '#DCE8FF',
+      bg: '#FAFAFA',
+      glow: '#5C9CFF',
+      onDark: '#0066FF',
+    },
+  },
 ]
 
 // localStorage key — the toggle stores the chosen option NAME here; the
