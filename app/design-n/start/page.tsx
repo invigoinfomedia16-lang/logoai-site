@@ -2301,7 +2301,7 @@ function FormSteps(p: FormProps) {
               onChange={(e) => p.setTagline(e.target.value)}
               onFocus={() => setTaglineTriggered(true)}
               autoComplete="off"
-              placeholder="Already have a tagline? Type it here — or pick one below"
+              placeholder="Already have a tagline? Type it here, or pick one below"
               className="n-start-input m-sans w-full"
               style={textInputStyle}
             />
