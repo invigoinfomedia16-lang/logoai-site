@@ -1614,8 +1614,10 @@ function LiveSuggestionStatus({
 }
 
 // Steps 5-7 auto-preselect the best option(s). This note tells the user
-// that — and that they're free to change the selection.
-function PreselectNote() {
+// that — and that they're free to change the selection. `what` names the
+// thing selected so the wording is right per step (3 words / a palette /
+// a style).
+function PreselectNote({ what }: { what: string }) {
   return (
     <p
       className="m-sans"
@@ -1629,7 +1631,7 @@ function PreselectNote() {
         lineHeight: 1.45,
       }}
     >
-      We&rsquo;ve selected the best-fit options for your brand, change if you&rsquo;d like.
+      We&rsquo;ve selected {what} for your brand, change if you&rsquo;d like.
     </p>
   )
 }
@@ -2333,7 +2335,7 @@ function FormSteps(p: FormProps) {
       {step === 5 && (
         <div className="flex flex-col" style={{ gap: 16 }}>
           <CountHeader label="Pick 3 words" count={p.impressions.length} target={3} />
-          {!liveImpression.loading && <PreselectNote />}
+          {!liveImpression.loading && <PreselectNote what="the 3 best-fit words" />}
           {liveImpression.loading ? (
             <SkeletonGrid shape="chip" count={12} />
           ) : (
@@ -2396,7 +2398,7 @@ function FormSteps(p: FormProps) {
           while AI generates brand-aware palettes, then real grid. */}
       {step === 6 && (
         <div className="flex flex-col" style={{ gap: 10 }}>
-          {!livePalettes.loading && <PreselectNote />}
+          {!livePalettes.loading && <PreselectNote what="the best-fit palette" />}
           {livePalettes.loading ? (
             <SkeletonGrid shape="palette" count={6} />
           ) : (
@@ -2576,7 +2578,7 @@ function FormSteps(p: FormProps) {
           row. Skeleton while AI computes brand-specific popularity. */}
       {step === 7 && (
         <div className="flex flex-col" style={{ gap: 10 }}>
-          {!liveStyles.loading && <PreselectNote />}
+          {!liveStyles.loading && <PreselectNote what="the best-fit logo style" />}
           {liveStyles.loading ? (
             <SkeletonGrid shape="style" count={6} />
           ) : (
