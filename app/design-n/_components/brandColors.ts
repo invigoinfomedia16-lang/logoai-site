@@ -104,17 +104,18 @@ export const BRAND_COLORS: BrandColorOption[] = [
       deep: '#000000',
       // Neutral light-grey for hover borders — no lilac tint.
       soft: '#EDEDED',
-      // Every tinted section uses the Figma's plain off-white background
-      // (#FAFAFA "Alabaster"). The pastel gradient is NOT used here — it is
-      // reserved for the hero alone, mirroring the Figma where the gradient
-      // appears in just one section and everything else is off-white.
+      // Every section uses the Figma's plain off-white background (#FAFAFA
+      // "Alabaster") — including the hero. The pastel gradient appears in
+      // exactly ONE section (the "See It In The Real World" mockups band,
+      // see --n-mockups-bg in layout.tsx), mirroring the Figma where the
+      // gradient is a single mid-page band and everything else is off-white.
       bg: '#FAFAFA',
       glow: '#6E6E6E',
       onDark: '#FFFFFF',
-      // The one place the pastel gradient appears — the hero. Fades to white
-      // at the bottom so it merges seamlessly into the next section.
-      heroTint:
-        'linear-gradient(to bottom, #C6F9FF 0%, #F2D0FF 30%, #FFFDEA 56%, #FFFFFF 100%)',
+      // The hero is plain off-white #FAFAFA, exactly like the Figma's hero —
+      // the pastel gradient is NOT on the hero. It appears once, on the
+      // mockups band (--n-mockups-bg).
+      heroTint: '#FAFAFA',
     },
     swatch: 'radial-gradient(130% 130% at 15% 0%, #C6F9FF 0%, #F2D0FF 50%, #FFFDEA 100%)',
     hideHeroCarousel: true,

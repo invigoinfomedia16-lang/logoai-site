@@ -81,7 +81,11 @@ export default function NMockups() {
   return (
     <section
       className="flex flex-col items-start py-14 sm:py-20 md:py-[100px] px-5 sm:px-10 md:px-16 lg:px-[96px] w-full"
-      style={{ background: 'var(--m-brand-bg)' }}
+      // Themeable section background. Most toggles use the plain section
+      // tint; the Character.AI toggle overrides --n-mockups-bg with the
+      // pastel gradient band (its single use of the gradient, mirroring the
+      // Figma's one mid-page gradient section).
+      style={{ background: 'var(--n-mockups-bg, var(--m-brand-bg))' }}
     >
       <div className="flex flex-col gap-10 md:gap-12 items-start w-full max-w-[1280px] mx-auto px-2 sm:px-4">
         {/* Heading */}
