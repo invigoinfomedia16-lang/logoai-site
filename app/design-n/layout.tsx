@@ -224,6 +224,7 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-cta-fg-sub: var(--m-text-muted);
           --n-cta-fg-soft: var(--m-text-soft);
           --n-cta-btn-bg: #000000;
+          --n-cta-btn-bg-hover: #2E2E2E;
           --n-cta-btn-fg: #FFFFFF;
           /* Comparison-table yes/no icons → monochrome (black tick,
              light-grey cross with a dark mark). */

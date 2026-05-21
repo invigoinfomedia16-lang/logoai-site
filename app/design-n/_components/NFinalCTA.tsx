@@ -56,15 +56,16 @@ export default function NFinalCTA() {
               borderRadius: 'var(--m-radius-md)',
               padding: '16px 32px',
               boxShadow: '0 4px 16px rgba(0,0,0,0.18)',
-              transition: 'transform 0.15s ease, box-shadow 0.15s ease',
+              transition: 'background 0.18s ease',
             }}
+            // Same hover as every other CTA (.m-cta-btn): darken the
+            // background. Done in JS because the inline background can't be
+            // overridden by a stylesheet :hover rule.
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-2px)'
-              e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.24)'
+              e.currentTarget.style.background = 'var(--n-cta-btn-bg-hover, #EBEBEB)'
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)'
-              e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.18)'
+              e.currentTarget.style.background = 'var(--n-cta-btn-bg, #FFFFFF)'
             }}
           >
             <span>Generate My Free Logos</span>
