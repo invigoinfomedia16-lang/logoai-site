@@ -58,7 +58,7 @@ function LinkList({ items }: { items: string[] }) {
 function CheckBadge() {
   return (
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-      <path d="M2.5 7.25L5.5 10.25L11.5 3.75" stroke="#00C950" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M2.5 7.25L5.5 10.25L11.5 3.75" style={{ stroke: 'var(--n-footer-check, #00C950)' }} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }

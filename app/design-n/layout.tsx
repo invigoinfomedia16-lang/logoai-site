@@ -222,10 +222,11 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-yes: #000000;
           --n-no: #E5E7EB;
           --n-no-mark: #6A7282;
-          /* Black mockup frame; pure-black footer. */
+          /* Black mockup frame; pure-black footer; white footer ticks. */
           --n-mockup-frame-bg: #000000;
           --n-mockup-frame-border: #000000;
           --n-footer-bg: #000000;
+          --n-footer-check: #FFFFFF;
         }
       ` }} />
       <div className={`m-theme ${plusJakartaSans.variable} ${openSans.variable} ${dmSerifDisplay.variable}`}>
