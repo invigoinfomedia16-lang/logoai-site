@@ -94,10 +94,18 @@ export default function NMockups() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background: 'var(--n-mockups-bg, var(--m-brand-bg))',
+          // Default: a plain vertical feather (other toggles). The
+          // Character.AI toggle overrides --n-mockups-mask with a fade
+          // composited over SVG fractal-noise, so the band dissolves into a
+          // grainy, cloudy edge instead of a clean line.
           WebkitMaskImage:
-            'linear-gradient(to bottom, transparent 0, #000 72px, #000 calc(100% - 72px), transparent 100%)',
+            'var(--n-mockups-mask, linear-gradient(to bottom, transparent 0, #000 72px, #000 calc(100% - 72px), transparent 100%))',
           maskImage:
-            'linear-gradient(to bottom, transparent 0, #000 72px, #000 calc(100% - 72px), transparent 100%)',
+            'var(--n-mockups-mask, linear-gradient(to bottom, transparent 0, #000 72px, #000 calc(100% - 72px), transparent 100%))',
+          WebkitMaskSize: 'var(--n-mockups-mask-size, auto)',
+          maskSize: 'var(--n-mockups-mask-size, auto)',
+          WebkitMaskRepeat: 'var(--n-mockups-mask-repeat, no-repeat)',
+          maskRepeat: 'var(--n-mockups-mask-repeat, no-repeat)',
         }}
       />
       <div className="relative z-[1] flex flex-col gap-10 md:gap-12 items-start w-full max-w-[1280px] mx-auto px-2 sm:px-4">

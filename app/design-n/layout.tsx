@@ -248,6 +248,15 @@ export default function NLayout({ children }: { children: ReactNode }) {
             radial-gradient(48vw 48vw at 0% -10vw, #C6F9FF 0%, #C6F9FF 14%, rgba(198,249,255,0) 70%),
             linear-gradient(100deg, rgba(255,253,234,0) 60%, #FFFDEA 94%),
             #F2D0FF;
+          /* The band dissolves into a grainy, cloudy edge instead of a hard
+             line: a vertical fade composited (default 'add') over an SVG
+             fractal-noise layer — solid through the middle, breaking into
+             grain toward the top/bottom so it merges into the off-white. */
+          --n-mockups-mask:
+            linear-gradient(to bottom, transparent 0, #000 150px, #000 calc(100% - 150px), transparent 100%),
+            url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='600'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.025' numOctaves='4' seed='8' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1.5 0 0 0 -0.45'/></filter><rect width='600' height='600' filter='url(%23n)'/></svg>");
+          --n-mockups-mask-size: 100% 100%, 600px 600px;
+          --n-mockups-mask-repeat: no-repeat, repeat;
         }
       ` }} />
       <div className={`m-theme ${plusJakartaSans.variable} ${openSans.variable} ${dmSerifDisplay.variable}`}>
