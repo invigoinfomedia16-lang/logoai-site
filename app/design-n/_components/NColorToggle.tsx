@@ -56,6 +56,18 @@ function setHideCarousel(hide: boolean) {
   else el.removeAttribute('data-hide-hero-carousel')
 }
 
+// data-brand-color (slug of the colour name) on .m-theme — drives theme-
+// specific CSS (e.g. the Character.AI monochrome treatment).
+function colorSlug(name: string): string {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+}
+function setColorAttr(name: string | null) {
+  const el = themeEl()
+  if (!el) return
+  if (name) el.setAttribute('data-brand-color', colorSlug(name))
+  else el.removeAttribute('data-brand-color')
+}
+
 export default function NColorToggle() {
   // -1 = no override (the terracotta default). 0..n = a BRAND_COLORS option.
   const [active, setActive] = useState(-1)
@@ -71,6 +83,7 @@ export default function NColorToggle() {
         setActive(idx)
         applyVars(BRAND_COLORS[idx].vars)
         setHideCarousel(!!BRAND_COLORS[idx].hideHeroCarousel)
+        setColorAttr(BRAND_COLORS[idx].name)
       }
     } catch {
       /* localStorage unavailable — default colour stays */
@@ -81,6 +94,7 @@ export default function NColorToggle() {
     setActive(i)
     applyVars(BRAND_COLORS[i].vars)
     setHideCarousel(!!BRAND_COLORS[i].hideHeroCarousel)
+    setColorAttr(BRAND_COLORS[i].name)
     try {
       localStorage.setItem(BRAND_COLOR_KEY, BRAND_COLORS[i].name)
     } catch {
@@ -92,6 +106,7 @@ export default function NColorToggle() {
     setActive(-1)
     clearVars()
     setHideCarousel(false)
+    setColorAttr(null)
     try {
       localStorage.removeItem(BRAND_COLOR_KEY)
     } catch {

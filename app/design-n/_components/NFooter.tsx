@@ -66,6 +66,7 @@ function CheckBadge() {
 export default function NFooter() {
   return (
     <footer
+      data-n-footer
       className="flex flex-col items-start px-5 sm:px-10 md:px-16 lg:px-[96px] w-full"
       style={{ background: 'rgba(0,0,0,0.95)' }}
     >

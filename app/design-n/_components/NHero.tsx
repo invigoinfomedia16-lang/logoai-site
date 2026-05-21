@@ -17,7 +17,7 @@ function ArrowRight() {
 
 function StarIcon({ size = 14 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 20 20" fill="#FFBA00" aria-hidden="true">
+    <svg width={size} height={size} viewBox="0 0 20 20" style={{ fill: 'var(--m-star)' }} aria-hidden="true">
       <path d="M10 1.5l2.6 5.27 5.82.84-4.21 4.1.99 5.79L10 14.77 4.8 17.5l.99-5.79-4.21-4.1 5.82-.84L10 1.5z" />
     </svg>
   )
@@ -154,7 +154,7 @@ export default function NHero() {
             <span style={{ fontWeight: 700, color: 'var(--m-brand)' }}>90+ countries</span>
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2">
-            <span aria-hidden="true" style={{ color: '#FFBA00', fontSize: 20, letterSpacing: 2 }}>
+            <span aria-hidden="true" style={{ color: 'var(--m-star)', fontSize: 20, letterSpacing: 2 }}>
               ★★★★★
             </span>
             <span className="m-body" style={{ fontWeight: 600 }}>

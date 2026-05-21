@@ -124,6 +124,7 @@ export default function NMockups() {
 
         {/* Frame — plain padded container around the carousel. */}
         <div
+          data-n-mockup-frame
           className="w-full relative overflow-hidden"
           style={{
             padding: 'clamp(16px, 4vw, 48px)',

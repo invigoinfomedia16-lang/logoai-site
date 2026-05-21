@@ -28,7 +28,7 @@ export default function NSocialProof() {
 
         {/* Star-rating row */}
         <div className="flex items-center gap-2 mt-3">
-          <span aria-hidden="true" style={{ color: '#F59E0B', fontSize: 18, letterSpacing: 2 }}>
+          <span aria-hidden="true" style={{ color: 'var(--m-star)', fontSize: 18, letterSpacing: 2 }}>
             ★★★★★
           </span>
           <span

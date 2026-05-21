@@ -29,24 +29,26 @@ export default function NFinalCTA() {
       <div
         className="max-w-[1280px] mx-auto flex flex-col items-center text-center"
         style={{
-          background: 'var(--m-brand)',
+          // Themeable — the Character.AI toggle drops the filled band
+          // (--n-cta-band-bg: transparent) and flips the text dark.
+          background: 'var(--n-cta-band-bg, var(--m-brand))',
           borderRadius: 20,
           padding: 'clamp(48px, 8vw, 104px) clamp(24px, 6vw, 80px)',
         }}
       >
         <div className="flex flex-col items-center" style={{ maxWidth: 620 }}>
-          <h2 className="m-h2" style={{ color: '#FFFFFF', whiteSpace: 'normal' }}>
+          <h2 className="m-h2" style={{ color: 'var(--n-cta-fg, #FFFFFF)', whiteSpace: 'normal' }}>
             Your professional logo is 60 seconds away
           </h2>
-          <p className="m-sub mt-4" style={{ color: 'rgba(255,255,255,0.86)' }}>
+          <p className="m-sub mt-4" style={{ color: 'var(--n-cta-fg-sub, rgba(255,255,255,0.86))' }}>
             The worst that can happen? You spend a minute and walk away.
           </p>
           <a
             href="/design-n/start"
             className="m-cta-lg inline-flex items-center justify-center gap-3 mt-8"
             style={{
-              background: '#FFFFFF',
-              color: 'var(--m-brand)',
+              background: 'var(--n-cta-btn-bg, #FFFFFF)',
+              color: 'var(--n-cta-btn-fg, var(--m-brand))',
               borderRadius: 'var(--m-radius-md)',
               padding: '16px 32px',
               boxShadow: '0 4px 16px rgba(0,0,0,0.18)',
@@ -66,7 +68,7 @@ export default function NFinalCTA() {
           </a>
           <p
             className="m-body-sm mt-4"
-            style={{ fontSize: 13, color: 'rgba(255,255,255,0.72)' }}
+            style={{ fontSize: 13, color: 'var(--n-cta-fg-soft, rgba(255,255,255,0.72))' }}
           >
             No payment needed to generate and preview your logos • Pay only to download
           </p>

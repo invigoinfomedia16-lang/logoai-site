@@ -202,6 +202,26 @@ export default function NLayout({ children }: { children: ReactNode }) {
         /* Colours that set data-hide-hero-carousel hide the landing hero
            carousel (e.g. the Character.AI theme). */
         .m-theme[data-hide-hero-carousel] [data-n-hero-carousel] { display: none; }
+
+        /* Character.AI — monochrome treatment: black rating stars, black
+           mockup frame, pure-black footer, and a bottom CTA with no filled
+           band (transparent band, dark text, black button). */
+        .m-theme[data-brand-color="character-ai"] {
+          --m-star: #000000;
+          --n-cta-band-bg: transparent;
+          --n-cta-fg: var(--m-ink-deep);
+          --n-cta-fg-sub: var(--m-text-muted);
+          --n-cta-fg-soft: var(--m-text-soft);
+          --n-cta-btn-bg: #000000;
+          --n-cta-btn-fg: #FFFFFF;
+        }
+        .m-theme[data-brand-color="character-ai"] [data-n-mockup-frame] {
+          background: #000000;
+          border-color: #000000;
+        }
+        .m-theme[data-brand-color="character-ai"] [data-n-footer] {
+          background: #000000;
+        }
       ` }} />
       <div className={`m-theme ${plusJakartaSans.variable} ${openSans.variable} ${dmSerifDisplay.variable}`}>
         {/* Colour-toggle applier — re-applies the brand colour the user
@@ -218,7 +238,7 @@ export default function NLayout({ children }: { children: ReactNode }) {
                   { ...c.vars, hideHeroCarousel: c.hideHeroCarousel },
                 ]),
               ),
-            )};var v=M[n];if(!v)return;var el=document.currentScript.parentElement;var s=el.style;s.setProperty('--m-brand',v.brand);s.setProperty('--m-brand-strong',v.strong);s.setProperty('--m-brand-deep',v.deep);s.setProperty('--m-brand-soft',v.soft);s.setProperty('--m-brand-bg',v.bg);s.setProperty('--m-brand-glow',v.glow);s.setProperty('--m-brand-on-dark',v.onDark);if(v.heroTint)s.setProperty('--m-hero-tint',v.heroTint);if(v.hideHeroCarousel)el.setAttribute('data-hide-hero-carousel','');}catch(e){}})();`,
+            )};var v=M[n];if(!v)return;var el=document.currentScript.parentElement;var s=el.style;s.setProperty('--m-brand',v.brand);s.setProperty('--m-brand-strong',v.strong);s.setProperty('--m-brand-deep',v.deep);s.setProperty('--m-brand-soft',v.soft);s.setProperty('--m-brand-bg',v.bg);s.setProperty('--m-brand-glow',v.glow);s.setProperty('--m-brand-on-dark',v.onDark);if(v.heroTint)s.setProperty('--m-hero-tint',v.heroTint);if(v.hideHeroCarousel)el.setAttribute('data-hide-hero-carousel','');el.setAttribute('data-brand-color',n.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''));}catch(e){}})();`,
           }}
         />
         {children}
