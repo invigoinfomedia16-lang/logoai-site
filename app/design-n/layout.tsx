@@ -254,10 +254,14 @@ export default function NLayout({ children }: { children: ReactNode }) {
              keep the Figma's true proportions at any viewport width. */
           --n-mockups-bg: radial-gradient(83.65vw 88.24vw at 6.55% -14.08vw, #C6F9FF 0%, #F2D0FF 50%, #FFFDEA 100%);
           /* The band fades out top and bottom with a long, smooth feather
-             so it merges seamlessly into the off-white — no hard line, no
+             so it merges seamlessly into the section — no hard line, no
              grain. The fade runs a generous 200px for a soft, gradual blend. */
           --n-mockups-mask:
             linear-gradient(to bottom, transparent 0, #000 200px, #000 calc(100% - 200px), transparent 100%);
+          /* The mockups section base is pure white — same as the sections
+             above and below — so the feathered band dissolves into the
+             exact surrounding colour with no tonal step at the edges. */
+          --n-mockups-section-bg: var(--m-surface);
         }
       ` }} />
       <div className={`m-theme ${plusJakartaSans.variable} ${openSans.variable} ${dmSerifDisplay.variable}`}>

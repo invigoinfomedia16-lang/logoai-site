@@ -81,7 +81,11 @@ export default function NMockups() {
   return (
     <section
       className="relative flex flex-col items-start py-14 sm:py-20 md:py-[100px] px-5 sm:px-10 md:px-16 lg:px-[96px] w-full"
-      style={{ background: 'var(--m-brand-bg)' }}
+      // Section base. Other toggles use the plain section tint; the
+      // Character.AI toggle overrides --n-mockups-section-bg to white so the
+      // gradient band's feathered edges dissolve into the exact same white
+      // as the sections above and below — a fully seamless blend, no step.
+      style={{ background: 'var(--n-mockups-section-bg, var(--m-brand-bg))' }}
     >
       {/* Section-background layer. Most toggles render a plain tint (the
           layer resolves to --m-brand-bg, same as the section base, so the
