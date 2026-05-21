@@ -4,7 +4,7 @@
 function CheckIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-      <circle cx="9" cy="9" r="9" fill="#00A63E" />
+      <circle cx="9" cy="9" r="9" style={{ fill: 'var(--n-check, #00A63E)' }} />
       <path d="M5.5 9.25L8 11.75L12.5 6.25" stroke="#FFFFFF" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )

@@ -4,7 +4,7 @@
 function CheckBadge() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <circle cx="10" cy="10" r="10" fill="#00A63E" />
+      <circle cx="10" cy="10" r="10" style={{ fill: 'var(--n-check, #00A63E)' }} />
       <path d="M6 10.25L8.75 13L14 7" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
