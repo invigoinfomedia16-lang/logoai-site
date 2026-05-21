@@ -208,6 +208,11 @@ export default function NLayout({ children }: { children: ReactNode }) {
            band (transparent band, dark text, black button). */
         .m-theme[data-brand-color="character-ai"] {
           --m-star: #000000;
+          /* Text on dark backgrounds → pure #FFFFFF (matching the Figma,
+             which uses pure white on its black panels) rather than the
+             default soft greys. */
+          --m-text-on-dark: #FFFFFF;
+          --m-text-on-dark-muted: #FFFFFF;
           /* Bottom CTA → a plain tinted section (no band, no card): the
              section carries the tint, the inner block is transparent. */
           --n-cta-section-bg: var(--m-brand-bg);
