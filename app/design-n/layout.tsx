@@ -232,14 +232,14 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-no-mark: #6A7282;
           /* Green check icons (Risk-Free, Pricing, How-It-Works) → black. */
           --n-check: #000000;
-          /* Onboarding funnel → monochrome: green success states, the green
-             "verified" rating stars, and the multi-colour Google logo all
-             go black under this theme. */
+          /* Onboarding funnel → monochrome: green success states and the
+             green "verified" rating stars go black under this theme. The
+             Google "G" is left full-colour — a third-party brand mark,
+             exempt from theme recolouring by convention. */
           --m-success: #000000;
           --m-success-bright: #000000;
           --m-success-bold: #000000;
           --n-rating-star: #000000;
-          --n-glogo: #000000;
           /* Black mockup frame; pure-black footer; white footer ticks. */
           --n-mockup-frame-bg: #000000;
           --n-mockup-frame-border: #000000;
