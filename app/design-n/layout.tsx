@@ -208,10 +208,11 @@ export default function NLayout({ children }: { children: ReactNode }) {
            band (transparent band, dark text, black button). */
         .m-theme[data-brand-color="character-ai"] {
           --m-star: #000000;
-          /* Bottom CTA → a white card (border + shadow), not a filled band. */
-          --n-cta-band-bg: #FFFFFF;
-          --n-cta-band-border: 1px solid var(--m-border);
-          --n-cta-band-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 12px 32px rgba(0,0,0,0.07);
+          /* Bottom CTA → a plain tinted section (no band, no card): the
+             section carries the tint, the inner block is transparent. */
+          --n-cta-section-bg: var(--m-brand-bg);
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
           --n-cta-fg: var(--m-ink-deep);
           --n-cta-fg-sub: var(--m-text-muted);
           --n-cta-fg-soft: var(--m-text-soft);

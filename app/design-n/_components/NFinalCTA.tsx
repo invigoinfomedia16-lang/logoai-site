@@ -24,18 +24,19 @@ export default function NFinalCTA() {
     <section
       data-n-bottom-cta
       className="w-full py-14 sm:py-20 md:py-[100px] px-5 sm:px-10 md:px-16 lg:px-[96px]"
-      style={{ background: 'var(--m-surface)' }}
+      style={{ background: 'var(--n-cta-section-bg, var(--m-surface))' }}
     >
       <div
         className="max-w-[1280px] mx-auto flex flex-col items-center text-center"
         style={{
-          // Themeable — the Character.AI toggle swaps the filled brand
-          // band for a white card (border + shadow) and flips text dark.
+          // Themeable — most toggles render a filled brand band; the
+          // Character.AI toggle clears it (transparent) so the CTA reads as
+          // a plain tinted section, the colour coming from --n-cta-section-bg.
           background: 'var(--n-cta-band-bg, var(--m-brand))',
           border: 'var(--n-cta-band-border, none)',
           boxShadow: 'var(--n-cta-band-shadow, none)',
           borderRadius: 20,
-          padding: 'clamp(48px, 8vw, 104px) clamp(24px, 6vw, 80px)',
+          padding: 'var(--n-cta-band-pad, clamp(48px, 8vw, 104px) clamp(24px, 6vw, 80px))',
         }}
       >
         <div className="flex flex-col items-center" style={{ maxWidth: 620 }}>
