@@ -80,14 +80,27 @@ export default function NMockups() {
 
   return (
     <section
-      className="flex flex-col items-start py-14 sm:py-20 md:py-[100px] px-5 sm:px-10 md:px-16 lg:px-[96px] w-full"
-      // Themeable section background. Most toggles use the plain section
-      // tint; the Character.AI toggle overrides --n-mockups-bg with the
-      // pastel gradient band (its single use of the gradient, mirroring the
-      // Figma's one mid-page gradient section).
-      style={{ background: 'var(--n-mockups-bg, var(--m-brand-bg))' }}
+      className="relative flex flex-col items-start py-14 sm:py-20 md:py-[100px] px-5 sm:px-10 md:px-16 lg:px-[96px] w-full"
+      style={{ background: 'var(--m-brand-bg)' }}
     >
-      <div className="flex flex-col gap-10 md:gap-12 items-start w-full max-w-[1280px] mx-auto px-2 sm:px-4">
+      {/* Section-background layer. Most toggles render a plain tint (the
+          layer resolves to --m-brand-bg, same as the section base, so the
+          band is uniform). The Character.AI toggle sets --n-mockups-bg to
+          the pastel gradient; the vertical mask then feathers the band's
+          top/bottom edges so it blends softly into the off-white sections
+          instead of a hard line — mirroring the Figma's soft-edged band. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'var(--n-mockups-bg, var(--m-brand-bg))',
+          WebkitMaskImage:
+            'linear-gradient(to bottom, transparent 0, #000 72px, #000 calc(100% - 72px), transparent 100%)',
+          maskImage:
+            'linear-gradient(to bottom, transparent 0, #000 72px, #000 calc(100% - 72px), transparent 100%)',
+        }}
+      />
+      <div className="relative z-[1] flex flex-col gap-10 md:gap-12 items-start w-full max-w-[1280px] mx-auto px-2 sm:px-4">
         {/* Heading */}
         <div className="flex flex-col gap-4 items-center text-center w-full">
           <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>See It In The Real World</p>
