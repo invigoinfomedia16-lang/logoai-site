@@ -66,9 +66,8 @@ function CheckBadge() {
 export default function NFooter() {
   return (
     <footer
-      data-n-footer
       className="flex flex-col items-start px-5 sm:px-10 md:px-16 lg:px-[96px] w-full"
-      style={{ background: 'rgba(0,0,0,0.95)' }}
+      style={{ background: 'var(--n-footer-bg, rgba(0,0,0,0.95))' }}
     >
       <div className="flex flex-col gap-12 items-start w-full max-w-[1728px] px-2 sm:px-8 py-12">
         {/* Logo row — wordmark + brand tagline */}

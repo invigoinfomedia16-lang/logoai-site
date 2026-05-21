@@ -122,14 +122,14 @@ export default function NMockups() {
           </div>
         </div>
 
-        {/* Frame — plain padded container around the carousel. */}
+        {/* Frame — plain padded container around the carousel. Themeable:
+            the Character.AI toggle turns it black via --n-mockup-frame-*. */}
         <div
-          data-n-mockup-frame
           className="w-full relative overflow-hidden"
           style={{
             padding: 'clamp(16px, 4vw, 48px)',
-            background: 'var(--m-surface)',
-            border: '1px solid var(--m-border)',
+            background: 'var(--n-mockup-frame-bg, var(--m-surface))',
+            border: '1px solid var(--n-mockup-frame-border, var(--m-border))',
             borderRadius: 20,
           }}
         >

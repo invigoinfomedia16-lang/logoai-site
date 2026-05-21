@@ -208,7 +208,10 @@ export default function NLayout({ children }: { children: ReactNode }) {
            band (transparent band, dark text, black button). */
         .m-theme[data-brand-color="character-ai"] {
           --m-star: #000000;
-          --n-cta-band-bg: transparent;
+          /* Bottom CTA → a white card (border + shadow), not a filled band. */
+          --n-cta-band-bg: #FFFFFF;
+          --n-cta-band-border: 1px solid var(--m-border);
+          --n-cta-band-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 12px 32px rgba(0,0,0,0.07);
           --n-cta-fg: var(--m-ink-deep);
           --n-cta-fg-sub: var(--m-text-muted);
           --n-cta-fg-soft: var(--m-text-soft);
@@ -219,13 +222,10 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-yes: #000000;
           --n-no: #E5E7EB;
           --n-no-mark: #6A7282;
-        }
-        .m-theme[data-brand-color="character-ai"] [data-n-mockup-frame] {
-          background: #000000;
-          border-color: #000000;
-        }
-        .m-theme[data-brand-color="character-ai"] [data-n-footer] {
-          background: #000000;
+          /* Black mockup frame; pure-black footer. */
+          --n-mockup-frame-bg: #000000;
+          --n-mockup-frame-border: #000000;
+          --n-footer-bg: #000000;
         }
       ` }} />
       <div className={`m-theme ${plusJakartaSans.variable} ${openSans.variable} ${dmSerifDisplay.variable}`}>

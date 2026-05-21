@@ -29,9 +29,11 @@ export default function NFinalCTA() {
       <div
         className="max-w-[1280px] mx-auto flex flex-col items-center text-center"
         style={{
-          // Themeable — the Character.AI toggle drops the filled band
-          // (--n-cta-band-bg: transparent) and flips the text dark.
+          // Themeable — the Character.AI toggle swaps the filled brand
+          // band for a white card (border + shadow) and flips text dark.
           background: 'var(--n-cta-band-bg, var(--m-brand))',
+          border: 'var(--n-cta-band-border, none)',
+          boxShadow: 'var(--n-cta-band-shadow, none)',
           borderRadius: 20,
           padding: 'clamp(48px, 8vw, 104px) clamp(24px, 6vw, 80px)',
         }}
