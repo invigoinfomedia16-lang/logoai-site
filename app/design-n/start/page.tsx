@@ -1629,7 +1629,7 @@ function PreselectNote() {
         lineHeight: 1.45,
       }}
     >
-      We&rsquo;ve selected the best-fit options for your brand — change any you&rsquo;d like.
+      We&rsquo;ve selected the best-fit options for your brand, change if you&rsquo;d like.
     </p>
   )
 }
