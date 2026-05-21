@@ -40,6 +40,11 @@ export type SuggestStatus = 'idle' | 'loading' | 'done'
 
 interface Result<T> {
   suggestions: T[]
+  // The AI's deliberate preselection picks (impression / palette / style
+  // steps): the chosen mood words, or the exact name of the chosen palette
+  // or style. Empty for kinds that don't use it, or when the live fetch
+  // failed (callers then fall back to their own default).
+  recommended: string[]
   loading: boolean
   source: 'static' | 'live'
   // Lifecycle for the current context: 'idle' before a fetch is needed,
@@ -52,7 +57,7 @@ interface Result<T> {
 }
 
 // Module-level cache so multi-component re-mounts share fetched results.
-const cache = new Map<string, unknown[]>()
+const cache = new Map<string, { items: unknown[]; recommended: string[] }>()
 
 function ctxKey<T>(c: Ctx<T>): string {
   return [
@@ -68,10 +73,11 @@ function ctxKey<T>(c: Ctx<T>): string {
 export function useLiveSuggestions<T>(ctx: Ctx<T>): Result<T> {
   const enabled = ctx.enabled !== false && ctx.brand.trim().length > 0
   const key = ctxKey(ctx)
-  const cached = cache.get(key) as T[] | undefined
+  const cached = cache.get(key) as { items: T[]; recommended: string[] } | undefined
   const minCount = ctx.minCount ?? 3
 
-  const [suggestions, setSuggestions] = useState<T[]>(cached ?? ctx.fallback)
+  const [suggestions, setSuggestions] = useState<T[]>(cached?.items ?? ctx.fallback)
+  const [recommended, setRecommended] = useState<string[]>(cached?.recommended ?? [])
   const [status, setStatus] = useState<SuggestStatus>(cached ? 'done' : 'idle')
   const [source, setSource] = useState<'static' | 'live'>(cached ? 'live' : 'static')
 
@@ -80,12 +86,14 @@ export function useLiveSuggestions<T>(ctx: Ctx<T>): Result<T> {
   useEffect(() => {
     if (!enabled) {
       setSuggestions(ctx.fallback)
+      setRecommended([])
       setStatus('idle')
       setSource('static')
       return
     }
     if (cached) {
-      setSuggestions(cached)
+      setSuggestions(cached.items)
+      setRecommended(cached.recommended)
       setStatus('done')
       setSource('live')
       return
@@ -114,13 +122,17 @@ export function useLiveSuggestions<T>(ctx: Ctx<T>): Result<T> {
       signal: controller.signal,
     })
       .then((r) => r.json())
-      .then((data: { suggestions?: unknown[] }) => {
+      .then((data: { suggestions?: unknown[]; recommended?: unknown }) => {
         if (reqRef.current !== reqId) return
         const raw = Array.isArray(data.suggestions) ? data.suggestions : []
         const validated = raw.filter(ctx.validate) as T[]
+        const rec = Array.isArray(data.recommended)
+          ? (data.recommended.filter((x) => typeof x === 'string') as string[])
+          : []
         if (validated.length >= minCount) {
-          cache.set(key, validated)
+          cache.set(key, { items: validated, recommended: rec })
           setSuggestions(validated)
+          setRecommended(rec)
           setSource('live')
         }
         setStatus('done')
@@ -138,7 +150,7 @@ export function useLiveSuggestions<T>(ctx: Ctx<T>): Result<T> {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key, enabled])
 
-  return { suggestions, loading: status === 'loading', source, status }
+  return { suggestions, recommended, loading: status === 'loading', source, status }
 }
 
 // Common validators for the supported item shapes.

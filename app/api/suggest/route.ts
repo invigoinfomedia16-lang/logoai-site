@@ -107,7 +107,11 @@ Respond with ONLY a JSON object of shape: { "suggestions": ["...", "...", ...] }
 
 ${ctx}
 
-Generate exactly 12 distinct single-word mood adjectives. Respond with ONLY a JSON object of shape: { "suggestions": ["Bold", "Trustworthy", "...", ...] }`
+Generate exactly 12 distinct single-word mood adjectives.
+
+Then, from those 12, choose the 3 that BEST capture how THIS brand specifically should feel — a genuine, considered judgement from the industry and description, NOT simply the first 3. The 3 picks may sit anywhere in the list. Put them in a "recommended" array.
+
+Respond with ONLY a JSON object of shape: { "suggestions": ["Bold", "Trustworthy", "...", ...], "recommended": ["...", "...", "..."] }`
   }
 
   if (req.kind === 'palette') {
@@ -131,8 +135,10 @@ Generate exactly 6 distinct palettes. Each palette has:
   - "hex": valid 6-digit hex code starting with # (e.g. "#3E2723")
   - "desc": one short phrase about its role (e.g. "Deep and roasted")
 
+Then choose the SINGLE palette that is the best fit for THIS brand specifically — a considered judgement from the industry, description and mood words, NOT simply the first one. The pick may sit anywhere in the list. Put that palette's exact "name" in a "recommended" array of one string.
+
 Respond with ONLY a JSON object of shape:
-{ "suggestions": [ { "name": "...", "hint": "...", "colors": [ { "name": "...", "hex": "#...", "desc": "..." }, ... ] }, ... ] }`
+{ "suggestions": [ { "name": "...", "hint": "...", "colors": [ { "name": "...", "hex": "#...", "desc": "..." }, ... ] }, ... ], "recommended": ["<exact name of the best-fit palette>"] }`
   }
 
   if (req.kind === 'style') {
@@ -159,8 +165,12 @@ For each of the 6 logo types return:
 - "desc": one short sentence describing the type
 - "ex": 3 real, well-known brands in or adjacent to this industry that use this type, comma-separated
 
-Return the 6 types in descending order of "pct". Respond with ONLY a JSON object of shape:
-{ "suggestions": [ { "name": "...", "pct": <integer>, "desc": "...", "ex": "X, Y, Z" }, ... ] }`
+Return the 6 types in descending order of "pct".
+
+Then choose the SINGLE logo style that is genuinely the best choice for THIS specific business to use — a considered recommendation from its industry and description. This is NOT necessarily the highest-percentage type: the most common style industry-wide is often not the best choice for a particular brand. Put that type's exact "name" in a "recommended" array of one string.
+
+Respond with ONLY a JSON object of shape:
+{ "suggestions": [ { "name": "...", "pct": <integer>, "desc": "...", "ex": "X, Y, Z" }, ... ], "recommended": ["<exact name of the best-choice style>"] }`
   }
 
   if (req.kind === 'industry') {
@@ -245,12 +255,22 @@ export async function POST(req: Request) {
       return NextResponse.json({ suggestions: [], reason: 'parse-fail' })
     }
 
-    const arr = findFirstArray(parsed)
+    const obj = parsed && typeof parsed === 'object' ? (parsed as Record<string, unknown>) : null
+    const arr = obj && Array.isArray(obj.suggestions) ? obj.suggestions : findFirstArray(parsed)
     if (!arr) {
       return NextResponse.json({ suggestions: [], reason: 'no-array' })
     }
 
-    return NextResponse.json({ suggestions: arr })
+    // 'recommended' — the AI's deliberate preselection picks for the
+    // impression / palette / style steps. Plain strings: the chosen mood
+    // words, or the exact name of the chosen palette / style. Absent (empty)
+    // for kinds that don't use it.
+    const recommended =
+      obj && Array.isArray(obj.recommended)
+        ? obj.recommended.filter((x): x is string => typeof x === 'string')
+        : []
+
+    return NextResponse.json({ suggestions: arr, recommended })
   } catch (err) {
     console.error('[api/suggest] openai error:', err)
     return NextResponse.json({ suggestions: [], reason: 'openai-error' })

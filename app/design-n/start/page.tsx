@@ -2084,26 +2084,31 @@ function FormSteps(p: FormProps) {
   }, [p.aiPickPending, step, liveTagline.status])
 
   // Auto-preselect — steps 5-7 have no "Let AI pick" button. Once the live
-  // AI list for the step loads, the best option(s) are filled in so the
-  // footer can show Continue. The user can still adjust the selection;
-  // this only fills an empty selection, never overrides a user's choice.
+  // AI list for the step loads, the AI's recommended pick(s) are filled in
+  // so the footer can show Continue. The recommendation is a deliberate
+  // AI judgement from the earlier inputs — it may sit anywhere in the list,
+  // not just at the top. If the live fetch gave no usable recommendation
+  // (e.g. it failed and we're on the static fallback), we fall back to the
+  // first option(s). This only fills an empty selection, never a user's.
   useEffect(() => {
     if (
       step === 5 && liveImpression.status === 'done' &&
       p.impressions.length === 0 && impressionsList.length > 0
     ) {
-      p.setImpressions(impressionsList.slice(0, 3))
+      const rec = liveImpression.recommended.filter((w) => impressionsList.includes(w))
+      p.setImpressions(rec.length === 3 ? rec : impressionsList.slice(0, 3))
     } else if (
       step === 6 && livePalettes.status === 'done' &&
       p.paletteIndex === null && palettesList.length > 0
     ) {
-      p.setPaletteIndex(0)
+      const idx = palettesList.findIndex((pal) => pal.name === livePalettes.recommended[0])
+      p.setPaletteIndex(idx >= 0 ? idx : 0)
     } else if (
       step === 7 && liveStyles.status === 'done' &&
       p.logoTypeIndex === null && stylesList.length > 0
     ) {
-      // AI returns styles sorted by popularity — index 0 is the top pick.
-      p.setLogoTypeIndex(0)
+      const idx = stylesList.findIndex((s) => s.name === liveStyles.recommended[0])
+      p.setLogoTypeIndex(idx >= 0 ? idx : 0)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step, liveImpression.status, livePalettes.status, liveStyles.status])
@@ -2946,7 +2951,7 @@ function AuthWall({
           className="m-sans text-center"
           style={{ marginTop: 10, maxWidth: 560, fontSize: 16, color: 'var(--m-text-muted)' }}
         >
-          Sign in to view them — no payment needed yet.
+          Sign in to view them — no payment needed.
         </p>
 
         {/* Auth card */}
