@@ -359,8 +359,11 @@ export default function LogoOnboarding() {
         @keyframes nDrawerSlide { from { transform: translateX(100%); } to { transform: translateX(0); } }
         @keyframes nDrawerSlideMobile { from { transform: translateY(100%); } to { transform: translateY(0); } }
         .n-start-input:focus { border-color: var(--m-brand) !important; box-shadow: 0 0 0 3px var(--m-brand-soft); }
-        .n-start-input::placeholder { color: var(--m-text-soft); opacity: 1; font-style: italic; transition: color 0.4s ease; }
+        .n-start-input::placeholder { color: var(--m-text-soft); opacity: 1; font-style: italic; font-size: 13px; transition: color 0.4s ease; }
         .n-start-input:focus::placeholder { color: var(--m-text-muted); }
+        @media (max-width: 480px) {
+          .n-start-input::placeholder { font-size: 12px; }
+        }
         .n-preview-card { transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease; }
         .n-preview-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(0,0,0,0.14); border-color: var(--m-brand) !important; }
         .n-preview-stream { opacity: 0; animation: nPreviewStream 0.55s cubic-bezier(0.22,1,0.36,1) both; }
