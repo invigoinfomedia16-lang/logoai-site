@@ -90,7 +90,7 @@ function Chevron({ open }: { open: boolean }) {
       aria-hidden="true"
       style={{ transform: open ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s ease', flexShrink: 0 }}
     >
-      <path d="M4 6L8 10L12 6" stroke="#101828" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M4 6L8 10L12 6" style={{ stroke: 'var(--m-ink)' }} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -125,7 +125,7 @@ export default function NFaq() {
                 key={item.question}
                 className="w-full"
                 style={{
-                  background: 'rgba(249,250,251,0.5)',
+                  background: 'var(--n-faq-row-bg, rgba(249,250,251,0.5))',
                   border: '1px solid var(--m-border-soft)',
                   borderRadius: '14px',
                   padding: '9px 25px',

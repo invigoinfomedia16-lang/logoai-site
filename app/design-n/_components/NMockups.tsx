@@ -39,7 +39,7 @@ function CategoryPill({
           : hovered
           ? 'var(--m-brand-bg)'
           : 'var(--m-surface)',
-        color: active ? '#FFFFFF' : hovered ? 'var(--m-ink)' : 'var(--m-text-muted)',
+        color: active ? 'var(--m-on-brand, #FFFFFF)' : hovered ? 'var(--m-ink)' : 'var(--m-text-muted)',
         fontSize: 14,
         lineHeight: 1,
         fontWeight: active ? 600 : 500,
@@ -156,10 +156,11 @@ export default function NMockups() {
         <div
           className="w-full relative overflow-hidden"
           style={{
-            padding: 'clamp(6px, 1vw, 12px)',
+            padding: 'var(--n-mockup-frame-pad, clamp(6px, 1vw, 12px))',
             background: 'var(--n-mockup-frame-bg, var(--m-surface))',
-            border: '1px solid var(--n-mockup-frame-border, var(--m-border))',
+            border: 'var(--n-mockup-frame-border-css, 1px solid var(--n-mockup-frame-border, var(--m-border)))',
             borderRadius: 16,
+            boxShadow: 'var(--n-mockup-frame-shadow, none)',
           }}
         >
           {/* Carousel frame — one mockup at a time, crossfade */}

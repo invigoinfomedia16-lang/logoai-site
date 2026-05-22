@@ -173,7 +173,7 @@ export default function NCheckoutModal({ open, index, price, preview, onClose, o
           margin: '8px 0',
           borderRadius: 16,
           overflow: 'hidden',
-          background: '#F8F9FB',
+          background: 'var(--n-checkout-modal-bg, #F8F9FB)',
           boxShadow: '0 24px 60px rgba(0,0,0,0.35)',
           animation: 'nCoFade 0.25s ease',
         }}
@@ -201,9 +201,15 @@ export default function NCheckoutModal({ open, index, price, preview, onClose, o
             <span className="hidden sm:inline-block" style={{ width: 1, height: 20, background: 'var(--m-border)' }} />
             <span
               className="hidden sm:inline m-display"
-              style={{ fontFamily: 'var(--m-font-wordmark), serif', fontSize: 20, color: 'var(--m-ink)', letterSpacing: '-0.02em' }}
+              style={{
+                fontFamily: 'var(--m-logo-font, var(--m-font-wordmark), serif)',
+                fontWeight: 'var(--m-logo-weight, 400)',
+                fontSize: 20,
+                color: 'var(--m-logo-color, var(--m-ink))',
+                letterSpacing: 'var(--m-logo-tracking, -0.02em)',
+              }}
             >
-              LOGO<span style={{ color: 'var(--m-brand)' }}>.</span>AI
+              LOGO<span style={{ color: 'var(--m-logo-color, var(--m-brand))' }}>.</span>AI
             </span>
           </div>
           <div
@@ -285,7 +291,7 @@ export default function NCheckoutModal({ open, index, price, preview, onClose, o
                 padding: '14px 16px',
                 borderRadius: 12,
                 border: 'none',
-                color: '#FFFFFF',
+                color: 'var(--m-on-brand, #FFFFFF)',
                 fontFamily: 'var(--m-font-sans), sans-serif',
                 fontSize: 16,
                 fontWeight: 600,
@@ -307,7 +313,7 @@ export default function NCheckoutModal({ open, index, price, preview, onClose, o
               className="m-sans"
               style={{
                 borderBottom: '1px solid var(--m-border)',
-                background: 'linear-gradient(to right, #F5E2DA, #F0EEE6)',
+                background: 'var(--n-checkout-strip-bg, linear-gradient(to right, #F5E2DA, #F0EEE6))',
                 padding: '8px 20px',
                 textAlign: 'center',
                 fontSize: 12,
@@ -564,14 +570,14 @@ export default function NCheckoutModal({ open, index, price, preview, onClose, o
                         borderRadius: 10,
                         border: 'none',
                         background: 'var(--m-success)',
-                        color: '#FFFFFF',
+                        color: 'var(--m-on-brand, #FFFFFF)',
                         fontSize: 15,
                         fontWeight: 700,
                         cursor: paying ? 'wait' : 'pointer',
                         opacity: paying ? 0.7 : 1,
                         transition: 'background 0.15s ease, opacity 0.15s ease',
                       }}
-                      onMouseEnter={(e) => { if (!paying) (e.currentTarget as HTMLElement).style.background = '#00903A' }}
+                      onMouseEnter={(e) => { if (!paying) (e.currentTarget as HTMLElement).style.background = 'var(--m-success-bold, #00903A)' }}
                       onMouseLeave={(e) => { if (!paying) (e.currentTarget as HTMLElement).style.background = 'var(--m-success)' }}
                     >
                       {paying ? (

@@ -282,8 +282,8 @@ export default function DashboardPage() {
         {/* mobile wordmark (sidebar hidden < md) */}
         <div className="md:hidden flex items-center justify-between" style={{ marginBottom: 20 }}>
           <a href="/design-n" className="flex items-center gap-1.5">
-            <span style={{ fontFamily: 'var(--m-font-wordmark), serif', fontSize: 22, color: 'var(--m-ink)', letterSpacing: '-0.02em' }}>
-              LOGO<span style={{ color: 'var(--m-brand)' }}>.</span>AI
+            <span style={{ fontFamily: 'var(--m-logo-font, var(--m-font-wordmark), serif)', fontWeight: 'var(--m-logo-weight, 400)', fontSize: 22, color: 'var(--m-logo-color, var(--m-ink))', letterSpacing: 'var(--m-logo-tracking, -0.02em)' }}>
+              LOGO<span style={{ color: 'var(--m-logo-color, var(--m-brand))' }}>.</span>AI
             </span>
           </a>
         </div>
@@ -357,7 +357,7 @@ export default function DashboardPage() {
                   padding: '12px 18px',
                   borderRadius: 10,
                   border: 'none',
-                  color: '#FFFFFF',
+                  color: 'var(--m-on-brand, #FFFFFF)',
                   fontSize: 14,
                   fontWeight: 700,
                   cursor: 'pointer',
@@ -439,8 +439,8 @@ function Sidebar() {
       }}
     >
       <a href="/design-n" className="flex items-center" style={{ padding: '0 8px' }}>
-        <span style={{ fontFamily: 'var(--m-font-wordmark), serif', fontSize: 22, lineHeight: 1, letterSpacing: '-0.02em', color: 'var(--m-ink)' }}>
-          LOGO<span style={{ color: 'var(--m-brand)' }}>.</span>AI
+        <span style={{ fontFamily: 'var(--m-logo-font, var(--m-font-wordmark), serif)', fontWeight: 'var(--m-logo-weight, 400)', fontSize: 22, lineHeight: 1, letterSpacing: 'var(--m-logo-tracking, -0.02em)', color: 'var(--m-logo-color, var(--m-ink))' }}>
+          LOGO<span style={{ color: 'var(--m-logo-color, var(--m-brand))' }}>.</span>AI
         </span>
       </a>
 
@@ -491,7 +491,7 @@ function Sidebar() {
       <div className="flex items-center gap-2.5" style={{ padding: 8 }}>
         <div
           className="flex items-center justify-center m-display"
-          style={{ width: 32, height: 32, borderRadius: '50%', background: 'var(--m-brand)', color: '#FFFFFF', fontSize: 13, fontWeight: 700 }}
+          style={{ width: 32, height: 32, borderRadius: '50%', background: 'var(--m-brand)', color: 'var(--m-on-brand, #FFFFFF)', fontSize: 13, fontWeight: 700 }}
         >
           JM
         </div>

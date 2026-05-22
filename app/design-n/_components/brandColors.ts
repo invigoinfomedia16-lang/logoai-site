@@ -36,60 +36,133 @@ export type BrandColorOption = {
 // below; "Reset" returns to that terracotta default.
 export const BRAND_COLORS: BrandColorOption[] = [
   {
-    // design-l's exact Purple Heart CTA + accent treatment.
-    // bg = design-l's own alt-section lavender.
-    name: 'Purple (L)',
+    // Purple Black — a DARK theme on the Freepik base: a much-darker
+    // near-pure-black background (#050505) paired with design-L's purple
+    // #7543E3 CTA. Dark surfaces / text / borders are applied via the scoped
+    // [data-brand-color="purple-black"] block in layout.tsx.
+    name: 'Purple Black',
     vars: {
       brand: '#7543E3',
-      strong: '#6132BC',
+      strong: '#A98BF0',
       deep: '#5F2EB4',
-      soft: '#EBE2FF',
-      bg: '#F5F0FF',
-      glow: '#C7A8FF',
-      onDark: '#7543E3',
+      // Neutral dark — the "soft brand" surface (selected chips, hover).
+      soft: '#262626',
+      // Alternating tinted / card background — a hair off the base.
+      bg: '#0F0F0F',
+      glow: '#A98BF0',
+      onDark: '#A98BF0',
+      // Flat near-pure-black hero (matches the surface).
+      heroTint: '#050505',
     },
+    // Half black / half purple — signals the dark theme + the CTA colour.
+    swatch:
+      'linear-gradient(135deg, #050505 0%, #050505 48%, #7543E3 52%, #7543E3 100%)',
+    hideHeroCarousel: true,
   },
   {
-    // HEADSHOT's exact CTA blue (Tailwind blue-500/600/700), pulled from
-    // HEADSHOT/DESIGN_TOKENS.md — --color-brand #2B7FFF is its primary CTA,
-    // --color-brand-bg #EFF6FF its tinted section background.
-    name: 'Headshot Blue',
+    // Freepik design — a full DARK theme. Colours pulled from
+    // public/freepik-exact.html: primary CTA #336AEA, darker #1A4FD0,
+    // lighter #648EEF, near-black #0D0D0D background. A toggle's vars only
+    // carry the brand colours; the dark surfaces / text / borders are
+    // applied via the scoped [data-brand-color="freepik"] block in
+    // layout.tsx, so no other toggle or the default is affected.
+    name: 'Freepik',
     vars: {
-      brand: '#2B7FFF',
-      strong: '#155DFC',
-      deep: '#1447E6',
-      soft: '#DBEAFE',
-      bg: '#EFF6FF',
-      glow: '#8EC5FF',
-      onDark: '#2B7FFF',
+      brand: '#336AEA',
+      strong: '#648EEF',
+      deep: '#1A4FD0',
+      // Dark navy — the "soft brand" surface (selected chips, hover tints)
+      // on the dark theme.
+      soft: '#1C2741',
+      // Alternating tinted-section background — a hair off the #0D0D0D base.
+      bg: '#141414',
+      glow: '#648EEF',
+      onDark: '#648EEF',
+      // Flat #0D0D0D hero (no gradient) so the hero, the nav bar and the
+      // rest of the site all read as one uniform colour.
+      heroTint: '#0D0D0D',
     },
+    // Half near-black / half blue — signals the dark theme + blue accent.
+    swatch:
+      'linear-gradient(135deg, #0D0D0D 0%, #0D0D0D 48%, #336AEA 52%, #336AEA 100%)',
+    hideHeroCarousel: true,
   },
   {
-    // Vermillion orange-red CTA (requested exact brand hex #E7420F).
+    // Vermillion — a DARK theme built on the Freepik base: a warm near-black
+    // surface (a faint vermillion warmth mixed into the black) paired with
+    // the vermillion #E7420F CTA. Dark surfaces / text / borders are applied
+    // via the scoped [data-brand-color="vermillion"] block in layout.tsx.
     name: 'Vermillion',
     vars: {
       brand: '#E7420F',
-      strong: '#C8390C',
+      strong: '#F4926F',
       deep: '#AE320A',
-      soft: '#FCE3DB',
-      bg: '#FDF0EB',
+      // Neutral-warm dark — the "soft brand" surface (selected chips, hover).
+      soft: '#2A211D',
+      // Alternating tinted / card background — a hair off the base.
+      bg: '#15100E',
       glow: '#F4926F',
-      onDark: '#E7420F',
+      onDark: '#F4926F',
+      // Flat warm near-black hero (matches the surface).
+      heroTint: '#100C0A',
     },
+    // Half warm-dark / half vermillion — signals the dark theme + CTA colour.
+    swatch:
+      'linear-gradient(135deg, #100C0A 0%, #100C0A 48%, #E7420F 52%, #E7420F 100%)',
+    hideHeroCarousel: true,
   },
   {
-    // Solid black CTA — neutral light-grey section tint. onDark is white
-    // so the footer logo dot stays visible on the dark footer.
-    name: 'Black',
+    // Vermillion Black — a DARK theme on the Freepik base: true pure-black
+    // #000000 surfaces (neutral, no warmth) paired with the vermillion
+    // #E7420F CTA. A stark sibling of the warm-toned Vermillion toggle;
+    // dark surfaces / text / borders are applied via the scoped
+    // [data-brand-color="vermillion-black"] block in layout.tsx.
+    name: 'Vermillion Black',
     vars: {
-      brand: '#1A1A1A',
-      strong: '#000000',
-      deep: '#000000',
-      soft: '#E5E5E5',
-      bg: '#F2F2F1',
-      glow: '#525252',
-      onDark: '#FFFFFF',
+      brand: '#E7420F',
+      strong: '#F4926F',
+      deep: '#AE320A',
+      // Neutral dark — the "soft brand" surface (selected chips, hover).
+      soft: '#222222',
+      // Alternating tinted / card background — a hair off the pure-black base.
+      bg: '#0C0C0C',
+      glow: '#F4926F',
+      onDark: '#F4926F',
+      // Flat true pure-black hero (matches the surface).
+      heroTint: '#000000',
     },
+    // Half pure-black / half vermillion — signals the dark theme + CTA colour.
+    swatch:
+      'linear-gradient(135deg, #000000 0%, #000000 48%, #E7420F 52%, #E7420F 100%)',
+    hideHeroCarousel: true,
+  },
+  {
+    // Framer — a DARK, fully monochrome theme on the Freepik base: a
+    // pure-black background (#000000, Framer's site black) with an
+    // exact-white #FFFFFF CTA (white fill, black text). Every accent is
+    // white. Dark surfaces / text / borders are applied via the scoped
+    // [data-brand-color="framer"] block in layout.tsx.
+    name: 'Framer',
+    vars: {
+      // White — the CTA fill and every accent (eyebrows, stat numbers,
+      // borders, selected chips). Fully monochrome.
+      brand: '#FFFFFF',
+      strong: '#FFFFFF',
+      // CTA hover — a soft off-white.
+      deep: '#E5E5E5',
+      // Neutral dark — the "soft brand" surface (selected chips, hover).
+      soft: '#1F1F1F',
+      // Alternating tinted / card background — a hair off the pure-black base.
+      bg: '#141414',
+      glow: '#FFFFFF',
+      onDark: '#FFFFFF',
+      // Flat pure-black hero (matches the surface).
+      heroTint: '#000000',
+    },
+    // Half pure-black / half white — signals the dark theme + white CTA.
+    swatch:
+      'linear-gradient(135deg, #000000 0%, #000000 48%, #FFFFFF 52%, #FFFFFF 100%)',
+    hideHeroCarousel: true,
   },
   {
     // Character.AI Safety Center palette (from the Figma capture). Matches

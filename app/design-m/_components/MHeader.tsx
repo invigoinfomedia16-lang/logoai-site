@@ -84,13 +84,13 @@ export default function MHeader({
         top: compact ? 12 : 0,
         width: compact ? '92%' : '100%',
         marginInline: 'auto',
-        background: compact ? 'rgba(255,255,255,0.82)' : 'var(--m-surface)',
+        background: compact ? 'var(--m-header-bg, rgba(255,255,255,0.82))' : 'var(--m-surface)',
         backdropFilter: compact ? 'saturate(180%) blur(20px)' : 'none',
         WebkitBackdropFilter: compact ? 'saturate(180%) blur(20px)' : 'none',
         borderRadius: compact ? 14 : 0,
         border: '1px solid transparent',
-        borderColor: compact ? 'rgba(0,0,0,0.07)' : 'transparent',
-        borderBottomColor: compact ? 'rgba(0,0,0,0.07)' : 'var(--m-border)',
+        borderColor: compact ? 'var(--m-header-border, rgba(0,0,0,0.07))' : 'transparent',
+        borderBottomColor: compact ? 'var(--m-header-border, rgba(0,0,0,0.07))' : 'var(--m-border)',
         boxShadow: compact ? '0 16px 44px rgba(0,0,0,0.13)' : 'none',
         transition: headerTransition,
       }}
@@ -109,15 +109,16 @@ export default function MHeader({
           <a className="flex items-center gap-1.5" href={homeHref}>
             <span
               style={{
-                fontFamily: 'var(--m-font-wordmark), serif',
-                fontSize: 26,
+                fontFamily: 'var(--m-logo-font, var(--m-font-wordmark), serif)',
+                fontSize: 'var(--m-logo-size, 26px)',
+                fontWeight: 'var(--m-logo-weight, 400)',
                 lineHeight: 1,
-                letterSpacing: '-0.02em',
-                color: 'var(--m-ink)',
+                letterSpacing: 'var(--m-logo-tracking, -0.02em)',
+                color: 'var(--m-logo-color, var(--m-ink))',
                 whiteSpace: 'nowrap',
               }}
             >
-              LOGO<span style={{ color: 'var(--m-brand)' }}>.</span>AI
+              LOGO<span style={{ color: 'var(--m-logo-color, var(--m-brand))' }}>.</span>AI
             </span>
           </a>
           {tagline && (
@@ -145,9 +146,9 @@ export default function MHeader({
                 <a
                   href={n.href}
                   className="m-nav transition-colors"
-                  style={{ color: 'var(--m-ink)' }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--m-brand)' }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--m-ink)' }}
+                  style={{ color: 'var(--n-nav-link, var(--m-ink))' }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link-hover, var(--m-brand))' }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link, var(--m-ink))' }}
                 >
                   {n.label}
                 </a>
@@ -157,9 +158,9 @@ export default function MHeader({
               <button
                 type="button"
                 className="flex h-9 items-center justify-center gap-1.5 rounded-md px-2 m-nav transition-colors"
-                style={{ color: 'var(--m-ink)' }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--m-brand)' }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--m-ink)' }}
+                style={{ color: 'var(--n-nav-link, var(--m-ink))' }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link-hover, var(--m-brand))' }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link, var(--m-ink))' }}
               >
                 <span>Resources</span>
                 <ChevronDown />
@@ -175,8 +176,8 @@ export default function MHeader({
             href="#"
             className="hidden md:flex h-9 items-center justify-center rounded-md px-4 m-nav transition-colors"
             style={{ color: 'var(--m-ink)' }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--m-brand)' }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--m-ink)' }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link-hover, var(--m-brand))' }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link, var(--m-ink))' }}
           >
             Log in
           </a>
@@ -184,17 +185,30 @@ export default function MHeader({
             href={ctaHref}
             className="hidden md:inline-flex items-center justify-center px-4 py-2 m-sans whitespace-nowrap"
             style={{
-              background: 'var(--m-brand)',
+              // Filled by default; the Freepik toggle overrides the
+              // --n-nav-cta-* vars to make it an outlined button (design-L
+              // style) — transparent with a faint border, filling on hover.
+              background: 'var(--n-nav-cta-bg, var(--m-brand))',
               color: '#FFFFFF',
+              border: '1px solid var(--n-nav-cta-border-c, transparent)',
               borderRadius: 'var(--m-radius-sm)',
               fontWeight: 400,
               fontSize: 14,
               lineHeight: '20px',
-              boxShadow: '0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1)',
-              transition: 'background 0.18s ease',
+              boxShadow:
+                'var(--n-nav-cta-shadow, 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1))',
+              transition: 'background 0.18s ease, border-color 0.18s ease',
             }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--m-brand-deep)' }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = 'var(--m-brand)' }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLElement
+              el.style.background = 'var(--n-nav-cta-bg-hover, var(--m-brand-deep))'
+              el.style.borderColor = 'var(--n-nav-cta-border-c-hover, transparent)'
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLElement
+              el.style.background = 'var(--n-nav-cta-bg, var(--m-brand))'
+              el.style.borderColor = 'var(--n-nav-cta-border-c, transparent)'
+            }}
           >
             {ctaLabel}
           </a>

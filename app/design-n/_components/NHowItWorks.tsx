@@ -7,7 +7,7 @@ function StepNumber({ n }: { n: number }) {
       className="flex w-9 h-9 items-center justify-center rounded-full shrink-0"
       style={{ background: 'var(--m-brand)' }}
     >
-      <span className="m-sans" style={{ color: '#FFFFFF', fontWeight: 700, fontSize: 16 }}>{n}</span>
+      <span className="m-sans" style={{ color: 'var(--m-on-brand, #FFFFFF)', fontWeight: 700, fontSize: 16 }}>{n}</span>
     </div>
   )
 }
@@ -100,7 +100,9 @@ export default function NHowItWorks() {
           <span className="m-sans" style={{ fontWeight: 700, fontSize: 15, color: 'var(--m-ink)' }}>
             Your brand details stay private.
           </span>
-          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+          {/* Points — stacked + left-aligned on mobile so every checkmark
+              lines up; a centered wrapping row from sm up. */}
+          <div className="flex flex-col items-start sm:flex-row sm:flex-wrap sm:items-center sm:justify-center gap-y-2.5 sm:gap-x-5">
             {PRIVACY_POINTS.map((pt) => (
               <span key={pt} className="flex items-center gap-1.5">
                 <CheckInline />

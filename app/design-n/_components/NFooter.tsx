@@ -67,7 +67,12 @@ export default function NFooter() {
   return (
     <footer
       className="flex flex-col items-start px-5 sm:px-10 md:px-16 lg:px-[96px] w-full"
-      style={{ background: 'var(--n-footer-bg, rgba(0,0,0,0.95))' }}
+      style={{
+        background: 'var(--n-footer-bg, rgba(0,0,0,0.95))',
+        // A top divider — needed when the footer shares the page colour
+        // (Freepik); harmless 'none' otherwise.
+        borderTop: 'var(--n-footer-border, none)',
+      }}
     >
       <div className="flex flex-col gap-12 items-start w-full max-w-[1728px] px-2 sm:px-8 py-12">
         {/* Logo row — wordmark + brand tagline */}
@@ -75,15 +80,16 @@ export default function NFooter() {
           <a href="/design-n" className="flex items-center gap-1.5">
             <span
               style={{
-                fontFamily: 'var(--m-font-wordmark), serif',
-                fontSize: 26,
+                fontFamily: 'var(--m-logo-font, var(--m-font-wordmark), serif)',
+                fontSize: 'var(--m-logo-size, 26px)',
+                fontWeight: 'var(--m-logo-weight, 400)',
                 lineHeight: 1,
-                letterSpacing: '-0.02em',
-                color: '#FFFFFF',
+                letterSpacing: 'var(--m-logo-tracking, -0.02em)',
+                color: 'var(--m-logo-color, #FFFFFF)',
                 whiteSpace: 'nowrap',
               }}
             >
-              LOGO<span style={{ color: 'var(--m-brand-on-dark)' }}>.</span>AI
+              LOGO<span style={{ color: 'var(--m-logo-color, var(--m-brand-on-dark))' }}>.</span>AI
             </span>
           </a>
           <p
@@ -115,10 +121,12 @@ export default function NFooter() {
           </div>
         </div>
 
-        {/* Divider + trust badges + copyright */}
+        {/* Bottom bar — copyright (left) + trust badges (right) on one row;
+            stacks on mobile. flex-row-reverse keeps the DOM order
+            (badges, copyright) so on mobile copyright sits at the bottom. */}
         <div
-          className="flex flex-col gap-4 items-start w-full pt-8 border-t"
-          style={{ borderColor: 'var(--m-border-dark)' }}
+          className="flex flex-col gap-4 items-start sm:flex-row-reverse sm:items-center sm:justify-between w-full pt-8 border-t"
+          style={{ borderColor: 'var(--n-footer-divider, var(--m-border-dark))' }}
         >
           {/* Trust badges */}
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
@@ -136,7 +144,7 @@ export default function NFooter() {
           </div>
           {/* Copyright */}
           <p
-            className="m-sans w-full"
+            className="m-sans"
             style={{
               fontWeight: 400,
               fontSize: 14,

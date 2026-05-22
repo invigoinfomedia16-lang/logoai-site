@@ -34,7 +34,7 @@ function CheckIcon() {
   return (
     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-label="Yes">
       <circle cx="11" cy="11" r="11" style={{ fill: 'var(--n-yes, #00A63E)' }} />
-      <path d="M6.5 11.25L9.5 14.25L15.5 7.5" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M6.5 11.25L9.5 14.25L15.5 7.5" style={{ stroke: 'var(--m-on-brand, #FFFFFF)' }} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -133,13 +133,14 @@ export default function NCompare() {
               >
                 <span
                   style={{
-                    fontFamily: 'var(--m-font-wordmark), serif',
+                    fontFamily: 'var(--m-logo-font, var(--m-font-wordmark), serif)',
+                    fontWeight: 'var(--m-logo-weight, 400)',
                     fontSize: 18,
-                    letterSpacing: '-0.02em',
-                    color: 'var(--m-ink)',
+                    letterSpacing: 'var(--m-logo-tracking, -0.02em)',
+                    color: 'var(--m-logo-color, var(--m-ink))',
                   }}
                 >
-                  LOGO<span style={{ color: 'var(--m-brand)' }}>.</span>AI
+                  LOGO<span style={{ color: 'var(--m-logo-color, var(--m-brand))' }}>.</span>AI
                 </span>
               </div>
             </div>

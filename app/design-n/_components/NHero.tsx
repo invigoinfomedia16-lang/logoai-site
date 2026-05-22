@@ -9,8 +9,8 @@ import Image from 'next/image'
 function ArrowRight() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M4.16669 10H15.8334" stroke="#FFFFFF" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M10 4.16669L15.8333 10L10 15.8334" stroke="#FFFFFF" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M4.16669 10H15.8334" stroke="currentColor" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M10 4.16669L15.8333 10L10 15.8334" stroke="currentColor" strokeWidth="1.66667" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -60,17 +60,19 @@ export default function NHero() {
           {/* Eyebrow pill — rating */}
           <div className="flex items-center justify-center">
             <span
-              className="m-eyebrow inline-flex items-center justify-center gap-2 rounded-full px-4 py-2"
+              className="m-eyebrow inline-flex items-center justify-center gap-2 rounded-full"
               style={{
-                background: 'var(--m-surface)',
+                background: 'var(--n-hero-eyebrow-bg, var(--m-surface))',
                 color: 'var(--m-brand)',
-                boxShadow: '0 0 0 1px var(--m-brand-soft), 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1)',
+                boxShadow:
+                  'var(--n-hero-eyebrow-shadow, 0 0 0 1px var(--m-brand-soft), 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1))',
+                padding: 'var(--n-hero-eyebrow-pad, 8px 16px)',
               }}
             >
               <span className="inline-flex items-center gap-0.5">
                 <StarIcon /><StarIcon /><StarIcon /><StarIcon /><StarIcon />
               </span>
-              <span>Rated 4.9/5 ★ from 12,000+ reviews</span>
+              <span>Rated 4.9/5 from 12,000+ reviews</span>
             </span>
           </div>
 
@@ -90,7 +92,7 @@ export default function NHero() {
               href="/design-n/start"
               className="m-cta-lg m-cta-btn inline-flex items-center justify-center gap-3"
               style={{
-                color: '#FFFFFF',
+                color: 'var(--m-on-brand, #FFFFFF)',
                 borderRadius: 'var(--m-radius-md)',
                 padding: '18px 32px',
                 boxShadow: '0 1px 1px 0 rgba(0,0,0,0.05)',

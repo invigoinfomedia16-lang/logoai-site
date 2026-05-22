@@ -6,7 +6,7 @@
 
 import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
-import { Plus_Jakarta_Sans, Open_Sans, DM_Serif_Display } from 'next/font/google'
+import { Plus_Jakarta_Sans, Open_Sans, DM_Serif_Display, Poppins } from 'next/font/google'
 import { BRAND_COLORS, BRAND_COLOR_KEY } from './_components/brandColors'
 
 export const metadata: Metadata = {
@@ -36,12 +36,25 @@ const dmSerifDisplay = DM_Serif_Display({
   display: 'swap',
 })
 
+// Poppins — used only by the Freepik toggle's logo wordmark (the "Str 22"
+// treatment from the Freepik design: Poppins 900).
+const poppins = Poppins({
+  variable: '--m-font-poppins',
+  subsets: ['latin'],
+  weight: ['900'],
+  display: 'swap',
+})
+
 export default function NLayout({ children }: { children: ReactNode }) {
   return (
     <>
       {/* Identical token block to design-m/layout.tsx — keeps /design-n
           self-contained and pixel-matched to /design-m. */}
       <style dangerouslySetInnerHTML={{ __html: `
+        /* Mozilla Headline + Mozilla Text — design-L's typefaces, loaded so
+           the Freepik toggle can use them (see [data-brand-color="freepik"]
+           below). No other toggle references them. */
+        @import url('https://fonts.googleapis.com/css2?family=Mozilla+Headline:wght@300..700&family=Mozilla+Text:ital,wght@0,400..700;1,400..700&display=swap');
         .m-theme {
           --m-brand: #D97757;
           --m-brand-strong: #C16545;
@@ -105,7 +118,7 @@ export default function NLayout({ children }: { children: ReactNode }) {
         .m-sub { font-family: var(--m-font-sans), sans-serif; font-weight: 400; font-size: 20px; line-height: 32.5px; color: var(--m-text-muted); }
         .m-body { font-family: var(--m-font-sans), sans-serif; font-weight: 400; font-size: 16px; line-height: 24px; color: var(--m-text); }
         .m-body-sm { font-family: var(--m-font-sans), sans-serif; font-weight: 400; font-size: 14px; line-height: 22.75px; color: var(--m-text-muted); }
-        .m-cta-lg { font-family: var(--m-font-sans), sans-serif; font-weight: 600; font-size: 20px; line-height: 28px; color: #FFFFFF; }
+        .m-cta-lg { font-family: var(--m-font-sans), sans-serif; font-weight: 600; font-size: 20px; line-height: 28px; color: var(--m-on-brand, #FFFFFF); }
         .m-nav { font-family: var(--m-font-sans), sans-serif; font-weight: 600; font-size: 14px; line-height: 24px; }
 
         @media (max-width: 768px) {
@@ -143,6 +156,7 @@ export default function NLayout({ children }: { children: ReactNode }) {
            use this instead. */
         .m-cta-btn {
           background: var(--m-brand);
+          color: var(--m-on-brand, #FFFFFF);
           transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
         }
         .m-cta-btn:hover {
@@ -272,8 +286,423 @@ export default function NLayout({ children }: { children: ReactNode }) {
         .m-theme[data-brand-color="character-ai"] .m-card-hover:hover {
           border-color: #C8C8C8;
         }
+
+        /* Freepik — a full dark theme: near-black surfaces, light text,
+           blue #336AEA CTA (colours from public/freepik-exact.html).
+           Scoped entirely to this toggle, so the other four toggles and
+           the default design-n are completely unaffected. */
+        .m-theme[data-brand-color="freepik"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
+
+          /* Typography — design-L's Mozilla typefaces: Mozilla Headline for
+             headings, Mozilla Text for body. Scoped to this toggle only;
+             the other toggles keep Plus Jakarta Sans / Open Sans. */
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+
+          --m-surface: #0D0D0D;
+          --m-surface-alt: #18181B;
+
+          --m-border: #2A2A2A;
+          --m-border-soft: #1E1E1E;
+          --m-border-medium: #3A3A3A;
+          /* Same as --m-border so the footer's inner divider matches its
+             top border and the nav divider. */
+          --m-border-dark: #2A2A2A;
+
+          /* Footer uses the same surface as the non-scrolled nav bar and
+             the page; a top border demarcates it, same as the nav divider. */
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          /* No inner footer divider — the top border is the only one. */
+          --n-footer-divider: transparent;
+          /* Mockups frame matches the pricing card — surface background, a
+             2px blue border, the same soft shadow, and no dark inner mat
+             (padding 0, so the mockup sits flush to the blue border). */
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          /* Top-nav CTA — outlined, design-L style: transparent with a
+             faint white border, fills with the brand colour on hover. */
+          --n-nav-cta-bg: transparent;
+          --n-nav-cta-border-c: rgba(255,255,255,0.25);
+          --n-nav-cta-shadow: none;
+          --n-nav-cta-bg-hover: var(--m-brand);
+          --n-nav-cta-border-c-hover: var(--m-brand);
+          /* Hero eyebrow — plain text like the section eyebrows, no pill. */
+          --n-hero-eyebrow-bg: transparent;
+          --n-hero-eyebrow-shadow: none;
+          --n-hero-eyebrow-pad: 0;
+          /* Mockups + pricing sections drop the alternating #141414 tint —
+             flat #0D0D0D surface so there are no different-shade bands. The
+             mockups section has TWO layers (a base + a masked overlay) — both
+             go flat. (Card tints still use --m-brand-bg for subtle lift.) */
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          /* Sticky header's scrolled (compact) pill — frosted dark instead
+             of frosted white, with a faint light border. */
+          --m-header-bg: rgba(13,13,13,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          /* FAQ accordion rows — dark, slightly raised off the section. */
+          --n-faq-row-bg: #161616;
+          /* Bottom CTA — no filled band: the heading sits straight on the
+             dark section (the Character.AI treatment), with a blue brand
+             button instead of a white-on-band one. */
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          /* Monochrome pass — no gold, no green, no red. Blue is the one
+             accent: rating stars / no-crosses go neutral grey, while the
+             check / yes / success marks fold into the single blue accent. */
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #336AEA;
+          --m-success: #336AEA;
+          --m-success-bright: #336AEA;
+          --m-success-bold: #336AEA;
+          --n-yes: #336AEA;
+          --n-no: #3A3A3A;
+          --n-no-mark: #9A9A9A;
+          --n-footer-check: #648EEF;
+          /* Checkout modal — dark container + dark social-proof strip
+             (defaults are a light off-white / warm tint). */
+          --n-checkout-modal-bg: #141414;
+          --n-checkout-strip-bg: #161616;
+          /* Pricing card — the default shadow has a hardcoded terracotta
+             glow; swap it for a blue glow + a deeper neutral shadow. */
+          --n-pricing-shadow: 0 12px 32px rgba(51,106,234,0.22), 0 2px 10px rgba(0,0,0,0.5);
+          /* Logo wordmark — design-L's logo treatment: DM Serif Display (the
+             default wordmark font, weight 400, -0.02em tracking — reached by
+             leaving --m-logo-font/weight/tracking unset), white, at 28px. */
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
+
+        /* Vermillion — a dark theme built on the Freepik base: a warm
+           near-black surface (a faint vermillion warmth mixed into the
+           black) with the vermillion #E7420F CTA. Scoped to this toggle. */
+        .m-theme[data-brand-color="vermillion"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
+
+          /* design-L's Mozilla typefaces — carried over from the Freepik base. */
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+
+          /* Warm near-black surfaces — a faint vermillion warmth in the
+             black; reads neutral at a glance but feels subtly warm. */
+          --m-surface: #120E0C;
+          --m-surface-alt: #1A1411;
+
+          --m-border: #2A2A2A;
+          --m-border-soft: #1E1E1E;
+          --m-border-medium: #3A3A3A;
+          --m-border-dark: #2A2A2A;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-nav-cta-bg: transparent;
+          --n-nav-cta-border-c: rgba(255,255,255,0.25);
+          --n-nav-cta-shadow: none;
+          --n-nav-cta-bg-hover: var(--m-brand);
+          --n-nav-cta-border-c-hover: var(--m-brand);
+          --n-hero-eyebrow-bg: transparent;
+          --n-hero-eyebrow-shadow: none;
+          --n-hero-eyebrow-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(18,14,12,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #191310;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          /* Monochrome pass — vermillion is the one accent; rating stars and
+             no-crosses stay neutral grey. */
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #E7420F;
+          --m-success: #E7420F;
+          --m-success-bright: #E7420F;
+          --m-success-bold: #E7420F;
+          --n-yes: #E7420F;
+          --n-no: #3A3A3A;
+          --n-no-mark: #9A9A9A;
+          --n-footer-check: #F4926F;
+          --n-checkout-modal-bg: #161210;
+          --n-checkout-strip-bg: #191310;
+          --n-pricing-shadow: 0 12px 32px rgba(231,66,15,0.22), 0 2px 10px rgba(0,0,0,0.5);
+          /* Logo wordmark — the site's heading font (Mozilla Headline, via
+             --m-font-display) at the hero-heading weight (700 = .m-h1),
+             white, 28px. */
+          --m-logo-font: var(--m-font-display);
+          --m-logo-weight: 700;
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
+
+        /* Vermillion Black — a dark theme on the Freepik base: true
+           pure-black surfaces (#000000, neutral / no warmth) with the
+           vermillion #E7420F CTA. A stark sibling of the warm-toned
+           Vermillion toggle. Scoped entirely to this toggle. */
+        .m-theme[data-brand-color="vermillion-black"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
+
+          /* design-L's Mozilla typefaces — carried over from the Freepik base. */
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+
+          /* True pure-black surfaces — neutral, no warmth. Cards lift a hair
+             so they stay visible against the absolute-black base. */
+          --m-surface: #000000;
+          --m-surface-alt: #0C0C0C;
+
+          --m-border: #2A2A2A;
+          --m-border-soft: #1E1E1E;
+          --m-border-medium: #3A3A3A;
+          --m-border-dark: #2A2A2A;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-nav-cta-bg: transparent;
+          --n-nav-cta-border-c: rgba(255,255,255,0.25);
+          --n-nav-cta-shadow: none;
+          --n-nav-cta-bg-hover: var(--m-brand);
+          --n-nav-cta-border-c-hover: var(--m-brand);
+          --n-hero-eyebrow-bg: transparent;
+          --n-hero-eyebrow-shadow: none;
+          --n-hero-eyebrow-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(0,0,0,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #0C0C0C;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          /* Monochrome pass — vermillion is the one accent; rating stars and
+             no-crosses stay neutral grey. */
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #E7420F;
+          --m-success: #E7420F;
+          --m-success-bright: #E7420F;
+          --m-success-bold: #E7420F;
+          --n-yes: #E7420F;
+          --n-no: #3A3A3A;
+          --n-no-mark: #9A9A9A;
+          --n-footer-check: #F4926F;
+          --n-checkout-modal-bg: #0A0A0A;
+          --n-checkout-strip-bg: #0C0C0C;
+          --n-pricing-shadow: 0 12px 32px rgba(231,66,15,0.22), 0 2px 10px rgba(0,0,0,0.5);
+          /* Logo wordmark — Mozilla Headline 700, white, 28px (same as the
+             Vermillion toggle). */
+          --m-logo-font: var(--m-font-display);
+          --m-logo-weight: 700;
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
+
+        /* Purple Black — a dark theme on the Freepik base: much-darker
+           near-pure-black surfaces (#050505) with design-L's purple #7543E3
+           CTA. Scoped entirely to this toggle. */
+        .m-theme[data-brand-color="purple-black"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
+
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+
+          /* Much-darker near-pure-black surfaces. */
+          --m-surface: #050505;
+          --m-surface-alt: #101010;
+
+          --m-border: #2A2A2A;
+          --m-border-soft: #1E1E1E;
+          --m-border-medium: #3A3A3A;
+          --m-border-dark: #2A2A2A;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-nav-cta-bg: transparent;
+          --n-nav-cta-border-c: rgba(255,255,255,0.25);
+          --n-nav-cta-shadow: none;
+          --n-nav-cta-bg-hover: var(--m-brand);
+          --n-nav-cta-border-c-hover: var(--m-brand);
+          --n-hero-eyebrow-bg: transparent;
+          --n-hero-eyebrow-shadow: none;
+          --n-hero-eyebrow-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(5,5,5,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #101010;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #7543E3;
+          --m-success: #7543E3;
+          --m-success-bright: #7543E3;
+          --m-success-bold: #7543E3;
+          --n-yes: #7543E3;
+          --n-no: #3A3A3A;
+          --n-no-mark: #9A9A9A;
+          --n-footer-check: #A98BF0;
+          --n-checkout-modal-bg: #0D0D0D;
+          --n-checkout-strip-bg: #101010;
+          --n-pricing-shadow: 0 12px 32px rgba(117,67,227,0.22), 0 2px 10px rgba(0,0,0,0.5);
+          /* Logo — Freepik's DM Serif wordmark (no font/weight override). */
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
+
+        /* Framer — a DARK, fully monochrome theme on the Freepik base: a
+           pure-black background (#000000, Framer's site black) with an
+           exact-white #FFFFFF CTA (white fill, black text). Every accent is
+           white. Scoped entirely to this toggle. */
+        .m-theme[data-brand-color="framer"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
+
+          /* design-L's Mozilla typefaces — carried over from the Freepik base. */
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+
+          /* Pure-black surfaces — Framer's site black. */
+          --m-surface: #000000;
+          --m-surface-alt: #141414;
+
+          /* Text / icon colour on a brand-coloured (white) fill — black,
+             since every CTA, check circle and step badge is now white. */
+          --m-on-brand: #000000;
+
+          --m-border: #2A2A2A;
+          --m-border-soft: #1E1E1E;
+          --m-border-medium: #3A3A3A;
+          --m-border-dark: #2A2A2A;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-nav-cta-bg: transparent;
+          --n-nav-cta-border-c: rgba(255,255,255,0.25);
+          --n-nav-cta-shadow: none;
+          /* Outlined nav CTA — keep the label white on hover (a faint fill,
+             not a solid white fill, so the white text stays readable). */
+          --n-nav-cta-bg-hover: rgba(255,255,255,0.12);
+          --n-nav-cta-border-c-hover: rgba(255,255,255,0.55);
+          /* Nav links — Framer's grey-to-white hover. The theme is
+             monochrome (brand == white == near-white ink), so links sit at
+             a muted grey and brighten to pure white on hover. */
+          --n-nav-link: #AEAEAE;
+          --n-nav-link-hover: #FFFFFF;
+          --n-hero-eyebrow-bg: transparent;
+          --n-hero-eyebrow-shadow: none;
+          --n-hero-eyebrow-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(0,0,0,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #141414;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: var(--m-on-brand);
+          /* Monochrome pass — white is the one accent; rating stars and
+             no-crosses stay neutral grey. Check / yes circles are white
+             with a black tick (--m-on-brand). */
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #FFFFFF;
+          --m-success: #FFFFFF;
+          --m-success-bright: #FFFFFF;
+          --m-success-bold: #D4D4D4;
+          --n-yes: #FFFFFF;
+          --n-no: #3A3A3A;
+          --n-no-mark: #9A9A9A;
+          --n-footer-check: #FFFFFF;
+          --n-checkout-modal-bg: #0A0A0A;
+          --n-checkout-strip-bg: #141414;
+          --n-pricing-shadow: 0 12px 32px rgba(255,255,255,0.06), 0 2px 10px rgba(0,0,0,0.6);
+          /* Logo — Freepik's DM Serif wordmark (no font/weight override). */
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
       ` }} />
-      <div className={`m-theme ${plusJakartaSans.variable} ${openSans.variable} ${dmSerifDisplay.variable}`}>
+      <div className={`m-theme ${plusJakartaSans.variable} ${openSans.variable} ${dmSerifDisplay.variable} ${poppins.variable}`}>
         {/* Colour-toggle applier — re-applies the brand colour the user
             picked on the landing page (NColorToggle) so the choice carries
             across every design-n page. Runs pre-paint to avoid a flash. */}

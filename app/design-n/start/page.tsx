@@ -391,14 +391,15 @@ export default function LogoOnboarding() {
             <a href="/design-n" className="inline-flex items-center" aria-label="Logo.AI home" style={{ textDecoration: 'none' }}>
               <span
                 style={{
-                  fontFamily: 'var(--m-font-wordmark), serif',
+                  fontFamily: 'var(--m-logo-font, var(--m-font-wordmark), serif)',
+                  fontWeight: 'var(--m-logo-weight, 400)',
                   fontSize: 24,
                   lineHeight: 1,
-                  letterSpacing: '-0.02em',
-                  color: 'var(--m-ink)',
+                  letterSpacing: 'var(--m-logo-tracking, -0.02em)',
+                  color: 'var(--m-logo-color, var(--m-ink))',
                 }}
               >
-                LOGO<span style={{ color: 'var(--m-brand)' }}>.</span>AI
+                LOGO<span style={{ color: 'var(--m-logo-color, var(--m-brand))' }}>.</span>AI
               </span>
             </a>
             <a
@@ -487,7 +488,7 @@ export default function LogoOnboarding() {
                     height: 28,
                     borderRadius: '50%',
                     background: 'var(--m-brand)',
-                    color: '#FFFFFF',
+                    color: 'var(--m-on-brand, #FFFFFF)',
                     fontSize: 13,
                     fontWeight: 700,
                     fontVariantNumeric: 'tabular-nums',
@@ -2126,10 +2127,10 @@ function FormSteps(p: FormProps) {
   const sub =
     step === 1 ? "We'll print this exact name on your logos." :
     step === 2 ? 'The more specific, the better.' :
-    step === 3 ? 'Pick a suggestion that fits, or write your own.' :
+    step === 3 ? 'Describe your business in one simple line.' :
     step === 4 ? "Optional — but a great tagline adds personality and sticks in people's minds." :
     step === 5 ? 'Pick 3 words that define how your brand should feel to people.' :
-    step === 6 ? 'Pick the colour direction that feels right. White background stays default.' :
+    step === 6 ? 'Choose the colour palette your logo should use.' :
     /* 7 */     (() => {
                   const label = p.industryLabel?.trim().toLowerCase()
                   return label
@@ -2206,7 +2207,7 @@ function FormSteps(p: FormProps) {
             return (
               <div style={{ animation: 'nStartFade 0.3s ease' }}>
                 <label className="m-sans block" style={{ fontSize: 12, color: 'var(--m-text-soft)', marginBottom: 8, fontWeight: 600, letterSpacing: '0.04em' }}>
-                  Preferred capitalization <span style={{ fontWeight: 400 }}>— optional</span>
+                  Prefer a particular letter case?
                 </label>
                 <div className="flex flex-wrap" style={{ gap: 8 }}>
                   {uniqueStyles.map((s) => {
@@ -2221,7 +2222,7 @@ function FormSteps(p: FormProps) {
                           p.setNameStyle(s)
                         }}
                       >
-                        {s}
+                        {preview}
                       </Pill>
                     )
                   })}
@@ -2259,9 +2260,6 @@ function FormSteps(p: FormProps) {
       {step === 3 && (
         <div className="flex flex-col" style={{ gap: 16 }}>
           <div>
-            <label htmlFor="n-description-input" className="m-sans block" style={{ fontSize: 12, color: 'var(--m-text-soft)', marginBottom: 6, fontWeight: 600, letterSpacing: '0.04em' }}>
-              Describe your business
-            </label>
             <input
               id="n-description-input"
               type="text"
@@ -2269,6 +2267,8 @@ function FormSteps(p: FormProps) {
               onChange={(e) => p.setDescription(e.target.value)}
               onFocus={() => setDescTriggered(true)}
               autoComplete="off"
+              aria-label="Describe your business"
+              placeholder="Pick a suggestion that fits, or write your own"
               className="n-start-input m-sans w-full"
               style={textInputStyle}
             />
@@ -2301,9 +2301,6 @@ function FormSteps(p: FormProps) {
       {step === 4 && (
         <div className="flex flex-col" style={{ gap: 16 }}>
           <div>
-            <label htmlFor="n-tagline-input" className="m-sans block" style={{ fontSize: 12, color: 'var(--m-text-soft)', marginBottom: 6, fontWeight: 600, letterSpacing: '0.04em' }}>
-              Your tagline
-            </label>
             <input
               id="n-tagline-input"
               type="text"
@@ -2311,6 +2308,7 @@ function FormSteps(p: FormProps) {
               onChange={(e) => p.setTagline(e.target.value)}
               onFocus={() => setTaglineTriggered(true)}
               autoComplete="off"
+              aria-label="Your tagline"
               placeholder="Already have a tagline? Type it here, or pick one below"
               className="n-start-input m-sans w-full"
               style={textInputStyle}
@@ -2342,7 +2340,7 @@ function FormSteps(p: FormProps) {
           then real grid (live or static fallback). */}
       {step === 5 && (
         <div className="flex flex-col" style={{ gap: 16 }}>
-          <CountHeader label="Pick 3 words" count={p.impressions.length} target={3} />
+          <CountHeader count={p.impressions.length} target={3} />
           {!liveImpression.loading && <PreselectNote what="the 3 best-fit words" />}
           {liveImpression.loading ? (
             <SkeletonGrid shape="chip" count={12} />
@@ -2386,7 +2384,7 @@ function FormSteps(p: FormProps) {
                       borderRadius: '50%',
                       border: selected ? 'none' : '1.5px solid var(--m-border-medium)',
                       background: selected ? 'var(--m-brand)' : 'transparent',
-                      color: '#FFFFFF',
+                      color: 'var(--m-on-brand, #FFFFFF)',
                       fontSize: 12,
                       transition: 'background 0.15s ease, border-color 0.15s ease',
                     }}
@@ -2472,7 +2470,7 @@ function FormSteps(p: FormProps) {
                     borderRadius: '50%',
                     border: selected ? 'none' : '1.5px solid rgba(255,255,255,0.85)',
                     background: selected ? 'var(--m-brand)' : 'rgba(0,0,0,0.15)',
-                    color: '#FFFFFF',
+                    color: 'var(--m-on-brand, #FFFFFF)',
                     fontSize: 12,
                     backdropFilter: 'blur(2px)',
                   }}
@@ -2538,7 +2536,7 @@ function FormSteps(p: FormProps) {
                       borderRadius: '50%',
                       border: customSelected ? 'none' : '1.5px solid var(--m-border-medium)',
                       background: customSelected ? 'var(--m-brand)' : 'transparent',
-                      color: '#FFFFFF',
+                      color: 'var(--m-on-brand, #FFFFFF)',
                       fontSize: 12,
                     }}
                   >
@@ -2688,7 +2686,7 @@ function FormSteps(p: FormProps) {
                       height: 22,
                       borderRadius: '50%',
                       background: 'var(--m-brand)',
-                      color: '#FFFFFF',
+                      color: 'var(--m-on-brand, #FFFFFF)',
                       fontSize: 12,
                       zIndex: 2,
                     }}
@@ -2700,20 +2698,6 @@ function FormSteps(p: FormProps) {
             )
           })}
           </div>
-          )}
-          {!liveStyles.loading && (
-            <p
-              className="m-sans"
-              style={{
-                marginTop: 6,
-                fontSize: 11,
-                color: 'var(--m-text-soft)',
-                fontStyle: 'italic',
-                textAlign: 'center',
-              }}
-            >
-              Industry-typical estimate — popularity % and example brands generated by AI.
-            </p>
           )}
         </div>
       )}
@@ -2847,7 +2831,7 @@ function BrandBrief({
             padding: '14px 32px',
             borderRadius: 12,
             border: 'none',
-            color: '#FFFFFF',
+            color: 'var(--m-on-brand, #FFFFFF)',
             fontSize: 15,
             fontWeight: 600,
             cursor: 'pointer',
@@ -3034,7 +3018,7 @@ function AuthWall({
               borderRadius: 8,
               border: 'none',
               background: valid ? 'var(--m-ink)' : 'var(--m-border-medium)',
-              color: '#FFFFFF',
+              color: 'var(--m-surface, #FFFFFF)',
               fontSize: 15,
               fontWeight: 500,
               cursor: valid ? 'pointer' : 'not-allowed',
@@ -3146,9 +3130,9 @@ function AuthGateModal({
         >
           <span
             className="m-display"
-            style={{ fontFamily: 'var(--m-font-wordmark), serif', fontSize: 18, color: 'var(--m-ink)', letterSpacing: '-0.02em' }}
+            style={{ fontFamily: 'var(--m-logo-font, var(--m-font-wordmark), serif)', fontWeight: 'var(--m-logo-weight, 400)', fontSize: 18, color: 'var(--m-logo-color, var(--m-ink))', letterSpacing: 'var(--m-logo-tracking, -0.02em)' }}
           >
-            LOGO<span style={{ color: 'var(--m-brand)' }}>.</span>AI
+            LOGO<span style={{ color: 'var(--m-logo-color, var(--m-brand))' }}>.</span>AI
           </span>
           <button
             type="button"
@@ -3260,7 +3244,7 @@ function AuthGateModal({
               borderRadius: 8,
               border: 'none',
               background: valid ? 'var(--m-ink)' : 'var(--m-border-medium)',
-              color: '#FFFFFF',
+              color: 'var(--m-surface, #FFFFFF)',
               fontSize: 15,
               fontWeight: 500,
               cursor: valid ? 'pointer' : 'not-allowed',
@@ -3545,7 +3529,7 @@ function RefinePanel({
               padding: '12px 18px',
               borderRadius: 8,
               border: 'none',
-              color: '#FFFFFF',
+              color: 'var(--m-on-brand, #FFFFFF)',
               fontSize: 14,
               fontWeight: 700,
               cursor: 'pointer',
@@ -3696,7 +3680,7 @@ function Results({
                     padding: '4px 8px',
                     borderRadius: 'var(--m-radius-md)',
                     background: 'var(--m-success)',
-                    color: '#FFFFFF',
+                    color: 'var(--m-on-brand, #FFFFFF)',
                     fontFamily: 'var(--m-font-sans), sans-serif',
                     fontSize: 10,
                     fontWeight: 700,
@@ -3850,18 +3834,23 @@ function ListRow({
   )
 }
 
-function CountHeader({ label, count, target }: { label: string; count: number; target: number }) {
-  // S1-style section header — display-font semibold label, right-aligned
-  // count badge. No uppercase monospace.
+function CountHeader({ label, count, target }: { label?: string; count: number; target: number }) {
+  // S1-style section header — an optional display-font label on the left,
+  // the count badge on the right. With no label the empty span keeps
+  // justify-between's positioning, so the count stays right-aligned.
   const done = count === target
   return (
     <div className="flex items-center justify-between" style={{ marginBottom: 14 }}>
-      <span
-        className="m-display"
-        style={{ fontSize: 17, fontWeight: 600, color: 'var(--m-ink)', letterSpacing: '-0.01em' }}
-      >
-        {label}
-      </span>
+      {label ? (
+        <span
+          className="m-display"
+          style={{ fontSize: 17, fontWeight: 600, color: 'var(--m-ink)', letterSpacing: '-0.01em' }}
+        >
+          {label}
+        </span>
+      ) : (
+        <span aria-hidden="true" />
+      )}
       <span
         className="m-sans"
         style={{
@@ -3956,7 +3945,7 @@ function FooterNav({
         right: 0,
         bottom: 0,
         zIndex: 50,
-        background: '#FFFFFF',
+        background: 'var(--m-surface)',
         borderTop: '1px solid var(--m-border)',
         padding: '14px 16px max(14px, env(safe-area-inset-bottom)) 16px',
         display: 'flex',
@@ -4049,7 +4038,7 @@ function FooterNav({
               fontFamily: 'var(--m-font-sans), sans-serif',
               fontSize: 16,
               fontWeight: 600,
-              color: '#FFFFFF',
+              color: 'var(--m-on-brand, #FFFFFF)',
               background: canProceed ? undefined : 'var(--m-border-medium)',
               cursor: canProceed ? 'pointer' : 'not-allowed',
               border: 'none',

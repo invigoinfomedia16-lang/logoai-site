@@ -5,7 +5,7 @@ function CheckBadge() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
       <circle cx="10" cy="10" r="10" style={{ fill: 'var(--n-check, #00A63E)' }} />
-      <path d="M6 10.25L8.75 13L14 7" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M6 10.25L8.75 13L14 7" style={{ stroke: 'var(--m-on-brand, #FFFFFF)' }} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -13,7 +13,7 @@ function CheckBadge() {
 function ArrowRight() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M4 10h12M10 4l6 6-6 6" stroke="#FFFFFF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -83,7 +83,7 @@ export default function NRiskFree() {
           href="/design-n/start"
           className="m-cta-lg m-cta-btn inline-flex items-center justify-center gap-3"
           style={{
-            color: '#FFFFFF',
+            color: 'var(--m-on-brand, #FFFFFF)',
             borderRadius: 'var(--m-radius-md)',
             padding: '16px 28px',
             boxShadow: '0 1px 1px 0 rgba(0,0,0,0.05)',

@@ -38,7 +38,7 @@ function CategoryPill({
           : hovered
           ? 'var(--m-brand-bg)'
           : 'var(--m-surface)',
-        color: active ? '#FFFFFF' : hovered ? 'var(--m-ink)' : 'var(--m-text-muted)',
+        color: active ? 'var(--m-on-brand, #FFFFFF)' : hovered ? 'var(--m-ink)' : 'var(--m-text-muted)',
         fontSize: 14,
         lineHeight: 1,
         fontWeight: active ? 600 : 500,

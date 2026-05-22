@@ -14,7 +14,7 @@ const BAR_HEIGHT = 76 // approx: padding + button height
 function ArrowRight() {
   return (
     <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-      <path d="M4 10h12M10 4l6 6-6 6" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
@@ -78,7 +78,7 @@ export default function NStickyCTA({ label = 'Generate My Free Logos' }: { label
         tabIndex={visible ? 0 : -1}
         className="m-cta-btn w-full inline-flex items-center justify-center gap-2"
         style={{
-          color: '#FFFFFF',
+          color: 'var(--m-on-brand, #FFFFFF)',
           borderRadius: 'var(--m-radius-md)',
           fontFamily: 'var(--m-font-sans), sans-serif',
           fontWeight: 600,
