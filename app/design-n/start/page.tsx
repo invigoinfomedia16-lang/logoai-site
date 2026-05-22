@@ -2205,49 +2205,24 @@ function FormSteps(p: FormProps) {
             })
             return (
               <div style={{ animation: 'nStartFade 0.3s ease' }}>
-                <label className="m-sans block" style={{ fontSize: 12, color: 'var(--m-text-soft)', marginBottom: 2, fontWeight: 600, letterSpacing: '0.04em' }}>
+                <label className="m-sans block" style={{ fontSize: 12, color: 'var(--m-text-soft)', marginBottom: 8, fontWeight: 600, letterSpacing: '0.04em' }}>
                   Preferred capitalization <span style={{ fontWeight: 400 }}>— optional</span>
                 </label>
-                <p className="m-sans" style={{ fontSize: 12, color: 'var(--m-text-soft)', marginBottom: 8 }}>
-                  Tap a style to apply it to your business name.
-                </p>
                 <div className="flex flex-wrap" style={{ gap: 8 }}>
                   {uniqueStyles.map((s) => {
                     const preview = applyCase(p.brandName, s)
                     const selected = p.brandName === preview && p.nameStyle === s
                     return (
-                      <button
+                      <Pill
                         key={s}
-                        type="button"
+                        selected={selected}
                         onClick={() => {
                           p.setBrandName(applyCase(p.brandName, s))
                           p.setNameStyle(s)
                         }}
-                        className="m-sans"
-                        style={{
-                          display: 'flex',
-                          flexDirection: 'column',
-                          alignItems: 'center',
-                          gap: 3,
-                          minWidth: 88,
-                          padding: '8px 14px',
-                          borderRadius: 8,
-                          border: '1px solid',
-                          borderColor: selected ? 'var(--m-brand)' : 'var(--m-border)',
-                          background: selected ? 'var(--m-brand-soft)' : 'var(--m-surface)',
-                          cursor: 'pointer',
-                          transition: 'border-color 0.15s ease, background 0.15s ease',
-                        }}
                       >
-                        {/* The name in this casing, then the style's name so
-                            the user knows what each option actually is. */}
-                        <span style={{ fontSize: 15, fontWeight: 600, lineHeight: 1.2, color: selected ? 'var(--m-brand-strong)' : 'var(--m-ink)' }}>
-                          {preview}
-                        </span>
-                        <span style={{ fontSize: 11, fontWeight: 500, lineHeight: 1, color: 'var(--m-text-soft)' }}>
-                          {s}
-                        </span>
-                      </button>
+                        {s}
+                      </Pill>
                     )
                   })}
                 </div>
