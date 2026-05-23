@@ -185,7 +185,7 @@ export default function NLayout({ children }: { children: ReactNode }) {
           transition: color 0.15s ease;
         }
         .m-footer-link:hover {
-          color: #FFFFFF;
+          color: var(--n-footer-link-hover, #FFFFFF);
         }
 
         /* Scroll-reveal — initial hidden state; NReveal toggles
@@ -509,9 +509,12 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-nav-cta-shadow: none;
           --n-nav-cta-bg-hover: var(--m-brand);
           --n-nav-cta-border-c-hover: var(--m-brand);
+          /* Hero eyebrow — render as an outlined bar (no fill, faint neutral
+             ring) with the CTA's rounded-rect shape (override of the default
+             rounded-full pill is in a scoped rule below). */
           --n-hero-eyebrow-bg: transparent;
-          --n-hero-eyebrow-shadow: none;
-          --n-hero-eyebrow-pad: 0;
+          --n-hero-eyebrow-shadow: 0 0 0 1px rgba(255,255,255,0.22);
+          --n-hero-eyebrow-pad: 10px 18px;
           --n-mockups-section-bg: var(--m-surface);
           --n-mockups-bg: var(--m-surface);
           --n-pricing-section-bg: var(--m-surface);
@@ -534,7 +537,21 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-yes: #E7420F;
           --n-no: #3A3A3A;
           --n-no-mark: #9A9A9A;
-          --n-footer-check: #F4926F;
+          /* Footer trust-badge ticks — use the full brand vermillion so they
+             match every other check on the page (pricing, risk-free, etc.). */
+          --n-footer-check: var(--m-brand);
+          /* Footer link hover — match the header's nav-link hover (vermillion)
+             so both react to the cursor the same way. */
+          --n-footer-link-hover: var(--m-brand);
+          /* Hero highlight figures (4.6M / 180,000+ / 90+ countries / 4.9/5)
+             — white instead of the brand vermillion, so they read as bold
+             white highlights against the pure-black hero. */
+          --n-hero-highlight: #FFFFFF;
+          /* How-It-Works cards — lift to --m-surface-alt and drop the
+             brand-soft shadow so they read like the Risk-Free section cards
+             (the m-card-hover 1px border alone defines the card). */
+          --n-howitworks-card-bg: var(--m-surface-alt);
+          --n-howitworks-card-shadow: none;
           --n-checkout-modal-bg: #0A0A0A;
           --n-checkout-strip-bg: #0C0C0C;
           --n-pricing-shadow: 0 12px 32px rgba(231,66,15,0.22), 0 2px 10px rgba(0,0,0,0.5);
@@ -544,6 +561,124 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --m-logo-weight: 700;
           --m-logo-size: 28px;
           --m-logo-color: #FFFFFF;
+        }
+
+        /* Vermillion Black — bump the hero content a hair further down from
+           the top nav (the rest of the toggles keep their existing spacing).
+           :first-child scoping — the hero section has three direct grand-
+           children (content / marquee / trust strip); we only want the
+           content one. */
+        .m-theme[data-brand-color="vermillion-black"] [data-n-hero] > div:first-child > div {
+          padding-top: 80px;
+        }
+        @media (min-width: 768px) {
+          .m-theme[data-brand-color="vermillion-black"] [data-n-hero] > div:first-child > div {
+            padding-top: 96px;
+          }
+        }
+        /* Vermillion Black — give the hero eyebrow the CTA's rounded-rect
+           shape instead of the default rounded-full pill. */
+        .m-theme[data-brand-color="vermillion-black"] [data-n-hero] .m-eyebrow {
+          border-radius: var(--m-radius-md);
+        }
+        /* Vermillion Black — hide both the eyebrow stars and the proof-line
+           stars; the rating text alone carries the message. */
+        .m-theme[data-brand-color="vermillion-black"] [data-n-hero] [data-n-hero-stars] {
+          display: none;
+        }
+        /* Vermillion Black — drop the lift-on-hover for How-It-Works cards
+           (they're informational, not clickable; the lift implies an
+           interaction that doesn't exist). */
+        .m-theme[data-brand-color="vermillion-black"] #how-it-works .m-card-hover:hover {
+          transform: none;
+          border-color: var(--m-border);
+          box-shadow: none;
+        }
+
+        /* ─────────────────────────────────────────────────────────────
+           Vermillion Black — onboarding: centered-minimal layout.
+           Same questions, same one-per-step flow. Only the visual
+           design changes: massive question-as-headline, generous
+           breathing room, no card chrome, vertically-centered content,
+           minimal header (no border, ultra-thin progress hairline,
+           step-number badge hidden). Typeform / Framer feel.
+           ───────────────────────────────────────────────────────────── */
+
+        /* Header — strip the border + opaque surface so the page reads
+           as one continuous black. Tighter top padding. */
+        .m-theme[data-brand-color="vermillion-black"] [data-n-start] > header {
+          background: transparent !important;
+          border-bottom: none !important;
+        }
+        .m-theme[data-brand-color="vermillion-black"] [data-n-start] > header > div {
+          padding-top: 18px;
+          padding-bottom: 14px;
+        }
+        /* Row 1 — left-align the logo (was justify-center). The close × is
+           absolute-right so it stays on the right edge. Mirrors the
+           headshot.ai reference layout. */
+        .m-theme[data-brand-color="vermillion-black"] [data-n-start] > header > div > div:first-child {
+          justify-content: flex-start !important;
+        }
+        /* Progress hairline — slimmer (2px) and a touch more transparent. */
+        .m-theme[data-brand-color="vermillion-black"] [data-n-start] > header > div > div:nth-child(2) {
+          height: 2px !important;
+          background: rgba(255,255,255,0.08) !important;
+          margin-top: 16px !important;
+        }
+
+        /* Main content — wider, top-aligned (not vertically centered) so
+           the question sits in the upper third and the dropdown / chip
+           grid below the input has room to expand without clipping. */
+        .m-theme[data-brand-color="vermillion-black"] [data-n-start] > main {
+          max-width: 840px !important;
+          padding: 56px 24px 180px !important;
+        }
+        @media (min-width: 768px) {
+          .m-theme[data-brand-color="vermillion-black"] [data-n-start] > main {
+            padding: 88px 32px 200px !important;
+          }
+        }
+
+        /* Step heading — make the question the hero of the screen. */
+        .m-theme[data-brand-color="vermillion-black"] [data-n-start] > main h2.m-display {
+          font-size: clamp(34px, 5.8vw, 60px) !important;
+          line-height: 1.08 !important;
+          letter-spacing: -0.025em !important;
+          font-weight: 700 !important;
+        }
+        /* Subtitle — larger and lighter, more space before the form. */
+        .m-theme[data-brand-color="vermillion-black"] [data-n-start] > main h2.m-display + p {
+          font-size: 18px !important;
+          line-height: 1.55 !important;
+          margin-top: 18px !important;
+          max-width: 580px !important;
+          color: var(--m-text-muted) !important;
+        }
+        /* Gap between the heading block and the form — much more breathing. */
+        .m-theme[data-brand-color="vermillion-black"] [data-n-start] > main > div > div.text-center:first-child {
+          margin-bottom: 64px !important;
+        }
+        @media (min-width: 768px) {
+          .m-theme[data-brand-color="vermillion-black"] [data-n-start] > main > div > div.text-center:first-child {
+            margin-bottom: 80px !important;
+          }
+        }
+        /* Description / tagline suggestions — show as a 2-col grid instead of
+           a stacked list (the businessplan.ai "ready-to-click answers" feel).
+           1 col on mobile so each chip stays readable. */
+        .m-theme[data-brand-color="vermillion-black"] [data-n-start] [data-n-suggestions] {
+          display: grid !important;
+          grid-template-columns: 1fr;
+          gap: 10px !important;
+        }
+        @media (min-width: 640px) {
+          .m-theme[data-brand-color="vermillion-black"] [data-n-start] [data-n-suggestions] {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+        .m-theme[data-brand-color="vermillion-black"] [data-n-start] [data-n-suggestions] > button {
+          height: 100%;
         }
 
         /* Purple Black — a dark theme on the Freepik base: much-darker

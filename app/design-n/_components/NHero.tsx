@@ -69,7 +69,7 @@ export default function NHero() {
                 padding: 'var(--n-hero-eyebrow-pad, 8px 16px)',
               }}
             >
-              <span className="inline-flex items-center gap-0.5">
+              <span data-n-hero-stars className="inline-flex items-center gap-0.5">
                 <StarIcon /><StarIcon /><StarIcon /><StarIcon /><StarIcon />
               </span>
               <span>Rated 4.9/5 from 12,000+ reviews</span>
@@ -149,18 +149,18 @@ export default function NHero() {
         <div className="mx-auto w-full max-w-[1536px] px-2 sm:px-4 flex flex-col items-center gap-5">
           <p className="text-center m-body" style={{ fontSize: 18, lineHeight: '28px' }}>
             Over{' '}
-            <span style={{ fontWeight: 700, color: 'var(--m-brand)' }}>4.6M</span>
+            <span style={{ fontWeight: 700, color: 'var(--n-hero-highlight, var(--m-brand))' }}>4.6M</span>
             {' '}logos generated for{' '}
-            <span style={{ fontWeight: 700, color: 'var(--m-brand)' }}>180,000+</span>
+            <span style={{ fontWeight: 700, color: 'var(--n-hero-highlight, var(--m-brand))' }}>180,000+</span>
             {' '}businesses across{' '}
-            <span style={{ fontWeight: 700, color: 'var(--m-brand)' }}>90+ countries</span>
+            <span style={{ fontWeight: 700, color: 'var(--n-hero-highlight, var(--m-brand))' }}>90+ countries</span>
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2">
-            <span aria-hidden="true" style={{ color: 'var(--m-star)', fontSize: 20, letterSpacing: 2 }}>
+            <span data-n-hero-stars aria-hidden="true" style={{ color: 'var(--m-star)', fontSize: 20, letterSpacing: 2 }}>
               ★★★★★
             </span>
             <span className="m-body" style={{ fontWeight: 600 }}>
-              <span style={{ fontWeight: 700, color: 'var(--m-brand-strong)' }}>4.9/5</span>
+              <span style={{ fontWeight: 700, color: 'var(--n-hero-highlight, var(--m-brand-strong))' }}>4.9/5</span>
               {' '}from 12,000+ reviews
             </span>
           </div>

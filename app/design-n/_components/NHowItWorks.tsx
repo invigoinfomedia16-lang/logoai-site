@@ -71,9 +71,11 @@ export default function NHowItWorks() {
               key={s.n}
               className="m-card-hover flex flex-col gap-4 p-6 h-full"
               style={{
-                background: 'var(--m-surface)',
+                // Themeable — Vermillion Black lifts the cards to --m-surface-alt
+                // so they read like the Risk-Free section cards (no shadow).
+                background: 'var(--n-howitworks-card-bg, var(--m-surface))',
                 borderRadius: '20px',
-                boxShadow: '0px 1px 3px 0px var(--m-brand-soft), 0px 1px 2px -1px var(--m-brand-soft)',
+                boxShadow: 'var(--n-howitworks-card-shadow, 0px 1px 3px 0px var(--m-brand-soft), 0px 1px 2px -1px var(--m-brand-soft))',
               }}
             >
               <StepNumber n={s.n} />

@@ -351,7 +351,7 @@ export default function LogoOnboarding() {
       : ((step - 1) / (TOTAL_STEPS - 1)) * 100
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--m-brand-bg)', display: 'flex', flexDirection: 'column' }}>
+    <div data-n-start style={{ minHeight: '100vh', background: 'var(--m-brand-bg)', display: 'flex', flexDirection: 'column' }}>
       <style>{`
         @keyframes nStartFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes nStartSpin { to { transform: rotate(360deg); } }
@@ -1030,8 +1030,6 @@ function IndustryCombobox({
             left: 0,
             right: 0,
             marginTop: 6,
-            maxHeight: 320,
-            overflowY: 'auto',
             background: 'var(--m-surface)',
             border: '1px solid var(--m-border)',
             borderRadius: 12,
@@ -1739,7 +1737,7 @@ function SuggestionRows({
       >
         {label}
       </p>
-      <div className="flex flex-col" style={{ gap: 8 }}>
+      <div data-n-suggestions className="flex flex-col" style={{ gap: 8 }}>
         {items.map((s, i) => {
           const selected = selectedValue === s
           return (
@@ -1982,7 +1980,7 @@ function FormSteps(p: FormProps) {
   const [servicesExpanded, setServicesExpanded] = useState(false)
   // Trigger flags come from the parent (LogoOnboarding) — see FormProps.
   const { descTriggered, setDescTriggered, taglineTriggered, setTaglineTriggered } = p
-  const DESC_VISIBLE = 5
+  const DESC_VISIBLE = 6
   const SERVICES_VISIBLE = 5
   // All suggestion lists filter by the picked industry. If no industry
   // picked yet (or industry is 'other'), fall back to the generic mock
