@@ -80,6 +80,7 @@ export default function NMockups() {
 
   return (
     <section
+      id="mockups"
       className="relative flex flex-col items-start py-14 sm:py-20 md:py-[100px] px-5 sm:px-10 md:px-16 lg:px-[96px] w-full"
       // Section base. Other toggles use the plain section tint; the
       // Character.AI toggle overrides --n-mockups-section-bg to white so the
@@ -115,14 +116,12 @@ export default function NMockups() {
       <div className="relative z-[1] flex flex-col gap-10 md:gap-12 items-start w-full max-w-[1280px] mx-auto px-2 sm:px-4">
         {/* Heading */}
         <div className="flex flex-col gap-4 items-center text-center w-full">
-          <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>See It In The Real World</p>
+          <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>In The Real World</p>
           <h2 className="m-h2" style={{ color: 'var(--m-ink-deep)' }}>
-            From favicon to billboard
+            Looks great everywhere
           </h2>
           <p className="m-sub max-w-[820px]">
-            A great logo has to work everywhere — tiny on a browser tab, huge on a storefront,
-            and everything in between. Here&apos;s how a logo from Logo.AI looks across the things
-            your business uses every day.
+            Here&apos;s how our logos look across websites, business cards, and everywhere your brand shows up. They look sharp at any size, on any surface.
           </p>
         </div>
 

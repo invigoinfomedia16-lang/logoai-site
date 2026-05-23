@@ -11,8 +11,8 @@ const POPULAR_LOGOS = [
   'Gym Logos',
 ]
 const RESOURCES = ['How it works', 'Examples', 'Reviews', 'Pricing', 'FAQ', 'Blog']
-const ABOUT = ['About Us', 'Contact Support', 'Refund Policy', 'Security Policy']
-const LEGAL = ['Terms of Use', 'Privacy Policy', 'Commercial License']
+const ABOUT = ['About Us', 'Contact Support']
+const LEGAL = ['Terms of Use', 'Privacy Policy', 'Refund Policy', 'Security Policy', 'Commercial License']
 const TRUST_BADGES = ['SSL Secure', 'Stripe Payments', 'Your data is safe']
 
 function ColumnHeading({ children }: { children: React.ReactNode }) {
@@ -152,7 +152,7 @@ export default function NFooter() {
               color: 'var(--m-text-on-dark-muted)',
             }}
           >
-            Copyright © 2024–2026 Logo.AI
+            Copyright © 2024–2026 Logo.AI. All rights reserved.
           </p>
         </div>
       </div>

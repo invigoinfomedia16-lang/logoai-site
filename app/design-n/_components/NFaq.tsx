@@ -11,32 +11,37 @@ const ITEMS: Item[] = [
   {
     question: 'Will the logos actually look professional?',
     answer:
-      'Yes. Our AI follows the same rules real designers use — fonts, balance, color, and layout — so the logos look like a designer made them. Most customers are surprised by the quality. Just describe your brand and see for yourself.',
+      'Yes. Our AI designs like a professional designer — getting the font, the colors, and the balance right. Most customers are surprised by the quality. Just tell us about your brand and see for yourself.',
   },
   {
-    question: 'Do I need to pick a style or know anything about design?',
+    question: 'Who is Logo.AI for?',
     answer:
-      'No. Just enter your business name and a short description — our AI handles the style, colors, and fonts for you. You don\'t need to know anything about design.',
+      "Founders, agencies, and small business owners — anyone who needs a professional logo. If you've ever needed a logo for a website, business card, or product, this is for you.",
+  },
+  {
+    question: 'Do I need design skills to use this?',
+    answer:
+      'No. Just enter your business name and a few words about what it does — our AI handles the style, colors, fonts, and layout for you. No design skills, no Photoshop, no creative brief needed.',
   },
   {
     question: 'How many logos will I see?',
     answer:
-      'Each time you generate, you\'ll see 10 logos to preview. Don\'t love them? Just generate again — you can do this as many times as you want, free. Pay only when you find one you love.',
+      "Each time you generate, you'll see 10 logos to preview. Don't love them? Just generate again — you can do this as many times as you want, free. Pay only when you find one you love.",
   },
   {
     question: "What if I don't love any of the logos?",
     answer:
-      'You don\'t pay. That\'s it. We let you preview your logos for free — no payment needed. If nothing fits your brand, walk away with no charge.',
+      "You don't pay. We let you preview your logos for free. If they're not what you wanted, just walk away.",
   },
   {
     question: "What's included for $49?",
     answer:
-      'Your logo in every format you need (PNG, SVG, PDF, EPS) with a transparent background, full commercial license, you own it forever, and a 100% satisfaction guarantee. Re-download anytime — no recurring fees, no surprises.',
+      'Your logo in every format you need (PNG, SVG, PDF, EPS) with a transparent background, full commercial license, and yours forever — re-download as many times as you want. You also get a Brand Guidelines PDF showing how to use your logo, its exact colors, and matching fonts. Plus a 100% Money-Back Guarantee.',
   },
   {
     question: 'Do I own the logo?',
     answer:
-      'Yes — once you download, the logo is fully yours. You get a full commercial license and you own the logo forever.',
+      'Yes. Once you download, the logo is yours. You can use it for any commercial purpose, forever.',
   },
   {
     question: 'Where can I use my logo?',
@@ -46,12 +51,12 @@ const ITEMS: Item[] = [
   {
     question: 'Can I trademark my logo?',
     answer:
-      'Yes. Since you fully own it and have a commercial license, you can register your logo as a trademark in your country. Whether you can trademark it depends on your local laws and how unique your design is — so it\'s a good idea to check with a trademark lawyer.',
+      "Yes. Since you fully own it and have a commercial license, you can register your logo as a trademark in your country. Whether it can be trademarked depends on your local laws and how unique the design is — so it's a good idea to check with a trademark lawyer.",
   },
   {
     question: 'Will the logo work at any size — small or big?',
     answer:
-      'Yes. Your download includes SVG files that work at any size without going blurry — perfect for everything from a small icon on your website to a giant billboard. You also get PDF and EPS files for professional printing.',
+      'Yes. Every purchase includes SVG files that work at any size without going blurry — perfect for everything from a small icon on your website to a giant billboard. You also get PDF and EPS files for professional printing.',
   },
   {
     question: 'Will my logo work on dark and light backgrounds?',
@@ -61,22 +66,27 @@ const ITEMS: Item[] = [
   {
     question: 'Is this a subscription?',
     answer:
-      'No. It\'s a one-time payment of $49. Pay once, own your logo forever. No recurring fees, no surprises.',
+      "No. It's a one-time payment of $49. Pay once, own your logo forever. No recurring fees, no surprises.",
   },
   {
     question: 'How long does it take?',
     answer:
-      'Under 60 seconds from start to preview. No back-and-forth with a designer, no waiting weeks for changes — just describe your brand and your logos are ready.',
+      'Under 60 seconds from start to preview. No back-and-forth with a designer, no waiting weeks for changes — just tell us about your brand and your logos are ready.',
   },
   {
     question: 'What happens to my brand information?',
     answer:
-      'Your details stay private. We never sell or share them, and we never use them to train our AI. They\'re only used to make your logos — and the final designs belong to you.',
+      "Your details stay private. We never sell or share them, and we never use them to train our AI. They're only used to make your logos — and the final designs belong to you.",
   },
   {
     question: "What if I'm not happy with my downloaded logo?",
     answer:
-      'You\'re protected by our 100% satisfaction guarantee. If you\'re not happy, just reach out — we\'ll either redo your logo or refund you in full. Your choice.',
+      "You're protected by our 100% Money-Back Guarantee. If you're not happy, just reach out — we'll either redo your logo or refund you in full. Your choice.",
+  },
+  {
+    question: 'Will my logo be unique to me?',
+    answer:
+      "Yes. Our AI creates each logo from scratch based on your brand details — no two are alike. Once you pay for and download your logo, it's yours alone.",
   },
 ]
 

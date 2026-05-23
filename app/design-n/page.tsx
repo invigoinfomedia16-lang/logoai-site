@@ -3,7 +3,6 @@
 // with the doc's CTA label. Footer is NFooter (M's footer design, doc links,
 // Brand Kit removed). Local-only — http://localhost:3010/design-n
 
-import MHeader from '../design-m/_components/MHeader'
 import NReveal from './_components/NReveal'
 import NColorToggle from './_components/NColorToggle'
 import NStickyCTA from './_components/NStickyCTA'
@@ -12,33 +11,33 @@ import NRiskFree from './_components/NRiskFree'
 import NHowItWorks from './_components/NHowItWorks'
 import NGallery from './_components/NGallery'
 import NMockups from './_components/NMockups'
+import NBuiltFor from './_components/NBuiltFor'
 import NReviews from './_components/NReviews'
+import NUseCases from './_components/NUseCases'
 import NCompare from './_components/NCompare'
 import NPricing from './_components/NPricing'
 import NFaq from './_components/NFaq'
+import NBlog from './_components/NBlog'
 import NFinalCTA from './_components/NFinalCTA'
 import NFooter from './_components/NFooter'
 
 export default function DesignNHome() {
   return (
     <>
-      <MHeader
-        ctaLabel="Generate My Free Logos"
-        homeHref="/design-n"
-        shrinkOnScroll
-        ctaHref="/design-n/start"
-      />
       <main>
         {/* NHero is above the fold — render it immediately, no reveal. */}
         <NHero />
         <NReveal><NRiskFree /></NReveal>
-        <NReveal><NHowItWorks /></NReveal>
         <NReveal><NGallery /></NReveal>
         <NReveal><NMockups /></NReveal>
+        <NReveal><NBuiltFor /></NReveal>
+        <NReveal><NHowItWorks /></NReveal>
         <NReveal><NReviews /></NReveal>
-        <NReveal><NCompare /></NReveal>
+        <NReveal><NUseCases /></NReveal>
         <NReveal><NPricing /></NReveal>
+        <NReveal><NCompare /></NReveal>
         <NReveal><NFaq /></NReveal>
+        <NReveal><NBlog /></NReveal>
         <NReveal><NFinalCTA /></NReveal>
       </main>
       <NFooter />

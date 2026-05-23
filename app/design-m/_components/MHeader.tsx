@@ -1,13 +1,23 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 
 const NAV_ITEMS = [
-  { label: 'How it works', href: '#how-it-works' },
   { label: 'Examples',     href: '#gallery' },
   { label: 'Reviews',      href: '#reviews' },
+  { label: 'How It Works', href: '#how-it-works' },
   { label: 'Pricing',      href: '#pricing' },
   { label: 'FAQ',          href: '#faq' },
+]
+
+const RESOURCES_ITEMS = [
+  { label: 'Risk-Free Promise',       href: '#risk-free' },
+  { label: 'Mockup Examples',         href: '#mockups' },
+  { label: 'Built For (Who Uses It)', href: '#built-for' },
+  { label: 'Use Cases',               href: '#use-cases' },
+  { label: 'Why Logo.AI',             href: '#why-logo-ai' },
+  { label: 'Blog',                    href: '#blog' },
 ]
 
 function ChevronDown() {
@@ -46,6 +56,10 @@ type MHeaderProps = {
   shrinkOnScroll?: boolean
   /** Where the CTA button links. Defaults to the in-page hero anchor. */
   ctaHref?: string
+  /** When true, hides the center nav links + right-side log-in / CTA / mobile
+   *  menu — leaving just the wordmark on the left. Used by the onboarding
+   *  page so the landing nav visually carries through to the funnel. */
+  hideNav?: boolean
 }
 
 export default function MHeader({
@@ -54,9 +68,31 @@ export default function MHeader({
   tagline,
   shrinkOnScroll = false,
   ctaHref = '#hero-cta',
+  hideNav = false,
 }: MHeaderProps = {}) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [resourcesOpen, setResourcesOpen] = useState(false)
+  const wrapRef = useRef<HTMLDivElement | null>(null)
+
+  // Close the Resources dropdown on outside click or Escape.
+  useEffect(() => {
+    if (!resourcesOpen) return
+    const onMouseDown = (e: MouseEvent) => {
+      if (wrapRef.current && !wrapRef.current.contains(e.target as Node)) {
+        setResourcesOpen(false)
+      }
+    }
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setResourcesOpen(false)
+    }
+    document.addEventListener('mousedown', onMouseDown)
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('mousedown', onMouseDown)
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [resourcesOpen])
 
   // Shrink-on-scroll: once the page is scrolled past a small threshold, the
   // header detaches from the top edge into a floating "pill" — it pulls in
@@ -102,7 +138,7 @@ export default function MHeader({
           transition: `padding 0.5s ${EASE}`,
         }}
       >
-        <div className="mx-auto w-full max-w-[1536px] flex items-center py-[16px]">
+        <div className="mx-auto w-full max-w-[1536px] flex items-center py-[16px] min-h-[68px]">
         {/* Left zone — wordmark + optional tagline (flex-1 so the center nav is truly centered) */}
         <div className="flex flex-1 items-center gap-3">
           {/* Wordmark — matches the L design: DM Serif Display + Purple Heart dot */}
@@ -138,8 +174,10 @@ export default function MHeader({
           )}
         </div>
 
-        {/* Center zone — desktop nav, dead-centered between the two flex-1 sides */}
-        <nav className="hidden md:block">
+        {/* Center zone — desktop nav, dead-centered between the two flex-1 sides.
+            When hideNav is true, kept in the DOM but visibility-hidden so the
+            flex layout doesn't shift around the logo. */}
+        <nav className="hidden md:block" style={{ visibility: hideNav ? 'hidden' : 'visible', pointerEvents: hideNav ? 'none' : 'auto' }}>
           <ul className="flex items-center justify-center gap-1">
             {NAV_ITEMS.map((n) => (
               <li key={n.label} className="px-2 py-2">
@@ -154,23 +192,91 @@ export default function MHeader({
                 </a>
               </li>
             ))}
-            <li>
-              <button
-                type="button"
-                className="flex h-9 items-center justify-center gap-1.5 rounded-md px-2 m-nav transition-colors"
-                style={{ color: 'var(--n-nav-link, var(--m-ink))' }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link-hover, var(--m-brand))' }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link, var(--m-ink))' }}
-              >
-                <span>Resources</span>
-                <ChevronDown />
-              </button>
+            <li className="px-2 py-2">
+              <div ref={wrapRef} className="relative">
+                <button
+                  type="button"
+                  aria-expanded={resourcesOpen ? 'true' : 'false'}
+                  aria-haspopup="menu"
+                  onClick={() => setResourcesOpen((v) => !v)}
+                  className="flex h-9 items-center justify-center gap-1.5 rounded-md px-2 m-nav transition-colors"
+                  style={{ color: 'var(--n-nav-link, var(--m-ink))' }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link-hover, var(--m-brand))' }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link, var(--m-ink))' }}
+                >
+                  <span>Resources</span>
+                  <span
+                    style={{
+                      display: 'inline-flex',
+                      transform: resourcesOpen ? 'rotate(180deg)' : 'none',
+                      transition: 'transform 0.15s ease',
+                    }}
+                  >
+                    <ChevronDown />
+                  </span>
+                </button>
+                {resourcesOpen && !hideNav && (
+                  <div
+                    role="menu"
+                    style={{
+                      position: 'absolute',
+                      top: '100%',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      marginTop: 8,
+                      minWidth: 220,
+                      background: 'var(--m-surface)',
+                      border: '1px solid var(--m-border)',
+                      borderRadius: 'var(--m-radius-md)',
+                      boxShadow: '0 12px 32px rgba(0,0,0,0.10)',
+                      padding: 6,
+                      zIndex: 60,
+                    }}
+                  >
+                    {RESOURCES_ITEMS.map((item) => (
+                      <a
+                        key={item.label}
+                        href={item.href}
+                        role="menuitem"
+                        onClick={() => setResourcesOpen(false)}
+                        className="m-sans"
+                        style={{
+                          display: 'block',
+                          padding: '10px 12px',
+                          borderRadius: 'var(--m-radius-sm)',
+                          fontSize: 14,
+                          fontWeight: 500,
+                          color: 'var(--m-ink)',
+                          textDecoration: 'none',
+                          transition: 'background 0.12s ease, color 0.12s ease',
+                        }}
+                        onMouseEnter={(e) => {
+                          const el = e.currentTarget as HTMLElement
+                          el.style.background = 'var(--m-surface-alt)'
+                          el.style.color = 'var(--n-nav-link-hover, var(--m-brand))'
+                        }}
+                        onMouseLeave={(e) => {
+                          const el = e.currentTarget as HTMLElement
+                          el.style.background = 'transparent'
+                          el.style.color = 'var(--m-ink)'
+                        }}
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
             </li>
           </ul>
         </nav>
 
-        {/* Right zone — log-in + CTA (flex-1, mirrors the left zone width) */}
-        <div className="flex flex-1 items-center justify-end gap-2">
+        {/* Right zone — log-in + CTA (flex-1, mirrors the left zone width).
+            When hideNav is true, contents are kept in the DOM but visibility-
+            hidden so the bar's structure is identical between landing and
+            onboarding — no layout shift, no logo movement on the transition. */}
+        <div className="flex flex-1 items-center justify-end gap-2" style={{ visibility: hideNav ? 'hidden' : 'visible', pointerEvents: hideNav ? 'none' : 'auto' }}>
+          <>
           {/* Desktop log-in + CTA */}
           <a
             href="#"
@@ -181,7 +287,7 @@ export default function MHeader({
           >
             Log in
           </a>
-          <a
+          <Link
             href={ctaHref}
             className="hidden md:inline-flex items-center justify-center px-4 py-2 m-sans whitespace-nowrap"
             style={{
@@ -189,10 +295,10 @@ export default function MHeader({
               // --n-nav-cta-* vars to make it an outlined button (design-L
               // style) — transparent with a faint border, filling on hover.
               background: 'var(--n-nav-cta-bg, var(--m-brand))',
-              color: '#FFFFFF',
+              color: 'var(--m-on-brand, #FFFFFF)',
               border: '1px solid var(--n-nav-cta-border-c, transparent)',
               borderRadius: 'var(--m-radius-sm)',
-              fontWeight: 400,
+              fontWeight: 'var(--n-nav-cta-weight, 400)',
               fontSize: 14,
               lineHeight: '20px',
               boxShadow:
@@ -211,7 +317,7 @@ export default function MHeader({
             }}
           >
             {ctaLabel}
-          </a>
+          </Link>
 
           {/* Mobile hamburger */}
           <button
@@ -223,12 +329,13 @@ export default function MHeader({
           >
             <MenuIcon open={open} />
           </button>
+          </>
         </div>
         </div>
       </div>
 
       {/* Mobile slide-down menu */}
-      {open && (
+      {!hideNav && open && (
         <div
           className="md:hidden border-t flex flex-col"
           style={{ background: 'var(--m-surface)', borderColor: 'var(--m-border)', padding: '16px 20px 24px 20px' }}

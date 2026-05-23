@@ -79,8 +79,7 @@ export default function NGallery() {
             None of these came from a designer
           </h2>
           <p className="m-sub max-w-[760px]">
-            Every logo below was made by our AI from a short brand description. They look like a
-            designer made them — because the AI uses the same rules real designers do.
+            Every logo below was made by our AI. They look designer-made because our AI designs like a professional designer.
           </p>
         </div>
 

@@ -8,6 +8,7 @@
 // Clicking scrolls to #pricing.
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 
 const BAR_HEIGHT = 76 // approx: padding + button height
 
@@ -63,7 +64,12 @@ export default function NStickyCTA({ label = 'Generate My Free Logos' }: { label
       aria-hidden={!visible}
       className="md:hidden fixed left-0 right-0 bottom-0 z-40"
       style={{
-        background: 'rgba(255,255,255,0.96)',
+        // Themeable — falls back to the white frosted bar on light toggles,
+        // inherits the dark surface blur on dark toggles (Vermillion Black,
+        // Freepik, Vermillion, Purple Black, Framer all define --m-header-bg
+        // as a dark rgba surface, which gives this bar the same look as their
+        // top nav when scrolled).
+        background: 'var(--m-header-bg, rgba(255,255,255,0.96))',
         borderTop: '1px solid var(--m-border)',
         backdropFilter: 'blur(14px)',
         WebkitBackdropFilter: 'blur(14px)',
@@ -73,7 +79,7 @@ export default function NStickyCTA({ label = 'Generate My Free Logos' }: { label
         transition: 'transform 0.3s ease',
       }}
     >
-      <a
+      <Link
         href="/design-n/start"
         tabIndex={visible ? 0 : -1}
         className="m-cta-btn w-full inline-flex items-center justify-center gap-2"
@@ -88,7 +94,7 @@ export default function NStickyCTA({ label = 'Generate My Free Logos' }: { label
       >
         <span>{label}</span>
         <ArrowRight />
-      </a>
+      </Link>
     </div>
   )
 }

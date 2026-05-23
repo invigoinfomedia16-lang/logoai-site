@@ -1,5 +1,7 @@
-// How It Works — 4-step grid + privacy strip bar. Copy from the LOGOAI
-// landing-page doc, section 4.
+// How It Works — horizontal 4-step stepper + privacy strip bar. Copy
+// from the LOGOAI landing-page doc, section 4.
+
+import { Fragment } from 'react'
 
 function StepNumber({ n }: { n: number }) {
   return (
@@ -24,26 +26,24 @@ const STEPS = [
   {
     n: 1,
     title: 'Tell us about your brand',
-    body: "Just enter your business name and a short description of what you do. That's all we need to get started.",
+    body: "Just enter your business name and a few words about what it does. That's it.",
   },
   {
     n: 2,
-    title: 'Watch the AI design it',
-    body: "In under 60 seconds, our AI creates original logos — picking the right style, colors, and fonts to match your brand. You don't have to figure anything out.",
+    title: 'Our AI does the work',
+    body: 'In under 60 seconds, our AI turns your brand details into 10 original logos — with the right style, colors, and fonts to match your brand.',
   },
   {
     n: 3,
-    title: 'See your logos for free',
-    body: 'Browse your logos and see them on real things like business cards, websites, and signage — free.',
+    title: 'Preview your logos for free',
+    body: "See a free preview of your logos. Don't love them? Generate again, free.",
   },
   {
     n: 4,
     title: 'Pick your favorite and download',
-    body: 'Found the one? Pay one simple price and download your logo, ready to use.',
+    body: "Found the one? Pay one simple price and download your logo, ready to use. Don't love any? Walk away — no charge.",
   },
 ]
-
-const PRIVACY_POINTS = ['Never shared with anyone', 'Never sold', 'Only used to make your logos']
 
 export default function NHowItWorks() {
   return (
@@ -60,34 +60,47 @@ export default function NHowItWorks() {
             Get your professional logo in 4 easy steps — under 60 seconds
           </h2>
           <p className="m-sub">
-            Free to generate. Free to preview. Pay only if you love it.
+            No design skills needed. Just tell us about your brand — our AI handles the rest.
           </p>
         </div>
 
         {/* 4-step grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
-          {STEPS.map((s) => (
-            <div
-              key={s.n}
-              className="m-card-hover flex flex-col gap-4 p-6 h-full"
-              style={{
-                // Themeable — Vermillion Black lifts the cards to --m-surface-alt
-                // so they read like the Risk-Free section cards (no shadow).
-                background: 'var(--n-howitworks-card-bg, var(--m-surface))',
-                borderRadius: '20px',
-                boxShadow: 'var(--n-howitworks-card-shadow, 0px 1px 3px 0px var(--m-brand-soft), 0px 1px 2px -1px var(--m-brand-soft))',
-              }}
-            >
-              <StepNumber n={s.n} />
-              <h3
-                className="m-display"
-                style={{ color: 'var(--m-ink)', fontWeight: 600, fontSize: 18, lineHeight: '24px' }}
-              >
-                {s.title}
-              </h3>
-              <p className="m-body-sm">{s.body}</p>
-            </div>
-          ))}
+        {/* Horizontal 4-step stepper — number circles + content stacked
+            in a row, connected by a thin horizontal line. Stacks vertically
+            on mobile. Breaks the cards-grid rhythm: this is a process, not
+            a comparison. */}
+        <div className="flex flex-col md:flex-row md:items-start gap-12 md:gap-0 w-full">
+          {STEPS.map((s, i) => {
+            const isLast = i === STEPS.length - 1
+            return (
+              <Fragment key={s.n}>
+                <div className="flex flex-col items-center text-center md:flex-1 md:px-3">
+                  <StepNumber n={s.n} />
+                  <h3
+                    className="m-display mt-5"
+                    style={{ color: 'var(--m-ink)', fontWeight: 600, fontSize: 18, lineHeight: '24px' }}
+                  >
+                    {s.title}
+                  </h3>
+                  <p className="m-body-sm mt-2" style={{ maxWidth: 240 }}>{s.body}</p>
+                </div>
+                {/* Connector line — md+ only, hidden on last. Vertically
+                    centered with the step circle (circle is 36px → 18px). */}
+                {!isLast && (
+                  <div
+                    aria-hidden="true"
+                    className="hidden md:block"
+                    style={{
+                      flex: '0 0 24px',
+                      height: 1,
+                      background: 'var(--m-border)',
+                      marginTop: 18,
+                    }}
+                  />
+                )}
+              </Fragment>
+            )
+          })}
         </div>
 
         {/* Privacy strip */}
@@ -102,16 +115,12 @@ export default function NHowItWorks() {
           <span className="m-sans" style={{ fontWeight: 700, fontSize: 15, color: 'var(--m-ink)' }}>
             Your brand details stay private.
           </span>
-          {/* Points — stacked + left-aligned on mobile so every checkmark
-              lines up; a centered wrapping row from sm up. */}
-          <div className="flex flex-col items-start sm:flex-row sm:flex-wrap sm:items-center sm:justify-center gap-y-2.5 sm:gap-x-5">
-            {PRIVACY_POINTS.map((pt) => (
-              <span key={pt} className="flex items-center gap-1.5">
-                <CheckInline />
-                <span className="m-sans" style={{ fontSize: 14, color: 'var(--m-text-muted)' }}>{pt}</span>
-              </span>
-            ))}
-          </div>
+          <span className="flex items-center gap-1.5">
+            <CheckInline />
+            <span className="m-sans" style={{ fontSize: 14, color: 'var(--m-text-muted)' }}>
+              Never shared. Never sold. Only used to make your logos.
+            </span>
+          </span>
         </div>
       </div>
     </section>

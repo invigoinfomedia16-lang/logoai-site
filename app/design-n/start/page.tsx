@@ -336,13 +336,16 @@ export default function LogoOnboarding() {
   }
 
   function toggleImpression(w: string) {
-    setImpressions((cur) =>
-      cur.includes(w)
-        ? cur.filter((x) => x !== w)
-        : cur.length < 3
-        ? [...cur, w]
-        : cur,
-    )
+    setImpressions((cur) => {
+      // Clicking a selected chip toggles it off.
+      if (cur.includes(w)) return cur.filter((x) => x !== w)
+      // Room left — just add.
+      if (cur.length < 3) return [...cur, w]
+      // Full at 3 — sliding window: drop the OLDEST entry and add the new
+      // one. Lets the user freely swap with a single click instead of
+      // having to deselect-then-select.
+      return [...cur.slice(1), w]
+    })
   }
 
   const progress =
@@ -372,64 +375,24 @@ export default function LogoOnboarding() {
         }
       `}</style>
 
-      {/* ───────────── header — S1 layout ─────────────
-          Row 1: centered wordmark (with close × top-right)
-          Row 2: progress bar (dark INK fill, not the CTA colour)
-          Row 3: ← Back left  •  step circle right */}
-      <header
-        style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 50,
-          background: 'var(--m-surface)',
-          borderBottom: '1px solid var(--m-border)',
-        }}
-      >
-        <div style={{ maxWidth: 960, margin: '0 auto', padding: '18px 24px 14px' }}>
-          {/* Row 1 — centered wordmark */}
-          <div className="relative flex items-center justify-center">
-            <a href="/design-n" className="inline-flex items-center" aria-label="Logo.AI home" style={{ textDecoration: 'none' }}>
-              <span
-                style={{
-                  fontFamily: 'var(--m-logo-font, var(--m-font-wordmark), serif)',
-                  fontWeight: 'var(--m-logo-weight, 400)',
-                  fontSize: 24,
-                  lineHeight: 1,
-                  letterSpacing: 'var(--m-logo-tracking, -0.02em)',
-                  color: 'var(--m-logo-color, var(--m-ink))',
-                }}
-              >
-                LOGO<span style={{ color: 'var(--m-logo-color, var(--m-brand))' }}>.</span>AI
-              </span>
-            </a>
-            <a
-              href="/design-n"
-              aria-label="Exit onboarding"
-              className="absolute"
-              style={{
-                right: 0,
-                top: '50%',
-                transform: 'translateY(-50%)',
-                color: 'var(--m-text-soft)',
-                textDecoration: 'none',
-                fontSize: 22,
-                lineHeight: 1,
-                cursor: 'pointer',
-              }}
-            >
-              ×
-            </a>
-          </div>
+      {/* The top nav now lives in the shared design-n layout (NSharedHeader)
+          so it stays mounted across landing → onboarding navigations and
+          doesn't remount on every page change. */}
 
-          {/* Row 2 — progress bar (dark, not the CTA colour) */}
-          {phase !== 'results' && (
+      {/* ───────────── progress + back sub-section ─────────────
+          Lives directly below the top nav (not sticky — scrolls with the
+          page). Progress bar gives overall completion; Back link sits on
+          the left. The step-number circle is themeable per toggle. */}
+      {phase !== 'results' && (
+        <div data-n-step-controls style={{ background: 'var(--m-surface)' }}>
+          <div style={{ maxWidth: 960, margin: '0 auto', padding: '14px 24px' }}>
+            {/* Progress bar */}
             <div
               style={{
                 height: 6,
                 background: 'var(--m-surface-alt)',
                 borderRadius: 9999,
                 overflow: 'hidden',
-                marginTop: 16,
               }}
             >
               <div
@@ -442,10 +405,8 @@ export default function LogoOnboarding() {
                 }}
               />
             </div>
-          )}
 
-          {/* Row 3 — Back link on the left, step-number circle on the right */}
-          {phase !== 'results' && (
+            {/* Back link on the left, step-number circle on the right */}
             <div
               className="flex items-center justify-between"
               style={{ marginTop: 14, minHeight: 28 }}
@@ -499,13 +460,9 @@ export default function LogoOnboarding() {
                 </span>
               )}
             </div>
-          )}
-
-          {/* No urgency timer on results — previews don't actually expire,
-              users can regenerate freely. Manufactured urgency would feel
-              cheap and contradict the "unlimited generations" promise. */}
+          </div>
         </div>
-      </header>
+      )}
 
       {/* ───────────── content ───────────── */}
       <main
@@ -1622,6 +1579,7 @@ function LiveSuggestionStatus({
 function PreselectNote({ what }: { what: string }) {
   return (
     <p
+      data-n-preselect-note
       className="m-sans"
       style={{
         padding: '10px 14px',
@@ -2346,12 +2304,10 @@ function FormSteps(p: FormProps) {
           <div className="grid grid-cols-2 sm:grid-cols-3" style={{ gap: 10 }}>
             {impressionsList.map((w) => {
               const selected = p.impressions.includes(w)
-              const disabled = !selected && p.impressions.length >= 3
               return (
                 <button
                   key={w}
                   type="button"
-                  disabled={disabled}
                   onClick={() => p.toggleImpression(w)}
                   className="m-sans inline-flex items-center"
                   style={{
@@ -2363,12 +2319,11 @@ function FormSteps(p: FormProps) {
                     border: '1.5px solid',
                     borderColor: selected ? 'var(--m-brand)' : 'var(--m-border)',
                     background: selected ? 'var(--m-brand-soft)' : 'var(--m-surface)',
-                    color: disabled ? 'var(--m-text-faint)' : selected ? 'var(--m-ink)' : 'var(--m-text)',
+                    color: selected ? 'var(--m-ink)' : 'var(--m-text)',
                     fontSize: 15,
                     fontWeight: selected ? 600 : 500,
                     lineHeight: 1.35,
-                    cursor: disabled ? 'not-allowed' : 'pointer',
-                    opacity: disabled ? 0.55 : 1,
+                    cursor: 'pointer',
                     textAlign: 'left',
                     transition: 'border-color 0.15s ease, background 0.15s ease, color 0.15s ease',
                   }}

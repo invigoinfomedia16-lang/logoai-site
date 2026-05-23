@@ -1,6 +1,8 @@
 // Risk-Free — 2x2 check-item grid + centered CTA. Copy from the LOGOAI
 // landing-page doc, section 2.
 
+import Link from 'next/link'
+
 function CheckBadge() {
   return (
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -21,25 +23,26 @@ function ArrowRight() {
 const ITEMS = [
   {
     title: 'Start without commitment',
-    body: "No payment needed to start. Just describe your brand and we'll generate your logos.",
+    body: "No payment to start. Just tell us about your brand and we'll generate your logos.",
   },
   {
     title: 'Preview before you pay',
-    body: 'Browse your logos and see them on real things like business cards, websites, and signage — free.',
+    body: 'See a free preview of your logos before you decide.',
   },
   {
     title: "Don't love them? Don't pay.",
-    body: 'If nothing fits your brand, just walk away. No charge, no questions.',
+    body: "If they're not what you wanted, just walk away. No charge, no questions.",
   },
   {
     title: "Even after paying, you're covered",
-    body: "If you're not 100% happy after downloading your logo, we'll redo it or refund you in full — your choice.",
+    body: "If you're not 100% happy, we'll redo your logo or refund you in full.",
   },
 ]
 
 export default function NRiskFree() {
   return (
     <section
+      id="risk-free"
       className="flex flex-col items-center py-14 sm:py-20 md:py-[100px] px-5 sm:px-10 md:px-16 lg:px-[96px] w-full"
       style={{ background: 'var(--m-surface)' }}
     >
@@ -49,7 +52,7 @@ export default function NRiskFree() {
           <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>Risk-Free</p>
           <h2 className="m-h2">Pay only if you love your logo</h2>
           <p className="m-sub max-w-[680px]">
-            We&apos;re 100% confident you&apos;ll find a logo you love. But if you don&apos;t, you don&apos;t pay.
+            We&apos;re confident you&apos;ll love yours. If you don&apos;t, you don&apos;t pay.
           </p>
         </div>
 
@@ -67,8 +70,8 @@ export default function NRiskFree() {
               <span className="mt-0.5 shrink-0"><CheckBadge /></span>
               <div className="flex flex-col gap-1">
                 <h3
-                  className="m-sans"
-                  style={{ fontWeight: 700, fontSize: 17, lineHeight: '24px', color: 'var(--m-ink)' }}
+                  className="m-display"
+                  style={{ fontWeight: 600, fontSize: 18, lineHeight: '24px', color: 'var(--m-ink)' }}
                 >
                   {item.title}
                 </h3>
@@ -79,7 +82,7 @@ export default function NRiskFree() {
         </div>
 
         {/* CTA */}
-        <a
+        <Link
           href="/design-n/start"
           className="m-cta-lg m-cta-btn inline-flex items-center justify-center gap-3"
           style={{
@@ -91,7 +94,7 @@ export default function NRiskFree() {
         >
           <span>Generate My Free Logos</span>
           <ArrowRight />
-        </a>
+        </Link>
       </div>
     </section>
   )

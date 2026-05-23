@@ -15,13 +15,12 @@ const ROWS: Row[] = [
   { feature: 'Looks like a designer made it', freelance: true, otherAI: false, logoai: true },
   { feature: 'Time to results', freelance: '1–3 weeks', otherAI: '5–15 minutes', logoai: 'Under 60 seconds' },
   { feature: 'Price', freelance: '$500–$2,500', otherAI: '$20–$96/year (with upsells)', logoai: '$49 one-time' },
-  { feature: 'No design knowledge needed', freelance: false, otherAI: false, logoai: true },
+  { feature: 'No design skills needed', freelance: false, otherAI: false, logoai: true },
   { feature: 'Preview before paying', freelance: false, otherAI: false, logoai: true },
-  { feature: 'Free logos per generation', freelance: '3–5', otherAI: 'Limited', logoai: '10' },
-  { feature: 'Generate as many times as you want', freelance: false, otherAI: false, logoai: true },
   { feature: '100% satisfaction guarantee', freelance: false, otherAI: false, logoai: true },
   { feature: 'Vector files (SVG, PDF, EPS)', freelance: true, otherAI: 'Costs extra', logoai: true },
   { feature: 'Transparent background (PNG)', freelance: 'Sometimes', otherAI: 'Sometimes', logoai: true },
+  { feature: 'Brand Guidelines PDF included', freelance: 'Costs extra', otherAI: false, logoai: true },
   { feature: 'Full commercial license', freelance: 'Sometimes', otherAI: 'Sometimes', logoai: true },
   { feature: 'You own the logo forever', freelance: 'Sometimes', otherAI: false, logoai: true },
   { feature: 'Re-download anytime', freelance: false, otherAI: false, logoai: true },
@@ -70,6 +69,7 @@ function CellContent({ value, accent }: { value: Cell; accent?: boolean }) {
 export default function NCompare() {
   return (
     <section
+      id="why-logo-ai"
       className="flex flex-col items-center py-14 sm:py-20 md:py-[100px] px-5 sm:px-10 md:px-16 lg:px-[96px] w-full"
       style={{ background: 'var(--m-surface)' }}
     >

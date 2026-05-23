@@ -5,6 +5,7 @@
 // component stays a server component.
 
 import Image from 'next/image'
+import Link from 'next/link'
 
 function ArrowRight() {
   return (
@@ -69,9 +70,6 @@ export default function NHero() {
                 padding: 'var(--n-hero-eyebrow-pad, 8px 16px)',
               }}
             >
-              <span data-n-hero-stars className="inline-flex items-center gap-0.5">
-                <StarIcon /><StarIcon /><StarIcon /><StarIcon /><StarIcon />
-              </span>
               <span>Rated 4.9/5 from 12,000+ reviews</span>
             </span>
           </div>
@@ -83,12 +81,12 @@ export default function NHero() {
 
           {/* Subhead */}
           <p className="m-sub mx-auto mt-6 max-w-[768px] text-center">
-            Get your professional logo in 60 seconds. Free to generate and preview. Pay only if you love it.
+            Get your professional logo in 60 seconds. Free to preview — pay only if you love it.
           </p>
 
           {/* CTA */}
           <div id="hero-cta" className="mt-8 flex flex-col items-center gap-3">
-            <a
+            <Link
               href="/design-n/start"
               className="m-cta-lg m-cta-btn inline-flex items-center justify-center gap-3"
               style={{
@@ -100,9 +98,9 @@ export default function NHero() {
             >
               <span>Generate My Free Logos</span>
               <ArrowRight />
-            </a>
+            </Link>
             <p className="m-body-sm" style={{ fontSize: 13, color: 'var(--m-text-soft)' }}>
-              No payment needed to generate and preview your logos
+              No payment required to see your logos
             </p>
           </div>
         </div>
@@ -148,20 +146,13 @@ export default function NHero() {
       <div className="px-5 sm:px-10 md:px-16 lg:px-[120px] xl:px-[192px] pt-4 sm:pt-6">
         <div className="mx-auto w-full max-w-[1536px] px-2 sm:px-4 flex flex-col items-center gap-5">
           <p className="text-center m-body" style={{ fontSize: 18, lineHeight: '28px' }}>
-            Over{' '}
-            <span style={{ fontWeight: 700, color: 'var(--n-hero-highlight, var(--m-brand))' }}>4.6M</span>
-            {' '}logos generated for{' '}
             <span style={{ fontWeight: 700, color: 'var(--n-hero-highlight, var(--m-brand))' }}>180,000+</span>
-            {' '}businesses across{' '}
+            {' '}logos generated for businesses across{' '}
             <span style={{ fontWeight: 700, color: 'var(--n-hero-highlight, var(--m-brand))' }}>90+ countries</span>
           </p>
           <div className="flex flex-wrap items-center justify-center gap-2">
-            <span data-n-hero-stars aria-hidden="true" style={{ color: 'var(--m-star)', fontSize: 20, letterSpacing: 2 }}>
-              ★★★★★
-            </span>
             <span className="m-body" style={{ fontWeight: 600 }}>
-              <span style={{ fontWeight: 700, color: 'var(--n-hero-highlight, var(--m-brand-strong))' }}>4.9/5</span>
-              {' '}from 12,000+ reviews
+              Loved by founders, agencies, and small business owners
             </span>
           </div>
         </div>

@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'www.logo.ai',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
     ],
   },
 }

@@ -2,13 +2,14 @@
 // LOGOAI landing-page doc, section 7. Testimonials drawn from LOGO.AI's
 // existing customer quotes.
 
+import Image from 'next/image'
+
 type Review = {
   title: string
   quote: string
   name: string
   role: string
-  initials: string
-  avatarBg: string
+  photo: string
 }
 
 const FEATURED: Review = {
@@ -17,8 +18,7 @@ const FEATURED: Review = {
     "I'd been quoted $2,400 and three weeks by a branding agency. I ran Logo.AI on a whim while waiting for their proposal — and one of the ten logos it generated was better than anything they showed me later. I previewed it on a business card and a storefront mockup before paying a cent. Paid $49, downloaded the vector files, done. My agency still hasn't sent the invoice.",
   name: 'Daniel Walsh',
   role: 'Founder, Clearline — Fintech',
-  initials: 'DW',
-  avatarBg: '#1E3A8A',
+  photo: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80&auto=format&fit=crop&crop=faces',
 }
 
 const REVIEWS: Review[] = [
@@ -27,48 +27,42 @@ const REVIEWS: Review[] = [
     quote: "I'm not a designer and didn't have to be. I typed two sentences and got logos that looked studio-made.",
     name: 'Sarah Mitchell',
     role: 'Owner, Greenleaf Co. — Retail',
-    initials: 'SM',
-    avatarBg: '#7C2D12',
+    photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80&auto=format&fit=crop&crop=faces',
   },
   {
     title: "Couldn't tell it was AI",
     quote: 'Showed three options to my team. Nobody could tell which were AI. Neither could I.',
     name: 'Michael Reyes',
     role: 'Co-Founder, Beacon Labs — SaaS',
-    initials: 'MR',
-    avatarBg: '#0F766E',
+    photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80&auto=format&fit=crop&crop=faces',
   },
   {
     title: 'Previewed before paying',
     quote: 'Seeing it on a mockup storefront before paying sealed it. Paid $49, never looked back.',
     name: 'Chris Donovan',
     role: 'Founder, Bright Harbor — Agency',
-    initials: 'CD',
-    avatarBg: '#9D174D',
+    photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80&auto=format&fit=crop&crop=faces',
   },
   {
     title: '$15K studio quality',
     quote: 'The typography alone looks like a $15K studio made it. Then I saw the one-time price.',
     name: 'Alex Rivera',
     role: 'Founder, Stack & Field — E-commerce',
-    initials: 'AR',
-    avatarBg: '#374151',
+    photo: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&q=80&auto=format&fit=crop&crop=faces',
   },
   {
     title: 'Generated until I loved it',
     quote: "First batch wasn't quite right, so I generated again — free. Third batch nailed it.",
     name: 'Megan Foster',
     role: 'Founder, Saltline Studio — Creative',
-    initials: 'MF',
-    avatarBg: '#6D28D9',
+    photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80&auto=format&fit=crop&crop=faces',
   },
   {
     title: 'Vector files included',
     quote: 'SVG, PDF, EPS — everything my printer asked for, included in the $49. No upsells.',
     name: 'Emily Carter',
     role: 'Owner, Rowan & Rye — DTC',
-    initials: 'EC',
-    avatarBg: '#9F1239',
+    photo: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&q=80&auto=format&fit=crop&crop=faces',
   },
 ]
 
@@ -84,15 +78,17 @@ function StarRow({ size = 16 }: { size?: number }) {
   )
 }
 
-function Avatar({ bg, initials, size = 40 }: { bg: string; initials: string; size?: number }) {
+function Avatar({ photo, name, size = 40 }: { photo: string; name: string; size?: number }) {
   return (
-    <span
-      className="m-sans flex shrink-0 items-center justify-center rounded-full"
-      style={{ backgroundColor: bg, color: '#FFFFFF', fontWeight: 600, fontSize: size * 0.36, width: size, height: size }}
-      aria-hidden="true"
-    >
-      {initials}
-    </span>
+    <Image
+      src={photo}
+      alt={name}
+      width={size}
+      height={size}
+      className="shrink-0 rounded-full object-cover"
+      style={{ width: size, height: size }}
+      unoptimized
+    />
   )
 }
 
@@ -108,13 +104,13 @@ export default function NReviews() {
         {/* Heading */}
         <div className="flex flex-col items-center text-center">
           <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>
-            4.9/5 ★ • Over 12,000 Reviews
+            Rated 4.9/5 from 12,000+ reviews
           </p>
           <h2 id="n-reviews-heading" className="m-h2 mt-3">
-            See what our customers say
+            Don&apos;t just take our word for it
           </h2>
           <p className="mt-3 m-sub max-w-[640px]">
-            Real reviews from real founders, business owners, and creators. Read a few, then decide.
+            Real reviews from real founders, agencies, and small business owners. Read a few, then decide.
           </p>
         </div>
 
@@ -133,7 +129,7 @@ export default function NReviews() {
             &ldquo;{FEATURED.quote}&rdquo;
           </p>
           <div className="flex items-center gap-3">
-            <Avatar bg={FEATURED.avatarBg} initials={FEATURED.initials} size={48} />
+            <Avatar photo={FEATURED.photo} name={FEATURED.name} size={48} />
             <div className="flex flex-col">
               <span className="m-sans" style={{ fontWeight: 700, fontSize: 15, color: 'var(--m-ink)' }}>
                 {FEATURED.name}
@@ -162,7 +158,7 @@ export default function NReviews() {
               </h3>
               <p className="mt-2 m-body-sm">&ldquo;{r.quote}&rdquo;</p>
               <div className="mt-auto flex items-center gap-3 pt-4">
-                <Avatar bg={r.avatarBg} initials={r.initials} />
+                <Avatar photo={r.photo} name={r.name} />
                 <div className="flex flex-col">
                   <span className="m-sans" style={{ fontWeight: 600, fontSize: 14, lineHeight: '20px', color: 'var(--m-ink)' }}>
                     {r.name}

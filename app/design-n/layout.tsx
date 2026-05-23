@@ -8,6 +8,7 @@ import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans, Open_Sans, DM_Serif_Display, Poppins } from 'next/font/google'
 import { BRAND_COLORS, BRAND_COLOR_KEY } from './_components/brandColors'
+import NSharedHeader from './_components/NSharedHeader'
 
 export const metadata: Metadata = {
   title: 'Logo.AI — Professional logos in 60 seconds',
@@ -98,6 +99,31 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --m-radius-lg: 10px;
           --m-radius-xl: 16px;
           --m-radius-pill: 9999px;
+
+          /* Hero eyebrow — plain text by default (no pill background, no
+             shadow ring, no padding). Toggles can override per scope. */
+          --n-hero-eyebrow-bg: transparent;
+          --n-hero-eyebrow-shadow: none;
+          --n-hero-eyebrow-pad: 0;
+
+          /* How-It-Works cards — lifted to --m-surface-alt with no shadow,
+             matching the Risk-Free section card style. */
+          --n-howitworks-card-bg: var(--m-surface-alt);
+          --n-howitworks-card-shadow: none;
+
+          /* Footer trust-tick + footer link hover — both use the brand
+             colour by default. Toggles can override per scope. */
+          --n-footer-check: var(--m-brand);
+          --n-footer-link-hover: var(--m-brand);
+
+          /* Global font defaults — Mozilla Headline (display + logo) and
+             Mozilla Text (sans). Any toggle that wants its own typography
+             can override these vars in its scoped block. */
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+          --m-logo-font: var(--m-font-display);
+          --m-logo-weight: 700;
+          --m-logo-size: 28px;
 
           background: var(--m-surface);
           color: var(--m-ink);
@@ -217,75 +243,6 @@ export default function NLayout({ children }: { children: ReactNode }) {
            carousel (e.g. the Character.AI theme). */
         .m-theme[data-hide-hero-carousel] [data-n-hero-carousel] { display: none; }
 
-        /* Character.AI — near-monochrome treatment matching the Figma:
-           off-white #FAFAFA surfaces, white cards, black panels/footer, and
-           the pastel gradient reserved for the hero alone. Black rating
-           stars, black mockup frame, and a bottom CTA with no filled band. */
-        .m-theme[data-brand-color="character-ai"] {
-          --m-star: #000000;
-          /* Text on dark backgrounds → pure #FFFFFF (matching the Figma,
-             which uses pure white on its black panels) rather than the
-             default soft greys. */
-          --m-text-on-dark: #FFFFFF;
-          --m-text-on-dark-muted: #FFFFFF;
-          /* Bottom CTA → a plain off-white section (no band, no card): the
-             section carries the off-white --m-brand-bg, inner block is
-             transparent. */
-          --n-cta-section-bg: var(--m-brand-bg);
-          --n-cta-band-bg: transparent;
-          --n-cta-band-pad: 0;
-          --n-cta-fg: var(--m-ink-deep);
-          --n-cta-fg-sub: var(--m-text-muted);
-          --n-cta-fg-soft: var(--m-text-soft);
-          --n-cta-btn-bg: #000000;
-          --n-cta-btn-bg-hover: #2E2E2E;
-          --n-cta-btn-fg: #FFFFFF;
-          /* Comparison-table yes/no icons → monochrome (black tick,
-             light-grey cross with a dark mark). */
-          --n-yes: #000000;
-          --n-no: #E5E7EB;
-          --n-no-mark: #6A7282;
-          /* Green check icons (Risk-Free, Pricing, How-It-Works) → black. */
-          --n-check: #000000;
-          /* Onboarding funnel → monochrome: green success states and the
-             green "verified" rating stars go black under this theme. The
-             Google "G" is left full-colour — a third-party brand mark,
-             exempt from theme recolouring by convention. */
-          --m-success: #000000;
-          --m-success-bright: #000000;
-          --m-success-bold: #000000;
-          --n-rating-star: #000000;
-          /* Black mockup frame; pure-black footer; white footer ticks. */
-          --n-mockup-frame-bg: #000000;
-          --n-mockup-frame-border: #000000;
-          --n-footer-bg: #000000;
-          --n-footer-check: #FFFFFF;
-          /* The single use of the pastel gradient — the "See It In The Real
-             World" mockups band. The EXACT Figma "Topics" radial gradient:
-             stops #C6F9FF → #F2D0FF → #FFFDEA, and geometry derived straight
-             from the Figma node's gradient transform matrix
-             (matrix(161.28 0 0 170.13 126.28 -271.48), r=10, in a 1928-wide
-             box) → centre 6.55%/-14.08vw, radii 83.65vw × 88.24vw. vw units
-             keep the Figma's true proportions at any viewport width. */
-          --n-mockups-bg: radial-gradient(83.65vw 88.24vw at 6.55% -14.08vw, #C6F9FF 0%, #F2D0FF 50%, #FFFDEA 100%);
-          /* The band fades out top and bottom with a long, smooth feather
-             so it merges seamlessly into the section — no hard line, no
-             grain. The fade runs a generous 200px for a soft, gradual blend. */
-          --n-mockups-mask:
-            linear-gradient(to bottom, transparent 0, #000 200px, #000 calc(100% - 200px), transparent 100%);
-          /* The mockups section base is pure white — same as the sections
-             above and below — so the feathered band dissolves into the
-             exact surrounding colour with no tonal step at the edges. */
-          --n-mockups-section-bg: var(--m-surface);
-        }
-
-        /* Character.AI card hover — the brand-soft border tint is neutral
-           grey here, so the default hover-border barely reads. Darken it to
-           a clear soft grey so cards get a visible hover like other toggles
-           (the lift + shadow already apply theme-independently). */
-        .m-theme[data-brand-color="character-ai"] .m-card-hover:hover {
-          border-color: #C8C8C8;
-        }
 
         /* Freepik — a full dark theme: near-black surfaces, light text,
            blue #336AEA CTA (colours from public/freepik-exact.html).
@@ -331,17 +288,6 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-mockup-frame-border-css: 2px solid var(--m-brand);
           --n-mockup-frame-shadow: var(--n-pricing-shadow);
           --n-mockup-frame-pad: 0;
-          /* Top-nav CTA — outlined, design-L style: transparent with a
-             faint white border, fills with the brand colour on hover. */
-          --n-nav-cta-bg: transparent;
-          --n-nav-cta-border-c: rgba(255,255,255,0.25);
-          --n-nav-cta-shadow: none;
-          --n-nav-cta-bg-hover: var(--m-brand);
-          --n-nav-cta-border-c-hover: var(--m-brand);
-          /* Hero eyebrow — plain text like the section eyebrows, no pill. */
-          --n-hero-eyebrow-bg: transparent;
-          --n-hero-eyebrow-shadow: none;
-          --n-hero-eyebrow-pad: 0;
           /* Mockups + pricing sections drop the alternating #141414 tint —
              flat #0D0D0D surface so there are no different-shade bands. The
              mockups section has TWO layers (a base + a masked overlay) — both
@@ -375,7 +321,8 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-yes: #336AEA;
           --n-no: #3A3A3A;
           --n-no-mark: #9A9A9A;
-          --n-footer-check: #648EEF;
+          /* Hero highlight figures — white on the dark surface. */
+          --n-hero-highlight: #FFFFFF;
           /* Checkout modal — dark container + dark social-proof strip
              (defaults are a light off-white / warm tint). */
           --n-checkout-modal-bg: #141414;
@@ -425,14 +372,6 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-mockup-frame-border-css: 2px solid var(--m-brand);
           --n-mockup-frame-shadow: var(--n-pricing-shadow);
           --n-mockup-frame-pad: 0;
-          --n-nav-cta-bg: transparent;
-          --n-nav-cta-border-c: rgba(255,255,255,0.25);
-          --n-nav-cta-shadow: none;
-          --n-nav-cta-bg-hover: var(--m-brand);
-          --n-nav-cta-border-c-hover: var(--m-brand);
-          --n-hero-eyebrow-bg: transparent;
-          --n-hero-eyebrow-shadow: none;
-          --n-hero-eyebrow-pad: 0;
           --n-mockups-section-bg: var(--m-surface);
           --n-mockups-bg: var(--m-surface);
           --n-pricing-section-bg: var(--m-surface);
@@ -455,7 +394,8 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-yes: #E7420F;
           --n-no: #3A3A3A;
           --n-no-mark: #9A9A9A;
-          --n-footer-check: #F4926F;
+          /* Hero highlight figures — white on the dark surface. */
+          --n-hero-highlight: #FFFFFF;
           --n-checkout-modal-bg: #161210;
           --n-checkout-strip-bg: #191310;
           --n-pricing-shadow: 0 12px 32px rgba(231,66,15,0.22), 0 2px 10px rgba(0,0,0,0.5);
@@ -504,17 +444,6 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-mockup-frame-border-css: 2px solid var(--m-brand);
           --n-mockup-frame-shadow: var(--n-pricing-shadow);
           --n-mockup-frame-pad: 0;
-          --n-nav-cta-bg: transparent;
-          --n-nav-cta-border-c: rgba(255,255,255,0.25);
-          --n-nav-cta-shadow: none;
-          --n-nav-cta-bg-hover: var(--m-brand);
-          --n-nav-cta-border-c-hover: var(--m-brand);
-          /* Hero eyebrow — render as an outlined bar (no fill, faint neutral
-             ring) with the CTA's rounded-rect shape (override of the default
-             rounded-full pill is in a scoped rule below). */
-          --n-hero-eyebrow-bg: transparent;
-          --n-hero-eyebrow-shadow: 0 0 0 1px rgba(255,255,255,0.22);
-          --n-hero-eyebrow-pad: 10px 18px;
           --n-mockups-section-bg: var(--m-surface);
           --n-mockups-bg: var(--m-surface);
           --n-pricing-section-bg: var(--m-surface);
@@ -537,21 +466,10 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-yes: #E7420F;
           --n-no: #3A3A3A;
           --n-no-mark: #9A9A9A;
-          /* Footer trust-badge ticks — use the full brand vermillion so they
-             match every other check on the page (pricing, risk-free, etc.). */
-          --n-footer-check: var(--m-brand);
-          /* Footer link hover — match the header's nav-link hover (vermillion)
-             so both react to the cursor the same way. */
-          --n-footer-link-hover: var(--m-brand);
           /* Hero highlight figures (4.6M / 180,000+ / 90+ countries / 4.9/5)
              — white instead of the brand vermillion, so they read as bold
              white highlights against the pure-black hero. */
           --n-hero-highlight: #FFFFFF;
-          /* How-It-Works cards — lift to --m-surface-alt and drop the
-             brand-soft shadow so they read like the Risk-Free section cards
-             (the m-card-hover 1px border alone defines the card). */
-          --n-howitworks-card-bg: var(--m-surface-alt);
-          --n-howitworks-card-shadow: none;
           --n-checkout-modal-bg: #0A0A0A;
           --n-checkout-strip-bg: #0C0C0C;
           --n-pricing-shadow: 0 12px 32px rgba(231,66,15,0.22), 0 2px 10px rgba(0,0,0,0.5);
@@ -569,32 +487,13 @@ export default function NLayout({ children }: { children: ReactNode }) {
            children (content / marquee / trust strip); we only want the
            content one. */
         .m-theme[data-brand-color="vermillion-black"] [data-n-hero] > div:first-child > div {
-          padding-top: 80px;
+          padding-top: 64px;
         }
         @media (min-width: 768px) {
           .m-theme[data-brand-color="vermillion-black"] [data-n-hero] > div:first-child > div {
-            padding-top: 96px;
+            padding-top: 80px;
           }
         }
-        /* Vermillion Black — give the hero eyebrow the CTA's rounded-rect
-           shape instead of the default rounded-full pill. */
-        .m-theme[data-brand-color="vermillion-black"] [data-n-hero] .m-eyebrow {
-          border-radius: var(--m-radius-md);
-        }
-        /* Vermillion Black — hide both the eyebrow stars and the proof-line
-           stars; the rating text alone carries the message. */
-        .m-theme[data-brand-color="vermillion-black"] [data-n-hero] [data-n-hero-stars] {
-          display: none;
-        }
-        /* Vermillion Black — drop the lift-on-hover for How-It-Works cards
-           (they're informational, not clickable; the lift implies an
-           interaction that doesn't exist). */
-        .m-theme[data-brand-color="vermillion-black"] #how-it-works .m-card-hover:hover {
-          transform: none;
-          border-color: var(--m-border);
-          box-shadow: none;
-        }
-
         /* ─────────────────────────────────────────────────────────────
            Vermillion Black — onboarding: centered-minimal layout.
            Same questions, same one-per-step flow. Only the visual
@@ -604,64 +503,82 @@ export default function NLayout({ children }: { children: ReactNode }) {
            step-number badge hidden). Typeform / Framer feel.
            ───────────────────────────────────────────────────────────── */
 
-        /* Header — strip the border + opaque surface so the page reads
-           as one continuous black. Tighter top padding. */
-        .m-theme[data-brand-color="vermillion-black"] [data-n-start] > header {
-          background: transparent !important;
-          border-bottom: none !important;
+        /* The onboarding now uses the landing-page MHeader directly
+           (with hideNav), so logo placement / size / divider are inherited
+           from the landing nav automatically — no header overrides needed.
+           The remaining VB-only tweaks below target the progress + back
+           sub-section (data-n-step-controls). */
+
+        /* Unify the page background to pure black so MHeader (var(--m-surface))
+           and the rest of the onboarding share one continuous colour — no
+           visible band between header and content. The brand-bg #0C0C0C is
+           reserved for alternating sections on the landing page; the
+           onboarding doesn't need that mid-tone. */
+        .m-theme[data-brand-color="vermillion-black"] [data-n-start] {
+          background: var(--m-surface) !important;
         }
-        .m-theme[data-brand-color="vermillion-black"] [data-n-start] > header > div {
-          padding-top: 18px;
-          padding-bottom: 14px;
+
+        /* Progress + back sub-section — sticky directly below the nav
+           (min-h-[68px]) so the progress bar follows the user if the step
+           ever overflows. z below the nav so the nav still covers it on
+           scroll. */
+        .m-theme[data-brand-color="vermillion-black"] [data-n-step-controls] {
+          position: sticky;
+          top: 68px;
+          z-index: 40;
         }
-        /* Row 1 — left-align the logo (was justify-center). The close × is
-           absolute-right so it stays on the right edge. Mirrors the
-           headshot.ai reference layout. */
-        .m-theme[data-brand-color="vermillion-black"] [data-n-start] > header > div > div:first-child {
-          justify-content: flex-start !important;
+        /* Progress bar — clearer track + vermillion fill so it actually
+           reads as a progress bar (not a faint hairline). */
+        .m-theme[data-brand-color="vermillion-black"] [data-n-step-controls] > div > div:first-child {
+          background: rgba(255,255,255,0.1) !important;
         }
-        /* Progress hairline — slimmer (2px) and a touch more transparent. */
-        .m-theme[data-brand-color="vermillion-black"] [data-n-start] > header > div > div:nth-child(2) {
-          height: 2px !important;
-          background: rgba(255,255,255,0.08) !important;
-          margin-top: 16px !important;
+        .m-theme[data-brand-color="vermillion-black"] [data-n-step-controls] > div > div:first-child > div {
+          background: var(--m-brand) !important;
+        }
+        /* Hide the step-number circle — redundant with the progress bar
+           above. The back link on the left is the only thing in that row. */
+        .m-theme[data-brand-color="vermillion-black"] [data-n-step-controls] span[aria-label^="Step "] {
+          display: none !important;
         }
 
         /* Main content — wider, top-aligned (not vertically centered) so
            the question sits in the upper third and the dropdown / chip
-           grid below the input has room to expand without clipping. */
+           grid below the input has room to expand without clipping.
+           Tighter top padding so most steps fit in one viewport. */
         .m-theme[data-brand-color="vermillion-black"] [data-n-start] > main {
           max-width: 840px !important;
-          padding: 56px 24px 180px !important;
+          padding: 32px 24px 140px !important;
         }
         @media (min-width: 768px) {
           .m-theme[data-brand-color="vermillion-black"] [data-n-start] > main {
-            padding: 88px 32px 200px !important;
+            padding: 48px 32px 160px !important;
           }
         }
 
-        /* Step heading — make the question the hero of the screen. */
+        /* Step heading — smaller than the original Framer-hero size so a
+           full step fits in one viewport on a standard laptop. */
         .m-theme[data-brand-color="vermillion-black"] [data-n-start] > main h2.m-display {
-          font-size: clamp(34px, 5.8vw, 60px) !important;
-          line-height: 1.08 !important;
-          letter-spacing: -0.025em !important;
+          font-size: clamp(24px, 3.8vw, 36px) !important;
+          line-height: 1.15 !important;
+          letter-spacing: -0.02em !important;
           font-weight: 700 !important;
         }
-        /* Subtitle — larger and lighter, more space before the form. */
+        /* Subtitle — slightly larger and lighter. */
         .m-theme[data-brand-color="vermillion-black"] [data-n-start] > main h2.m-display + p {
-          font-size: 18px !important;
-          line-height: 1.55 !important;
-          margin-top: 18px !important;
-          max-width: 580px !important;
+          font-size: 15px !important;
+          line-height: 1.5 !important;
+          margin-top: 10px !important;
+          max-width: 560px !important;
           color: var(--m-text-muted) !important;
         }
-        /* Gap between the heading block and the form — much more breathing. */
+        /* Gap between the heading block and the form — generous but no
+           longer Framer-extreme so steps fit in viewport. */
         .m-theme[data-brand-color="vermillion-black"] [data-n-start] > main > div > div.text-center:first-child {
-          margin-bottom: 64px !important;
+          margin-bottom: 28px !important;
         }
         @media (min-width: 768px) {
           .m-theme[data-brand-color="vermillion-black"] [data-n-start] > main > div > div.text-center:first-child {
-            margin-bottom: 80px !important;
+            margin-bottom: 36px !important;
           }
         }
         /* Description / tagline suggestions — show as a 2-col grid instead of
@@ -679,6 +596,19 @@ export default function NLayout({ children }: { children: ReactNode }) {
         }
         .m-theme[data-brand-color="vermillion-black"] [data-n-start] [data-n-suggestions] > button {
           height: 100%;
+        }
+        /* "We've selected … for your brand" preselect note — restyled in
+           VB as a quiet caption line (no pill, no background) so the
+           AI-pick signal carries without crowding the step. */
+        .m-theme[data-brand-color="vermillion-black"] [data-n-start] [data-n-preselect-note] {
+          background: transparent !important;
+          padding: 0 !important;
+          border-radius: 0 !important;
+          color: var(--m-text-soft) !important;
+          font-style: italic !important;
+          font-size: 13px !important;
+          font-weight: 400 !important;
+          line-height: 1.5 !important;
         }
 
         /* Purple Black — a dark theme on the Freepik base: much-darker
@@ -714,14 +644,6 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-mockup-frame-border-css: 2px solid var(--m-brand);
           --n-mockup-frame-shadow: var(--n-pricing-shadow);
           --n-mockup-frame-pad: 0;
-          --n-nav-cta-bg: transparent;
-          --n-nav-cta-border-c: rgba(255,255,255,0.25);
-          --n-nav-cta-shadow: none;
-          --n-nav-cta-bg-hover: var(--m-brand);
-          --n-nav-cta-border-c-hover: var(--m-brand);
-          --n-hero-eyebrow-bg: transparent;
-          --n-hero-eyebrow-shadow: none;
-          --n-hero-eyebrow-pad: 0;
           --n-mockups-section-bg: var(--m-surface);
           --n-mockups-bg: var(--m-surface);
           --n-pricing-section-bg: var(--m-surface);
@@ -742,7 +664,8 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-yes: #7543E3;
           --n-no: #3A3A3A;
           --n-no-mark: #9A9A9A;
-          --n-footer-check: #A98BF0;
+          /* Hero highlight figures — white on the dark surface. */
+          --n-hero-highlight: #FFFFFF;
           --n-checkout-modal-bg: #0D0D0D;
           --n-checkout-strip-bg: #101010;
           --n-pricing-shadow: 0 12px 32px rgba(117,67,227,0.22), 0 2px 10px rgba(0,0,0,0.5);
@@ -790,21 +713,11 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-mockup-frame-border-css: 2px solid var(--m-brand);
           --n-mockup-frame-shadow: var(--n-pricing-shadow);
           --n-mockup-frame-pad: 0;
-          --n-nav-cta-bg: transparent;
-          --n-nav-cta-border-c: rgba(255,255,255,0.25);
-          --n-nav-cta-shadow: none;
-          /* Outlined nav CTA — keep the label white on hover (a faint fill,
-             not a solid white fill, so the white text stays readable). */
-          --n-nav-cta-bg-hover: rgba(255,255,255,0.12);
-          --n-nav-cta-border-c-hover: rgba(255,255,255,0.55);
           /* Nav links — Framer's grey-to-white hover. The theme is
              monochrome (brand == white == near-white ink), so links sit at
              a muted grey and brighten to pure white on hover. */
           --n-nav-link: #AEAEAE;
           --n-nav-link-hover: #FFFFFF;
-          --n-hero-eyebrow-bg: transparent;
-          --n-hero-eyebrow-shadow: none;
-          --n-hero-eyebrow-pad: 0;
           --n-mockups-section-bg: var(--m-surface);
           --n-mockups-bg: var(--m-surface);
           --n-pricing-section-bg: var(--m-surface);
@@ -816,6 +729,12 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-cta-btn-bg: var(--m-brand);
           --n-cta-btn-bg-hover: var(--m-brand-deep);
           --n-cta-btn-fg: var(--m-on-brand);
+          /* Top-nav CTA weight bump — only Framer has dark-on-light text
+             in the nav CTA; at the same numeric weight dark-on-light reads
+             thinner than light-on-dark. Bumped to 600 to match the hero
+             CTA's .m-cta-lg weight (which is also 600) — the two whites
+             then read as the same UI element. */
+          --n-nav-cta-weight: 600;
           /* Monochrome pass — white is the one accent; rating stars and
              no-crosses stay neutral grey. Check / yes circles are white
              with a black tick (--m-on-brand). */
@@ -829,6 +748,8 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-no: #3A3A3A;
           --n-no-mark: #9A9A9A;
           --n-footer-check: #FFFFFF;
+          /* Hero highlight figures — white on the dark surface. */
+          --n-hero-highlight: #FFFFFF;
           --n-checkout-modal-bg: #0A0A0A;
           --n-checkout-strip-bg: #141414;
           --n-pricing-shadow: 0 12px 32px rgba(255,255,255,0.06), 0 2px 10px rgba(0,0,0,0.6);
@@ -855,6 +776,9 @@ export default function NLayout({ children }: { children: ReactNode }) {
             )};var v=M[n];if(!v)return;var el=document.currentScript.parentElement;var s=el.style;s.setProperty('--m-brand',v.brand);s.setProperty('--m-brand-strong',v.strong);s.setProperty('--m-brand-deep',v.deep);s.setProperty('--m-brand-soft',v.soft);s.setProperty('--m-brand-bg',v.bg);s.setProperty('--m-brand-glow',v.glow);s.setProperty('--m-brand-on-dark',v.onDark);if(v.heroTint)s.setProperty('--m-hero-tint',v.heroTint);if(v.hideHeroCarousel)el.setAttribute('data-hide-hero-carousel','');el.setAttribute('data-brand-color',n.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''));}catch(e){}})();`,
           }}
         />
+        {/* Shared top nav — lives here so it stays mounted across client-
+            side navigations (landing → onboarding etc.), no remount/jump. */}
+        <NSharedHeader />
         {children}
       </div>
     </>

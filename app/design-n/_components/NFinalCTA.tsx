@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+
 // Final CTA — Design N. A plain, high-focus brand-colour band: centred
 // heading + subline + a white button + microcopy. No imagery — the bottom
 // CTA is purely for conversion focus. The band uses --m-brand so it
@@ -40,14 +42,15 @@ export default function NFinalCTA() {
         }}
       >
         <div className="flex flex-col items-center" style={{ maxWidth: 780 }}>
+          <p className="m-eyebrow" style={{ color: 'var(--n-cta-fg, #FFFFFF)' }}>Get Started</p>
           {/* Heading uses .m-h1 — same size as the landing-page hero. */}
-          <h2 className="m-h1" style={{ color: 'var(--n-cta-fg, #FFFFFF)', whiteSpace: 'normal' }}>
+          <h2 className="m-h1 mt-3" style={{ color: 'var(--n-cta-fg, #FFFFFF)', whiteSpace: 'normal' }}>
             Your professional logo is 60 seconds away
           </h2>
           <p className="m-sub mt-4" style={{ color: 'var(--n-cta-fg-sub, rgba(255,255,255,0.86))' }}>
-            The worst that can happen? You spend a minute and walk away.
+            Worst case? 60 seconds. Best case? A logo you love.
           </p>
-          <a
+          <Link
             href="/design-n/start"
             className="m-cta-lg inline-flex items-center justify-center gap-3 mt-8"
             style={{
@@ -70,12 +73,12 @@ export default function NFinalCTA() {
           >
             <span>Generate My Free Logos</span>
             <ArrowRight />
-          </a>
+          </Link>
           <p
             className="m-body-sm mt-4"
             style={{ fontSize: 13, color: 'var(--n-cta-fg-soft, rgba(255,255,255,0.72))' }}
           >
-            No payment needed to generate and preview your logos • Pay only to download
+            No payment required to see your logos
           </p>
         </div>
       </div>

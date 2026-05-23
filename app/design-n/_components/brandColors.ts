@@ -164,41 +164,6 @@ export const BRAND_COLORS: BrandColorOption[] = [
       'linear-gradient(135deg, #000000 0%, #000000 48%, #FFFFFF 52%, #FFFFFF 100%)',
     hideHeroCarousel: true,
   },
-  {
-    // Character.AI Safety Center palette (from the Figma capture). Matches
-    // the Figma's restraint exactly: the page is near-monochrome — off-white
-    // #FAFAFA surfaces (the Figma's "surface/base" token), white cards, black
-    // panels — and the pastel gradient (cyan #C6F9FF → pink #F2D0FF → cream
-    // #FFFDEA, the exact "Topics" section stops) appears in ONE section only.
-    name: 'Character.AI',
-    vars: {
-      brand: '#000000',
-      strong: '#000000',
-      // CTA hover background. Pure black has nothing darker, so the hover
-      // lifts the button to a dark grey instead — visible interaction
-      // feedback, the monochrome equivalent of the other toggles' darken.
-      deep: '#2E2E2E',
-      // Neutral light-grey for hover borders — no lilac tint.
-      soft: '#EDEDED',
-      // Every section uses the Figma's plain off-white background (#FAFAFA
-      // "Alabaster") — including the hero. The pastel gradient appears in
-      // exactly ONE section (the "See It In The Real World" mockups band,
-      // see --n-mockups-bg in layout.tsx), mirroring the Figma where the
-      // gradient is a single mid-page band and everything else is off-white.
-      bg: '#FAFAFA',
-      glow: '#6E6E6E',
-      onDark: '#FFFFFF',
-      // A whisper of the brand pastels on the hero — a very faint
-      // cyan → lilac wash that fades to pure white well before the section
-      // ends, so it merges seamlessly into the white section below (no
-      // edge). Far softer than the mockups band, which stays the one bold
-      // use of the gradient.
-      heroTint:
-        'linear-gradient(to bottom, #EBF5FB 0%, #F3EDFA 46%, #FFFFFF 88%)',
-    },
-    swatch: 'radial-gradient(130% 130% at 15% 0%, #C6F9FF 0%, #F2D0FF 50%, #FFFDEA 100%)',
-    hideHeroCarousel: true,
-  },
 ]
 
 // localStorage key — the toggle stores the chosen option NAME here; the

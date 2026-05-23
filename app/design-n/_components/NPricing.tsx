@@ -1,6 +1,8 @@
 // Pricing — single centered $49 one-time card. Copy from the LOGOAI
 // landing-page doc, section 9.
 
+import Link from 'next/link'
+
 function CheckIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
@@ -21,9 +23,9 @@ function ArrowRight() {
 const FEATURES = [
   'Your logo in every format you need (PNG, SVG, PDF, EPS)',
   'Transparent background — works on any color',
-  'Re-download anytime',
-  'Full commercial license',
-  '100% satisfaction guarantee',
+  'Brand Guidelines PDF — how to use your logo, its exact colors, and matching fonts',
+  'Full commercial license — use it anywhere you want',
+  'Yours forever — re-download as many times as you want',
 ]
 
 export default function NPricing() {
@@ -37,10 +39,12 @@ export default function NPricing() {
         {/* Heading */}
         <div className="flex flex-col gap-4 items-center text-center">
           <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>Pricing</p>
-          <h2 className="m-h2">Professional logos at an unbelievable price</h2>
+          <h2 className="m-h2">Designer-quality logos at a fraction of the price</h2>
           <p className="m-sub max-w-[640px]">
-            Designers charge $1,500+ for the same quality. We charge a fraction of that. Free to
-            generate and preview, pay only if you love it.
+            A freelance designer costs $1,500+ — ours is just $49. Plus, you preview your logos free. Pay only when you find one you love.
+          </p>
+          <p className="m-sans" style={{ fontSize: 13, color: 'var(--m-text-soft)' }}>
+            100% Money-Back Guarantee · One-time payment, no subscription
           </p>
         </div>
 
@@ -93,7 +97,7 @@ export default function NPricing() {
           </ul>
 
           {/* CTA */}
-          <a
+          <Link
             href="/design-n/start"
             className="m-cta-lg m-cta-btn inline-flex items-center justify-center gap-3 w-full mt-8"
             style={{
@@ -105,7 +109,7 @@ export default function NPricing() {
           >
             <span>Generate My Free Logos</span>
             <ArrowRight />
-          </a>
+          </Link>
         </div>
       </div>
     </section>
