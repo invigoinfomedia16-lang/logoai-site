@@ -100,7 +100,7 @@ export default function NHero() {
               <ArrowRight />
             </Link>
             <p className="m-body-sm" style={{ fontSize: 13, color: 'var(--m-text-soft)' }}>
-              No payment required to see your logos
+              No credit card required to preview your logos
             </p>
           </div>
         </div>
@@ -147,8 +147,7 @@ export default function NHero() {
         <div className="mx-auto w-full max-w-[1536px] px-2 sm:px-4 flex flex-col items-center gap-5">
           <p className="text-center m-body" style={{ fontSize: 18, lineHeight: '28px' }}>
             <span style={{ fontWeight: 700, color: 'var(--n-hero-highlight, var(--m-brand))' }}>180,000+</span>
-            {' '}logos generated for businesses across{' '}
-            <span style={{ fontWeight: 700, color: 'var(--n-hero-highlight, var(--m-brand))' }}>90+ countries</span>
+            {' '}logos generated and counting
           </p>
         </div>
       </div>

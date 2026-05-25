@@ -35,7 +35,7 @@ export default function NBlog() {
       <div className="flex flex-col gap-12 items-center w-full max-w-[1280px] px-2 sm:px-4">
         {/* Heading */}
         <div className="flex flex-col gap-4 items-center text-center">
-          <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>From the Blog</p>
+          <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>Blog</p>
           <h2 className="m-h2">Logo &amp; branding tips for your business</h2>
           <p className="m-sub max-w-[680px]">
             Practical guides to help you build a brand that stands out.

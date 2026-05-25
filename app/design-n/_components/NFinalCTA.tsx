@@ -42,13 +42,13 @@ export default function NFinalCTA() {
         }}
       >
         <div className="flex flex-col items-center" style={{ maxWidth: 780 }}>
-          <p className="m-eyebrow" style={{ color: 'var(--n-cta-fg, #FFFFFF)' }}>Get Started</p>
+          <p className="m-eyebrow" style={{ color: 'var(--n-cta-eyebrow, var(--m-brand))' }}>Get Started</p>
           {/* Heading uses .m-h1 — same size as the landing-page hero. */}
           <h2 className="m-h1 mt-3" style={{ color: 'var(--n-cta-fg, #FFFFFF)', whiteSpace: 'normal' }}>
             Your professional logo is 60 seconds away
           </h2>
           <p className="m-sub mt-4" style={{ color: 'var(--n-cta-fg-sub, rgba(255,255,255,0.86))' }}>
-            Worst case? 60 seconds. Best case? A logo you love.
+            Worst case, you lose 60 seconds. Best case, you find a logo you love.
           </p>
           <Link
             href="/design-n/start"
@@ -78,7 +78,7 @@ export default function NFinalCTA() {
             className="m-body-sm mt-4"
             style={{ fontSize: 13, color: 'var(--n-cta-fg-soft, rgba(255,255,255,0.72))' }}
           >
-            No payment required to see your logos
+            No credit card required to preview your logos
           </p>
         </div>
       </div>

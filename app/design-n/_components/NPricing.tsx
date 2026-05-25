@@ -22,7 +22,7 @@ function ArrowRight() {
 
 const FEATURES = [
   'Your logo in every format you need (PNG, SVG, PDF, EPS)',
-  'Transparent background — works on any color',
+  'Transparent background — works on any background color',
   'Brand Guidelines PDF — how to use your logo, its exact colors, and matching fonts',
   'Full commercial license — use it anywhere you want',
   'Yours forever — re-download as many times as you want',
@@ -41,7 +41,7 @@ export default function NPricing() {
           <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>Pricing</p>
           <h2 className="m-h2">Designer-quality logos at a fraction of the price</h2>
           <p className="m-sub max-w-[640px]">
-            A freelance designer costs $1,500+ — ours is just $49. Plus, you preview your logos free. Pay only when you find one you love.
+            A freelance designer costs $1,500+ — ours is just $49. Plus, you preview your logos free and pay only when you find one you love.
           </p>
         </div>
 
@@ -69,7 +69,7 @@ export default function NPricing() {
             className="m-sans mt-1"
             style={{ fontSize: 15, color: 'var(--m-text-soft)', fontWeight: 600 }}
           >
-            One-time payment · 100% Money-Back Guarantee
+            One-time payment, no subscription · 100% Money-Back Guarantee
           </p>
 
           {/* Divider */}

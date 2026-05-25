@@ -12,11 +12,11 @@ import {
   Presentation,
   FileText,
   Megaphone,
-  Video,
+  MailOpen,
   IdCard,
   Building2,
   Package,
-  Truck,
+  Flag,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -68,9 +68,9 @@ const GROUPS: Group[] = [
         body: 'A consistent logo across ads builds recognition over time.',
       },
       {
-        Icon: Video,
-        title: 'Webinars & online events',
-        body: 'Slide decks, registration pages, and replay landing pages — branded end to end.',
+        Icon: MailOpen,
+        title: 'Email campaigns & newsletters',
+        body: 'Branded marketing emails feel more professional — and stand out in crowded inboxes.',
       },
     ],
   },
@@ -93,9 +93,9 @@ const GROUPS: Group[] = [
         body: 'Boxes, labels, tags, merch — full commercial license means you can put your logo on anything.',
       },
       {
-        Icon: Truck,
-        title: 'Vehicle wraps & fleet',
-        body: 'Delivery vans, branded company cars, food trucks — your logo on the move builds local recognition.',
+        Icon: Flag,
+        title: 'Event banners & posters',
+        body: 'Stand out at trade shows, pop-ups, and conferences with a logo that holds up at any size.',
       },
     ],
   },
@@ -148,10 +148,10 @@ export default function NUseCases() {
       <div className="flex flex-col gap-12 items-center w-full max-w-[1280px] px-2 sm:px-4">
         {/* Heading */}
         <div className="flex flex-col gap-4 items-center text-center">
-          <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>Where People Use Their Logo</p>
-          <h2 className="m-h2">Wherever your brand shows up</h2>
+          <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>Use Cases</p>
+          <h2 className="m-h2">Use your logo everywhere your brand goes</h2>
           <p className="m-sub max-w-[720px]">
-            Your logo is the face of your business. Here&apos;s where our customers use theirs.
+            Your logo is the face of your business. Here&apos;s where you&apos;ll put yours.
           </p>
         </div>
 

@@ -17,7 +17,7 @@ const ROWS: Row[] = [
   { feature: 'Price', freelance: '$500–$2,500', otherAI: '$20–$96/year (with upsells)', logoai: '$49 one-time' },
   { feature: 'No design skills needed', freelance: false, otherAI: false, logoai: true },
   { feature: 'Preview before paying', freelance: false, otherAI: false, logoai: true },
-  { feature: '100% satisfaction guarantee', freelance: false, otherAI: false, logoai: true },
+  { feature: '100% Money-Back Guarantee', freelance: false, otherAI: false, logoai: true },
   { feature: 'Vector files (SVG, PDF, EPS)', freelance: true, otherAI: 'Costs extra', logoai: true },
   { feature: 'Transparent background (PNG)', freelance: 'Sometimes', otherAI: 'Sometimes', logoai: true },
   { feature: 'Brand Guidelines PDF included', freelance: 'Costs extra', otherAI: false, logoai: true },

@@ -5,9 +5,12 @@
 // padded container, with pagination dots below. Copy from the LOGOAI
 // landing-page doc, section 6.
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Image from 'next/image'
 import { CATEGORIES, getMockupImages } from '@/data'
+
+// Default-visible chips — those flagged `isPopular` in the data file.
+const POPULAR_CATEGORIES = CATEGORIES.filter((c) => c.isPopular)
 
 function CategoryPill({
   label,
@@ -59,9 +62,30 @@ function CategoryPill({
 export default function NMockups() {
   const [activeCategory, setActiveCategory] = useState<string>(CATEGORIES[0]?.key ?? 'restaurant')
   const [slide, setSlide] = useState(0)
+  const [query, setQuery] = useState('')
+  const [showAll, setShowAll] = useState(false)
   const mockups = getMockupImages(activeCategory)
   const activeCategoryName =
     CATEGORIES.find((c) => c.key === activeCategory)?.name ?? 'business'
+
+  // Visible pills:
+  //  - searching → live filter against the full list (case-insensitive)
+  //  - showAll   → full list
+  //  - default   → POPULAR_CATEGORIES (the 16 flagged in data/index.ts)
+  // Always include the active category so the user never loses their
+  // selection even if it falls outside the visible window.
+  const trimmedQuery = query.trim().toLowerCase()
+  const visibleCategories = useMemo(() => {
+    if (trimmedQuery) {
+      return CATEGORIES.filter((c) => c.name.toLowerCase().includes(trimmedQuery))
+    }
+    const base = showAll ? CATEGORIES : POPULAR_CATEGORIES
+    if (base.some((c) => c.key === activeCategory)) return base
+    const active = CATEGORIES.find((c) => c.key === activeCategory)
+    return active ? [active, ...base] : base
+  }, [trimmedQuery, showAll, activeCategory])
+
+  const hiddenCount = CATEGORIES.length - POPULAR_CATEGORIES.length
 
   // Reset to first slide when the category changes.
   useEffect(() => {
@@ -120,38 +144,139 @@ export default function NMockups() {
       <div className="relative z-[1] flex flex-col gap-10 md:gap-12 items-start w-full max-w-[1280px] mx-auto px-2 sm:px-4">
         {/* Heading */}
         <div className="flex flex-col gap-4 items-center text-center w-full">
-          <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>In The Real World</p>
+          <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>Real-World</p>
           <h2 className="m-h2" style={{ color: 'var(--m-ink-deep)' }}>
-            Looks great everywhere
+            Picture your logo everywhere
           </h2>
           <p className="m-sub max-w-[820px]">
-            Here&apos;s how our logos look across websites, business cards, and everywhere your brand shows up. They look sharp at any size, on any surface.
+            Here&apos;s how our logos look on websites, business cards, signage, and anywhere your brand needs to show up.
           </p>
         </div>
 
-        {/* Category tabs — 16 industries */}
-        <div className="relative w-full">
-          <div
-            className="md:hidden absolute right-0 top-0 bottom-0 w-10 pointer-events-none z-10"
-            style={{ background: 'linear-gradient(to right, transparent, var(--m-surface))' }}
-            aria-hidden="true"
-          />
-          <div
-            className="flex md:flex-wrap md:justify-center gap-2.5 overflow-x-auto md:overflow-visible pb-1 md:pb-0 -mx-5 px-5 md:mx-0 md:px-0"
-            style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}
-          >
-            {CATEGORIES.map((cat) => (
-              <CategoryPill
-                key={cat.key}
-                label={cat.name}
-                active={cat.key === activeCategory}
-                onClick={() => {
-                  if (cat.key === activeCategory) return
-                  setActiveCategory(cat.key)
-                }}
-              />
-            ))}
+        {/* Category browse — search field + popular pills + "See all"
+            expander. Same pattern as NGallery: search is always available;
+            pills show POPULAR_COUNT by default, full list when expanded;
+            live-filter as the user types. */}
+        <div className="flex flex-col gap-5 items-center w-full">
+          {/* Search input */}
+          <div className="relative w-full max-w-[460px]">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                left: 16,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                color: 'var(--m-text-muted)',
+                pointerEvents: 'none',
+              }}
+            >
+              <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="1.6" />
+              <path d="M13 13l3 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            </svg>
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder={`Search ${CATEGORIES.length} industries…`}
+              aria-label="Search industries"
+              className="m-sans w-full"
+              style={{
+                background: 'var(--m-surface-alt)',
+                border: '1px solid var(--m-border)',
+                borderRadius: 'var(--m-radius-md)',
+                color: 'var(--m-ink)',
+                fontSize: 15,
+                lineHeight: '20px',
+                padding: '12px 16px 12px 44px',
+                outline: 'none',
+                transition: 'border-color 0.15s ease',
+              }}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = 'var(--m-brand)'
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = 'var(--m-border)'
+              }}
+            />
           </div>
+
+          {/* Pills — hybrid mobile layout:
+              - Default (popular + not searching): single horizontal-scroll
+                row on mobile (16 chips swipe comfortably; fade hint at right
+                edge), wrap on tablet+.
+              - Expanded or searching: wrap on every breakpoint so all
+                visible chips are tappable without endless swiping. */}
+          {visibleCategories.length === 0 ? (
+            <p
+              className="m-sans"
+              style={{ color: 'var(--m-text-muted)', fontSize: 14, padding: '8px 0' }}
+            >
+              No industries match &ldquo;{query}&rdquo;. Try a different term.
+            </p>
+          ) : !trimmedQuery && !showAll ? (
+            <div className="relative w-full">
+              <div
+                className="md:hidden absolute right-0 top-0 bottom-0 w-10 pointer-events-none z-10"
+                style={{ background: 'linear-gradient(to right, transparent, var(--m-surface))' }}
+                aria-hidden="true"
+              />
+              <div
+                className="flex md:flex-wrap md:justify-center gap-2.5 overflow-x-auto md:overflow-visible pb-1 md:pb-0 -mx-5 px-5 md:mx-0 md:px-0"
+                style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}
+              >
+                {visibleCategories.map((cat) => (
+                  <CategoryPill
+                    key={cat.key}
+                    label={cat.name}
+                    active={cat.key === activeCategory}
+                    onClick={() => {
+                      if (cat.key === activeCategory) return
+                      setActiveCategory(cat.key)
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-wrap justify-center gap-2.5 w-full">
+              {visibleCategories.map((cat) => (
+                <CategoryPill
+                  key={cat.key}
+                  label={cat.name}
+                  active={cat.key === activeCategory}
+                  onClick={() => {
+                    if (cat.key === activeCategory) return
+                    setActiveCategory(cat.key)
+                  }}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* See all / show fewer */}
+          {!trimmedQuery && hiddenCount > 0 && (
+            <button
+              type="button"
+              onClick={() => setShowAll((v) => !v)}
+              className="m-sans"
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'var(--m-brand)',
+                fontSize: 14,
+                fontWeight: 600,
+                cursor: 'pointer',
+                padding: '4px 8px',
+              }}
+            >
+              {showAll ? 'Show fewer' : `See all ${CATEGORIES.length} industries →`}
+            </button>
+          )}
         </div>
 
         {/* Frame — plain padded container around the carousel. Themeable:

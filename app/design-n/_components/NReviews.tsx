@@ -104,14 +104,25 @@ export default function NReviews() {
         {/* Heading */}
         <div className="flex flex-col items-center text-center">
           <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>
-            Rated 4.9/5 from 12,000+ reviews
+            Reviews
           </p>
           <h2 id="n-reviews-heading" className="m-h2 mt-3">
-            Don&apos;t just take our word for it
+            Hear it from people like you
           </h2>
           <p className="mt-3 m-sub max-w-[640px]">
             Real reviews from real founders, agencies, and small business owners. Read a few, then decide.
           </p>
+          {/* Rating row — stars + "Rated 4.9/5 from 12,000+ reviews", per
+              the LOGOAI landing-page doc, section 5. */}
+          <div className="mt-5 flex items-center gap-2">
+            <StarRow size={18} />
+            <span
+              className="m-sans"
+              style={{ fontSize: 14, fontWeight: 600, color: 'var(--m-ink)' }}
+            >
+              Rated 4.9/5 from 12,000+ reviews
+            </span>
+          </div>
         </div>
 
         {/* Featured review */}

@@ -124,38 +124,158 @@ export const BRAND_COLORS: BrandColorOption[] = [
     hideHeroCarousel: true,
   },
   {
-    // sync.so Orange — built on the same Framer / sync.so dark-surface base
-    // as the sync.so toggle, but with sync.so's "Flush Orange" #FF7700 CTA
-    // (sampled from their Figma design file — variable color/orange/50 /
-    // sync.so/Flush Orange). Surface and border tokens mirror their Figma:
-    // grey/7 #121213 surface, grey/14 #222225 border, grey/83 #D4D4D4 and
-    // grey/65 #A1A1AA text. Typography stays our Mozilla Headline +
-    // Mozilla Text (inherited from the global root — sync.so's Satoshi is
-    // intentionally NOT used). Scoped via [data-brand-color="sync-so-orange"]
-    // in layout.tsx.
-    name: 'sync.so Orange',
+    // Electric Violet — vivid electric blue-violet #5A3FE6 picked to render
+    // IDENTICALLY across browsers/displays. The earlier #0000FF / #3322EE
+    // pushed the blue channel to 93–100%, which sits right at the edge of
+    // the sRGB gamut — Chrome's display-p3 pipeline clipped that toward
+    // purple while Firefox's sRGB pipeline kept it flat-blue. #5A3FE6
+    // (R: 90, G: 63, B: 230 = 90% blue, but R+G also lifted) sits well
+    // inside sRGB so no browser has to clip → same look everywhere.
+    // Same dark surface base as the other sync.so toggles. Typography
+    // inherits the global Mozilla. Scoped via [data-brand-color=
+    // "electric-violet"] in layout.tsx.
+    name: 'Electric Violet',
     vars: {
-      // sync.so's exact Flush Orange CTA.
-      brand: '#FF7700',
-      strong: '#FFA866',
-      // CTA hover — a stop darker.
-      deep: '#CC5F00',
+      // Balanced electric blue-violet — renders consistently across browsers.
+      brand: '#5A3FE6',
+      strong: '#8B7BF6',
+      // CTA hover — a stop deeper.
+      deep: '#4128C2',
       // Featured-review border + soft-brand surfaces — kept near-black
-      // so the card edge reads as "almost not there", matching sync.so's
-      // own pages where the featured card barely lifts off the page.
+      // so the card edge reads as "almost not there".
       soft: '#161616',
       // Alternating section / card background — barely a percent off
-      // pure black. sync.so's reference shows cards as an "almost not
-      // there" fill; anything visibly grey reads as too lifted.
+      // pure black.
       bg: '#060607',
-      glow: '#FFA866',
-      onDark: '#FFA866',
+      glow: '#8B7BF6',
+      onDark: '#8B7BF6',
       // Flat pure-black hero (matches the sync.so site background).
       heroTint: '#000000',
     },
-    // Half pure-black / half flush-orange — signals dark theme + CTA colour.
+    // Half pure-black / half electric-violet — signals dark theme + CTA.
     swatch:
-      'linear-gradient(135deg, #000000 0%, #000000 48%, #FF7700 52%, #FF7700 100%)',
+      'linear-gradient(135deg, #000000 0%, #000000 48%, #5A3FE6 52%, #5A3FE6 100%)',
+    hideHeroCarousel: true,
+  },
+  {
+    // Soft Violet — a friendlier sibling of Electric Violet, picked to feel
+    // more "premium SaaS" (Stripe / Linear) than "electric / Loop". #7A6BFA
+    // sits in the same gamut-stable zone (R: 122, G: 107, B: 250 — no
+    // channel at the saturated edge) so it renders identically across
+    // browsers. Same dark surface base as the other sync.so toggles;
+    // typography inherits the global Mozilla. Scoped via
+    // [data-brand-color="soft-violet"] in layout.tsx.
+    name: 'Soft Violet',
+    vars: {
+      // Lighter, friendlier purple-violet.
+      brand: '#7A6BFA',
+      strong: '#B4ACFE',
+      // CTA hover — a stop deeper.
+      deep: '#5F4FDE',
+      // Featured-review border + soft-brand surfaces — kept near-black so
+      // the card edge reads as "almost not there".
+      soft: '#161616',
+      // Alternating section / card background — barely a percent off pure
+      // black, so the lift is just perceptible.
+      bg: '#060607',
+      glow: '#B4ACFE',
+      onDark: '#B4ACFE',
+      // Flat pure-black hero (matches the sync.so site background).
+      heroTint: '#000000',
+    },
+    // Half pure-black / half soft-violet — signals dark theme + CTA.
+    swatch:
+      'linear-gradient(135deg, #000000 0%, #000000 48%, #7A6BFA 52%, #7A6BFA 100%)',
+    hideHeroCarousel: true,
+  },
+  {
+    // Bright Vermillion — a punchier, more energetic sibling of the
+    // original #E7420F vermillion. Same warm orange-red family but
+    // lifted toward "startup orange" — closer to HubSpot / modern SaaS
+    // energy. Cross-browser stable (R: 255 sits at the edge but the
+    // hue stays warm enough that display-p3 doesn't shift it). Same
+    // dark surface base as the other sync.so toggles; typography
+    // inherits the global Mozilla. Scoped via
+    // [data-brand-color="bright-vermillion"] in layout.tsx.
+    name: 'Bright Vermillion',
+    vars: {
+      // Brighter, more energetic vermillion.
+      brand: '#FF5A1F',
+      strong: '#FF9472',
+      // CTA hover — a stop deeper.
+      deep: '#D14515',
+      // Featured-review border + soft-brand surfaces — kept near-black
+      // so the card edge reads as "almost not there".
+      soft: '#161616',
+      // Alternating section / card background — barely a percent off
+      // pure black.
+      bg: '#060607',
+      glow: '#FF9472',
+      onDark: '#FF9472',
+      // Flat pure-black hero.
+      heroTint: '#000000',
+    },
+    // Half pure-black / half bright vermillion — signals dark theme + CTA.
+    swatch:
+      'linear-gradient(135deg, #000000 0%, #000000 48%, #FF5A1F 52%, #FF5A1F 100%)',
+    hideHeroCarousel: true,
+  },
+  {
+    // Charcoal Vermillion — same #FF5A1F CTA as Bright Vermillion, but
+    // sitting on Purple Black's softer charcoal base (#050505 surface,
+    // #0A0A0A card) instead of pure black. The slightly-warmer charcoal
+    // reads a hair less "void" than the pure-black toggles — more like a
+    // matte-black product photo than a stage curtain. Cross-browser stable.
+    // Typography inherits the global Mozilla. Scoped via
+    // [data-brand-color="charcoal-vermillion"] in layout.tsx.
+    name: 'Charcoal Vermillion',
+    vars: {
+      brand: '#FF5A1F',
+      strong: '#FF9472',
+      deep: '#D14515',
+      // Featured-review border + soft-brand surfaces — kept near-black
+      // so the card edge reads as "almost not there".
+      soft: '#161616',
+      // Alternating section / card background — Purple Black's
+      // subtle-lift value, a couple stops above the #050505 page base.
+      bg: '#0A0A0A',
+      glow: '#FF9472',
+      onDark: '#FF9472',
+      // Hero / page base — Purple Black's softer charcoal, not pure black.
+      heroTint: '#050505',
+    },
+    // Half charcoal / half bright vermillion — signals charcoal theme + CTA.
+    swatch:
+      'linear-gradient(135deg, #050505 0%, #050505 48%, #FF5A1F 52%, #FF5A1F 100%)',
+    hideHeroCarousel: true,
+  },
+  {
+    // Charcoal Violet — Electric Violet's #5A3FE6 CTA on Purple Black's
+    // softer charcoal base (#050505 / #0A0A0A) instead of pure black. The
+    // slightly-warmer charcoal reads a hair less "void" than the pure-
+    // black toggles — same logic as Charcoal Vermillion, just with the
+    // gamut-stable electric violet hue. Cross-browser stable. Typography
+    // inherits the global Mozilla. Scoped via [data-brand-color=
+    // "charcoal-violet"] in layout.tsx.
+    name: 'Charcoal Violet',
+    vars: {
+      brand: '#5A3FE6',
+      strong: '#8B7BF6',
+      deep: '#4128C2',
+      // Featured-review border + soft-brand surfaces — kept near-black
+      // so the card edge reads as "almost not there".
+      soft: '#161616',
+      // Alternating section / card background — Purple Black's
+      // subtle-lift value, a couple stops above the #050505 page base.
+      bg: '#0A0A0A',
+      glow: '#8B7BF6',
+      onDark: '#8B7BF6',
+      // Hero / page base — Purple Black's softer charcoal, not pure black.
+      heroTint: '#050505',
+    },
+    // Half charcoal / half electric violet — signals charcoal theme + CTA.
+    swatch:
+      'linear-gradient(135deg, #050505 0%, #050505 48%, #5A3FE6 52%, #5A3FE6 100%)',
     hideHeroCarousel: true,
   },
 ]

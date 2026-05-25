@@ -30,23 +30,79 @@ export function getLogosRemaining(): number {
 }
 
 // ─── Categories ─────────────────────────────────────────────────────────────
+// Full industry list mirrored from the live Logo.AI site: 16 "popular"
+// industries (shown by default on landing-page tab strips) + 49 others
+// (revealed via search / "See all"). The `isPopular` flag drives which
+// chips show up first; consumers that just need the list can iterate
+// `CATEGORIES` directly.
 export const CATEGORIES = [
-  { name: 'Restaurant', key: 'restaurant' },
-  { name: 'Coffee Shop', key: 'coffee-shop' },
-  { name: 'Bakery', key: 'bakery' },
-  { name: 'Food Truck', key: 'food-truck' },
-  { name: 'Barbershop', key: 'barbershop' },
-  { name: 'Hair Salon', key: 'hair-salon' },
-  { name: 'Nail Studio', key: 'nail-studio' },
-  { name: 'Boutique', key: 'boutique' },
-  { name: 'Clothing Brand', key: 'clothing-brand' },
-  { name: 'Gym', key: 'gym' },
-  { name: 'Cleaning Service', key: 'cleaning-service' },
-  { name: 'Landscaping Company', key: 'landscaping' },
-  { name: 'Pet Grooming', key: 'pet-grooming' },
-  { name: 'E Commerce Brand', key: 'ecommerce' },
-  { name: 'Content Creator', key: 'content-creator' },
-  { name: 'Tattoo Studio', key: 'tattoo-studio' },
+  // ── Popular (default visible) ────────────────────────────────────────
+  { name: 'Restaurant', key: 'restaurant', isPopular: true },
+  { name: 'Coffee Shop', key: 'coffee-shop', isPopular: true },
+  { name: 'Bakery', key: 'bakery', isPopular: true },
+  { name: 'Food Truck', key: 'food-truck', isPopular: true },
+  { name: 'Barbershop', key: 'barbershop', isPopular: true },
+  { name: 'Hair Salon', key: 'hair-salon', isPopular: true },
+  { name: 'Nail Studio', key: 'nail-studio', isPopular: true },
+  { name: 'Boutique', key: 'boutique', isPopular: true },
+  { name: 'Clothing Brand', key: 'clothing-brand', isPopular: true },
+  { name: 'Gym', key: 'gym', isPopular: true },
+  { name: 'Cleaning Service', key: 'cleaning-service', isPopular: true },
+  { name: 'Landscaping Company', key: 'landscaping', isPopular: true },
+  { name: 'Pet Grooming', key: 'pet-grooming', isPopular: true },
+  { name: 'E Commerce Brand', key: 'ecommerce', isPopular: true },
+  { name: 'Content Creator', key: 'content-creator', isPopular: true },
+  { name: 'Tattoo Studio', key: 'tattoo-studio', isPopular: true },
+  // ── All other categories (revealed via search / "See all") ──────────
+  { name: 'Accounting Firm', key: 'accounting-firm', isPopular: false },
+  { name: 'Architecture Firm', key: 'architecture-firm', isPopular: false },
+  { name: 'Auto Repair Shop', key: 'auto-repair-shop', isPopular: false },
+  { name: 'Bookstore', key: 'bookstore', isPopular: false },
+  { name: 'Branding Agency', key: 'branding-agency', isPopular: false },
+  { name: 'Brewery', key: 'brewery', isPopular: false },
+  { name: 'Butcher', key: 'butcher', isPopular: false },
+  { name: 'Car Dealership', key: 'car-dealership', isPopular: false },
+  { name: 'Car Wash', key: 'car-wash', isPopular: false },
+  { name: 'Carpenter', key: 'carpenter', isPopular: false },
+  { name: 'Catering', key: 'catering', isPopular: false },
+  { name: 'Childcare Center', key: 'childcare-center', isPopular: false },
+  { name: 'Consulting Firm', key: 'consulting-firm', isPopular: false },
+  { name: 'Cyber Security', key: 'cyber-security', isPopular: false },
+  { name: 'Dental Clinic', key: 'dental-clinic', isPopular: false },
+  { name: 'Donut Shop', key: 'donut-shop', isPopular: false },
+  { name: 'Electrician', key: 'electrician', isPopular: false },
+  { name: 'Event Planning Company', key: 'event-planning-company', isPopular: false },
+  { name: 'General Contractor', key: 'general-contractor', isPopular: false },
+  { name: 'Home Builder', key: 'home-builder', isPopular: false },
+  { name: 'Home Remodeling', key: 'home-remodeling', isPopular: false },
+  { name: 'Hotel', key: 'hotel', isPopular: false },
+  { name: 'HVAC Company', key: 'hvac-company', isPopular: false },
+  { name: 'Insurance Agency', key: 'insurance-agency', isPopular: false },
+  { name: 'Jewellery', key: 'jewellery', isPopular: false },
+  { name: 'Law Firm', key: 'law-firm', isPopular: false },
+  { name: 'Life Coach', key: 'life-coach', isPopular: false },
+  { name: 'Logistics Company', key: 'logistics-company', isPopular: false },
+  { name: 'Marketing Agency', key: 'marketing-agency', isPopular: false },
+  { name: 'Med Spa', key: 'med-spa', isPopular: false },
+  { name: 'Mental Health Practice', key: 'mental-health-practice', isPopular: false },
+  { name: 'Mortgage Brokerage', key: 'mortgage-brokerage', isPopular: false },
+  { name: 'Moving Company', key: 'moving-company', isPopular: false },
+  { name: 'Nutritionist', key: 'nutritionist', isPopular: false },
+  { name: 'Online Course Platform', key: 'online-course-platform', isPopular: false },
+  { name: 'Orthopedic', key: 'orthopedic', isPopular: false },
+  { name: 'Physical Therapy Clinic', key: 'physical-therapy-clinic', isPopular: false },
+  { name: 'Plumbing Company', key: 'plumbing-company', isPopular: false },
+  { name: 'Pool Service Company', key: 'pool-service-company', isPopular: false },
+  { name: 'Property Management Company', key: 'property-management-company', isPopular: false },
+  { name: 'Real Estate Agency', key: 'real-estate-agency', isPopular: false },
+  { name: 'Roofing Company', key: 'roofing-company', isPopular: false },
+  { name: 'SAAS Company', key: 'saas-company', isPopular: false },
+  { name: 'Skincare Brand', key: 'skincare-brand', isPopular: false },
+  { name: 'Solar Installation Company', key: 'solar-installation-company', isPopular: false },
+  { name: 'Tech Startup', key: 'tech-startup', isPopular: false },
+  { name: 'Trucking Company', key: 'trucking-company', isPopular: false },
+  { name: 'Vape Shop', key: 'vape-shop', isPopular: false },
+  { name: 'Veterinary Clinic', key: 'veterinary-clinic', isPopular: false },
 ] as const
 
 // ─── Logo images per category ────────────────────────────────────────────────
@@ -95,9 +151,20 @@ export const CATEGORY_IMAGES: Record<string, string[]> = {
   ],
 }
 
-// Default fallback
-export const getCategoryImages = (key: string): string[] =>
-  CATEGORY_IMAGES[key] ?? CATEGORY_IMAGES['coffee-shop']
+// Per-category image getter. Target is 24 logos per category (the design
+// renders 12 by default + 12 more on "Show more"). When a category ships
+// real 24 images, the result is returned as-is; for categories that only
+// have a partial set today, the array cycles back to fill to 24 so the
+// "Show more" UX is exercised. Replace the data above with real 24-image
+// arrays when assets land and this padding becomes a no-op automatically.
+const TARGET_LOGO_COUNT = 24
+export const getCategoryImages = (key: string): string[] => {
+  const base = CATEGORY_IMAGES[key] ?? CATEGORY_IMAGES['coffee-shop']
+  if (base.length >= TARGET_LOGO_COUNT) return base.slice(0, TARGET_LOGO_COUNT)
+  const out: string[] = []
+  for (let i = 0; i < TARGET_LOGO_COUNT; i++) out.push(base[i % base.length])
+  return out
+}
 
 // ─── Mockup images per category ──────────────────────────────────────────────
 export const MOCKUP_IMAGES: Record<string, string[]> = {

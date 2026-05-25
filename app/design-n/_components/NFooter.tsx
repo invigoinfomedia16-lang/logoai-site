@@ -1,16 +1,22 @@
-// Footer — Design N. Multi-column nav (Popular Logos, Resources, About,
-// Legal) + trust-badge strip + copyright. Doc Section 12 covered only
-// About and Legal; the other columns are kept by request for richer
-// SEO/footer link surface.
+// Footer — Design N. Five columns (Popular Industries, Popular Styles,
+// Quick Links, About, Legal) + trust-badge strip + copyright. Copy matches
+// the LOGOAI landing-page doc, section 12.
 
-const POPULAR_LOGOS = [
+const POPULAR_INDUSTRIES = [
   'Restaurant Logos',
   'Coffee Shop Logos',
   'Bakery Logos',
   'Boutique Logos',
   'Gym Logos',
 ]
-const RESOURCES = ['How it works', 'Examples', 'Reviews', 'Pricing', 'FAQ', 'Blog']
+const POPULAR_STYLES = [
+  'Minimalist Logos',
+  'Vintage Logos',
+  'Monogram Logos',
+  'Wordmark Logos',
+  'Black & White Logos',
+]
+const QUICK_LINKS = ['Gallery', 'How it works', 'Reviews', 'Pricing', 'FAQ', 'Blog']
 const ABOUT = ['About Us', 'Contact Support']
 const LEGAL = ['Terms of Use', 'Privacy Policy', 'Refund Policy', 'Security Policy', 'Commercial License']
 const TRUST_BADGES = ['SSL Secure', 'Stripe Payments', 'Your data is safe']
@@ -96,20 +102,25 @@ export default function NFooter() {
             className="m-sans"
             style={{ fontSize: 14, lineHeight: '20px', color: 'var(--m-text-on-dark-muted)' }}
           >
-            Professional logos in 60 seconds.
+            Professional logos in 60 seconds
           </p>
         </div>
 
-        {/* Columns — 4-column footer: Popular Logos, Resources, About, Legal.
-            Collapses to 2 cols on tablet, 1 col on mobile. */}
-        <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10 items-start">
+        {/* Columns — 5-column footer: Popular Industries, Popular Styles,
+            Quick Links, About, Legal. Collapses to 2 cols on tablet, 1 col
+            on mobile. */}
+        <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-10 items-start">
           <div className="flex flex-col gap-4 items-start w-full">
-            <ColumnHeading>Popular Logos</ColumnHeading>
-            <LinkList items={POPULAR_LOGOS} />
+            <ColumnHeading>Popular Industries</ColumnHeading>
+            <LinkList items={POPULAR_INDUSTRIES} />
           </div>
           <div className="flex flex-col gap-4 items-start w-full">
-            <ColumnHeading>Resources</ColumnHeading>
-            <LinkList items={RESOURCES} />
+            <ColumnHeading>Popular Styles</ColumnHeading>
+            <LinkList items={POPULAR_STYLES} />
+          </div>
+          <div className="flex flex-col gap-4 items-start w-full">
+            <ColumnHeading>Quick Links</ColumnHeading>
+            <LinkList items={QUICK_LINKS} />
           </div>
           <div className="flex flex-col gap-4 items-start w-full">
             <ColumnHeading>About</ColumnHeading>
@@ -128,8 +139,11 @@ export default function NFooter() {
           className="flex flex-col gap-4 items-start sm:flex-row-reverse sm:items-center sm:justify-between w-full pt-8 border-t"
           style={{ borderColor: 'var(--n-footer-divider, var(--m-border-dark))' }}
         >
-          {/* Trust badges */}
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+          {/* Trust badges — stack one-per-row on mobile so each badge
+              left-aligns cleanly under the others (the previous flex-wrap
+              caused an awkward 2 + 1 split on narrow viewports). Tablet+
+              goes back to inline horizontal. */}
+          <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-y-2 sm:gap-x-5">
             {TRUST_BADGES.map((b) => (
               <span key={b} className="flex items-center gap-1.5">
                 <CheckBadge />
@@ -152,7 +166,7 @@ export default function NFooter() {
               color: 'var(--m-text-on-dark-muted)',
             }}
           >
-            Copyright © 2024–2026 Logo.AI. All rights reserved.
+            Copyright © 2026 Logo.AI. All rights reserved.
           </p>
         </div>
       </div>

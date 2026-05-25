@@ -29,7 +29,7 @@ const STEPS = [
   {
     n: 2,
     title: 'Our AI does the work',
-    body: 'In under 60 seconds, our AI turns your brand details into 10 original logos — with the right style, colors, and fonts to match your brand.',
+    body: 'In seconds, our AI turns your brand details into 10 original logos — with the right style, colors, and fonts to match your brand.',
   },
   {
     n: 3,
@@ -55,10 +55,10 @@ export default function NHowItWorks() {
         <div className="flex flex-col gap-4 items-center text-center">
           <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>How It Works</p>
           <h2 className="m-h2">
-            Get your professional logo in 4 easy steps — under 60 seconds
+            Your professional logo in 60 seconds
           </h2>
           <p className="m-sub">
-            No design skills needed. Just tell us about your brand — our AI handles the rest.
+            No design skills needed. All it takes is a few words about your brand — our AI handles the rest.
           </p>
         </div>
 
@@ -115,7 +115,7 @@ export default function NHowItWorks() {
           <span className="flex items-center gap-1.5">
             <CheckInline />
             <span className="m-sans" style={{ fontSize: 14, color: 'var(--m-text-muted)' }}>
-              Never shared. Never sold. Only used to make your logos.
+              Never shared, never sold, only used to make your logos.
             </span>
           </span>
         </div>

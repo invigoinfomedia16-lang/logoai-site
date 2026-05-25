@@ -413,15 +413,15 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --m-logo-color: #FFFFFF;
         }
 
-        /* sync.so Orange — same Framer / sync.so dark-surface base as the
-           sync.so toggle, but with sync.so's "Flush Orange" #FF7700 CTA
-           (sampled from their Figma — sync.so/Flush Orange variable).
-           Surface tokens come straight from the same Figma file: grey/7
-           #121213 surface, grey/14 #222225 border, grey/83 #D4D4D4 +
-           grey/65 #A1A1AA text. Typography intentionally inherits the
-           global Mozilla Headline + Mozilla Text — sync.so's Satoshi is
-           NOT used. Scoped to this toggle. */
-        .m-theme[data-brand-color="sync-so-orange"] {
+        /* Electric Violet — vivid electric blue-violet #5A3FE6 picked to
+           render IDENTICALLY across browsers/displays. The earlier #0000FF
+           / #3322EE pushed the blue channel to 93–100%, sitting right at
+           the edge of the sRGB gamut, where Chrome's display-p3 pipeline
+           clipped it toward purple while Firefox kept it flat-blue.
+           #5A3FE6 sits well inside sRGB so no browser has to clip → same
+           look everywhere. Same dark-surface base as the other sync.so
+           toggles; typography inherits the global Mozilla. */
+        .m-theme[data-brand-color="electric-violet"] {
           --m-ink-deep: #FFFFFF;
           --m-ink: #FFFFFF;
           --m-ink-2: #FFFFFF;
@@ -466,40 +466,342 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-cta-btn-bg: var(--m-brand);
           --n-cta-btn-bg-hover: var(--m-brand-deep);
           --n-cta-btn-fg: #FFFFFF;
-          /* Monochrome accent — Flush Orange is the one CTA colour; stars +
-             no-crosses stay neutral grey, checks fold into brand. */
+          /* Monochrome accent — Electric Violet is the one CTA colour; stars
+             + no-crosses stay neutral grey, checks fold into brand. */
           --m-star: #A1A1AA;
           --n-rating-star: #A1A1AA;
-          --n-check: #FF7700;
-          --m-success: #FF7700;
-          --m-success-bright: #FF7700;
-          --m-success-bold: #FF7700;
-          --n-yes: #FF7700;
+          --n-check: #5A3FE6;
+          --m-success: #5A3FE6;
+          --m-success-bright: #5A3FE6;
+          --m-success-bold: #5A3FE6;
+          --n-yes: #5A3FE6;
           --n-no: #3A3A3A;
           --n-no-mark: #A1A1AA;
           /* Hero highlight figures — white, same as VB / sync.so. */
           --n-hero-highlight: #FFFFFF;
           --n-checkout-modal-bg: #060607;
           --n-checkout-strip-bg: #060607;
-          /* Match Reviews / FAQ — How It Works + Use Cases cards get the
-             same near-invisible surface-alt fill instead of their default
-             outline-only / pure-black look. Shadow on the steps card is
-             dropped (the brand-soft is already near-black on orange, so
-             the shadow contributes nothing but blur). */
+          /* Shared card treatment — matches the rest of the dark toggles:
+             transparent How It Works cards, filled Use Cases, brand-
+             coloured pill hovers. */
           --n-step-card-bg: transparent;
           --n-step-card-shadow: none;
           --n-usecase-card-bg: var(--m-surface-alt);
           --n-usecase-card-border: 1px solid transparent;
-          /* Category-pill hover (Gallery + Mockups). Default is a grey
-             border + brand-bg tint, which is invisible on this near-black
-             palette. Replace with a brand-coloured outline + brand-coloured
-             text so the hover reads clearly without filling the chip. */
           --n-pill-hover-border: 1px solid var(--m-brand);
           --n-pill-hover-bg: var(--m-surface);
           --n-pill-hover-color: var(--m-brand);
-          --n-pricing-shadow: 0 12px 32px rgba(255,119,0,0.26), 0 2px 10px rgba(0,0,0,0.5);
+          --n-pricing-shadow: 0 12px 32px rgba(90,63,230,0.28), 0 2px 10px rgba(0,0,0,0.5);
           /* Logo wordmark — Mozilla Headline 700, white, 28px (inherits
              from the global root; matches VB / sync.so). */
+          --m-logo-font: var(--m-font-display);
+          --m-logo-weight: 700;
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
+
+        /* Soft Violet — friendlier sibling of Electric Violet. CTA #7A6BFA
+           sits safely inside sRGB (R: 122, G: 107, B: 250) so it renders
+           identically on every browser. Same dark-surface base as the
+           other sync.so toggles; typography inherits the global Mozilla. */
+        .m-theme[data-brand-color="soft-violet"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #FFFFFF;
+          --m-ink-2: #FFFFFF;
+          --m-text: #D4D4D4;
+          --m-text-muted: #A1A1AA;
+          --m-text-soft: #A1A1AA;
+          --m-text-faint: #A1A1AA;
+          --m-text-on-dark: #FFFFFF;
+          --m-text-on-dark-muted: #D4D4D4;
+
+          /* Pure-black surfaces — cards lift barely a percent off the
+             page, matching the rest of the dark toggles. */
+          --m-surface: #000000;
+          --m-surface-alt: #060607;
+
+          /* Hairline borders. */
+          --m-border: #161616;
+          --m-border-soft: #101010;
+          --m-border-medium: #222225;
+          --m-border-dark: #161616;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(0,0,0,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #060607;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          /* Monochrome accent — Soft Violet is the one CTA colour; stars +
+             no-crosses stay neutral grey, checks fold into brand. */
+          --m-star: #A1A1AA;
+          --n-rating-star: #A1A1AA;
+          --n-check: #7A6BFA;
+          --m-success: #7A6BFA;
+          --m-success-bright: #7A6BFA;
+          --m-success-bold: #7A6BFA;
+          --n-yes: #7A6BFA;
+          --n-no: #3A3A3A;
+          --n-no-mark: #A1A1AA;
+          /* Hero highlight figures — white, same as VB / sync.so. */
+          --n-hero-highlight: #FFFFFF;
+          --n-checkout-modal-bg: #060607;
+          --n-checkout-strip-bg: #060607;
+          /* Shared card treatment — matches the rest of the dark toggles. */
+          --n-step-card-bg: transparent;
+          --n-step-card-shadow: none;
+          --n-usecase-card-bg: var(--m-surface-alt);
+          --n-usecase-card-border: 1px solid transparent;
+          --n-pill-hover-border: 1px solid var(--m-brand);
+          --n-pill-hover-bg: var(--m-surface);
+          --n-pill-hover-color: var(--m-brand);
+          --n-pricing-shadow: 0 12px 32px rgba(122,107,250,0.28), 0 2px 10px rgba(0,0,0,0.5);
+          /* Logo wordmark — Mozilla Headline 700, white, 28px. */
+          --m-logo-font: var(--m-font-display);
+          --m-logo-weight: 700;
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
+
+        /* Bright Vermillion — punchier sibling of Vermillion Black. CTA
+           #FF5A1F is a more energetic orange-red; everything else matches
+           the standard dark-toggle treatment. Typography inherits the
+           global Mozilla. */
+        .m-theme[data-brand-color="bright-vermillion"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
+
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+
+          /* Pure-black surfaces — cards lift barely a percent off the
+             page, matching the rest of the dark toggles. */
+          --m-surface: #000000;
+          --m-surface-alt: #060607;
+
+          /* Hairline borders. */
+          --m-border: #161616;
+          --m-border-soft: #101010;
+          --m-border-medium: #222225;
+          --m-border-dark: #161616;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(0,0,0,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #060607;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          /* Monochrome accent — Bright Vermillion is the one CTA colour;
+             stars + no-crosses stay neutral grey, checks fold into brand. */
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #FF5A1F;
+          --m-success: #FF5A1F;
+          --m-success-bright: #FF5A1F;
+          --m-success-bold: #FF5A1F;
+          --n-yes: #FF5A1F;
+          --n-no: #3A3A3A;
+          --n-no-mark: #9A9A9A;
+          /* Hero highlight figures — white. */
+          --n-hero-highlight: #FFFFFF;
+          --n-checkout-modal-bg: #060607;
+          --n-checkout-strip-bg: #060607;
+          /* Shared card treatment — matches the rest of the dark toggles. */
+          --n-step-card-bg: transparent;
+          --n-step-card-shadow: none;
+          --n-usecase-card-bg: var(--m-surface-alt);
+          --n-usecase-card-border: 1px solid transparent;
+          --n-pill-hover-border: 1px solid var(--m-brand);
+          --n-pill-hover-bg: var(--m-surface);
+          --n-pill-hover-color: var(--m-brand);
+          --n-pricing-shadow: 0 12px 32px rgba(255,90,31,0.28), 0 2px 10px rgba(0,0,0,0.5);
+          /* Logo wordmark — Mozilla Headline 700, white, 28px. */
+          --m-logo-font: var(--m-font-display);
+          --m-logo-weight: 700;
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
+
+        /* Charcoal Vermillion — Bright Vermillion's #FF5A1F CTA on Purple
+           Black's softer charcoal base (#050505 / #0A0A0A) instead of pure
+           black. Reads a hair warmer / less "void" than the pure-black
+           toggles. Same hairline borders + transparent-card treatment as
+           the other dark toggles. Typography inherits the global Mozilla. */
+        .m-theme[data-brand-color="charcoal-vermillion"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
+
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+
+          /* Purple Black's charcoal base — #050505 page, #0A0A0A cards. */
+          --m-surface: #050505;
+          --m-surface-alt: #0A0A0A;
+
+          /* Hairline borders. */
+          --m-border: #161616;
+          --m-border-soft: #101010;
+          --m-border-medium: #222225;
+          --m-border-dark: #161616;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(5,5,5,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #0A0A0A;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          /* Monochrome accent — Bright Vermillion is the one CTA colour;
+             stars + no-crosses stay neutral grey, checks fold into brand. */
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #FF5A1F;
+          --m-success: #FF5A1F;
+          --m-success-bright: #FF5A1F;
+          --m-success-bold: #FF5A1F;
+          --n-yes: #FF5A1F;
+          --n-no: #3A3A3A;
+          --n-no-mark: #9A9A9A;
+          /* Hero highlight figures — white. */
+          --n-hero-highlight: #FFFFFF;
+          --n-checkout-modal-bg: #0A0A0A;
+          --n-checkout-strip-bg: #0A0A0A;
+          /* Shared card treatment — matches the rest of the dark toggles. */
+          --n-step-card-bg: transparent;
+          --n-step-card-shadow: none;
+          --n-usecase-card-bg: var(--m-surface-alt);
+          --n-usecase-card-border: 1px solid transparent;
+          --n-pill-hover-border: 1px solid var(--m-brand);
+          --n-pill-hover-bg: var(--m-surface);
+          --n-pill-hover-color: var(--m-brand);
+          --n-pricing-shadow: 0 12px 32px rgba(255,90,31,0.28), 0 2px 10px rgba(0,0,0,0.5);
+          /* Logo wordmark — Mozilla Headline 700, white, 28px. */
+          --m-logo-font: var(--m-font-display);
+          --m-logo-weight: 700;
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
+
+        /* Charcoal Violet — Electric Violet's #5A3FE6 CTA on Purple Black's
+           softer charcoal base (#050505 / #0A0A0A) instead of pure black.
+           Same hairline borders + transparent-card treatment as the other
+           dark toggles. Typography inherits the global Mozilla. */
+        .m-theme[data-brand-color="charcoal-violet"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
+
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+
+          /* Purple Black's charcoal base — #050505 page, #0A0A0A cards. */
+          --m-surface: #050505;
+          --m-surface-alt: #0A0A0A;
+
+          /* Hairline borders. */
+          --m-border: #161616;
+          --m-border-soft: #101010;
+          --m-border-medium: #222225;
+          --m-border-dark: #161616;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(5,5,5,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #0A0A0A;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          /* Monochrome accent — Electric Violet is the one CTA colour;
+             stars + no-crosses stay neutral grey, checks fold into brand. */
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #5A3FE6;
+          --m-success: #5A3FE6;
+          --m-success-bright: #5A3FE6;
+          --m-success-bold: #5A3FE6;
+          --n-yes: #5A3FE6;
+          --n-no: #3A3A3A;
+          --n-no-mark: #9A9A9A;
+          /* Hero highlight figures — white. */
+          --n-hero-highlight: #FFFFFF;
+          --n-checkout-modal-bg: #0A0A0A;
+          --n-checkout-strip-bg: #0A0A0A;
+          /* Shared card treatment — matches the rest of the dark toggles. */
+          --n-step-card-bg: transparent;
+          --n-step-card-shadow: none;
+          --n-usecase-card-bg: var(--m-surface-alt);
+          --n-usecase-card-border: 1px solid transparent;
+          --n-pill-hover-border: 1px solid var(--m-brand);
+          --n-pill-hover-bg: var(--m-surface);
+          --n-pill-hover-color: var(--m-brand);
+          --n-pricing-shadow: 0 12px 32px rgba(90,63,230,0.28), 0 2px 10px rgba(0,0,0,0.5);
+          /* Logo wordmark — Mozilla Headline 700, white, 28px. */
           --m-logo-font: var(--m-font-display);
           --m-logo-weight: 700;
           --m-logo-size: 28px;

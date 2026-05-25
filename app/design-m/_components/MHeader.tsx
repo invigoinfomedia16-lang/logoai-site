@@ -3,21 +3,27 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 
+// Top nav — matches the LOGOAI landing-page doc, "Top Navigation Menu":
+//   Gallery · How It Works · Reviews · Pricing · FAQ · Browse Logos ▾ · Blog
 const NAV_ITEMS = [
-  { label: 'Examples',     href: '#gallery' },
-  { label: 'Reviews',      href: '#reviews' },
+  { label: 'Gallery',      href: '#gallery' },
   { label: 'How It Works', href: '#how-it-works' },
+  { label: 'Reviews',      href: '#reviews' },
   { label: 'Pricing',      href: '#pricing' },
   { label: 'FAQ',          href: '#faq' },
 ]
 
+// "Browse Logos" dropdown — curated category links. The doc spec is a full
+// 4-column mega-menu (Industry / Style / Symbol / Color); this is a tighter
+// single-column starter that ships now. Expand to the full mega-menu when
+// industry pages exist.
 const RESOURCES_ITEMS = [
-  { label: 'Risk-Free Promise',       href: '#risk-free' },
-  { label: 'Mockup Examples',         href: '#mockups' },
-  { label: 'Built For (Who Uses It)', href: '#built-for' },
-  { label: 'Use Cases',               href: '#use-cases' },
-  { label: 'Why Logo.AI',             href: '#why-logo-ai' },
-  { label: 'Blog',                    href: '#blog' },
+  { label: 'Restaurant Logos',     href: '#gallery' },
+  { label: 'Coffee Shop Logos',    href: '#gallery' },
+  { label: 'Bakery Logos',         href: '#gallery' },
+  { label: 'Boutique Logos',       href: '#gallery' },
+  { label: 'Gym Logos',            href: '#gallery' },
+  { label: 'See all industries →', href: '#gallery' },
 ]
 
 function ChevronDown() {
@@ -204,7 +210,7 @@ export default function MHeader({
                   onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link-hover, var(--m-brand))' }}
                   onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link, var(--m-ink))' }}
                 >
-                  <span>Resources</span>
+                  <span>Browse Logos</span>
                   <span
                     style={{
                       display: 'inline-flex',
@@ -267,6 +273,19 @@ export default function MHeader({
                   </div>
                 )}
               </div>
+            </li>
+            {/* Blog — top-level link sitting after the Browse Logos dropdown,
+                matching the doc's nav order. */}
+            <li className="px-2 py-2">
+              <a
+                href="#blog"
+                className="m-nav transition-colors"
+                style={{ color: 'var(--n-nav-link, var(--m-ink))' }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link-hover, var(--m-brand))' }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link, var(--m-ink))' }}
+              >
+                Blog
+              </a>
             </li>
           </ul>
         </nav>
