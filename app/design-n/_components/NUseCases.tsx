@@ -1,8 +1,8 @@
 // Use Cases — three groups of "where customers use their logo" rendered
-// as horizontal bars (wide rows, icon-left + text-right) stacked under
-// each group label. All bars are full-width so sizing is perfectly
-// uniform across all 10 items. Copy from the LOGOAI landing-page doc,
-// section 8.
+// as a 4-card grid per group (3 groups × 4 cards = 12 total). Each card
+// uses the standalone icon + lifted --m-surface-alt background pattern.
+// Copy from the LOGOAI landing-page doc, section 8, with one additional
+// card per shorter group so all rows fill evenly.
 
 import {
   Globe,
@@ -12,9 +12,11 @@ import {
   Presentation,
   FileText,
   Megaphone,
+  Video,
   IdCard,
   Building2,
   Package,
+  Truck,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -65,6 +67,11 @@ const GROUPS: Group[] = [
         title: 'Ads & social posts',
         body: 'A consistent logo across ads builds recognition over time.',
       },
+      {
+        Icon: Video,
+        title: 'Webinars & online events',
+        body: 'Slide decks, registration pages, and replay landing pages — branded end to end.',
+      },
     ],
   },
   {
@@ -85,45 +92,48 @@ const GROUPS: Group[] = [
         title: 'Packaging & products',
         body: 'Boxes, labels, tags, merch — full commercial license means you can put your logo on anything.',
       },
+      {
+        Icon: Truck,
+        title: 'Vehicle wraps & fleet',
+        body: 'Delivery vans, branded company cars, food trucks — your logo on the move builds local recognition.',
+      },
     ],
   },
 ]
 
-function UseCaseBar({ item }: { item: UseCase }) {
+function UseCaseCard({ item }: { item: UseCase }) {
   const { Icon } = item
   return (
     <div
-      className="flex items-start gap-4 px-5 py-4"
+      className="flex flex-col gap-2 p-6"
       style={{
-        background: 'var(--m-surface-alt)',
+        background: 'var(--n-usecase-card-bg, transparent)',
+        border: 'var(--n-usecase-card-border, 1px solid var(--m-border))',
         borderRadius: 'var(--m-radius-md)',
       }}
     >
       <span
         aria-hidden="true"
-        className="shrink-0"
         style={{
           display: 'inline-flex',
           color: 'var(--m-brand)',
-          marginTop: 2,
+          marginBottom: 14,
         }}
       >
-        <Icon size={26} strokeWidth={1.6} />
+        <Icon size={30} strokeWidth={1.6} />
       </span>
-      <div className="flex flex-col gap-1 min-w-0">
-        <h4
-          className="m-display"
-          style={{
-            fontWeight: 600,
-            fontSize: 17,
-            lineHeight: '22px',
-            color: 'var(--m-ink)',
-          }}
-        >
-          {item.title}
-        </h4>
-        <p className="m-body-sm">{item.body}</p>
-      </div>
+      <h4
+        className="m-display"
+        style={{
+          fontWeight: 600,
+          fontSize: 18,
+          lineHeight: '24px',
+          color: 'var(--m-ink)',
+        }}
+      >
+        {item.title}
+      </h4>
+      <p className="m-body-sm">{item.body}</p>
     </div>
   )
 }
@@ -145,12 +155,12 @@ export default function NUseCases() {
           </p>
         </div>
 
-        {/* Sub-groups — each group is a label + a vertical stack of full-
-            width bars. All bars uniform across the whole section since
-            they're all the same width regardless of which group. */}
-        <div className="flex flex-col gap-10 w-full max-w-[880px] mx-auto">
+        {/* Sub-groups — each group is a label + a uniform 4-card grid.
+            All groups have exactly 4 items so every row fills evenly,
+            no orphan cards or empty cells. */}
+        <div className="flex flex-col gap-12 w-full">
           {GROUPS.map((group) => (
-            <div key={group.title} className="flex flex-col gap-3 w-full">
+            <div key={group.title} className="flex flex-col gap-4 w-full">
               <h3
                 className="m-sans"
                 style={{
@@ -164,9 +174,9 @@ export default function NUseCases() {
               >
                 {group.title}
               </h3>
-              <div className="flex flex-col gap-2 w-full">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 w-full">
                 {group.items.map((item) => (
-                  <UseCaseBar key={item.title} item={item} />
+                  <UseCaseCard key={item.title} item={item} />
                 ))}
               </div>
             </div>

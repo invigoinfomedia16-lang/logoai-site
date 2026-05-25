@@ -45,10 +45,13 @@ export const BRAND_COLORS: BrandColorOption[] = [
       brand: '#7543E3',
       strong: '#A98BF0',
       deep: '#5F2EB4',
-      // Neutral dark — the "soft brand" surface (selected chips, hover).
-      soft: '#262626',
-      // Alternating tinted / card background — a hair off the base.
-      bg: '#0F0F0F',
+      // Featured-review border + soft-brand surfaces — near-black so card
+      // edges read as "almost not there" (matches the sync.so / Orange
+      // treatment applied site-wide).
+      soft: '#161616',
+      // Alternating tinted / card background — barely a percent off the
+      // page base (#050505), so the lift is just perceptible.
+      bg: '#0A0A0A',
       glow: '#A98BF0',
       onDark: '#A98BF0',
       // Flat near-pure-black hero (matches the surface).
@@ -57,58 +60,6 @@ export const BRAND_COLORS: BrandColorOption[] = [
     // Half black / half purple — signals the dark theme + the CTA colour.
     swatch:
       'linear-gradient(135deg, #050505 0%, #050505 48%, #7543E3 52%, #7543E3 100%)',
-    hideHeroCarousel: true,
-  },
-  {
-    // Freepik design — a full DARK theme. Colours pulled from
-    // public/freepik-exact.html: primary CTA #336AEA, darker #1A4FD0,
-    // lighter #648EEF, near-black #0D0D0D background. A toggle's vars only
-    // carry the brand colours; the dark surfaces / text / borders are
-    // applied via the scoped [data-brand-color="freepik"] block in
-    // layout.tsx, so no other toggle or the default is affected.
-    name: 'Freepik',
-    vars: {
-      brand: '#336AEA',
-      strong: '#648EEF',
-      deep: '#1A4FD0',
-      // Dark navy — the "soft brand" surface (selected chips, hover tints)
-      // on the dark theme.
-      soft: '#1C2741',
-      // Alternating tinted-section background — a hair off the #0D0D0D base.
-      bg: '#141414',
-      glow: '#648EEF',
-      onDark: '#648EEF',
-      // Flat #0D0D0D hero (no gradient) so the hero, the nav bar and the
-      // rest of the site all read as one uniform colour.
-      heroTint: '#0D0D0D',
-    },
-    // Half near-black / half blue — signals the dark theme + blue accent.
-    swatch:
-      'linear-gradient(135deg, #0D0D0D 0%, #0D0D0D 48%, #336AEA 52%, #336AEA 100%)',
-    hideHeroCarousel: true,
-  },
-  {
-    // Vermillion — a DARK theme built on the Freepik base: a warm near-black
-    // surface (a faint vermillion warmth mixed into the black) paired with
-    // the vermillion #E7420F CTA. Dark surfaces / text / borders are applied
-    // via the scoped [data-brand-color="vermillion"] block in layout.tsx.
-    name: 'Vermillion',
-    vars: {
-      brand: '#E7420F',
-      strong: '#F4926F',
-      deep: '#AE320A',
-      // Neutral-warm dark — the "soft brand" surface (selected chips, hover).
-      soft: '#2A211D',
-      // Alternating tinted / card background — a hair off the base.
-      bg: '#15100E',
-      glow: '#F4926F',
-      onDark: '#F4926F',
-      // Flat warm near-black hero (matches the surface).
-      heroTint: '#100C0A',
-    },
-    // Half warm-dark / half vermillion — signals the dark theme + CTA colour.
-    swatch:
-      'linear-gradient(135deg, #100C0A 0%, #100C0A 48%, #E7420F 52%, #E7420F 100%)',
     hideHeroCarousel: true,
   },
   {
@@ -122,10 +73,13 @@ export const BRAND_COLORS: BrandColorOption[] = [
       brand: '#E7420F',
       strong: '#F4926F',
       deep: '#AE320A',
-      // Neutral dark — the "soft brand" surface (selected chips, hover).
-      soft: '#222222',
-      // Alternating tinted / card background — a hair off the pure-black base.
-      bg: '#0C0C0C',
+      // Featured-review border + soft-brand surfaces — near-black so card
+      // edges read as "almost not there" (matches the sync.so / Orange
+      // treatment applied site-wide).
+      soft: '#161616',
+      // Alternating tinted / card background — barely a percent off pure
+      // black, so the lift is just perceptible.
+      bg: '#060607',
       glow: '#F4926F',
       onDark: '#F4926F',
       // Flat true pure-black hero (matches the surface).
@@ -137,31 +91,71 @@ export const BRAND_COLORS: BrandColorOption[] = [
     hideHeroCarousel: true,
   },
   {
-    // Framer — a DARK, fully monochrome theme on the Freepik base: a
-    // pure-black background (#000000, Framer's site black) with an
-    // exact-white #FFFFFF CTA (white fill, black text). Every accent is
-    // white. Dark surfaces / text / borders are applied via the scoped
-    // [data-brand-color="framer"] block in layout.tsx.
-    name: 'Framer',
+    // sync.so — colours mirrored from the live Framer-built Logo.AI project
+    // (understanding-peach-071478.framer.app). Pure-black #000000 surfaces
+    // with Framer's exact card tint (#0F1012), Framer's grey scale
+    // (#B3B3B3 / #717171), and Framer's exact CTA blue #0000FF (sampled
+    // from the live button via Framer's colour picker). Typography stays
+    // our Mozilla Headline + Mozilla Text (inherited from the global
+    // root — Framer's font stack is intentionally NOT used). Scoped via
+    // [data-brand-color="sync-so"] in layout.tsx.
+    name: 'sync.so',
     vars: {
-      // White — the CTA fill and every accent (eyebrows, stat numbers,
-      // borders, selected chips). Fully monochrome.
-      brand: '#FFFFFF',
-      strong: '#FFFFFF',
-      // CTA hover — a soft off-white.
-      deep: '#E5E5E5',
-      // Neutral dark — the "soft brand" surface (selected chips, hover).
-      soft: '#1F1F1F',
-      // Alternating tinted / card background — a hair off the pure-black base.
-      bg: '#141414',
-      glow: '#FFFFFF',
-      onDark: '#FFFFFF',
-      // Flat pure-black hero (matches the surface).
+      // Framer's exact CTA blue.
+      brand: '#0000FF',
+      strong: '#7A7AFF',
+      // CTA hover — slightly darker blue.
+      deep: '#0000CC',
+      // Featured-review border + soft-brand surfaces — near-black so card
+      // edges read as "almost not there" (matches the sync.so Orange
+      // treatment applied site-wide).
+      soft: '#161616',
+      // Alternating section / card background — barely a percent off pure
+      // black, so the lift is just perceptible.
+      bg: '#060607',
+      glow: '#7A7AFF',
+      onDark: '#7A7AFF',
+      // Flat pure-black hero (matches Framer's site background).
       heroTint: '#000000',
     },
-    // Half pure-black / half white — signals the dark theme + white CTA.
+    // Half pure-black / half electric-blue — signals the dark theme + CTA colour.
     swatch:
-      'linear-gradient(135deg, #000000 0%, #000000 48%, #FFFFFF 52%, #FFFFFF 100%)',
+      'linear-gradient(135deg, #000000 0%, #000000 48%, #0000FF 52%, #0000FF 100%)',
+    hideHeroCarousel: true,
+  },
+  {
+    // sync.so Orange — built on the same Framer / sync.so dark-surface base
+    // as the sync.so toggle, but with sync.so's "Flush Orange" #FF7700 CTA
+    // (sampled from their Figma design file — variable color/orange/50 /
+    // sync.so/Flush Orange). Surface and border tokens mirror their Figma:
+    // grey/7 #121213 surface, grey/14 #222225 border, grey/83 #D4D4D4 and
+    // grey/65 #A1A1AA text. Typography stays our Mozilla Headline +
+    // Mozilla Text (inherited from the global root — sync.so's Satoshi is
+    // intentionally NOT used). Scoped via [data-brand-color="sync-so-orange"]
+    // in layout.tsx.
+    name: 'sync.so Orange',
+    vars: {
+      // sync.so's exact Flush Orange CTA.
+      brand: '#FF7700',
+      strong: '#FFA866',
+      // CTA hover — a stop darker.
+      deep: '#CC5F00',
+      // Featured-review border + soft-brand surfaces — kept near-black
+      // so the card edge reads as "almost not there", matching sync.so's
+      // own pages where the featured card barely lifts off the page.
+      soft: '#161616',
+      // Alternating section / card background — barely a percent off
+      // pure black. sync.so's reference shows cards as an "almost not
+      // there" fill; anything visibly grey reads as too lifted.
+      bg: '#060607',
+      glow: '#FFA866',
+      onDark: '#FFA866',
+      // Flat pure-black hero (matches the sync.so site background).
+      heroTint: '#000000',
+    },
+    // Half pure-black / half flush-orange — signals dark theme + CTA colour.
+    swatch:
+      'linear-gradient(135deg, #000000 0%, #000000 48%, #FF7700 52%, #FF7700 100%)',
     hideHeroCarousel: true,
   },
 ]

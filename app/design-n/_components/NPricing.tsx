@@ -43,9 +43,6 @@ export default function NPricing() {
           <p className="m-sub max-w-[640px]">
             A freelance designer costs $1,500+ — ours is just $49. Plus, you preview your logos free. Pay only when you find one you love.
           </p>
-          <p className="m-sans" style={{ fontSize: 13, color: 'var(--m-text-soft)' }}>
-            100% Money-Back Guarantee · One-time payment, no subscription
-          </p>
         </div>
 
         {/* Pricing card */}
@@ -72,7 +69,7 @@ export default function NPricing() {
             className="m-sans mt-1"
             style={{ fontSize: 15, color: 'var(--m-text-soft)', fontWeight: 600 }}
           >
-            One-time payment
+            One-time payment · 100% Money-Back Guarantee
           </p>
 
           {/* Divider */}

@@ -31,14 +31,18 @@ function CategoryPill({
         border: active
           ? '1px solid var(--m-brand)'
           : hovered
-          ? '1px solid var(--m-border-medium)'
+          ? 'var(--n-pill-hover-border, 1px solid var(--m-border-medium))'
           : '1px solid var(--m-border)',
         background: active
           ? 'var(--m-brand)'
           : hovered
-          ? 'var(--m-brand-bg)'
+          ? 'var(--n-pill-hover-bg, var(--m-brand-bg))'
           : 'var(--m-surface)',
-        color: active ? 'var(--m-on-brand, #FFFFFF)' : hovered ? 'var(--m-ink)' : 'var(--m-text-muted)',
+        color: active
+          ? 'var(--m-on-brand, #FFFFFF)'
+          : hovered
+          ? 'var(--n-pill-hover-color, var(--m-ink))'
+          : 'var(--m-text-muted)',
         fontSize: 14,
         lineHeight: 1,
         fontWeight: active ? 600 : 500,

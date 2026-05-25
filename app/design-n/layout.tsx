@@ -192,16 +192,15 @@ export default function NLayout({ children }: { children: ReactNode }) {
           transform: translateY(1px);
         }
 
-        /* Shared card hover — lift + border glow. Cards drop their inline
-           border and use this instead. */
+        /* Shared card chrome — 1px border, no hover animation. Cards
+           drop their inline border and use this instead. The hover lift
+           was removed site-wide because most cards on this page are
+           informational (Risk-Free, Built For, How-It-Works, Use Cases,
+           Reviews); the lift was implying interactivity that didn't
+           exist. Clickable cards (NBlog) get their own affordance via
+           the next/link cursor + image scale on hover. */
         .m-card-hover {
           border: 1px solid var(--m-border);
-          transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-        }
-        .m-card-hover:hover {
-          transform: translateY(-2px);
-          border-color: var(--m-brand-soft);
-          box-shadow: 0 8px 20px rgba(0,0,0,0.08);
         }
 
         /* Footer link hover — muted by default, brightens on hover.
@@ -231,7 +230,6 @@ export default function NLayout({ children }: { children: ReactNode }) {
             transform: none;
             transition: none;
           }
-          .m-card-hover:hover { transform: none; }
           .m-cta-btn:active { transform: none; }
         }
 
@@ -243,170 +241,6 @@ export default function NLayout({ children }: { children: ReactNode }) {
            carousel (e.g. the Character.AI theme). */
         .m-theme[data-hide-hero-carousel] [data-n-hero-carousel] { display: none; }
 
-
-        /* Freepik — a full dark theme: near-black surfaces, light text,
-           blue #336AEA CTA (colours from public/freepik-exact.html).
-           Scoped entirely to this toggle, so the other four toggles and
-           the default design-n are completely unaffected. */
-        .m-theme[data-brand-color="freepik"] {
-          --m-ink-deep: #FFFFFF;
-          --m-ink: #F5F5F5;
-          --m-ink-2: #F5F5F5;
-          --m-text: #C9C9C9;
-          --m-text-muted: #AEAEAE;
-          --m-text-soft: #8A8A8A;
-          --m-text-faint: #6E6E6E;
-          --m-text-on-dark: #F5F5F5;
-          --m-text-on-dark-muted: #AEAEAE;
-
-          /* Typography — design-L's Mozilla typefaces: Mozilla Headline for
-             headings, Mozilla Text for body. Scoped to this toggle only;
-             the other toggles keep Plus Jakarta Sans / Open Sans. */
-          --m-font-display: 'Mozilla Headline', sans-serif;
-          --m-font-sans: 'Mozilla Text', sans-serif;
-
-          --m-surface: #0D0D0D;
-          --m-surface-alt: #18181B;
-
-          --m-border: #2A2A2A;
-          --m-border-soft: #1E1E1E;
-          --m-border-medium: #3A3A3A;
-          /* Same as --m-border so the footer's inner divider matches its
-             top border and the nav divider. */
-          --m-border-dark: #2A2A2A;
-
-          /* Footer uses the same surface as the non-scrolled nav bar and
-             the page; a top border demarcates it, same as the nav divider. */
-          --n-footer-bg: var(--m-surface);
-          --n-footer-border: 1px solid var(--m-border);
-          /* No inner footer divider — the top border is the only one. */
-          --n-footer-divider: transparent;
-          /* Mockups frame matches the pricing card — surface background, a
-             2px blue border, the same soft shadow, and no dark inner mat
-             (padding 0, so the mockup sits flush to the blue border). */
-          --n-mockup-frame-bg: var(--m-surface);
-          --n-mockup-frame-border-css: 2px solid var(--m-brand);
-          --n-mockup-frame-shadow: var(--n-pricing-shadow);
-          --n-mockup-frame-pad: 0;
-          /* Mockups + pricing sections drop the alternating #141414 tint —
-             flat #0D0D0D surface so there are no different-shade bands. The
-             mockups section has TWO layers (a base + a masked overlay) — both
-             go flat. (Card tints still use --m-brand-bg for subtle lift.) */
-          --n-mockups-section-bg: var(--m-surface);
-          --n-mockups-bg: var(--m-surface);
-          --n-pricing-section-bg: var(--m-surface);
-          /* Sticky header's scrolled (compact) pill — frosted dark instead
-             of frosted white, with a faint light border. */
-          --m-header-bg: rgba(13,13,13,0.85);
-          --m-header-border: rgba(255,255,255,0.1);
-          /* FAQ accordion rows — dark, slightly raised off the section. */
-          --n-faq-row-bg: #161616;
-          /* Bottom CTA — no filled band: the heading sits straight on the
-             dark section (the Character.AI treatment), with a blue brand
-             button instead of a white-on-band one. */
-          --n-cta-band-bg: transparent;
-          --n-cta-band-pad: 0;
-          --n-cta-btn-bg: var(--m-brand);
-          --n-cta-btn-bg-hover: var(--m-brand-deep);
-          --n-cta-btn-fg: #FFFFFF;
-          /* Monochrome pass — no gold, no green, no red. Blue is the one
-             accent: rating stars / no-crosses go neutral grey, while the
-             check / yes / success marks fold into the single blue accent. */
-          --m-star: #C9C9C9;
-          --n-rating-star: #C9C9C9;
-          --n-check: #336AEA;
-          --m-success: #336AEA;
-          --m-success-bright: #336AEA;
-          --m-success-bold: #336AEA;
-          --n-yes: #336AEA;
-          --n-no: #3A3A3A;
-          --n-no-mark: #9A9A9A;
-          /* Hero highlight figures — white on the dark surface. */
-          --n-hero-highlight: #FFFFFF;
-          /* Checkout modal — dark container + dark social-proof strip
-             (defaults are a light off-white / warm tint). */
-          --n-checkout-modal-bg: #141414;
-          --n-checkout-strip-bg: #161616;
-          /* Pricing card — the default shadow has a hardcoded terracotta
-             glow; swap it for a blue glow + a deeper neutral shadow. */
-          --n-pricing-shadow: 0 12px 32px rgba(51,106,234,0.22), 0 2px 10px rgba(0,0,0,0.5);
-          /* Logo wordmark — design-L's logo treatment: DM Serif Display (the
-             default wordmark font, weight 400, -0.02em tracking — reached by
-             leaving --m-logo-font/weight/tracking unset), white, at 28px. */
-          --m-logo-size: 28px;
-          --m-logo-color: #FFFFFF;
-        }
-
-        /* Vermillion — a dark theme built on the Freepik base: a warm
-           near-black surface (a faint vermillion warmth mixed into the
-           black) with the vermillion #E7420F CTA. Scoped to this toggle. */
-        .m-theme[data-brand-color="vermillion"] {
-          --m-ink-deep: #FFFFFF;
-          --m-ink: #F5F5F5;
-          --m-ink-2: #F5F5F5;
-          --m-text: #C9C9C9;
-          --m-text-muted: #AEAEAE;
-          --m-text-soft: #8A8A8A;
-          --m-text-faint: #6E6E6E;
-          --m-text-on-dark: #F5F5F5;
-          --m-text-on-dark-muted: #AEAEAE;
-
-          /* design-L's Mozilla typefaces — carried over from the Freepik base. */
-          --m-font-display: 'Mozilla Headline', sans-serif;
-          --m-font-sans: 'Mozilla Text', sans-serif;
-
-          /* Warm near-black surfaces — a faint vermillion warmth in the
-             black; reads neutral at a glance but feels subtly warm. */
-          --m-surface: #120E0C;
-          --m-surface-alt: #1A1411;
-
-          --m-border: #2A2A2A;
-          --m-border-soft: #1E1E1E;
-          --m-border-medium: #3A3A3A;
-          --m-border-dark: #2A2A2A;
-
-          --n-footer-bg: var(--m-surface);
-          --n-footer-border: 1px solid var(--m-border);
-          --n-footer-divider: transparent;
-          --n-mockup-frame-bg: var(--m-surface);
-          --n-mockup-frame-border-css: 2px solid var(--m-brand);
-          --n-mockup-frame-shadow: var(--n-pricing-shadow);
-          --n-mockup-frame-pad: 0;
-          --n-mockups-section-bg: var(--m-surface);
-          --n-mockups-bg: var(--m-surface);
-          --n-pricing-section-bg: var(--m-surface);
-          --m-header-bg: rgba(18,14,12,0.85);
-          --m-header-border: rgba(255,255,255,0.1);
-          --n-faq-row-bg: #191310;
-          --n-cta-band-bg: transparent;
-          --n-cta-band-pad: 0;
-          --n-cta-btn-bg: var(--m-brand);
-          --n-cta-btn-bg-hover: var(--m-brand-deep);
-          --n-cta-btn-fg: #FFFFFF;
-          /* Monochrome pass — vermillion is the one accent; rating stars and
-             no-crosses stay neutral grey. */
-          --m-star: #C9C9C9;
-          --n-rating-star: #C9C9C9;
-          --n-check: #E7420F;
-          --m-success: #E7420F;
-          --m-success-bright: #E7420F;
-          --m-success-bold: #E7420F;
-          --n-yes: #E7420F;
-          --n-no: #3A3A3A;
-          --n-no-mark: #9A9A9A;
-          /* Hero highlight figures — white on the dark surface. */
-          --n-hero-highlight: #FFFFFF;
-          --n-checkout-modal-bg: #161210;
-          --n-checkout-strip-bg: #191310;
-          --n-pricing-shadow: 0 12px 32px rgba(231,66,15,0.22), 0 2px 10px rgba(0,0,0,0.5);
-          /* Logo wordmark — the site's heading font (Mozilla Headline, via
-             --m-font-display) at the hero-heading weight (700 = .m-h1),
-             white, 28px. */
-          --m-logo-font: var(--m-font-display);
-          --m-logo-weight: 700;
-          --m-logo-size: 28px;
-          --m-logo-color: #FFFFFF;
-        }
 
         /* Vermillion Black — a dark theme on the Freepik base: true
            pure-black surfaces (#000000, neutral / no warmth) with the
@@ -427,15 +261,18 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --m-font-display: 'Mozilla Headline', sans-serif;
           --m-font-sans: 'Mozilla Text', sans-serif;
 
-          /* True pure-black surfaces — neutral, no warmth. Cards lift a hair
-             so they stay visible against the absolute-black base. */
+          /* True pure-black surfaces — neutral, no warmth. Cards lift
+             barely a percent off pure black, matching the sync.so
+             "almost-not-there" treatment used across all dark toggles. */
           --m-surface: #000000;
-          --m-surface-alt: #0C0C0C;
+          --m-surface-alt: #060607;
 
-          --m-border: #2A2A2A;
-          --m-border-soft: #1E1E1E;
-          --m-border-medium: #3A3A3A;
-          --m-border-dark: #2A2A2A;
+          /* Hairline borders — card edges read as a faint single-pixel
+             highlight, not a visible outline. */
+          --m-border: #161616;
+          --m-border-soft: #101010;
+          --m-border-medium: #222225;
+          --m-border-dark: #161616;
 
           --n-footer-bg: var(--m-surface);
           --n-footer-border: 1px solid var(--m-border);
@@ -449,7 +286,7 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-pricing-section-bg: var(--m-surface);
           --m-header-bg: rgba(0,0,0,0.85);
           --m-header-border: rgba(255,255,255,0.1);
-          --n-faq-row-bg: #0C0C0C;
+          --n-faq-row-bg: #060607;
           --n-cta-band-bg: transparent;
           --n-cta-band-pad: 0;
           --n-cta-btn-bg: var(--m-brand);
@@ -470,30 +307,205 @@ export default function NLayout({ children }: { children: ReactNode }) {
              — white instead of the brand vermillion, so they read as bold
              white highlights against the pure-black hero. */
           --n-hero-highlight: #FFFFFF;
-          --n-checkout-modal-bg: #0A0A0A;
-          --n-checkout-strip-bg: #0C0C0C;
+          --n-checkout-modal-bg: #060607;
+          --n-checkout-strip-bg: #060607;
+          /* Shared card treatment (matches sync.so / sync.so Orange):
+             - How It Works cards transparent (outline-only via m-card-hover)
+             - Use Cases cards filled with surface-alt, no border
+             - Category pills hover with brand outline + brand text */
+          --n-step-card-bg: transparent;
+          --n-step-card-shadow: none;
+          --n-usecase-card-bg: var(--m-surface-alt);
+          --n-usecase-card-border: 1px solid transparent;
+          --n-pill-hover-border: 1px solid var(--m-brand);
+          --n-pill-hover-bg: var(--m-surface);
+          --n-pill-hover-color: var(--m-brand);
           --n-pricing-shadow: 0 12px 32px rgba(231,66,15,0.22), 0 2px 10px rgba(0,0,0,0.5);
-          /* Logo wordmark — Mozilla Headline 700, white, 28px (same as the
-             Vermillion toggle). */
+          /* Logo wordmark — Mozilla Headline 700, white, 28px. */
           --m-logo-font: var(--m-font-display);
           --m-logo-weight: 700;
           --m-logo-size: 28px;
           --m-logo-color: #FFFFFF;
         }
 
-        /* Vermillion Black — bump the hero content a hair further down from
-           the top nav (the rest of the toggles keep their existing spacing).
-           :first-child scoping — the hero section has three direct grand-
-           children (content / marquee / trust strip); we only want the
-           content one. */
-        .m-theme[data-brand-color="vermillion-black"] [data-n-hero] > div:first-child > div {
-          padding-top: 64px;
+        /* sync.so — colours mirrored from the live Framer-built Logo.AI
+           project (understanding-peach-071478.framer.app). Pure-black
+           surfaces with Framer's exact card tint (#0F1012 — a hair off
+           black), Framer's exact CTA blue #0000FF (sampled from the live
+           button), white text, and Framer's specific grey tones (#B3B3B3
+           soft / #717171 subtle). Typography intentionally inherits the
+           global Mozilla Headline + Mozilla Text — we only borrow colours
+           from the Framer site, not its font stack. Scoped to this toggle. */
+        .m-theme[data-brand-color="sync-so"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #FFFFFF;
+          --m-ink-2: #FFFFFF;
+          --m-text: #B3B3B3;
+          --m-text-muted: #B3B3B3;
+          --m-text-soft: #717171;
+          --m-text-faint: #717171;
+          --m-text-on-dark: #FFFFFF;
+          --m-text-on-dark-muted: #B3B3B3;
+
+          /* Pure-black surfaces — Framer's site black. Cards lift barely
+             a percent off pure black, matching the sync.so "almost-not-
+             there" treatment used across all dark toggles. */
+          --m-surface: #000000;
+          --m-surface-alt: #060607;
+
+          /* Hairline borders — card edges read as a faint single-pixel
+             highlight, not a visible outline. */
+          --m-border: #161616;
+          --m-border-soft: #101010;
+          --m-border-medium: #222225;
+          --m-border-dark: #161616;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(0,0,0,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #060607;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          /* Monochrome accent — Framer-blue is the one CTA colour; stars +
+             no-crosses stay neutral grey, checks fold into brand. */
+          --m-star: #B3B3B3;
+          --n-rating-star: #B3B3B3;
+          --n-check: #0000FF;
+          --m-success: #0000FF;
+          --m-success-bright: #0000FF;
+          --m-success-bold: #0000FF;
+          --n-yes: #0000FF;
+          --n-no: #3A3A3A;
+          --n-no-mark: #717171;
+          /* Hero highlight figures — white, same as VB. */
+          --n-hero-highlight: #FFFFFF;
+          --n-checkout-modal-bg: #060607;
+          --n-checkout-strip-bg: #060607;
+          /* Shared card treatment (matches sync.so Orange):
+             - How It Works cards transparent (outline-only via m-card-hover)
+             - Use Cases cards filled with surface-alt, no border
+             - Category pills hover with brand outline + brand text */
+          --n-step-card-bg: transparent;
+          --n-step-card-shadow: none;
+          --n-usecase-card-bg: var(--m-surface-alt);
+          --n-usecase-card-border: 1px solid transparent;
+          --n-pill-hover-border: 1px solid var(--m-brand);
+          --n-pill-hover-bg: var(--m-surface);
+          --n-pill-hover-color: var(--m-brand);
+          --n-pricing-shadow: 0 12px 32px rgba(0,0,255,0.28), 0 2px 10px rgba(0,0,0,0.5);
+          /* Logo wordmark — Mozilla Headline 700, white, 28px (inherits
+             from the global root; matches VB). */
+          --m-logo-font: var(--m-font-display);
+          --m-logo-weight: 700;
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
         }
-        @media (min-width: 768px) {
-          .m-theme[data-brand-color="vermillion-black"] [data-n-hero] > div:first-child > div {
-            padding-top: 80px;
-          }
+
+        /* sync.so Orange — same Framer / sync.so dark-surface base as the
+           sync.so toggle, but with sync.so's "Flush Orange" #FF7700 CTA
+           (sampled from their Figma — sync.so/Flush Orange variable).
+           Surface tokens come straight from the same Figma file: grey/7
+           #121213 surface, grey/14 #222225 border, grey/83 #D4D4D4 +
+           grey/65 #A1A1AA text. Typography intentionally inherits the
+           global Mozilla Headline + Mozilla Text — sync.so's Satoshi is
+           NOT used. Scoped to this toggle. */
+        .m-theme[data-brand-color="sync-so-orange"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #FFFFFF;
+          --m-ink-2: #FFFFFF;
+          --m-text: #D4D4D4;
+          --m-text-muted: #A1A1AA;
+          --m-text-soft: #A1A1AA;
+          --m-text-faint: #A1A1AA;
+          --m-text-on-dark: #FFFFFF;
+          --m-text-on-dark-muted: #D4D4D4;
+
+          /* Pure-black surfaces — sync.so's site black. Cards lift barely
+             a percent off the page so the fill reads as "almost not there",
+             matching sync.so/studios — the previous #0A0B0C was already
+             subtle but still photographed as a visible grey block on pure
+             black, so drop it another stop. */
+          --m-surface: #000000;
+          --m-surface-alt: #060607;
+
+          /* Hairline borders — sync.so's card edges read as a faint
+             single-pixel highlight. */
+          --m-border: #161616;
+          --m-border-soft: #101010;
+          --m-border-medium: #222225;
+          --m-border-dark: #161616;
+
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(0,0,0,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #060607;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          /* Monochrome accent — Flush Orange is the one CTA colour; stars +
+             no-crosses stay neutral grey, checks fold into brand. */
+          --m-star: #A1A1AA;
+          --n-rating-star: #A1A1AA;
+          --n-check: #FF7700;
+          --m-success: #FF7700;
+          --m-success-bright: #FF7700;
+          --m-success-bold: #FF7700;
+          --n-yes: #FF7700;
+          --n-no: #3A3A3A;
+          --n-no-mark: #A1A1AA;
+          /* Hero highlight figures — white, same as VB / sync.so. */
+          --n-hero-highlight: #FFFFFF;
+          --n-checkout-modal-bg: #060607;
+          --n-checkout-strip-bg: #060607;
+          /* Match Reviews / FAQ — How It Works + Use Cases cards get the
+             same near-invisible surface-alt fill instead of their default
+             outline-only / pure-black look. Shadow on the steps card is
+             dropped (the brand-soft is already near-black on orange, so
+             the shadow contributes nothing but blur). */
+          --n-step-card-bg: transparent;
+          --n-step-card-shadow: none;
+          --n-usecase-card-bg: var(--m-surface-alt);
+          --n-usecase-card-border: 1px solid transparent;
+          /* Category-pill hover (Gallery + Mockups). Default is a grey
+             border + brand-bg tint, which is invisible on this near-black
+             palette. Replace with a brand-coloured outline + brand-coloured
+             text so the hover reads clearly without filling the chip. */
+          --n-pill-hover-border: 1px solid var(--m-brand);
+          --n-pill-hover-bg: var(--m-surface);
+          --n-pill-hover-color: var(--m-brand);
+          --n-pricing-shadow: 0 12px 32px rgba(255,119,0,0.26), 0 2px 10px rgba(0,0,0,0.5);
+          /* Logo wordmark — Mozilla Headline 700, white, 28px (inherits
+             from the global root; matches VB / sync.so). */
+          --m-logo-font: var(--m-font-display);
+          --m-logo-weight: 700;
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
         }
+
         /* ─────────────────────────────────────────────────────────────
            Vermillion Black — onboarding: centered-minimal layout.
            Same questions, same one-per-step flow. Only the visual
@@ -628,14 +640,18 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --m-font-display: 'Mozilla Headline', sans-serif;
           --m-font-sans: 'Mozilla Text', sans-serif;
 
-          /* Much-darker near-pure-black surfaces. */
+          /* Much-darker near-pure-black surfaces. Cards lift just a
+             few stops off the page, matching the sync.so "almost-not-
+             there" treatment used across all dark toggles. */
           --m-surface: #050505;
-          --m-surface-alt: #101010;
+          --m-surface-alt: #0A0A0A;
 
-          --m-border: #2A2A2A;
-          --m-border-soft: #1E1E1E;
-          --m-border-medium: #3A3A3A;
-          --m-border-dark: #2A2A2A;
+          /* Hairline borders — card edges read as a faint single-pixel
+             highlight, not a visible outline. */
+          --m-border: #161616;
+          --m-border-soft: #101010;
+          --m-border-medium: #222225;
+          --m-border-dark: #161616;
 
           --n-footer-bg: var(--m-surface);
           --n-footer-border: 1px solid var(--m-border);
@@ -649,7 +665,7 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-pricing-section-bg: var(--m-surface);
           --m-header-bg: rgba(5,5,5,0.85);
           --m-header-border: rgba(255,255,255,0.1);
-          --n-faq-row-bg: #101010;
+          --n-faq-row-bg: #0A0A0A;
           --n-cta-band-bg: transparent;
           --n-cta-band-pad: 0;
           --n-cta-btn-bg: var(--m-brand);
@@ -666,97 +682,25 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-no-mark: #9A9A9A;
           /* Hero highlight figures — white on the dark surface. */
           --n-hero-highlight: #FFFFFF;
-          --n-checkout-modal-bg: #0D0D0D;
-          --n-checkout-strip-bg: #101010;
+          --n-checkout-modal-bg: #0A0A0A;
+          --n-checkout-strip-bg: #0A0A0A;
+          /* Shared card treatment (matches sync.so / sync.so Orange):
+             - How It Works cards transparent (outline-only via m-card-hover)
+             - Use Cases cards filled with surface-alt, no border
+             - Category pills hover with brand outline + brand text */
+          --n-step-card-bg: transparent;
+          --n-step-card-shadow: none;
+          --n-usecase-card-bg: var(--m-surface-alt);
+          --n-usecase-card-border: 1px solid transparent;
+          --n-pill-hover-border: 1px solid var(--m-brand);
+          --n-pill-hover-bg: var(--m-surface);
+          --n-pill-hover-color: var(--m-brand);
           --n-pricing-shadow: 0 12px 32px rgba(117,67,227,0.22), 0 2px 10px rgba(0,0,0,0.5);
           /* Logo — Freepik's DM Serif wordmark (no font/weight override). */
           --m-logo-size: 28px;
           --m-logo-color: #FFFFFF;
         }
 
-        /* Framer — a DARK, fully monochrome theme on the Freepik base: a
-           pure-black background (#000000, Framer's site black) with an
-           exact-white #FFFFFF CTA (white fill, black text). Every accent is
-           white. Scoped entirely to this toggle. */
-        .m-theme[data-brand-color="framer"] {
-          --m-ink-deep: #FFFFFF;
-          --m-ink: #F5F5F5;
-          --m-ink-2: #F5F5F5;
-          --m-text: #C9C9C9;
-          --m-text-muted: #AEAEAE;
-          --m-text-soft: #8A8A8A;
-          --m-text-faint: #6E6E6E;
-          --m-text-on-dark: #F5F5F5;
-          --m-text-on-dark-muted: #AEAEAE;
-
-          /* design-L's Mozilla typefaces — carried over from the Freepik base. */
-          --m-font-display: 'Mozilla Headline', sans-serif;
-          --m-font-sans: 'Mozilla Text', sans-serif;
-
-          /* Pure-black surfaces — Framer's site black. */
-          --m-surface: #000000;
-          --m-surface-alt: #141414;
-
-          /* Text / icon colour on a brand-coloured (white) fill — black,
-             since every CTA, check circle and step badge is now white. */
-          --m-on-brand: #000000;
-
-          --m-border: #2A2A2A;
-          --m-border-soft: #1E1E1E;
-          --m-border-medium: #3A3A3A;
-          --m-border-dark: #2A2A2A;
-
-          --n-footer-bg: var(--m-surface);
-          --n-footer-border: 1px solid var(--m-border);
-          --n-footer-divider: transparent;
-          --n-mockup-frame-bg: var(--m-surface);
-          --n-mockup-frame-border-css: 2px solid var(--m-brand);
-          --n-mockup-frame-shadow: var(--n-pricing-shadow);
-          --n-mockup-frame-pad: 0;
-          /* Nav links — Framer's grey-to-white hover. The theme is
-             monochrome (brand == white == near-white ink), so links sit at
-             a muted grey and brighten to pure white on hover. */
-          --n-nav-link: #AEAEAE;
-          --n-nav-link-hover: #FFFFFF;
-          --n-mockups-section-bg: var(--m-surface);
-          --n-mockups-bg: var(--m-surface);
-          --n-pricing-section-bg: var(--m-surface);
-          --m-header-bg: rgba(0,0,0,0.85);
-          --m-header-border: rgba(255,255,255,0.1);
-          --n-faq-row-bg: #141414;
-          --n-cta-band-bg: transparent;
-          --n-cta-band-pad: 0;
-          --n-cta-btn-bg: var(--m-brand);
-          --n-cta-btn-bg-hover: var(--m-brand-deep);
-          --n-cta-btn-fg: var(--m-on-brand);
-          /* Top-nav CTA weight bump — only Framer has dark-on-light text
-             in the nav CTA; at the same numeric weight dark-on-light reads
-             thinner than light-on-dark. Bumped to 600 to match the hero
-             CTA's .m-cta-lg weight (which is also 600) — the two whites
-             then read as the same UI element. */
-          --n-nav-cta-weight: 600;
-          /* Monochrome pass — white is the one accent; rating stars and
-             no-crosses stay neutral grey. Check / yes circles are white
-             with a black tick (--m-on-brand). */
-          --m-star: #C9C9C9;
-          --n-rating-star: #C9C9C9;
-          --n-check: #FFFFFF;
-          --m-success: #FFFFFF;
-          --m-success-bright: #FFFFFF;
-          --m-success-bold: #D4D4D4;
-          --n-yes: #FFFFFF;
-          --n-no: #3A3A3A;
-          --n-no-mark: #9A9A9A;
-          --n-footer-check: #FFFFFF;
-          /* Hero highlight figures — white on the dark surface. */
-          --n-hero-highlight: #FFFFFF;
-          --n-checkout-modal-bg: #0A0A0A;
-          --n-checkout-strip-bg: #141414;
-          --n-pricing-shadow: 0 12px 32px rgba(255,255,255,0.06), 0 2px 10px rgba(0,0,0,0.6);
-          /* Logo — Freepik's DM Serif wordmark (no font/weight override). */
-          --m-logo-size: 28px;
-          --m-logo-color: #FFFFFF;
-        }
       ` }} />
       <div className={`m-theme ${plusJakartaSans.variable} ${openSans.variable} ${dmSerifDisplay.variable} ${poppins.variable}`}>
         {/* Colour-toggle applier — re-applies the brand colour the user

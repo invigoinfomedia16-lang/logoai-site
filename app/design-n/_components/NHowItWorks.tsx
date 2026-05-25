@@ -1,7 +1,5 @@
-// How It Works — horizontal 4-step stepper + privacy strip bar. Copy
-// from the LOGOAI landing-page doc, section 4.
-
-import { Fragment } from 'react'
+// How It Works — 4-step grid (outline-only cards) + privacy strip bar.
+// Copy from the LOGOAI landing-page doc, section 4.
 
 function StepNumber({ n }: { n: number }) {
   return (
@@ -64,57 +62,56 @@ export default function NHowItWorks() {
           </p>
         </div>
 
-        {/* 4-step grid */}
-        {/* Horizontal 4-step stepper — number circles + content stacked
-            in a row, connected by a thin horizontal line. Stacks vertically
-            on mobile. Breaks the cards-grid rhythm: this is a process, not
-            a comparison. */}
-        <div className="flex flex-col md:flex-row md:items-start gap-12 md:gap-0 w-full">
-          {STEPS.map((s, i) => {
-            const isLast = i === STEPS.length - 1
-            return (
-              <Fragment key={s.n}>
-                <div className="flex flex-col items-center text-center md:flex-1 md:px-3">
-                  <StepNumber n={s.n} />
-                  <h3
-                    className="m-display mt-5"
-                    style={{ color: 'var(--m-ink)', fontWeight: 600, fontSize: 18, lineHeight: '24px' }}
-                  >
-                    {s.title}
-                  </h3>
-                  <p className="m-body-sm mt-2" style={{ maxWidth: 240 }}>{s.body}</p>
-                </div>
-                {/* Connector line — md+ only, hidden on last. Vertically
-                    centered with the step circle (circle is 36px → 18px). */}
-                {!isLast && (
-                  <div
-                    aria-hidden="true"
-                    className="hidden md:block"
-                    style={{
-                      flex: '0 0 24px',
-                      height: 1,
-                      background: 'var(--m-border)',
-                      marginTop: 18,
-                    }}
-                  />
-                )}
-              </Fragment>
-            )
-          })}
+        {/* 4-step grid — outline-only cards: m-card-hover gives the 1px
+            border, background matches the section so cards read as
+            outlined (no filled chrome), small brand-soft shadow lifts
+            them just enough. This is the original treatment from before
+            the various restyles. */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
+          {STEPS.map((s) => (
+            <div
+              key={s.n}
+              className="m-card-hover flex flex-col gap-4 p-6 h-full"
+              style={{
+                background: 'var(--n-step-card-bg, var(--m-surface))',
+                borderRadius: '20px',
+                boxShadow: 'var(--n-step-card-shadow, 0px 1px 3px 0px var(--m-brand-soft), 0px 1px 2px -1px var(--m-brand-soft))',
+              }}
+            >
+              <StepNumber n={s.n} />
+              <h3
+                className="m-display"
+                style={{ color: 'var(--m-ink)', fontWeight: 600, fontSize: 18, lineHeight: '24px' }}
+              >
+                {s.title}
+              </h3>
+              <p className="m-body-sm">{s.body}</p>
+            </div>
+          ))}
         </div>
 
-        {/* Privacy strip */}
+        {/* Privacy strip — title-as-heading on top, body line below.
+            Constrained to fit content + breathing room; centered. */}
         <div
-          className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 w-full px-6 py-5"
+          className="flex flex-col items-center justify-center text-center gap-2 mx-auto px-6 py-5"
           style={{
             background: 'var(--m-brand-bg)',
             border: '1px solid var(--m-brand-soft)',
             borderRadius: 'var(--m-radius-xl)',
+            maxWidth: 'fit-content',
           }}
         >
-          <span className="m-sans" style={{ fontWeight: 700, fontSize: 15, color: 'var(--m-ink)' }}>
+          <h3
+            className="m-display"
+            style={{
+              fontWeight: 700,
+              fontSize: 18,
+              lineHeight: '24px',
+              color: 'var(--m-ink)',
+            }}
+          >
             Your brand details stay private.
-          </span>
+          </h3>
           <span className="flex items-center gap-1.5">
             <CheckInline />
             <span className="m-sans" style={{ fontSize: 14, color: 'var(--m-text-muted)' }}>

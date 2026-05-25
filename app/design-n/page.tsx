@@ -7,11 +7,9 @@ import NReveal from './_components/NReveal'
 import NColorToggle from './_components/NColorToggle'
 import NStickyCTA from './_components/NStickyCTA'
 import NHero from './_components/NHero'
-import NRiskFree from './_components/NRiskFree'
 import NHowItWorks from './_components/NHowItWorks'
 import NGallery from './_components/NGallery'
 import NMockups from './_components/NMockups'
-import NBuiltFor from './_components/NBuiltFor'
 import NReviews from './_components/NReviews'
 import NUseCases from './_components/NUseCases'
 import NCompare from './_components/NCompare'
@@ -27,10 +25,8 @@ export default function DesignNHome() {
       <main>
         {/* NHero is above the fold — render it immediately, no reveal. */}
         <NHero />
-        <NReveal><NRiskFree /></NReveal>
         <NReveal><NGallery /></NReveal>
         <NReveal><NMockups /></NReveal>
-        <NReveal><NBuiltFor /></NReveal>
         <NReveal><NHowItWorks /></NReveal>
         <NReveal><NReviews /></NReveal>
         <NReveal><NUseCases /></NReveal>

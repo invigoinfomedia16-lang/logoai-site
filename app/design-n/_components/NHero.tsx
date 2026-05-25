@@ -150,11 +150,6 @@ export default function NHero() {
             {' '}logos generated for businesses across{' '}
             <span style={{ fontWeight: 700, color: 'var(--n-hero-highlight, var(--m-brand))' }}>90+ countries</span>
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            <span className="m-body" style={{ fontWeight: 600 }}>
-              Loved by founders, agencies, and small business owners
-            </span>
-          </div>
         </div>
       </div>
 
