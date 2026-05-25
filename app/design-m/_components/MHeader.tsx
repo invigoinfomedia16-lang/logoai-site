@@ -370,6 +370,27 @@ export default function MHeader({
               {n.label}
             </a>
           ))}
+          {/* Browse Logos + Blog — these sit alongside NAV_ITEMS on
+              desktop (Browse Logos as a dropdown, Blog as a top-level
+              link) and need to be in the mobile menu too. Browse Logos
+              collapses to a single link here (the full dropdown would
+              eat too much height on mobile). */}
+          <a
+            href="#gallery"
+            onClick={() => setOpen(false)}
+            className="m-nav py-3 border-b"
+            style={{ color: 'var(--m-ink)', borderColor: 'var(--m-border-soft)' }}
+          >
+            Browse Logos
+          </a>
+          <a
+            href="#blog"
+            onClick={() => setOpen(false)}
+            className="m-nav py-3 border-b"
+            style={{ color: 'var(--m-ink)', borderColor: 'var(--m-border-soft)' }}
+          >
+            Blog
+          </a>
           <a
             href={ctaHref}
             onClick={() => setOpen(false)}
