@@ -65,12 +65,13 @@ export default function NPricing() {
               $49
             </span>
           </div>
-          <p
-            className="m-sans mt-1"
+          <div
+            className="m-sans mt-1 flex flex-col items-center gap-1"
             style={{ fontSize: 15, color: 'var(--m-text-soft)', fontWeight: 600 }}
           >
-            One-time payment, no subscription · 100% Money-Back Guarantee
-          </p>
+            <span>One-time payment, no subscription</span>
+            <span>100% Money-Back Guarantee</span>
+          </div>
 
           {/* Divider */}
           <div className="w-full my-7" style={{ height: 1, background: 'var(--m-border)' }} />

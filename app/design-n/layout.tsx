@@ -246,7 +246,7 @@ export default function NLayout({ children }: { children: ReactNode }) {
            pure-black surfaces (#000000, neutral / no warmth) with the
            vermillion #E7420F CTA. A stark sibling of the warm-toned
            Vermillion toggle. Scoped entirely to this toggle. */
-        .m-theme[data-brand-color="vermillion-black"] {
+        .m-theme[data-brand-color="vermillion-pure-black"] {
           --m-ink-deep: #FFFFFF;
           --m-ink: #F5F5F5;
           --m-ink-2: #F5F5F5;
@@ -328,33 +328,105 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --m-logo-color: #FFFFFF;
         }
 
-        /* sync.so — colours mirrored from the live Framer-built Logo.AI
-           project (understanding-peach-071478.framer.app). Pure-black
-           surfaces with Framer's exact card tint (#0F1012 — a hair off
-           black), Framer's exact CTA blue #0000FF (sampled from the live
-           button), white text, and Framer's specific grey tones (#B3B3B3
-           soft / #717171 subtle). Typography intentionally inherits the
-           global Mozilla Headline + Mozilla Text — we only borrow colours
-           from the Framer site, not its font stack. Scoped to this toggle. */
-        .m-theme[data-brand-color="sync-so"] {
+        /* Vermillion Freepik — Vermillion Black's #E7420F CTA on the old
+           Freepik graphite base (#0D0D0D page, #18181B cards). More
+           "lifted" / grey than charcoal; visible borders since the cards
+           aren't hugging the page. Typography inherits the global Mozilla. */
+        .m-theme[data-brand-color="vermillion-freepik"] {
           --m-ink-deep: #FFFFFF;
-          --m-ink: #FFFFFF;
-          --m-ink-2: #FFFFFF;
-          --m-text: #B3B3B3;
-          --m-text-muted: #B3B3B3;
-          --m-text-soft: #717171;
-          --m-text-faint: #717171;
-          --m-text-on-dark: #FFFFFF;
-          --m-text-on-dark-muted: #B3B3B3;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
 
-          /* Pure-black surfaces — Framer's site black. Cards lift barely
-             a percent off pure black, matching the sync.so "almost-not-
-             there" treatment used across all dark toggles. */
-          --m-surface: #000000;
-          --m-surface-alt: #060607;
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
 
-          /* Hairline borders — card edges read as a faint single-pixel
-             highlight, not a visible outline. */
+          /* Freepik graphite base. */
+          --m-surface: #0D0D0D;
+          --m-surface-alt: #18181B;
+
+          /* Freepik visible borders — cards are noticeably lifted so the
+             border needs to be visible (hairline would disappear into the
+             card fill). */
+          --m-border: #2A2A2A;
+          --m-border-soft: #1E1E1E;
+          --m-border-medium: #3A3A3A;
+          --m-border-dark: #2A2A2A;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(13,13,13,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #18181B;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          /* Monochrome pass — vermillion is the one accent. */
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #E7420F;
+          --m-success: #E7420F;
+          --m-success-bright: #E7420F;
+          --m-success-bold: #E7420F;
+          --n-yes: #E7420F;
+          --n-no: #3A3A3A;
+          --n-no-mark: #9A9A9A;
+          --n-hero-highlight: #FFFFFF;
+          --n-checkout-modal-bg: #0D0D0D;
+          --n-checkout-strip-bg: #18181B;
+          /* Shared card treatment — matches the rest of the dark toggles. */
+          --n-step-card-bg: transparent;
+          --n-step-card-shadow: none;
+          --n-usecase-card-bg: var(--m-surface-alt);
+          --n-usecase-card-border: 1px solid transparent;
+          --n-pill-hover-border: 1px solid var(--m-brand);
+          --n-pill-hover-bg: var(--m-surface);
+          --n-pill-hover-color: var(--m-brand);
+          --n-pricing-shadow: 0 12px 32px rgba(231,66,15,0.22), 0 2px 10px rgba(0,0,0,0.5);
+          --m-logo-font: var(--m-font-display);
+          --m-logo-weight: 700;
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
+
+        /* Vermillion Charcoal — Vermillion Black's #E7420F CTA on Purple
+           Black's softer charcoal base (#050505 / #0A0A0A) instead of pure
+           black. Same hairline borders + transparent-card treatment as the
+           other dark toggles. Typography inherits the global Mozilla. */
+        .m-theme[data-brand-color="vermillion-charcoal"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
+
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+
+          /* Purple Black's charcoal base — #050505 page, #0A0A0A cards. */
+          --m-surface: #050505;
+          --m-surface-alt: #0A0A0A;
+
+          /* Hairline borders. */
           --m-border: #161616;
           --m-border-soft: #101010;
           --m-border-medium: #222225;
@@ -370,33 +442,30 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-mockups-section-bg: var(--m-surface);
           --n-mockups-bg: var(--m-surface);
           --n-pricing-section-bg: var(--m-surface);
-          --m-header-bg: rgba(0,0,0,0.85);
+          --m-header-bg: rgba(5,5,5,0.85);
           --m-header-border: rgba(255,255,255,0.1);
-          --n-faq-row-bg: #060607;
+          --n-faq-row-bg: #0A0A0A;
           --n-cta-band-bg: transparent;
           --n-cta-band-pad: 0;
           --n-cta-btn-bg: var(--m-brand);
           --n-cta-btn-bg-hover: var(--m-brand-deep);
           --n-cta-btn-fg: #FFFFFF;
-          /* Monochrome accent — Framer-blue is the one CTA colour; stars +
-             no-crosses stay neutral grey, checks fold into brand. */
-          --m-star: #B3B3B3;
-          --n-rating-star: #B3B3B3;
-          --n-check: #0000FF;
-          --m-success: #0000FF;
-          --m-success-bright: #0000FF;
-          --m-success-bold: #0000FF;
-          --n-yes: #0000FF;
+          /* Monochrome pass — vermillion is the one accent; rating stars
+             and no-crosses stay neutral grey. */
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #E7420F;
+          --m-success: #E7420F;
+          --m-success-bright: #E7420F;
+          --m-success-bold: #E7420F;
+          --n-yes: #E7420F;
           --n-no: #3A3A3A;
-          --n-no-mark: #717171;
-          /* Hero highlight figures — white, same as VB. */
+          --n-no-mark: #9A9A9A;
+          /* Hero highlight figures — white. */
           --n-hero-highlight: #FFFFFF;
-          --n-checkout-modal-bg: #060607;
-          --n-checkout-strip-bg: #060607;
-          /* Shared card treatment (matches sync.so Orange):
-             - How It Works cards transparent (outline-only via m-card-hover)
-             - Use Cases cards filled with surface-alt, no border
-             - Category pills hover with brand outline + brand text */
+          --n-checkout-modal-bg: #0A0A0A;
+          --n-checkout-strip-bg: #0A0A0A;
+          /* Shared card treatment — matches the rest of the dark toggles. */
           --n-step-card-bg: transparent;
           --n-step-card-shadow: none;
           --n-usecase-card-bg: var(--m-surface-alt);
@@ -404,9 +473,8 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-pill-hover-border: 1px solid var(--m-brand);
           --n-pill-hover-bg: var(--m-surface);
           --n-pill-hover-color: var(--m-brand);
-          --n-pricing-shadow: 0 12px 32px rgba(0,0,255,0.28), 0 2px 10px rgba(0,0,0,0.5);
-          /* Logo wordmark — Mozilla Headline 700, white, 28px (inherits
-             from the global root; matches VB). */
+          --n-pricing-shadow: 0 12px 32px rgba(231,66,15,0.22), 0 2px 10px rgba(0,0,0,0.5);
+          /* Logo wordmark — Mozilla Headline 700, white, 28px. */
           --m-logo-font: var(--m-font-display);
           --m-logo-weight: 700;
           --m-logo-size: 28px;
@@ -421,7 +489,7 @@ export default function NLayout({ children }: { children: ReactNode }) {
            #5A3FE6 sits well inside sRGB so no browser has to clip → same
            look everywhere. Same dark-surface base as the other sync.so
            toggles; typography inherits the global Mozilla. */
-        .m-theme[data-brand-color="electric-violet"] {
+        .m-theme[data-brand-color="electric-violet-pure-black"] {
           --m-ink-deep: #FFFFFF;
           --m-ink: #FFFFFF;
           --m-ink-2: #FFFFFF;
@@ -500,11 +568,82 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --m-logo-color: #FFFFFF;
         }
 
+        /* Electric Violet Freepik — #5A3FE6 CTA on Freepik's graphite base
+           (#0D0D0D / #18181B). Visible borders since the cards are
+           noticeably lifted off the page. Typography inherits global Mozilla. */
+        .m-theme[data-brand-color="electric-violet-freepik"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
+
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+
+          /* Freepik graphite base. */
+          --m-surface: #0D0D0D;
+          --m-surface-alt: #18181B;
+
+          /* Freepik visible borders. */
+          --m-border: #2A2A2A;
+          --m-border-soft: #1E1E1E;
+          --m-border-medium: #3A3A3A;
+          --m-border-dark: #2A2A2A;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(13,13,13,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #18181B;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #5A3FE6;
+          --m-success: #5A3FE6;
+          --m-success-bright: #5A3FE6;
+          --m-success-bold: #5A3FE6;
+          --n-yes: #5A3FE6;
+          --n-no: #3A3A3A;
+          --n-no-mark: #9A9A9A;
+          --n-hero-highlight: #FFFFFF;
+          --n-checkout-modal-bg: #0D0D0D;
+          --n-checkout-strip-bg: #18181B;
+          --n-step-card-bg: transparent;
+          --n-step-card-shadow: none;
+          --n-usecase-card-bg: var(--m-surface-alt);
+          --n-usecase-card-border: 1px solid transparent;
+          --n-pill-hover-border: 1px solid var(--m-brand);
+          --n-pill-hover-bg: var(--m-surface);
+          --n-pill-hover-color: var(--m-brand);
+          --n-pricing-shadow: 0 12px 32px rgba(90,63,230,0.28), 0 2px 10px rgba(0,0,0,0.5);
+          --m-logo-font: var(--m-font-display);
+          --m-logo-weight: 700;
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
+
         /* Soft Violet — friendlier sibling of Electric Violet. CTA #7A6BFA
            sits safely inside sRGB (R: 122, G: 107, B: 250) so it renders
            identically on every browser. Same dark-surface base as the
            other sync.so toggles; typography inherits the global Mozilla. */
-        .m-theme[data-brand-color="soft-violet"] {
+        .m-theme[data-brand-color="soft-violet-pure-black"] {
           --m-ink-deep: #FFFFFF;
           --m-ink: #FFFFFF;
           --m-ink-2: #FFFFFF;
@@ -575,11 +714,145 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --m-logo-color: #FFFFFF;
         }
 
+        /* Soft Violet Freepik — #7A6BFA CTA on Freepik graphite base. */
+        .m-theme[data-brand-color="soft-violet-freepik"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
+
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+
+          --m-surface: #0D0D0D;
+          --m-surface-alt: #18181B;
+
+          --m-border: #2A2A2A;
+          --m-border-soft: #1E1E1E;
+          --m-border-medium: #3A3A3A;
+          --m-border-dark: #2A2A2A;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(13,13,13,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #18181B;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #7A6BFA;
+          --m-success: #7A6BFA;
+          --m-success-bright: #7A6BFA;
+          --m-success-bold: #7A6BFA;
+          --n-yes: #7A6BFA;
+          --n-no: #3A3A3A;
+          --n-no-mark: #9A9A9A;
+          --n-hero-highlight: #FFFFFF;
+          --n-checkout-modal-bg: #0D0D0D;
+          --n-checkout-strip-bg: #18181B;
+          --n-step-card-bg: transparent;
+          --n-step-card-shadow: none;
+          --n-usecase-card-bg: var(--m-surface-alt);
+          --n-usecase-card-border: 1px solid transparent;
+          --n-pill-hover-border: 1px solid var(--m-brand);
+          --n-pill-hover-bg: var(--m-surface);
+          --n-pill-hover-color: var(--m-brand);
+          --n-pricing-shadow: 0 12px 32px rgba(122,107,250,0.28), 0 2px 10px rgba(0,0,0,0.5);
+          --m-logo-font: var(--m-font-display);
+          --m-logo-weight: 700;
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
+
+        /* Soft Violet Charcoal — #7A6BFA CTA on Purple Black's charcoal base. */
+        .m-theme[data-brand-color="soft-violet-charcoal"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
+
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+
+          --m-surface: #050505;
+          --m-surface-alt: #0A0A0A;
+
+          --m-border: #161616;
+          --m-border-soft: #101010;
+          --m-border-medium: #222225;
+          --m-border-dark: #161616;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(5,5,5,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #0A0A0A;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #7A6BFA;
+          --m-success: #7A6BFA;
+          --m-success-bright: #7A6BFA;
+          --m-success-bold: #7A6BFA;
+          --n-yes: #7A6BFA;
+          --n-no: #3A3A3A;
+          --n-no-mark: #9A9A9A;
+          --n-hero-highlight: #FFFFFF;
+          --n-checkout-modal-bg: #0A0A0A;
+          --n-checkout-strip-bg: #0A0A0A;
+          --n-step-card-bg: transparent;
+          --n-step-card-shadow: none;
+          --n-usecase-card-bg: var(--m-surface-alt);
+          --n-usecase-card-border: 1px solid transparent;
+          --n-pill-hover-border: 1px solid var(--m-brand);
+          --n-pill-hover-bg: var(--m-surface);
+          --n-pill-hover-color: var(--m-brand);
+          --n-pricing-shadow: 0 12px 32px rgba(122,107,250,0.28), 0 2px 10px rgba(0,0,0,0.5);
+          --m-logo-font: var(--m-font-display);
+          --m-logo-weight: 700;
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
+
         /* Bright Vermillion — punchier sibling of Vermillion Black. CTA
            #FF5A1F is a more energetic orange-red; everything else matches
            the standard dark-toggle treatment. Typography inherits the
            global Mozilla. */
-        .m-theme[data-brand-color="bright-vermillion"] {
+        .m-theme[data-brand-color="bright-vermillion-pure-black"] {
           --m-ink-deep: #FFFFFF;
           --m-ink: #F5F5F5;
           --m-ink-2: #F5F5F5;
@@ -653,12 +926,81 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --m-logo-color: #FFFFFF;
         }
 
+        /* Bright Vermillion Freepik — #FF5A1F CTA on Freepik's graphite
+           base (#0D0D0D / #18181B). Visible borders. Typography inherits
+           the global Mozilla. */
+        .m-theme[data-brand-color="bright-vermillion-freepik"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
+
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+
+          --m-surface: #0D0D0D;
+          --m-surface-alt: #18181B;
+
+          --m-border: #2A2A2A;
+          --m-border-soft: #1E1E1E;
+          --m-border-medium: #3A3A3A;
+          --m-border-dark: #2A2A2A;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(13,13,13,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #18181B;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #FF5A1F;
+          --m-success: #FF5A1F;
+          --m-success-bright: #FF5A1F;
+          --m-success-bold: #FF5A1F;
+          --n-yes: #FF5A1F;
+          --n-no: #3A3A3A;
+          --n-no-mark: #9A9A9A;
+          --n-hero-highlight: #FFFFFF;
+          --n-checkout-modal-bg: #0D0D0D;
+          --n-checkout-strip-bg: #18181B;
+          --n-step-card-bg: transparent;
+          --n-step-card-shadow: none;
+          --n-usecase-card-bg: var(--m-surface-alt);
+          --n-usecase-card-border: 1px solid transparent;
+          --n-pill-hover-border: 1px solid var(--m-brand);
+          --n-pill-hover-bg: var(--m-surface);
+          --n-pill-hover-color: var(--m-brand);
+          --n-pricing-shadow: 0 12px 32px rgba(255,90,31,0.28), 0 2px 10px rgba(0,0,0,0.5);
+          --m-logo-font: var(--m-font-display);
+          --m-logo-weight: 700;
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
+
         /* Charcoal Vermillion — Bright Vermillion's #FF5A1F CTA on Purple
            Black's softer charcoal base (#050505 / #0A0A0A) instead of pure
            black. Reads a hair warmer / less "void" than the pure-black
            toggles. Same hairline borders + transparent-card treatment as
            the other dark toggles. Typography inherits the global Mozilla. */
-        .m-theme[data-brand-color="charcoal-vermillion"] {
+        .m-theme[data-brand-color="bright-vermillion-charcoal"] {
           --m-ink-deep: #FFFFFF;
           --m-ink: #F5F5F5;
           --m-ink-2: #F5F5F5;
@@ -731,11 +1073,214 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --m-logo-color: #FFFFFF;
         }
 
+        /* Terracotta Pure Black — design-n's default terracotta #D97757
+           CTA on pure-black surfaces (#000000 / #060607). Hairline borders.
+           Typography inherits the global Mozilla. */
+        .m-theme[data-brand-color="terracotta-pure-black"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
+
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+
+          --m-surface: #000000;
+          --m-surface-alt: #060607;
+
+          --m-border: #161616;
+          --m-border-soft: #101010;
+          --m-border-medium: #222225;
+          --m-border-dark: #161616;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(0,0,0,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #060607;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #D97757;
+          --m-success: #D97757;
+          --m-success-bright: #D97757;
+          --m-success-bold: #D97757;
+          --n-yes: #D97757;
+          --n-no: #3A3A3A;
+          --n-no-mark: #9A9A9A;
+          --n-hero-highlight: #FFFFFF;
+          --n-checkout-modal-bg: #060607;
+          --n-checkout-strip-bg: #060607;
+          --n-step-card-bg: transparent;
+          --n-step-card-shadow: none;
+          --n-usecase-card-bg: var(--m-surface-alt);
+          --n-usecase-card-border: 1px solid transparent;
+          --n-pill-hover-border: 1px solid var(--m-brand);
+          --n-pill-hover-bg: var(--m-surface);
+          --n-pill-hover-color: var(--m-brand);
+          --n-pricing-shadow: 0 12px 32px rgba(217,119,87,0.28), 0 2px 10px rgba(0,0,0,0.5);
+          --m-logo-font: var(--m-font-display);
+          --m-logo-weight: 700;
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
+
+        /* Terracotta Freepik — #D97757 CTA on Freepik graphite base. */
+        .m-theme[data-brand-color="terracotta-freepik"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
+
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+
+          --m-surface: #0D0D0D;
+          --m-surface-alt: #18181B;
+
+          --m-border: #2A2A2A;
+          --m-border-soft: #1E1E1E;
+          --m-border-medium: #3A3A3A;
+          --m-border-dark: #2A2A2A;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(13,13,13,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #18181B;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #D97757;
+          --m-success: #D97757;
+          --m-success-bright: #D97757;
+          --m-success-bold: #D97757;
+          --n-yes: #D97757;
+          --n-no: #3A3A3A;
+          --n-no-mark: #9A9A9A;
+          --n-hero-highlight: #FFFFFF;
+          --n-checkout-modal-bg: #0D0D0D;
+          --n-checkout-strip-bg: #18181B;
+          --n-step-card-bg: transparent;
+          --n-step-card-shadow: none;
+          --n-usecase-card-bg: var(--m-surface-alt);
+          --n-usecase-card-border: 1px solid transparent;
+          --n-pill-hover-border: 1px solid var(--m-brand);
+          --n-pill-hover-bg: var(--m-surface);
+          --n-pill-hover-color: var(--m-brand);
+          --n-pricing-shadow: 0 12px 32px rgba(217,119,87,0.28), 0 2px 10px rgba(0,0,0,0.5);
+          --m-logo-font: var(--m-font-display);
+          --m-logo-weight: 700;
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
+
+        /* Terracotta Charcoal — #D97757 CTA on Purple Black's charcoal base. */
+        .m-theme[data-brand-color="terracotta-charcoal"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
+
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+
+          --m-surface: #050505;
+          --m-surface-alt: #0A0A0A;
+
+          --m-border: #161616;
+          --m-border-soft: #101010;
+          --m-border-medium: #222225;
+          --m-border-dark: #161616;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(5,5,5,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #0A0A0A;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #D97757;
+          --m-success: #D97757;
+          --m-success-bright: #D97757;
+          --m-success-bold: #D97757;
+          --n-yes: #D97757;
+          --n-no: #3A3A3A;
+          --n-no-mark: #9A9A9A;
+          --n-hero-highlight: #FFFFFF;
+          --n-checkout-modal-bg: #0A0A0A;
+          --n-checkout-strip-bg: #0A0A0A;
+          --n-step-card-bg: transparent;
+          --n-step-card-shadow: none;
+          --n-usecase-card-bg: var(--m-surface-alt);
+          --n-usecase-card-border: 1px solid transparent;
+          --n-pill-hover-border: 1px solid var(--m-brand);
+          --n-pill-hover-bg: var(--m-surface);
+          --n-pill-hover-color: var(--m-brand);
+          --n-pricing-shadow: 0 12px 32px rgba(217,119,87,0.28), 0 2px 10px rgba(0,0,0,0.5);
+          --m-logo-font: var(--m-font-display);
+          --m-logo-weight: 700;
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
+
         /* Charcoal Violet — Electric Violet's #5A3FE6 CTA on Purple Black's
            softer charcoal base (#050505 / #0A0A0A) instead of pure black.
            Same hairline borders + transparent-card treatment as the other
            dark toggles. Typography inherits the global Mozilla. */
-        .m-theme[data-brand-color="charcoal-violet"] {
+        .m-theme[data-brand-color="electric-violet-charcoal"] {
           --m-ink-deep: #FFFFFF;
           --m-ink: #F5F5F5;
           --m-ink-2: #F5F5F5;
@@ -828,7 +1373,7 @@ export default function NLayout({ children }: { children: ReactNode }) {
            visible band between header and content. The brand-bg #0C0C0C is
            reserved for alternating sections on the landing page; the
            onboarding doesn't need that mid-tone. */
-        .m-theme[data-brand-color="vermillion-black"] [data-n-start] {
+        .m-theme[data-brand-color="vermillion-pure-black"] [data-n-start] {
           background: var(--m-surface) !important;
         }
 
@@ -836,22 +1381,22 @@ export default function NLayout({ children }: { children: ReactNode }) {
            (min-h-[68px]) so the progress bar follows the user if the step
            ever overflows. z below the nav so the nav still covers it on
            scroll. */
-        .m-theme[data-brand-color="vermillion-black"] [data-n-step-controls] {
+        .m-theme[data-brand-color="vermillion-pure-black"] [data-n-step-controls] {
           position: sticky;
           top: 68px;
           z-index: 40;
         }
         /* Progress bar — clearer track + vermillion fill so it actually
            reads as a progress bar (not a faint hairline). */
-        .m-theme[data-brand-color="vermillion-black"] [data-n-step-controls] > div > div:first-child {
+        .m-theme[data-brand-color="vermillion-pure-black"] [data-n-step-controls] > div > div:first-child {
           background: rgba(255,255,255,0.1) !important;
         }
-        .m-theme[data-brand-color="vermillion-black"] [data-n-step-controls] > div > div:first-child > div {
+        .m-theme[data-brand-color="vermillion-pure-black"] [data-n-step-controls] > div > div:first-child > div {
           background: var(--m-brand) !important;
         }
         /* Hide the step-number circle — redundant with the progress bar
            above. The back link on the left is the only thing in that row. */
-        .m-theme[data-brand-color="vermillion-black"] [data-n-step-controls] span[aria-label^="Step "] {
+        .m-theme[data-brand-color="vermillion-pure-black"] [data-n-step-controls] span[aria-label^="Step "] {
           display: none !important;
         }
 
@@ -859,26 +1404,26 @@ export default function NLayout({ children }: { children: ReactNode }) {
            the question sits in the upper third and the dropdown / chip
            grid below the input has room to expand without clipping.
            Tighter top padding so most steps fit in one viewport. */
-        .m-theme[data-brand-color="vermillion-black"] [data-n-start] > main {
+        .m-theme[data-brand-color="vermillion-pure-black"] [data-n-start] > main {
           max-width: 840px !important;
           padding: 32px 24px 140px !important;
         }
         @media (min-width: 768px) {
-          .m-theme[data-brand-color="vermillion-black"] [data-n-start] > main {
+          .m-theme[data-brand-color="vermillion-pure-black"] [data-n-start] > main {
             padding: 48px 32px 160px !important;
           }
         }
 
         /* Step heading — smaller than the original Framer-hero size so a
            full step fits in one viewport on a standard laptop. */
-        .m-theme[data-brand-color="vermillion-black"] [data-n-start] > main h2.m-display {
+        .m-theme[data-brand-color="vermillion-pure-black"] [data-n-start] > main h2.m-display {
           font-size: clamp(24px, 3.8vw, 36px) !important;
           line-height: 1.15 !important;
           letter-spacing: -0.02em !important;
           font-weight: 700 !important;
         }
         /* Subtitle — slightly larger and lighter. */
-        .m-theme[data-brand-color="vermillion-black"] [data-n-start] > main h2.m-display + p {
+        .m-theme[data-brand-color="vermillion-pure-black"] [data-n-start] > main h2.m-display + p {
           font-size: 15px !important;
           line-height: 1.5 !important;
           margin-top: 10px !important;
@@ -887,34 +1432,34 @@ export default function NLayout({ children }: { children: ReactNode }) {
         }
         /* Gap between the heading block and the form — generous but no
            longer Framer-extreme so steps fit in viewport. */
-        .m-theme[data-brand-color="vermillion-black"] [data-n-start] > main > div > div.text-center:first-child {
+        .m-theme[data-brand-color="vermillion-pure-black"] [data-n-start] > main > div > div.text-center:first-child {
           margin-bottom: 28px !important;
         }
         @media (min-width: 768px) {
-          .m-theme[data-brand-color="vermillion-black"] [data-n-start] > main > div > div.text-center:first-child {
+          .m-theme[data-brand-color="vermillion-pure-black"] [data-n-start] > main > div > div.text-center:first-child {
             margin-bottom: 36px !important;
           }
         }
         /* Description / tagline suggestions — show as a 2-col grid instead of
            a stacked list (the businessplan.ai "ready-to-click answers" feel).
            1 col on mobile so each chip stays readable. */
-        .m-theme[data-brand-color="vermillion-black"] [data-n-start] [data-n-suggestions] {
+        .m-theme[data-brand-color="vermillion-pure-black"] [data-n-start] [data-n-suggestions] {
           display: grid !important;
           grid-template-columns: 1fr;
           gap: 10px !important;
         }
         @media (min-width: 640px) {
-          .m-theme[data-brand-color="vermillion-black"] [data-n-start] [data-n-suggestions] {
+          .m-theme[data-brand-color="vermillion-pure-black"] [data-n-start] [data-n-suggestions] {
             grid-template-columns: 1fr 1fr;
           }
         }
-        .m-theme[data-brand-color="vermillion-black"] [data-n-start] [data-n-suggestions] > button {
+        .m-theme[data-brand-color="vermillion-pure-black"] [data-n-start] [data-n-suggestions] > button {
           height: 100%;
         }
         /* "We've selected … for your brand" preselect note — restyled in
            VB as a quiet caption line (no pill, no background) so the
            AI-pick signal carries without crowding the step. */
-        .m-theme[data-brand-color="vermillion-black"] [data-n-start] [data-n-preselect-note] {
+        .m-theme[data-brand-color="vermillion-pure-black"] [data-n-start] [data-n-preselect-note] {
           background: transparent !important;
           padding: 0 !important;
           border-radius: 0 !important;
@@ -928,7 +1473,7 @@ export default function NLayout({ children }: { children: ReactNode }) {
         /* Purple Black — a dark theme on the Freepik base: much-darker
            near-pure-black surfaces (#050505) with design-L's purple #7543E3
            CTA. Scoped entirely to this toggle. */
-        .m-theme[data-brand-color="purple-black"] {
+        .m-theme[data-brand-color="purple-charcoal"] {
           --m-ink-deep: #FFFFFF;
           --m-ink: #F5F5F5;
           --m-ink-2: #F5F5F5;
@@ -999,6 +1544,150 @@ export default function NLayout({ children }: { children: ReactNode }) {
           --n-pill-hover-color: var(--m-brand);
           --n-pricing-shadow: 0 12px 32px rgba(117,67,227,0.22), 0 2px 10px rgba(0,0,0,0.5);
           /* Logo — Freepik's DM Serif wordmark (no font/weight override). */
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
+
+        /* Purple Freepik — Purple Black's #7543E3 CTA on the old Freepik
+           graphite base (#0D0D0D page, #18181B cards). More "lifted" /
+           grey than charcoal; visible borders since the cards aren't
+           hugging the page. Typography inherits the global Mozilla. */
+        .m-theme[data-brand-color="purple-freepik"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
+
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+
+          /* Freepik graphite base. */
+          --m-surface: #0D0D0D;
+          --m-surface-alt: #18181B;
+
+          /* Freepik visible borders — cards are noticeably lifted so the
+             border needs to be visible (hairline would disappear into the
+             card fill). */
+          --m-border: #2A2A2A;
+          --m-border-soft: #1E1E1E;
+          --m-border-medium: #3A3A3A;
+          --m-border-dark: #2A2A2A;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(13,13,13,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #18181B;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #7543E3;
+          --m-success: #7543E3;
+          --m-success-bright: #7543E3;
+          --m-success-bold: #7543E3;
+          --n-yes: #7543E3;
+          --n-no: #3A3A3A;
+          --n-no-mark: #9A9A9A;
+          --n-hero-highlight: #FFFFFF;
+          --n-checkout-modal-bg: #0D0D0D;
+          --n-checkout-strip-bg: #18181B;
+          /* Shared card treatment — matches the rest of the dark toggles. */
+          --n-step-card-bg: transparent;
+          --n-step-card-shadow: none;
+          --n-usecase-card-bg: var(--m-surface-alt);
+          --n-usecase-card-border: 1px solid transparent;
+          --n-pill-hover-border: 1px solid var(--m-brand);
+          --n-pill-hover-bg: var(--m-surface);
+          --n-pill-hover-color: var(--m-brand);
+          --n-pricing-shadow: 0 12px 32px rgba(117,67,227,0.22), 0 2px 10px rgba(0,0,0,0.5);
+          --m-logo-size: 28px;
+          --m-logo-color: #FFFFFF;
+        }
+
+        /* Purple Pure Black — Purple Black's #7543E3 CTA on the same true
+           pure-black base as Vermillion Black (#000000 / #060607).
+           Hairline borders to match the rest of the pure-black family.
+           Typography inherits the global Mozilla. */
+        .m-theme[data-brand-color="purple-pure-black"] {
+          --m-ink-deep: #FFFFFF;
+          --m-ink: #F5F5F5;
+          --m-ink-2: #F5F5F5;
+          --m-text: #C9C9C9;
+          --m-text-muted: #AEAEAE;
+          --m-text-soft: #8A8A8A;
+          --m-text-faint: #6E6E6E;
+          --m-text-on-dark: #F5F5F5;
+          --m-text-on-dark-muted: #AEAEAE;
+
+          --m-font-display: 'Mozilla Headline', sans-serif;
+          --m-font-sans: 'Mozilla Text', sans-serif;
+
+          /* True pure-black surfaces — same as Vermillion Black. */
+          --m-surface: #000000;
+          --m-surface-alt: #060607;
+
+          /* Hairline borders. */
+          --m-border: #161616;
+          --m-border-soft: #101010;
+          --m-border-medium: #222225;
+          --m-border-dark: #161616;
+
+          --n-footer-bg: var(--m-surface);
+          --n-footer-border: 1px solid var(--m-border);
+          --n-footer-divider: transparent;
+          --n-mockup-frame-bg: var(--m-surface);
+          --n-mockup-frame-border-css: 2px solid var(--m-brand);
+          --n-mockup-frame-shadow: var(--n-pricing-shadow);
+          --n-mockup-frame-pad: 0;
+          --n-mockups-section-bg: var(--m-surface);
+          --n-mockups-bg: var(--m-surface);
+          --n-pricing-section-bg: var(--m-surface);
+          --m-header-bg: rgba(0,0,0,0.85);
+          --m-header-border: rgba(255,255,255,0.1);
+          --n-faq-row-bg: #060607;
+          --n-cta-band-bg: transparent;
+          --n-cta-band-pad: 0;
+          --n-cta-btn-bg: var(--m-brand);
+          --n-cta-btn-bg-hover: var(--m-brand-deep);
+          --n-cta-btn-fg: #FFFFFF;
+          --m-star: #C9C9C9;
+          --n-rating-star: #C9C9C9;
+          --n-check: #7543E3;
+          --m-success: #7543E3;
+          --m-success-bright: #7543E3;
+          --m-success-bold: #7543E3;
+          --n-yes: #7543E3;
+          --n-no: #3A3A3A;
+          --n-no-mark: #9A9A9A;
+          --n-hero-highlight: #FFFFFF;
+          --n-checkout-modal-bg: #060607;
+          --n-checkout-strip-bg: #060607;
+          /* Shared card treatment — matches the rest of the dark toggles. */
+          --n-step-card-bg: transparent;
+          --n-step-card-shadow: none;
+          --n-usecase-card-bg: var(--m-surface-alt);
+          --n-usecase-card-border: 1px solid transparent;
+          --n-pill-hover-border: 1px solid var(--m-brand);
+          --n-pill-hover-bg: var(--m-surface);
+          --n-pill-hover-color: var(--m-brand);
+          --n-pricing-shadow: 0 12px 32px rgba(117,67,227,0.22), 0 2px 10px rgba(0,0,0,0.5);
           --m-logo-size: 28px;
           --m-logo-color: #FFFFFF;
         }

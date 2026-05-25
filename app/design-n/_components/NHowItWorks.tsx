@@ -90,10 +90,12 @@ export default function NHowItWorks() {
           ))}
         </div>
 
-        {/* Privacy strip — title-as-heading on top, body line below.
-            Constrained to fit content + breathing room; centered. */}
+        {/* Privacy strip — single em-dash line per the LOGOAI landing-
+            page doc, section 4 ("Your brand details stay private — never
+            shared, never sold, only used to make your logos."). Centred,
+            shrunk to fit. */}
         <div
-          className="flex flex-col items-center justify-center text-center gap-2 mx-auto px-6 py-5"
+          className="flex items-center justify-center gap-2 mx-auto px-6 py-4 text-center"
           style={{
             background: 'var(--m-brand-bg)',
             border: '1px solid var(--m-brand-soft)',
@@ -101,23 +103,14 @@ export default function NHowItWorks() {
             maxWidth: 'fit-content',
           }}
         >
-          <h3
-            className="m-display"
-            style={{
-              fontWeight: 700,
-              fontSize: 18,
-              lineHeight: '24px',
-              color: 'var(--m-ink)',
-            }}
+          <CheckInline />
+          <p
+            className="m-sans"
+            style={{ fontSize: 15, lineHeight: '22px', color: 'var(--m-ink)' }}
           >
-            Your brand details stay private.
-          </h3>
-          <span className="flex items-center gap-1.5">
-            <CheckInline />
-            <span className="m-sans" style={{ fontSize: 14, color: 'var(--m-text-muted)' }}>
-              Never shared, never sold, only used to make your logos.
-            </span>
-          </span>
+            <span style={{ fontWeight: 700 }}>Your brand details stay private</span>
+            {' '}— never shared, never sold, only used to make your logos.
+          </p>
         </div>
       </div>
     </section>

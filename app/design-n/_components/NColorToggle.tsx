@@ -170,39 +170,50 @@ export default function NColorToggle() {
           Reset
         </button>
       </div>
-      <div style={{ display: 'flex', gap: 8 }}>
-        {BRAND_COLORS.map((c, i) => {
-          const isActive = i === active
-          return (
-            <button
-              key={c.name}
-              type="button"
-              onClick={() => pick(i)}
-              aria-label={`Use ${c.name}`}
-              title={c.name}
-              style={{
-                width: 30,
-                height: 30,
-                borderRadius: '50%',
-                background: c.swatch ?? c.vars.brand,
-                border: isActive ? '2px solid var(--m-ink)' : '2px solid #FFFFFF',
-                boxShadow: isActive
-                  ? '0 0 0 2px var(--m-ink)'
-                  : '0 0 0 1px var(--m-border)',
-                cursor: 'pointer',
-                padding: 0,
-                transition: 'transform 0.12s ease',
-              }}
-              onMouseEnter={(e) => {
-                ;(e.currentTarget as HTMLElement).style.transform = 'scale(1.12)'
-              }}
-              onMouseLeave={(e) => {
-                ;(e.currentTarget as HTMLElement).style.transform = 'scale(1)'
-              }}
-            />
-          )
-        })}
-      </div>
+      {/* Swatches grouped by CTA family — purples on one row, oranges on
+          another. Each option's index in BRAND_COLORS is used as the key
+          for pick() / active, so the actual array order is preserved. */}
+      {(['purple', 'orange'] as const).map((family) => {
+        const indices = BRAND_COLORS
+          .map((c, i) => ({ c, i }))
+          .filter(({ c }) => c.family === family)
+        if (indices.length === 0) return null
+        return (
+          <div key={family} style={{ display: 'flex', gap: 8 }}>
+            {indices.map(({ c, i }) => {
+              const isActive = i === active
+              return (
+                <button
+                  key={c.name}
+                  type="button"
+                  onClick={() => pick(i)}
+                  aria-label={`Use ${c.name}`}
+                  title={c.name}
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: '50%',
+                    background: c.swatch ?? c.vars.brand,
+                    border: isActive ? '2px solid var(--m-ink)' : '2px solid #FFFFFF',
+                    boxShadow: isActive
+                      ? '0 0 0 2px var(--m-ink)'
+                      : '0 0 0 1px var(--m-border)',
+                    cursor: 'pointer',
+                    padding: 0,
+                    transition: 'transform 0.12s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    ;(e.currentTarget as HTMLElement).style.transform = 'scale(1.12)'
+                  }}
+                  onMouseLeave={(e) => {
+                    ;(e.currentTarget as HTMLElement).style.transform = 'scale(1)'
+                  }}
+                />
+              )
+            })}
+          </div>
+        )
+      })}
     </div>
   )
 }
