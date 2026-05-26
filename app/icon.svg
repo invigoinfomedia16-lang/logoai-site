@@ -1,7 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 140" width="140" height="140">
   <rect width="140" height="140" rx="28" fill="#7543E3"/>
+  <!-- Serif "L" — DM Serif Display style at the same visual weight as the
+       previous block L. Stem 28w + foot 30h match the original mass; the
+       top flag serif and right-terminal ear add the serif character. -->
   <path
-    d="M 38 28 L 66 28 L 66 80 L 102 80 L 102 110 L 38 110 Z"
+    d="M 32 27 L 72 27 L 72 33 L 66 33 L 66 83 L 92 83 L 92 77 L 102 77 L 102 113 L 38 113 L 38 33 L 32 33 Z"
     fill="#FFFFFF"
   />
 </svg>
