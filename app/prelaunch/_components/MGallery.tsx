@@ -2,7 +2,7 @@
 
 // MGallery — prelaunch "Real examples" gallery. Same industry-pill +
 // logo-grid behaviour as NGallery; only the heading copy differs to
-// match /design-l. Reuses the design-n component directly under the
+// match /design-l. Reuses the launch component directly under the
 // hood by re-exporting it with section-heading overrides via DOM
 // is not practical, so this is a near-copy with the new copy baked in.
 

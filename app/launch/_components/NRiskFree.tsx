@@ -83,7 +83,7 @@ export default function NRiskFree() {
 
         {/* CTA */}
         <Link
-          href="/design-n/start"
+          href="/launch/start"
           className="m-cta-lg m-cta-btn inline-flex items-center justify-center gap-3"
           style={{
             color: 'var(--m-on-brand, #FFFFFF)',

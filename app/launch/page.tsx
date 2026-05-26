@@ -1,7 +1,7 @@
 // Design N homepage — same visual system as Design M, content from the
-// LOGOAI landing-page doc. Top nav (MHeader) is shared with design-m, just
+// LOGOAI landing-page doc. Top nav (MHeader) is shared with prelaunch, just
 // with the doc's CTA label. Footer is NFooter (M's footer design, doc links,
-// Brand Kit removed). Local-only — http://localhost:3010/design-n
+// Brand Kit removed). Local-only — http://localhost:3010/launch
 
 import NReveal from './_components/NReveal'
 import NColorToggle from './_components/NColorToggle'

@@ -1,6 +1,6 @@
 'use client'
 
-// Shared top nav for every design-n page. Lives in the design-n layout so
+// Shared top nav for every launch page. Lives in the launch layout so
 // it stays mounted across client-side navigations (landing → onboarding,
 // onboarding → results, etc.) — no remount, no jump. usePathname() flips
 // hideNav so the nav links + right-side items disappear on the onboarding
@@ -13,18 +13,18 @@
 // is identical on landing and onboarding.
 
 import { usePathname } from 'next/navigation'
-import MHeader from '../../design-m/_components/MHeader'
+import MHeader from '../../prelaunch/_components/MHeader'
 
 export default function NSharedHeader() {
   const pathname = usePathname()
-  const isOnboarding = pathname?.startsWith('/design-n/start') ?? false
+  const isOnboarding = pathname?.startsWith('/launch/start') ?? false
 
   return (
     <MHeader
       hideNav={isOnboarding}
-      homeHref="/design-n"
+      homeHref="/launch"
       ctaLabel="Generate My Free Logos"
-      ctaHref="/design-n/start"
+      ctaHref="/launch/start"
     />
   )
 }

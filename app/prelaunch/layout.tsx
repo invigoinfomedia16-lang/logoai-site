@@ -1,10 +1,10 @@
-// Design M — the PRELAUNCH site. Visually identical to design-n's
+// Design M — the PRELAUNCH site. Visually identical to launch's
 // Purple Charcoal toggle, but with the colour permanently locked (no
-// toggle UI, no localStorage). Reuses design-n's components directly
-// via imports in /design-m/page.tsx so any future polish to a section
+// toggle UI, no localStorage). Reuses launch's components directly
+// via imports in /prelaunch/page.tsx so any future polish to a section
 // component lifts both sites at once.
 //
-// The stylesheet below is a focused copy of design-n's layout: the
+// The stylesheet below is a focused copy of launch's layout: the
 // root .m-theme tokens + global typography/animation rules + the one
 // Purple Charcoal scoped block. The other 11 toggle scoped blocks are
 // intentionally NOT included — they'd be dead code on the prelaunch
@@ -51,7 +51,7 @@ const poppins = Poppins({
 
 // Purple Charcoal brand-var values — applied inline on the .m-theme
 // wrapper so the components read the correct CTA / hover / glow colours
-// without needing the design-n toggle JS. Mirror of brandColors.ts entry
+// without needing the launch toggle JS. Mirror of brandColors.ts entry
 // `Purple Charcoal`.
 const PURPLE_CHARCOAL_VARS: Record<string, string> = {
   '--m-brand': '#7543E3',
@@ -233,7 +233,7 @@ export default function MLayout({ children }: { children: ReactNode }) {
         .m-theme[data-hide-hero-carousel] [data-n-hero-carousel] { display: none; }
 
         /* Purple Charcoal — the prelaunch site's permanent palette.
-           Mirror of the scoped block in /design-n/layout.tsx (kept in
+           Mirror of the scoped block in /launch/layout.tsx (kept in
            sync manually; both sites share the visual system). */
         .m-theme[data-brand-color="purple-charcoal"] {
           --m-ink-deep: #FFFFFF;
@@ -299,7 +299,7 @@ export default function MLayout({ children }: { children: ReactNode }) {
           --n-pill-hover-bg: var(--m-surface);
           --n-pill-hover-color: var(--m-brand);
           --n-pricing-shadow: 0 12px 32px rgba(117,67,227,0.22), 0 2px 10px rgba(0,0,0,0.5);
-          /* Audit fixes — match the Purple Charcoal scope in design-n. */
+          /* Audit fixes — match the Purple Charcoal scope in launch. */
           --n-compare-logoai-bg: rgba(117, 67, 227, 0.08);
           --n-hero-marquee-card-bg: var(--m-surface-alt);
           --n-faq-row-border: 1px solid var(--m-border);
@@ -314,8 +314,8 @@ export default function MLayout({ children }: { children: ReactNode }) {
         data-hide-hero-carousel=""
         style={PURPLE_CHARCOAL_VARS as React.CSSProperties}
       >
-        {/* Shared top nav — same MHeader as design-n, but with home and
-            onboarding paths pointed at /design-m. */}
+        {/* Shared top nav — same MHeader as launch, but with home and
+            onboarding paths pointed at /prelaunch. */}
         <MSharedHeader />
         {children}
       </div>

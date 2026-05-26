@@ -13,9 +13,9 @@
 //   ⤳ Generating               — spinner + rotating phase text
 //   ⤳ Results                  — 10 watermarked previews; tap a card to
 //                                open the S1-style checkout for that logo.
-// Visuals adapted to design-n's terracotta light theme — no dark bg, no
+// Visuals adapted to launch's terracotta light theme — no dark bg, no
 // blue gradient. Eyebrows use uppercase + tracking on Open Sans instead of
-// Space Mono so the page stays inside design-n's two-font system.
+// Space Mono so the page stays inside launch's two-font system.
 
 import {
   useEffect,
@@ -375,7 +375,7 @@ export default function LogoOnboarding() {
         }
       `}</style>
 
-      {/* The top nav now lives in the shared design-n layout (NSharedHeader)
+      {/* The top nav now lives in the shared launch layout (NSharedHeader)
           so it stays mounted across landing → onboarding navigations and
           doesn't remount on every page change. */}
 

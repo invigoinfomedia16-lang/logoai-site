@@ -1,4 +1,4 @@
-// Live AI suggestions endpoint — design-n onboarding.
+// Live AI suggestions endpoint — launch onboarding.
 // Uses OpenAI GPT-4o-mini. Reads OPENAI_API_KEY from .env.local.
 //
 // Supported `kind` values:

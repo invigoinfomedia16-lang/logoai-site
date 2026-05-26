@@ -1,8 +1,8 @@
 // Design N — same visual system as Design M (HEADSHOT design tokens +
 // Claude terracotta palette), different content. Reuses the .m-theme scope
-// and the same fonts so MHeader / MFooter (imported from design-m) render
-// identically. The token <style> block is duplicated here so /design-n is
-// self-contained — visiting it doesn't run design-m's layout.
+// and the same fonts so MHeader / MFooter (imported from prelaunch) render
+// identically. The token <style> block is duplicated here so /launch is
+// self-contained — visiting it doesn't run prelaunch's layout.
 
 import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
@@ -49,8 +49,8 @@ const poppins = Poppins({
 export default function NLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      {/* Identical token block to design-m/layout.tsx — keeps /design-n
-          self-contained and pixel-matched to /design-m. */}
+      {/* Identical token block to prelaunch/layout.tsx — keeps /launch
+          self-contained and pixel-matched to /prelaunch. */}
       <style dangerouslySetInnerHTML={{ __html: `
         /* Mozilla Headline + Mozilla Text — design-L's typefaces, loaded so
            the Freepik toggle can use them (see [data-brand-color="freepik"]
@@ -1318,7 +1318,7 @@ export default function NLayout({ children }: { children: ReactNode }) {
       <div className={`m-theme ${plusJakartaSans.variable} ${openSans.variable} ${dmSerifDisplay.variable} ${poppins.variable}`}>
         {/* Colour-toggle applier — re-applies the brand colour the user
             picked on the landing page (NColorToggle) so the choice carries
-            across every design-n page. Runs pre-paint to avoid a flash. */}
+            across every launch page. Runs pre-paint to avoid a flash. */}
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var n=localStorage.getItem(${JSON.stringify(

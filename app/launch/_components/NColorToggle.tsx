@@ -1,8 +1,8 @@
 'use client'
 
-// NColorToggle — floating colour A/B control for the design-n landing page.
+// NColorToggle — floating colour A/B control for the launch landing page.
 // Clicking a swatch swaps the six --m-brand* CSS variables on the .m-theme
-// element and stores the choice in localStorage. The design-n layout reads
+// element and stores the choice in localStorage. The launch layout reads
 // that choice on every page load, so a picked colour carries through the
 // funnel and dashboard too. Kept visible so stakeholders can flip colours.
 

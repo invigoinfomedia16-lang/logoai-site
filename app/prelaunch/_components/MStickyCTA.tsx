@@ -1,16 +1,16 @@
 'use client'
 
-// Mobile-only sticky CTA bar pinned to the bottom of the viewport — ported
-// from the L design's LStickyCTA, recolored to N's terracotta palette.
-// Renders as a solid bar (own surface background, top border, blur) so it
-// reads as a separate layer above the scrolling page. Visible only between
-// the hero CTA scrolling out of view and the final CTA section entering it.
-// Clicking scrolls to #pricing.
+// Mobile-only sticky CTA bar pinned to the bottom of the viewport.
+// Mirrors the launch site's NStickyCTA scroll behaviour (appears once
+// the user scrolls past the hero, hides when the final CTA enters
+// view), but scrolls back to the hero email form (#hero-cta) instead
+// of routing to /launch/start onboarding — the prelaunch funnel is
+// email-capture, not generator-start.
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
-const BAR_HEIGHT = 76 // approx: padding + button height
+const BAR_HEIGHT = 76
 
 function ArrowRight() {
   return (
@@ -20,11 +20,13 @@ function ArrowRight() {
   )
 }
 
-export default function NStickyCTA({ label = 'Generate My Free Logos' }: { label?: string }) {
+export default function MStickyCTA({ label = 'Get My Free Logo' }: { label?: string }) {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
     const update = () => {
+      // MHero carries data-n-hero, MFinalCTA carries data-n-bottom-cta
+      // (same attribute names as the launch components for parity).
       const heroEl = document.querySelector<HTMLElement>('[data-n-hero]')
       const bottomEl = document.querySelector<HTMLElement>('[data-n-bottom-cta]')
 
@@ -64,11 +66,6 @@ export default function NStickyCTA({ label = 'Generate My Free Logos' }: { label
       aria-hidden={!visible}
       className="md:hidden fixed left-0 right-0 bottom-0 z-40"
       style={{
-        // Themeable — falls back to the white frosted bar on light toggles,
-        // inherits the dark surface blur on dark toggles (Vermillion Black,
-        // Freepik, Vermillion, Purple Black, Framer all define --m-header-bg
-        // as a dark rgba surface, which gives this bar the same look as their
-        // top nav when scrolled).
         background: 'var(--m-header-bg, rgba(255,255,255,0.96))',
         borderTop: '1px solid var(--m-border)',
         backdropFilter: 'blur(14px)',
@@ -80,7 +77,7 @@ export default function NStickyCTA({ label = 'Generate My Free Logos' }: { label
       }}
     >
       <Link
-        href="/design-n/start"
+        href="#hero-cta"
         tabIndex={visible ? 0 : -1}
         className="m-cta-btn w-full inline-flex items-center justify-center gap-2"
         style={{

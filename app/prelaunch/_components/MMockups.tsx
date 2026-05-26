@@ -1,6 +1,6 @@
 'use client'
 
-// MMockups — prelaunch "Works everywhere" section. Reuses the design-n
+// MMockups — prelaunch "Works everywhere" section. Reuses the launch
 // mockup carousel pattern (category pills + auto-rotating frame) with
 // the design-l section heading. Placeholder until prelaunch copy ships.
 

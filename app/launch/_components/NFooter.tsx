@@ -83,7 +83,7 @@ export default function NFooter() {
       <div className="flex flex-col gap-12 items-start w-full max-w-[1728px] px-2 sm:px-8 py-12">
         {/* Logo row — wordmark + brand tagline */}
         <div className="w-full flex flex-col gap-2 items-start">
-          <a href="/design-n" className="flex items-center gap-1.5">
+          <a href="/launch" className="flex items-center gap-1.5">
             <span
               style={{
                 fontFamily: 'var(--m-logo-font, var(--m-font-wordmark), serif)',

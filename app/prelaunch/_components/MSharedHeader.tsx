@@ -1,8 +1,8 @@
 'use client'
 
-// Shared top nav for every prelaunch (/design-m) page. Mirrors
-// design-n's NSharedHeader but configured for the prelaunch flow:
-//   - homeHref points to /design-m
+// Shared top nav for every prelaunch (/prelaunch) page. Mirrors
+// launch's NSharedHeader but configured for the prelaunch flow:
+//   - homeHref points to /prelaunch
 //   - CTA scrolls to the hero's email-capture form (#hero-cta) — the
 //     prelaunch is a waitlist, NOT the launch onboarding, so the CTA
 //     must stay on the page
@@ -36,16 +36,16 @@ const PRELAUNCH_DROPDOWN = {
 
 export default function MSharedHeader() {
   const pathname = usePathname()
-  const isOnboarding = pathname?.startsWith('/design-m/start') ?? false
+  const isOnboarding = pathname?.startsWith('/prelaunch/start') ?? false
 
   return (
     <MHeader
       hideNav={isOnboarding}
-      homeHref="/design-m"
+      homeHref="/prelaunch"
       ctaLabel="Get My Free Logo"
       // Absolute path so the CTA jumps to the hero email form from any
-      // /design-m subpage, not just the home page.
-      ctaHref="/design-m#hero-cta"
+      // /prelaunch subpage, not just the home page.
+      ctaHref="/prelaunch#hero-cta"
       navItems={PRELAUNCH_NAV_ITEMS}
       dropdown={PRELAUNCH_DROPDOWN}
     />

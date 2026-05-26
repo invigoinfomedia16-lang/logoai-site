@@ -51,7 +51,7 @@ export default function NFinalCTA() {
             Worst case, you lose 60 seconds. Best case, you find a logo you love.
           </p>
           <Link
-            href="/design-n/start"
+            href="/launch/start"
             className="m-cta-lg inline-flex items-center justify-center gap-3 mt-8"
             style={{
               background: 'var(--n-cta-btn-bg, #FFFFFF)',

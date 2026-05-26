@@ -71,17 +71,17 @@ type MHeaderProps = {
    *  page so the landing nav visually carries through to the funnel. */
   hideNav?: boolean
   /** Primary nav items rendered as inline links. Defaults to the launch-site
-   *  set; prelaunch (/design-m) passes the design-l link set. */
+   *  set; prelaunch (/prelaunch) passes the design-l link set. */
   navItems?: NavItem[]
   /** Single dropdown rendered after the primary nav (with extra left margin).
-   *  Defaults to the launch-site "Browse Logos" set; prelaunch (/design-m)
+   *  Defaults to the launch-site "Browse Logos" set; prelaunch (/prelaunch)
    *  passes the design-l "Company" set. Pass `null` to suppress entirely. */
   dropdown?: DropdownConfig | null
 }
 
 export default function MHeader({
   ctaLabel = 'Claim my free logo',
-  homeHref = '/design-m',
+  homeHref = '/prelaunch',
   tagline,
   shrinkOnScroll = false,
   ctaHref = '#hero-cta',

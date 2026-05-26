@@ -1,8 +1,8 @@
-// Brand-colour options for the design-n landing-page colour toggle.
+// Brand-colour options for the launch landing-page colour toggle.
 // Each option maps the six --m-brand* CSS variables that drive every CTA,
-// accent, border tint and glow across design-n. The toggle swaps these
+// accent, border tint and glow across launch. The toggle swaps these
 // inline on the .m-theme element; the layout re-applies the saved choice
-// on every design-n page so a picked colour carries through the funnel.
+// on every launch page so a picked colour carries through the funnel.
 //
 // To swap a test colour, just change its six hex values below.
 
@@ -38,7 +38,7 @@ export type BrandColorOption = {
   family: BrandColorFamily
 }
 
-// The default (current) design-n colour is terracotta — defined in the
+// The default (current) launch colour is terracotta — defined in the
 // layout's <style> block, not here. The toggle offers the 3 alternatives
 // below; "Reset" returns to that terracotta default.
 export const BRAND_COLORS: BrandColorOption[] = [
@@ -351,5 +351,5 @@ export const BRAND_COLORS: BrandColorOption[] = [
 ]
 
 // localStorage key — the toggle stores the chosen option NAME here; the
-// layout reads it to re-apply on every design-n page load.
+// layout reads it to re-apply on every launch page load.
 export const BRAND_COLOR_KEY = 'logoai:n-brand-color'

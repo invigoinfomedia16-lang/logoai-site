@@ -2,7 +2,7 @@
 
 // MHero — prelaunch hero modeled on /design-l. Free-logo claim framing
 // with a real-time logos-remaining counter and days-until-launch
-// countdown, replacing design-n's "Rated 4.9/5" eyebrow + paid CTA.
+// countdown, replacing launch's "Rated 4.9/5" eyebrow + paid CTA.
 // Visual chrome (marquee, layout, padding) mirrors NHero so the hero
 // reads identically against Purple Charcoal.
 

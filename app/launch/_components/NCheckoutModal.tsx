@@ -4,7 +4,7 @@
 // CheckoutModal: top bar with "Secure Checkout", social-proof strip,
 // two-column body (payment methods + card form on left, order summary
 // on right), green Stripe-style pay button, animated success screen.
-// Recoloured with design-n's terracotta + success tokens. Single-item
+// Recoloured with launch's terracotta + success tokens. Single-item
 // pricing — one logo at $49.
 
 import { useEffect, useState, type ReactNode } from 'react'
@@ -101,7 +101,7 @@ function CardBrand({ label, bg, color = '#FFFFFF', w = 38 }: { label: string; bg
 
 /* ---------- modal ---------- */
 
-export default function NCheckoutModal({ open, index, price, preview, onClose, onPaid, dashboardHref = '/design-n/dashboard' }: Props) {
+export default function NCheckoutModal({ open, index, price, preview, onClose, onPaid, dashboardHref = '/launch/dashboard' }: Props) {
   const router = useRouter()
   const [method, setMethod] = useState<PaymentMethod>('card')
   const [paying, setPaying] = useState(false)

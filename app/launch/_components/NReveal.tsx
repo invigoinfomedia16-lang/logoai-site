@@ -2,7 +2,7 @@
 
 // Scroll-reveal wrapper — fades + lifts its children into view once the
 // section enters the viewport. The hidden/visible states live in the
-// design-n layout's <style> block (.m-reveal / .m-reveal-in) and that
+// launch layout's <style> block (.m-reveal / .m-reveal-in) and that
 // block also disables the effect under prefers-reduced-motion, so this
 // component just toggles the class.
 

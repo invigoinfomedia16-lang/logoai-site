@@ -87,7 +87,7 @@ export default function NHero() {
           {/* CTA */}
           <div id="hero-cta" className="mt-8 flex flex-col items-center gap-3">
             <Link
-              href="/design-n/start"
+              href="/launch/start"
               className="m-cta-lg m-cta-btn inline-flex items-center justify-center gap-3"
               style={{
                 color: 'var(--m-on-brand, #FFFFFF)',

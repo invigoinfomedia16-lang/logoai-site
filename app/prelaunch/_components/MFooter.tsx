@@ -108,7 +108,7 @@ export default function MFooter() {
       <div className="flex flex-col gap-12 items-start w-full max-w-[1728px] px-2 sm:px-8 py-12">
         {/* Wordmark + waitlist tagline */}
         <div className="w-full flex flex-col gap-2 items-start">
-          <a href="/design-m" className="flex items-center gap-1.5">
+          <a href="/prelaunch" className="flex items-center gap-1.5">
             <span
               style={{
                 fontFamily: 'var(--m-logo-font, var(--m-font-wordmark), serif)',

@@ -5,7 +5,7 @@
 // Use Cases grid, plus the standard launch-site sections styled in
 // Purple Charcoal.
 
-import NReveal from '../design-n/_components/NReveal'
+import NReveal from '../launch/_components/NReveal'
 import MHero from './_components/MHero'
 import MGallery from './_components/MGallery'
 import MMockups from './_components/MMockups'

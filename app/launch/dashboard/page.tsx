@@ -281,7 +281,7 @@ export default function DashboardPage() {
       <main className="flex-1" style={{ padding: '32px 24px 64px' }}>
         {/* mobile wordmark (sidebar hidden < md) */}
         <div className="md:hidden flex items-center justify-between" style={{ marginBottom: 20 }}>
-          <a href="/design-n" className="flex items-center gap-1.5">
+          <a href="/launch" className="flex items-center gap-1.5">
             <span style={{ fontFamily: 'var(--m-logo-font, var(--m-font-wordmark), serif)', fontWeight: 'var(--m-logo-weight, 400)', fontSize: 22, color: 'var(--m-logo-color, var(--m-ink))', letterSpacing: 'var(--m-logo-tracking, -0.02em)' }}>
               LOGO<span style={{ color: 'var(--m-logo-color, var(--m-brand))' }}>.</span>AI
             </span>
@@ -438,7 +438,7 @@ function Sidebar() {
         padding: '24px 16px',
       }}
     >
-      <a href="/design-n" className="flex items-center" style={{ padding: '0 8px' }}>
+      <a href="/launch" className="flex items-center" style={{ padding: '0 8px' }}>
         <span style={{ fontFamily: 'var(--m-logo-font, var(--m-font-wordmark), serif)', fontWeight: 'var(--m-logo-weight, 400)', fontSize: 22, lineHeight: 1, letterSpacing: 'var(--m-logo-tracking, -0.02em)', color: 'var(--m-logo-color, var(--m-ink))' }}>
           LOGO<span style={{ color: 'var(--m-logo-color, var(--m-brand))' }}>.</span>AI
         </span>
@@ -459,11 +459,11 @@ function Sidebar() {
         My brand
       </p>
       <nav className="flex flex-col" style={{ marginTop: 8, gap: 2 }}>
-        <SidebarLink active href="/design-n/dashboard" icon={<IconBrand />} label={BRAND.name} />
+        <SidebarLink active href="/launch/dashboard" icon={<IconBrand />} label={BRAND.name} />
       </nav>
 
       <a
-        href="/design-n/start"
+        href="/launch/start"
         className="m-sans inline-flex items-center gap-2.5"
         style={{
           marginTop: 14,

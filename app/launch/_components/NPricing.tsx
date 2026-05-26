@@ -96,7 +96,7 @@ export default function NPricing() {
 
           {/* CTA */}
           <Link
-            href="/design-n/start"
+            href="/launch/start"
             className="m-cta-lg m-cta-btn inline-flex items-center justify-center gap-3 w-full mt-8"
             style={{
               color: 'var(--m-on-brand, #FFFFFF)',
