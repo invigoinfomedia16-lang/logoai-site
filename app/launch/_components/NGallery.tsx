@@ -7,9 +7,9 @@
 // or expand to the full list via "See all". Copy from the LOGOAI
 // landing-page doc, section 5.
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Image from 'next/image'
-import { CATEGORIES, getCategoryImages } from '@/data'
+import { CATEGORIES, getCategoryImages, getSubCategories } from '@/data'
 
 // Default-visible chips — those flagged `isPopular` in the data file.
 const POPULAR_CATEGORIES = CATEGORIES.filter((c) => c.isPopular)
@@ -65,8 +65,62 @@ function CategoryPill({
   )
 }
 
+// Sub-category pill — quieter than the main industry pill so the two-tier
+// hierarchy reads clearly. Outlined-when-active, smaller padding + font.
+function SubCategoryPill({
+  label,
+  active,
+  onClick,
+}: {
+  label: string
+  active: boolean
+  onClick: () => void
+}) {
+  const [hovered, setHovered] = useState(false)
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="flex-shrink-0 cursor-pointer m-sans"
+      style={{
+        padding: '7px 13px',
+        borderRadius: 'var(--m-radius-md)',
+        border: active
+          ? '1px solid var(--m-brand)'
+          : hovered
+          ? '1px solid var(--m-border-medium)'
+          : '1px solid var(--m-border)',
+        background: active
+          ? 'var(--m-brand-bg)'
+          : hovered
+          ? 'var(--m-surface-alt)'
+          : 'transparent',
+        color: active
+          ? 'var(--m-brand)'
+          : hovered
+          ? 'var(--m-ink)'
+          : 'var(--m-text-muted)',
+        fontSize: 12.5,
+        lineHeight: 1,
+        fontWeight: active ? 600 : 500,
+        transition: 'all 0.15s ease',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      {label}
+    </button>
+  )
+}
+
 export default function NGallery() {
   const [activeCategory, setActiveCategory] = useState<string>(CATEGORIES[0]?.key ?? 'restaurant')
+  const subCategories = getSubCategories(activeCategory)
+  const [activeSubCategory, setActiveSubCategory] = useState<string>(subCategories[0]?.key ?? '')
+  useEffect(() => {
+    setActiveSubCategory(getSubCategories(activeCategory)[0]?.key ?? '')
+  }, [activeCategory])
   const [galleryKey, setGalleryKey] = useState(0)
   const [query, setQuery] = useState('')
   const [showAll, setShowAll] = useState(false)
@@ -252,6 +306,36 @@ export default function NGallery() {
             >
               {showAll ? 'Show fewer' : `See all ${CATEGORIES.length} industries →`}
             </button>
+          )}
+
+          {/* Sub-category niches under the selected industry. Visually
+              quieter than the main pills (outlined-active, smaller). */}
+          {!trimmedQuery && subCategories.length > 0 && (
+            <div className="relative w-full">
+              <div
+                className="md:hidden absolute right-0 top-0 bottom-0 w-10 pointer-events-none z-10"
+                style={{ background: 'linear-gradient(to right, transparent, var(--m-surface))' }}
+                aria-hidden="true"
+              />
+              <div
+                className="flex md:flex-wrap md:justify-center gap-2 overflow-x-auto md:overflow-visible pb-1 md:pb-0 -mx-5 px-5 md:mx-0 md:px-0"
+                style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' }}
+              >
+                {subCategories.map((sub) => (
+                  <SubCategoryPill
+                    key={sub.key}
+                    label={sub.name}
+                    active={sub.key === activeSubCategory}
+                    onClick={() => {
+                      if (sub.key === activeSubCategory) return
+                      setActiveSubCategory(sub.key)
+                      setExpandedGrid(false)
+                      setGalleryKey((k) => k + 1)
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
           )}
         </div>
 
