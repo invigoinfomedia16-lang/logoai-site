@@ -99,7 +99,7 @@ export default function NHero() {
               <span>Generate My Free Logos</span>
               <ArrowRight />
             </Link>
-            <p className="m-body-sm" style={{ fontSize: 13, color: 'var(--m-text-soft)' }}>
+            <p className="m-body-sm" style={{ fontSize: 13, color: 'var(--m-text-muted)' }}>
               No credit card required to preview your logos
             </p>
           </div>
@@ -119,7 +119,7 @@ export default function NHero() {
                   width: 'clamp(220px, 22vw, 280px)',
                   aspectRatio: '1',
                   borderRadius: 'var(--m-radius-xl)',
-                  background: 'var(--m-surface)',
+                  background: 'var(--n-hero-marquee-card-bg, var(--m-surface))',
                   border: '1px solid var(--m-border)',
                   boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
                 }}

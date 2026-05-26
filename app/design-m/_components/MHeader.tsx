@@ -3,27 +3,28 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 
-// Top nav — matches the LOGOAI landing-page doc, "Top Navigation Menu":
-//   Gallery · How It Works · Reviews · Pricing · FAQ · Browse Logos ▾ · Blog
+// Top nav — Gallery, How It Works, Reviews, Pricing, FAQ, Blog are
+// regular links rendered inline. "Browse Logos ▾" is rendered separately
+// after these with extra left margin so the dropdown reads as a distinct
+// secondary action set off from the primary nav.
 const NAV_ITEMS = [
   { label: 'Gallery',      href: '#gallery' },
   { label: 'How It Works', href: '#how-it-works' },
   { label: 'Reviews',      href: '#reviews' },
   { label: 'Pricing',      href: '#pricing' },
   { label: 'FAQ',          href: '#faq' },
+  { label: 'Blog',         href: '#blog' },
 ]
 
-// "Browse Logos" dropdown — curated category links. The doc spec is a full
-// 4-column mega-menu (Industry / Style / Symbol / Color); this is a tighter
-// single-column starter that ships now. Expand to the full mega-menu when
-// industry pages exist.
+// "Browse Logos" dropdown — top-level category breakdowns. Each item is a
+// destination (placeholder href until those pages ship). The doc spec is
+// a full 4-column mega-menu (Industry × Style × Symbol × Color); this
+// flat 4-item dropdown ships now and can expand to the mega-menu later.
 const RESOURCES_ITEMS = [
-  { label: 'Restaurant Logos',     href: '#gallery' },
-  { label: 'Coffee Shop Logos',    href: '#gallery' },
-  { label: 'Bakery Logos',         href: '#gallery' },
-  { label: 'Boutique Logos',       href: '#gallery' },
-  { label: 'Gym Logos',            href: '#gallery' },
-  { label: 'See all industries →', href: '#gallery' },
+  { label: 'By Industry', href: '#gallery' },
+  { label: 'By Style',    href: '#gallery' },
+  { label: 'By Symbol',   href: '#gallery' },
+  { label: 'By Color',    href: '#gallery' },
 ]
 
 function ChevronDown() {
@@ -198,7 +199,10 @@ export default function MHeader({
                 </a>
               </li>
             ))}
-            <li className="px-2 py-2">
+            {/* Browse Logos — secondary dropdown set off from the primary
+                nav with extra left margin (ml-6) so it reads as a distinct
+                action rather than another link in the row. */}
+            <li className="px-2 py-2 ml-6">
               <div ref={wrapRef} className="relative">
                 <button
                   type="button"
@@ -273,19 +277,6 @@ export default function MHeader({
                   </div>
                 )}
               </div>
-            </li>
-            {/* Blog — top-level link sitting after the Browse Logos dropdown,
-                matching the doc's nav order. */}
-            <li className="px-2 py-2">
-              <a
-                href="#blog"
-                className="m-nav transition-colors"
-                style={{ color: 'var(--n-nav-link, var(--m-ink))' }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link-hover, var(--m-brand))' }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link, var(--m-ink))' }}
-              >
-                Blog
-              </a>
             </li>
           </ul>
         </nav>
@@ -370,11 +361,9 @@ export default function MHeader({
               {n.label}
             </a>
           ))}
-          {/* Browse Logos + Blog — these sit alongside NAV_ITEMS on
-              desktop (Browse Logos as a dropdown, Blog as a top-level
-              link) and need to be in the mobile menu too. Browse Logos
-              collapses to a single link here (the full dropdown would
-              eat too much height on mobile). */}
+          {/* Browse Logos — collapsed to a single link in the mobile
+              menu (the desktop 4-item dropdown would eat too much height
+              on mobile). Blog already lives in NAV_ITEMS above. */}
           <a
             href="#gallery"
             onClick={() => setOpen(false)}
@@ -382,14 +371,6 @@ export default function MHeader({
             style={{ color: 'var(--m-ink)', borderColor: 'var(--m-border-soft)' }}
           >
             Browse Logos
-          </a>
-          <a
-            href="#blog"
-            onClick={() => setOpen(false)}
-            className="m-nav py-3 border-b"
-            style={{ color: 'var(--m-ink)', borderColor: 'var(--m-border-soft)' }}
-          >
-            Blog
           </a>
           <a
             href={ctaHref}

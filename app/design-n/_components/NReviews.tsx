@@ -145,7 +145,7 @@ export default function NReviews() {
               <span className="m-sans" style={{ fontWeight: 700, fontSize: 15, color: 'var(--m-ink)' }}>
                 {FEATURED.name}
               </span>
-              <span className="m-sans" style={{ fontWeight: 400, fontSize: 13, color: 'var(--m-text-soft)' }}>
+              <span className="m-sans" style={{ fontWeight: 400, fontSize: 13, color: 'var(--m-text-muted)' }}>
                 {FEATURED.role}
               </span>
             </div>
@@ -174,7 +174,7 @@ export default function NReviews() {
                   <span className="m-sans" style={{ fontWeight: 600, fontSize: 14, lineHeight: '20px', color: 'var(--m-ink)' }}>
                     {r.name}
                   </span>
-                  <span className="m-sans" style={{ fontWeight: 400, fontSize: 13, lineHeight: '18px', color: 'var(--m-text-soft)' }}>
+                  <span className="m-sans" style={{ fontWeight: 400, fontSize: 13, lineHeight: '18px', color: 'var(--m-text-muted)' }}>
                     {r.role}
                   </span>
                 </div>

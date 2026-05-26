@@ -112,7 +112,7 @@ export default function NFaq() {
     <section
       id="faq"
       className="flex flex-col items-stretch py-14 sm:py-20 md:py-[100px] px-5 sm:px-10 md:px-16 lg:px-[96px]"
-      style={{ background: 'var(--m-surface)' }}
+      style={{ background: 'var(--n-faq-section-bg, var(--m-surface))' }}
     >
       <div className="flex flex-col gap-12 items-start max-w-[900px] px-2 sm:px-4 w-full mx-auto">
         {/* Heading */}
@@ -136,7 +136,7 @@ export default function NFaq() {
                 className="w-full"
                 style={{
                   background: 'var(--n-faq-row-bg, rgba(249,250,251,0.5))',
-                  border: '1px solid var(--m-border-soft)',
+                  border: 'var(--n-faq-row-border, 1px solid var(--m-border-soft))',
                   borderRadius: '14px',
                   padding: '9px 25px',
                 }}

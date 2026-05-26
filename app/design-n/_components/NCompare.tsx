@@ -93,7 +93,7 @@ export default function NCompare() {
           />
           <p
             className="md:hidden m-sans mb-2 text-center"
-            style={{ fontSize: 12, color: 'var(--m-text-soft)' }}
+            style={{ fontSize: 12, color: 'var(--m-text-muted)' }}
           >
             Swipe to compare →
           </p>
@@ -129,7 +129,7 @@ export default function NCompare() {
               </div>
               <div
                 className="px-3 py-4 text-center"
-                style={{ background: 'var(--m-brand-bg)' }}
+                style={{ background: 'var(--n-compare-logoai-bg, var(--m-brand-bg))' }}
               >
                 <span
                   style={{
@@ -168,7 +168,7 @@ export default function NCompare() {
                 </div>
                 <div
                   className="px-3 py-3.5 flex items-center justify-center h-full"
-                  style={{ background: 'var(--m-brand-bg)' }}
+                  style={{ background: 'var(--n-compare-logoai-bg, var(--m-brand-bg))' }}
                 >
                   <CellContent value={row.logoai} accent />
                 </div>

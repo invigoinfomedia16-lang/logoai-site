@@ -67,14 +67,14 @@ export default function NPricing() {
           </div>
           <div
             className="m-sans mt-1 flex flex-col items-center gap-1"
-            style={{ fontSize: 15, color: 'var(--m-text-soft)', fontWeight: 600 }}
+            style={{ fontSize: 15, color: 'var(--m-text-muted)', fontWeight: 600 }}
           >
             <span>One-time payment, no subscription</span>
             <span>100% Money-Back Guarantee</span>
           </div>
 
           {/* Divider */}
-          <div className="w-full my-7" style={{ height: 1, background: 'var(--m-border)' }} />
+          <div className="w-full my-7" style={{ height: 1, background: 'var(--n-pricing-divider, var(--m-border))' }} />
 
           {/* What you get */}
           <p

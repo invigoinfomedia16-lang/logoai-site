@@ -268,68 +268,6 @@ export const BRAND_COLORS: BrandColorOption[] = [
     family: 'purple',
   },
   {
-    // Soft Violet — a friendlier sibling of Electric Violet, picked to feel
-    // more "premium SaaS" (Stripe / Linear) than "electric / Loop". #7A6BFA
-    // sits in the same gamut-stable zone (R: 122, G: 107, B: 250) so it
-    // renders identically across browsers. This is the pure-black base of
-    // the Soft Violet trio (Black / Freepik / Charcoal). Typography
-    // inherits the global Mozilla. Scoped via
-    // [data-brand-color="soft-violet"] in layout.tsx.
-    name: 'Soft Violet Pure Black',
-    vars: {
-      brand: '#7A6BFA',
-      strong: '#B4ACFE',
-      deep: '#5F4FDE',
-      soft: '#161616',
-      bg: '#060607',
-      glow: '#B4ACFE',
-      onDark: '#B4ACFE',
-      heroTint: '#000000',
-    },
-    swatch:
-      'linear-gradient(135deg, #000000 0%, #000000 48%, #7A6BFA 52%, #7A6BFA 100%)',
-    hideHeroCarousel: true,
-    family: 'purple',
-  },
-  {
-    // Soft Violet Freepik — #7A6BFA CTA on the Freepik graphite base.
-    // Scoped via [data-brand-color="soft-violet-freepik"] in layout.tsx.
-    name: 'Soft Violet Freepik',
-    vars: {
-      brand: '#7A6BFA',
-      strong: '#B4ACFE',
-      deep: '#5F4FDE',
-      soft: '#2A2A2A',
-      bg: '#18181B',
-      glow: '#B4ACFE',
-      onDark: '#B4ACFE',
-      heroTint: '#0D0D0D',
-    },
-    swatch:
-      'linear-gradient(135deg, #0D0D0D 0%, #0D0D0D 48%, #7A6BFA 52%, #7A6BFA 100%)',
-    hideHeroCarousel: true,
-    family: 'purple',
-  },
-  {
-    // Soft Violet Charcoal — #7A6BFA CTA on Purple Black's charcoal base.
-    // Scoped via [data-brand-color="soft-violet-charcoal"] in layout.tsx.
-    name: 'Soft Violet Charcoal',
-    vars: {
-      brand: '#7A6BFA',
-      strong: '#B4ACFE',
-      deep: '#5F4FDE',
-      soft: '#161616',
-      bg: '#0A0A0A',
-      glow: '#B4ACFE',
-      onDark: '#B4ACFE',
-      heroTint: '#050505',
-    },
-    swatch:
-      'linear-gradient(135deg, #050505 0%, #050505 48%, #7A6BFA 52%, #7A6BFA 100%)',
-    hideHeroCarousel: true,
-    family: 'purple',
-  },
-  {
     // Bright Vermillion — a punchier, more energetic sibling of the
     // original #E7420F vermillion. Same warm orange-red family but
     // lifted toward "startup orange" — closer to HubSpot / modern SaaS
@@ -407,69 +345,6 @@ export const BRAND_COLORS: BrandColorOption[] = [
     // Half charcoal / half bright vermillion — signals charcoal theme + CTA.
     swatch:
       'linear-gradient(135deg, #050505 0%, #050505 48%, #FF5A1F 52%, #FF5A1F 100%)',
-    hideHeroCarousel: true,
-    family: 'orange',
-  },
-  {
-    // Terracotta Pure Black — design-n's default terracotta #D97757 CTA
-    // (the colour shown on Reset) on a true pure-black base (#000000 /
-    // #060607). The terracotta usually sits on a warm off-white page;
-    // this variant flips it onto pure black so the warm coral pops as a
-    // single bright accent. Scoped via
-    // [data-brand-color="terracotta-pure-black"] in layout.tsx.
-    name: 'Terracotta Pure Black',
-    vars: {
-      brand: '#D97757',
-      strong: '#C16545',
-      deep: '#A85735',
-      soft: '#161616',
-      bg: '#060607',
-      glow: '#E89A7E',
-      onDark: '#E89A7E',
-      heroTint: '#000000',
-    },
-    swatch:
-      'linear-gradient(135deg, #000000 0%, #000000 48%, #D97757 52%, #D97757 100%)',
-    hideHeroCarousel: true,
-    family: 'orange',
-  },
-  {
-    // Terracotta Freepik — #D97757 CTA on Freepik's graphite base
-    // (#0D0D0D / #18181B). Visible borders. Scoped via
-    // [data-brand-color="terracotta-freepik"] in layout.tsx.
-    name: 'Terracotta Freepik',
-    vars: {
-      brand: '#D97757',
-      strong: '#C16545',
-      deep: '#A85735',
-      soft: '#2A2A2A',
-      bg: '#18181B',
-      glow: '#E89A7E',
-      onDark: '#E89A7E',
-      heroTint: '#0D0D0D',
-    },
-    swatch:
-      'linear-gradient(135deg, #0D0D0D 0%, #0D0D0D 48%, #D97757 52%, #D97757 100%)',
-    hideHeroCarousel: true,
-    family: 'orange',
-  },
-  {
-    // Terracotta Charcoal — #D97757 CTA on Purple Black's charcoal base
-    // (#050505 / #0A0A0A). Scoped via
-    // [data-brand-color="terracotta-charcoal"] in layout.tsx.
-    name: 'Terracotta Charcoal',
-    vars: {
-      brand: '#D97757',
-      strong: '#C16545',
-      deep: '#A85735',
-      soft: '#161616',
-      bg: '#0A0A0A',
-      glow: '#E89A7E',
-      onDark: '#E89A7E',
-      heroTint: '#050505',
-    },
-    swatch:
-      'linear-gradient(135deg, #050505 0%, #050505 48%, #D97757 52%, #D97757 100%)',
     hideHeroCarousel: true,
     family: 'orange',
   },
