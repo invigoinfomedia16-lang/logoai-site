@@ -52,6 +52,9 @@ function MenuIcon({ open }: { open: boolean }) {
   )
 }
 
+type NavItem = { label: string; href: string }
+type DropdownConfig = { label: string; items: NavItem[] }
+
 type MHeaderProps = {
   /** CTA label for the desktop button + mobile-menu button. Defaults to the M-design copy. */
   ctaLabel?: string
@@ -67,6 +70,13 @@ type MHeaderProps = {
    *  menu — leaving just the wordmark on the left. Used by the onboarding
    *  page so the landing nav visually carries through to the funnel. */
   hideNav?: boolean
+  /** Primary nav items rendered as inline links. Defaults to the launch-site
+   *  set; prelaunch (/design-m) passes the design-l link set. */
+  navItems?: NavItem[]
+  /** Single dropdown rendered after the primary nav (with extra left margin).
+   *  Defaults to the launch-site "Browse Logos" set; prelaunch (/design-m)
+   *  passes the design-l "Company" set. Pass `null` to suppress entirely. */
+  dropdown?: DropdownConfig | null
 }
 
 export default function MHeader({
@@ -76,7 +86,16 @@ export default function MHeader({
   shrinkOnScroll = false,
   ctaHref = '#hero-cta',
   hideNav = false,
+  navItems,
+  dropdown,
 }: MHeaderProps = {}) {
+  // Use the launch-site defaults if no override was passed; allow an
+  // explicit null to suppress the dropdown.
+  const effectiveNavItems = navItems ?? NAV_ITEMS
+  const effectiveDropdown =
+    dropdown === null
+      ? null
+      : dropdown ?? { label: 'Browse Logos', items: RESOURCES_ITEMS }
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [resourcesOpen, setResourcesOpen] = useState(false)
@@ -186,7 +205,7 @@ export default function MHeader({
             flex layout doesn't shift around the logo. */}
         <nav className="hidden md:block" style={{ visibility: hideNav ? 'hidden' : 'visible', pointerEvents: hideNav ? 'none' : 'auto' }}>
           <ul className="flex items-center justify-center gap-1">
-            {NAV_ITEMS.map((n) => (
+            {effectiveNavItems.map((n) => (
               <li key={n.label} className="px-2 py-2">
                 <a
                   href={n.href}
@@ -199,85 +218,87 @@ export default function MHeader({
                 </a>
               </li>
             ))}
-            {/* Browse Logos — secondary dropdown set off from the primary
-                nav with extra left margin (ml-6) so it reads as a distinct
-                action rather than another link in the row. */}
-            <li className="px-2 py-2 ml-6">
-              <div ref={wrapRef} className="relative">
-                <button
-                  type="button"
-                  aria-expanded={resourcesOpen ? 'true' : 'false'}
-                  aria-haspopup="menu"
-                  onClick={() => setResourcesOpen((v) => !v)}
-                  className="flex h-9 items-center justify-center gap-1.5 rounded-md px-2 m-nav transition-colors"
-                  style={{ color: 'var(--n-nav-link, var(--m-ink))' }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link-hover, var(--m-brand))' }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link, var(--m-ink))' }}
-                >
-                  <span>Browse Logos</span>
-                  <span
-                    style={{
-                      display: 'inline-flex',
-                      transform: resourcesOpen ? 'rotate(180deg)' : 'none',
-                      transition: 'transform 0.15s ease',
-                    }}
+            {/* Secondary dropdown — set off from the primary nav with
+                extra left margin (ml-6). Suppressed when `dropdown={null}`
+                is passed. Label + items come from the dropdown prop. */}
+            {effectiveDropdown && (
+              <li className="px-2 py-2 ml-6">
+                <div ref={wrapRef} className="relative">
+                  <button
+                    type="button"
+                    aria-expanded={resourcesOpen}
+                    aria-haspopup="menu"
+                    onClick={() => setResourcesOpen((v) => !v)}
+                    className="flex h-9 items-center justify-center gap-1.5 rounded-md px-2 m-nav transition-colors"
+                    style={{ color: 'var(--n-nav-link, var(--m-ink))' }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link-hover, var(--m-brand))' }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = 'var(--n-nav-link, var(--m-ink))' }}
                   >
-                    <ChevronDown />
-                  </span>
-                </button>
-                {resourcesOpen && !hideNav && (
-                  <div
-                    role="menu"
-                    style={{
-                      position: 'absolute',
-                      top: '100%',
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      marginTop: 8,
-                      minWidth: 220,
-                      background: 'var(--m-surface)',
-                      border: '1px solid var(--m-border)',
-                      borderRadius: 'var(--m-radius-md)',
-                      boxShadow: '0 12px 32px rgba(0,0,0,0.10)',
-                      padding: 6,
-                      zIndex: 60,
-                    }}
-                  >
-                    {RESOURCES_ITEMS.map((item) => (
-                      <a
-                        key={item.label}
-                        href={item.href}
-                        role="menuitem"
-                        onClick={() => setResourcesOpen(false)}
-                        className="m-sans"
-                        style={{
-                          display: 'block',
-                          padding: '10px 12px',
-                          borderRadius: 'var(--m-radius-sm)',
-                          fontSize: 14,
-                          fontWeight: 500,
-                          color: 'var(--m-ink)',
-                          textDecoration: 'none',
-                          transition: 'background 0.12s ease, color 0.12s ease',
-                        }}
-                        onMouseEnter={(e) => {
-                          const el = e.currentTarget as HTMLElement
-                          el.style.background = 'var(--m-surface-alt)'
-                          el.style.color = 'var(--n-nav-link-hover, var(--m-brand))'
-                        }}
-                        onMouseLeave={(e) => {
-                          const el = e.currentTarget as HTMLElement
-                          el.style.background = 'transparent'
-                          el.style.color = 'var(--m-ink)'
-                        }}
-                      >
-                        {item.label}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </li>
+                    <span>{effectiveDropdown.label}</span>
+                    <span
+                      style={{
+                        display: 'inline-flex',
+                        transform: resourcesOpen ? 'rotate(180deg)' : 'none',
+                        transition: 'transform 0.15s ease',
+                      }}
+                    >
+                      <ChevronDown />
+                    </span>
+                  </button>
+                  {resourcesOpen && !hideNav && (
+                    <div
+                      role="menu"
+                      style={{
+                        position: 'absolute',
+                        top: '100%',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        marginTop: 8,
+                        minWidth: 220,
+                        background: 'var(--m-surface)',
+                        border: '1px solid var(--m-border)',
+                        borderRadius: 'var(--m-radius-md)',
+                        boxShadow: '0 12px 32px rgba(0,0,0,0.10)',
+                        padding: 6,
+                        zIndex: 60,
+                      }}
+                    >
+                      {effectiveDropdown.items.map((item) => (
+                        <a
+                          key={item.label}
+                          href={item.href}
+                          role="menuitem"
+                          onClick={() => setResourcesOpen(false)}
+                          className="m-sans"
+                          style={{
+                            display: 'block',
+                            padding: '10px 12px',
+                            borderRadius: 'var(--m-radius-sm)',
+                            fontSize: 14,
+                            fontWeight: 500,
+                            color: 'var(--m-ink)',
+                            textDecoration: 'none',
+                            transition: 'background 0.12s ease, color 0.12s ease',
+                          }}
+                          onMouseEnter={(e) => {
+                            const el = e.currentTarget as HTMLElement
+                            el.style.background = 'var(--m-surface-alt)'
+                            el.style.color = 'var(--n-nav-link-hover, var(--m-brand))'
+                          }}
+                          onMouseLeave={(e) => {
+                            const el = e.currentTarget as HTMLElement
+                            el.style.background = 'transparent'
+                            el.style.color = 'var(--m-ink)'
+                          }}
+                        >
+                          {item.label}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </li>
+            )}
           </ul>
         </nav>
 
@@ -350,7 +371,7 @@ export default function MHeader({
           className="md:hidden border-t flex flex-col"
           style={{ background: 'var(--m-surface)', borderColor: 'var(--m-border)', padding: '16px 20px 24px 20px' }}
         >
-          {NAV_ITEMS.map((n) => (
+          {effectiveNavItems.map((n) => (
             <a
               key={n.label}
               href={n.href}
@@ -361,17 +382,41 @@ export default function MHeader({
               {n.label}
             </a>
           ))}
-          {/* Browse Logos — collapsed to a single link in the mobile
-              menu (the desktop 4-item dropdown would eat too much height
-              on mobile). Blog already lives in NAV_ITEMS above. */}
-          <a
-            href="#gallery"
-            onClick={() => setOpen(false)}
-            className="m-nav py-3 border-b"
-            style={{ color: 'var(--m-ink)', borderColor: 'var(--m-border-soft)' }}
-          >
-            Browse Logos
-          </a>
+          {/* Dropdown — shown on mobile as a labelled section header
+              followed by its items indented below. Suppressed when
+              `dropdown={null}` is passed. */}
+          {effectiveDropdown && (
+            <>
+              <div
+                className="m-nav py-3 border-b"
+                style={{
+                  color: 'var(--m-text-muted)',
+                  borderColor: 'var(--m-border-soft)',
+                  fontSize: 12,
+                  fontWeight: 700,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                {effectiveDropdown.label}
+              </div>
+              {effectiveDropdown.items.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="m-nav py-3 border-b"
+                  style={{
+                    color: 'var(--m-ink)',
+                    borderColor: 'var(--m-border-soft)',
+                    paddingLeft: 16,
+                  }}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </>
+          )}
           <a
             href={ctaHref}
             onClick={() => setOpen(false)}

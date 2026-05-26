@@ -1,5 +1,8 @@
 // ─── Launch date (single source of truth) ───────────────────────────────────
-export const LAUNCH_DATE = new Date('2026-05-24T00:00:00')
+// Real launch date: August 1, 2026. The prelaunch /design-m hero +
+// final-CTA counters compute "days until launch" from this constant
+// via getDaysUntilLaunch(); the launch site /design-n doesn't read it.
+export const LAUNCH_DATE = new Date('2026-08-01T00:00:00')
 
 export function getDaysUntilLaunch(): number {
   const now = new Date()
@@ -8,16 +11,20 @@ export function getDaysUntilLaunch(): number {
 }
 
 // ─── Dynamic logos claimed counter ──────────────────────────────────────────
-// Base: 129,000 claimed as of April 9, 2026
-// Growth: ~2,000-3,000 per day (accelerating as launch nears)
-const CLAIMED_BASE = 129000
+// Tuned so the prelaunch site reads as "going fast" today AND very
+// urgent on launch day (Aug 1, 2026 — see LAUNCH_DATE above):
+//   • Today (May 25, 2026 ≈ day 46): ~660K claimed → ~1.34M remaining
+//   • Launch day (Aug 1, 2026 ≈ day 114): ~1.86M claimed → ~140K remaining
+// Cap at 1,900,000 keeps a 100K floor of remaining slots post-launch.
+const CLAIMED_BASE = 300000
 const CLAIMED_BASE_DATE = new Date('2026-04-09T00:00:00')
 
 export function getLogosClaimed(): number {
   const now = new Date()
   const daysSinceBase = Math.max(0, (now.getTime() - CLAIMED_BASE_DATE.getTime()) / (1000 * 60 * 60 * 24))
-  // Accelerating growth: starts ~2000/day, increases as launch approaches
-  const dailyGrowth = 2000 + (daysSinceBase * 50)
+  // Accelerating growth: ~4K/day at base, ~14K/day near launch. At today's
+  // rate the counter ticks down ~one every ~11s; near launch ~one every ~6s.
+  const dailyGrowth = 4000 + (daysSinceBase * 85)
   const totalClaimed = Math.min(
     Math.floor(CLAIMED_BASE + (daysSinceBase * dailyGrowth)),
     1900000 // cap at 1.9M so there are always some remaining

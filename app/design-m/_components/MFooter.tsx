@@ -1,7 +1,9 @@
-// Footer — dark Tolopea-style HEADSHOT footer adapted to LOGO.AI's nav
-// taxonomy: Popular Logos, All Industries, Company, Resources, Legal.
+// MFooter — v11 prelaunch footer. Five columns (Popular Industries /
+// Popular Styles / Quick Links / Company / Legal) + waitlist tagline +
+// trust badges + copyright. Replaces the earlier 3-column design-l
+// footer with the v11 doc's expanded structure.
 
-const POPULAR_LOGOS = [
+const POPULAR_INDUSTRIES = [
   'Restaurant Logos',
   'Coffee Shop Logos',
   'Bakery Logos',
@@ -9,18 +11,42 @@ const POPULAR_LOGOS = [
   'Gym Logos',
 ]
 
-const ALL_INDUSTRIES = [
-  'Restaurant', 'Coffee Shop', 'Bakery', 'Food Truck',
-  'Barbershop', 'Hair Salon', 'Nail Studio', 'Boutique',
-  'Clothing Brand', 'Gym', 'Cleaning Service', 'Landscaping',
-  'Pet Grooming', 'E-commerce', 'Content Creator', 'Tattoo Studio',
-  'Bar', 'Brewery', 'Catering', 'Consulting',
-  'Real Estate', 'Photography', 'Wedding', 'Yoga Studio',
+const POPULAR_STYLES = [
+  'Minimalist Logos',
+  'Vintage Logos',
+  'Monogram Logos',
+  'Wordmark Logos',
+  'Black & White Logos',
 ]
 
-const COMPANY = ['About Us', 'Our Story', 'Leadership', 'Press', 'Contact']
-const RESOURCES = ['How it works', 'Examples', 'Reviews', 'Pricing', 'FAQ', 'Blog']
-const LEGAL = ['Terms of Service', 'Privacy Policy', 'Cookie Policy']
+const QUICK_LINKS = [
+  'Gallery',
+  'How It Works',
+  'FAQ',
+  'Blog',
+  'Before & After',
+  'Wall of Love',
+]
+
+const COMPANY = [
+  'About Us',
+  'Our Story',
+  'Team',
+  'Press',
+  'Manifesto',
+  'Contact Support',
+]
+
+const LEGAL = [
+  'Terms of Use',
+  'Privacy Policy',
+  'Refund Policy',
+  'Security Policy',
+  'Commercial License',
+  'Cookie Policy',
+]
+
+const TRUST_BADGES = ['SSL Secure', 'Stripe Payments', 'Your data is safe']
 
 function ColumnHeading({ children }: { children: React.ReactNode }) {
   return (
@@ -46,12 +72,11 @@ function LinkList({ items }: { items: string[] }) {
         <li key={item} className="flex flex-col items-start py-0.5 w-full">
           <a
             href="#"
-            className="m-sans"
+            className="m-sans m-footer-link"
             style={{
               fontWeight: 400,
               fontSize: 14,
               lineHeight: '20px',
-              color: 'var(--m-text-on-dark-muted)',
               whiteSpace: 'nowrap',
             }}
           >
@@ -63,87 +88,93 @@ function LinkList({ items }: { items: string[] }) {
   )
 }
 
+function CheckBadge() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+      <path d="M2.5 7.25L5.5 10.25L11.5 3.75" style={{ stroke: 'var(--n-footer-check, #00C950)' }} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 export default function MFooter() {
   return (
     <footer
       className="flex flex-col items-start px-5 sm:px-10 md:px-16 lg:px-[96px] w-full"
-      style={{ background: 'rgba(0,0,0,0.95)' }}
+      style={{
+        background: 'var(--n-footer-bg, rgba(0,0,0,0.95))',
+        borderTop: 'var(--n-footer-border, none)',
+      }}
     >
       <div className="flex flex-col gap-12 items-start w-full max-w-[1728px] px-2 sm:px-8 py-12">
-        {/* Logo row */}
-        <div className="w-full">
+        {/* Wordmark + waitlist tagline */}
+        <div className="w-full flex flex-col gap-2 items-start">
           <a href="/design-m" className="flex items-center gap-1.5">
             <span
               style={{
-                fontFamily: 'var(--m-font-wordmark), serif',
-                fontSize: 26,
+                fontFamily: 'var(--m-logo-font, var(--m-font-wordmark), serif)',
+                fontSize: 'var(--m-logo-size, 26px)',
+                fontWeight: 'var(--m-logo-weight, 400)',
                 lineHeight: 1,
-                letterSpacing: '-0.02em',
-                color: '#FFFFFF',
+                letterSpacing: 'var(--m-logo-tracking, -0.02em)',
+                color: 'var(--m-logo-color, #FFFFFF)',
                 whiteSpace: 'nowrap',
               }}
             >
-              LOGO<span style={{ color: 'var(--m-brand)' }}>.</span>AI
+              LOGO<span style={{ color: 'var(--m-logo-color, var(--m-brand-on-dark))' }}>.</span>AI
             </span>
           </a>
-        </div>
-
-        {/* Columns grid — collapses on mobile */}
-        <div className="grid w-full grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)_minmax(0,1fr)] gap-x-8 gap-y-10 items-start">
-          {/* Col 1 */}
-          <div className="flex flex-col gap-4 items-start w-full">
-            <ColumnHeading>Popular Logos</ColumnHeading>
-            <LinkList items={POPULAR_LOGOS} />
-          </div>
-
-          {/* Col 2 — wide, 3-col internal grid */}
-          <div className="flex flex-col gap-4 items-start w-full">
-            <ColumnHeading>All Industries</ColumnHeading>
-            <ul className="grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-2 w-full">
-              {ALL_INDUSTRIES.map((item) => (
-                <li key={item} className="flex flex-col items-start py-0.5 w-full">
-                  <a
-                    href="#"
-                    className="m-sans"
-                    style={{
-                      fontWeight: 400,
-                      fontSize: 14,
-                      lineHeight: '20px',
-                      color: 'var(--m-text-on-dark-muted)',
-                      whiteSpace: 'nowrap',
-                    }}
-                  >
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Col 3 — three sub-stacks */}
-          <div className="flex flex-col gap-9 items-start w-full">
-            <div className="flex flex-col gap-4 items-start w-full">
-              <ColumnHeading>Company</ColumnHeading>
-              <LinkList items={COMPANY} />
-            </div>
-            <div className="flex flex-col gap-4 items-start w-full">
-              <ColumnHeading>Resources</ColumnHeading>
-              <LinkList items={RESOURCES} />
-            </div>
-            <div className="flex flex-col gap-4 items-start w-full">
-              <ColumnHeading>Legal</ColumnHeading>
-              <LinkList items={LEGAL} />
-            </div>
-          </div>
-        </div>
-
-        {/* Divider + copyright */}
-        <div
-          className="flex flex-col items-start w-full pt-8 border-t"
-          style={{ borderColor: 'var(--m-border-dark)' }}
-        >
           <p
-            className="m-sans w-full"
+            className="m-sans"
+            style={{ fontSize: 14, lineHeight: '20px', color: 'var(--m-text-on-dark-muted)' }}
+          >
+            Free logos for the first 2,000,000 users
+          </p>
+        </div>
+
+        {/* 5-column footer */}
+        <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-x-8 gap-y-10 items-start">
+          <div className="flex flex-col gap-4 items-start w-full">
+            <ColumnHeading>Popular Industries</ColumnHeading>
+            <LinkList items={POPULAR_INDUSTRIES} />
+          </div>
+          <div className="flex flex-col gap-4 items-start w-full">
+            <ColumnHeading>Popular Styles</ColumnHeading>
+            <LinkList items={POPULAR_STYLES} />
+          </div>
+          <div className="flex flex-col gap-4 items-start w-full">
+            <ColumnHeading>Quick Links</ColumnHeading>
+            <LinkList items={QUICK_LINKS} />
+          </div>
+          <div className="flex flex-col gap-4 items-start w-full">
+            <ColumnHeading>Company</ColumnHeading>
+            <LinkList items={COMPANY} />
+          </div>
+          <div className="flex flex-col gap-4 items-start w-full">
+            <ColumnHeading>Legal</ColumnHeading>
+            <LinkList items={LEGAL} />
+          </div>
+        </div>
+
+        {/* Bottom bar — copyright (left) + trust badges (right), stacks on mobile. */}
+        <div
+          className="flex flex-col gap-4 items-start sm:flex-row-reverse sm:items-center sm:justify-between w-full pt-8 border-t"
+          style={{ borderColor: 'var(--n-footer-divider, var(--m-border-dark))' }}
+        >
+          <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-y-2 sm:gap-x-5">
+            {TRUST_BADGES.map((b) => (
+              <span key={b} className="flex items-center gap-1.5">
+                <CheckBadge />
+                <span
+                  className="m-sans"
+                  style={{ fontSize: 13, lineHeight: '18px', color: 'var(--m-text-on-dark-muted)' }}
+                >
+                  {b}
+                </span>
+              </span>
+            ))}
+          </div>
+          <p
+            className="m-sans"
             style={{
               fontWeight: 400,
               fontSize: 14,
@@ -151,7 +182,7 @@ export default function MFooter() {
               color: 'var(--m-text-on-dark-muted)',
             }}
           >
-            Copyright © 2026 LOGO.AI, Inc. All rights reserved. LOGO.AI is an independent service.
+            Copyright © 2026 Logo.AI. All rights reserved.
           </p>
         </div>
       </div>

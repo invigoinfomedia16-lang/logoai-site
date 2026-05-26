@@ -1,142 +1,140 @@
-// Pricing — uses HEADSHOT's dark card pricing aesthetic, adapted to
-// LOGO.AI's single-tier model: $49 one-time for the logo + every file
-// format you need.
+// MPricing — v11 prelaunch "Free at launch" pricing card. Strikethrough
+// $49 → Free for the first 2,000,000 users. Same visual chrome as the
+// launch site's NPricing card (2px brand border, big price, feature
+// checklist), with the prelaunch "What you get — free" framing.
+
+import Link from 'next/link'
 
 function CheckIcon() {
   return (
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-      <circle cx="8" cy="8" r="8" fill="#00C950" />
-      <path d="M5 8.25L7.25 10.5L11 5.5" stroke="#FFFFFF" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+      <circle cx="9" cy="9" r="9" style={{ fill: 'var(--n-check, #00A63E)' }} />
+      <path d="M5.5 9.25L8 11.75L12.5 6.25" style={{ stroke: 'var(--m-on-brand, #FFFFFF)' }} strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+function ArrowRight() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+      <path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }
 
 const FEATURES = [
   'Your logo in every format you need (PNG, SVG, PDF, EPS)',
-  'Transparent background — works on any colour',
-  'Re-download anytime',
-  'Full commercial license',
-  '100% satisfaction guarantee',
+  'Transparent background — works on any background color',
+  'Brand Guidelines PDF — how to use your logo, its exact colors, and matching fonts',
+  'Full commercial license — use it anywhere you want',
+  'Yours forever — re-download as many times as you want',
 ]
-
-function FeatureRow({ children }: { children: React.ReactNode }) {
-  return (
-    <li className="flex items-start gap-3">
-      <span className="mt-0.5 shrink-0">
-        <CheckIcon />
-      </span>
-      <span className="m-sans" style={{ color: 'var(--m-text-on-dark)', fontSize: 14, lineHeight: '22px' }}>
-        {children}
-      </span>
-    </li>
-  )
-}
 
 export default function MPricing() {
   return (
     <section
       id="pricing"
-      className="w-full pt-5 px-5 sm:px-10 md:px-16 lg:px-[120px] xl:px-[192px]"
+      className="flex flex-col items-center py-14 sm:py-20 md:py-[100px] px-5 sm:px-10 md:px-16 lg:px-[96px] w-full"
+      style={{ background: 'var(--n-pricing-section-bg, var(--m-brand-bg))' }}
     >
-      <div
-        className="relative mx-auto w-full max-w-[1536px] py-16 md:py-24 px-5 sm:px-10 md:px-16"
-        style={{
-          background: '#0A0A0A',
-          borderRadius: 'var(--m-radius-xl)',
-        }}
-      >
-        {/* Promo badge floats above */}
-        <div className="absolute left-1/2 -translate-x-1/2 -top-5">
-          <span
-            className="m-sans inline-flex items-center px-4 py-2 whitespace-nowrap"
-            style={{
-              background: '#FFFFFF',
-              color: 'var(--m-ink)',
-              borderRadius: 'var(--m-radius-pill)',
-              fontWeight: 600,
-              fontSize: 14,
-              lineHeight: '20px',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.18)',
-            }}
-          >
-            🎁 Generate and preview free — pay only when you love it
-          </span>
-        </div>
-
-        {/* Heading block */}
-        <div className="mx-auto max-w-[768px] text-center mb-12 md:mb-16">
-          <h2 className="m-h2" style={{ color: '#FFFFFF', fontSize: 48, lineHeight: '56px' }}>
-            Professional logos at an unbelievable price.
-          </h2>
-          <p className="m-sub mt-4" style={{ color: 'var(--m-text-on-dark)', fontSize: 18, lineHeight: '28px' }}>
-            One simple price. Every format you need. No subscriptions, no add-ons, no surprises — just the logo you love, ready to launch.
+      <div className="flex flex-col gap-12 items-center w-full max-w-[760px] px-2 sm:px-4">
+        {/* Heading */}
+        <div className="flex flex-col gap-4 items-center text-center">
+          <p className="m-eyebrow" style={{ color: 'var(--m-brand)' }}>Pricing</p>
+          <h2 className="m-h2">Designer-quality logos — free at launch</h2>
+          <p className="m-sub max-w-[640px]">
+            A freelance designer costs $1,500+. Other AI tools charge $20–$96/year. We&apos;re giving ours away free to the first 2,000,000 users.
           </p>
         </div>
 
-        {/* Single-tier card */}
-        <div className="mx-auto max-w-[520px]">
-          <article
-            className="relative flex flex-col p-8"
-            style={{
-              background: '#1C1C1C',
-              border: '2px solid var(--m-brand)',
-              borderRadius: 'var(--m-radius-xl)',
-              boxShadow: '0 0 0 6px rgba(217,119,87,0.12)',
-            }}
-          >
-            <div className="flex items-center justify-between">
-              <h3 className="m-display" style={{ color: '#FFFFFF', fontWeight: 600, fontSize: 22, lineHeight: '28px' }}>
-                Your Logo
-              </h3>
-              <span
-                className="m-sans"
-                style={{
-                  fontWeight: 600,
-                  fontSize: 12,
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
-                  color: 'var(--m-brand)',
-                }}
-              >
-                One-time
-              </span>
-            </div>
-            <div className="flex items-baseline gap-2 mt-5">
-              <span className="m-display" style={{ color: '#FFFFFF', fontWeight: 700, fontSize: 60, lineHeight: '60px' }}>
-                $49
-              </span>
-              <span className="m-sans" style={{ color: 'var(--m-text-on-dark-muted)', fontSize: 14 }}>
-                one-time, yours forever
-              </span>
-            </div>
-            <ul className="flex flex-col gap-4 mt-8">
-              {FEATURES.map((f) => (
-                <FeatureRow key={f}>{f}</FeatureRow>
-              ))}
-            </ul>
-            <a
-              href="#hero-cta"
-              className="m-sans inline-flex items-center justify-center mt-8 px-5 py-3"
+        {/* Pricing card */}
+        <div
+          className="w-full max-w-[460px] flex flex-col items-center p-8 md:p-10"
+          style={{
+            background: 'var(--m-surface)',
+            border: '2px solid var(--m-brand)',
+            borderRadius: 'var(--m-radius-xl)',
+            boxShadow:
+              'var(--n-pricing-shadow, 0 12px 32px rgba(217,119,87,0.14), 0 2px 8px rgba(0,0,0,0.06))',
+          }}
+        >
+          {/* Price — $49 strike-through, Free in brand */}
+          <div className="flex items-baseline gap-3">
+            <span
+              className="m-display"
               style={{
-                background: 'linear-gradient(90deg, #D97757 0%, #E89A7E 100%)',
-                color: '#FFFFFF',
-                borderRadius: 'var(--m-radius-md)',
                 fontWeight: 600,
-                fontSize: 15,
-                lineHeight: '24px',
+                fontSize: 28,
+                lineHeight: '32px',
+                color: 'var(--m-text-muted)',
+                textDecoration: 'line-through',
+                textDecorationThickness: '2px',
               }}
             >
-              Design my logo
-            </a>
-          </article>
-        </div>
+              $49
+            </span>
+            <span
+              className="m-display"
+              style={{
+                fontWeight: 700,
+                fontSize: 64,
+                lineHeight: '64px',
+                color: 'var(--m-brand)',
+              }}
+            >
+              Free
+            </span>
+          </div>
+          <div
+            className="m-sans mt-2 flex flex-col items-center gap-1 text-center"
+            style={{ fontSize: 15, color: 'var(--m-text-muted)', fontWeight: 600 }}
+          >
+            <span>Free for the first 2,000,000 users — no subscription, no credit card, no catch.</span>
+            <span style={{ fontWeight: 500 }}>100% yours to keep forever.</span>
+          </div>
 
-        <p
-          className="m-sans text-center mt-12"
-          style={{ color: 'var(--m-text-on-dark-muted)', fontSize: 14, lineHeight: '22px' }}
-        >
-          No credit card to preview. Only pay if you love what you see.
-        </p>
+          {/* Divider */}
+          <div className="w-full my-7" style={{ height: 1, background: 'var(--n-pricing-divider, var(--m-border))' }} />
+
+          {/* What you get */}
+          <p
+            className="m-sans self-start mb-4"
+            style={{ fontWeight: 700, fontSize: 14, color: 'var(--m-ink)', textTransform: 'uppercase', letterSpacing: '0.06em' }}
+          >
+            What you get — free
+          </p>
+          <ul className="flex flex-col gap-3.5 w-full">
+            {FEATURES.map((f) => (
+              <li key={f} className="flex items-start gap-3">
+                <span className="mt-0.5 shrink-0"><CheckIcon /></span>
+                <span className="m-sans" style={{ fontSize: 15, lineHeight: '22px', color: 'var(--m-text)' }}>
+                  {f}
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          {/* CTA */}
+          <Link
+            href="#hero-cta"
+            className="m-cta-lg m-cta-btn inline-flex items-center justify-center gap-3 w-full mt-8"
+            style={{
+              color: 'var(--m-on-brand, #FFFFFF)',
+              borderRadius: 'var(--m-radius-md)',
+              padding: '16px 24px',
+              boxShadow: '0 1px 1px 0 rgba(0,0,0,0.05)',
+            }}
+          >
+            <span>Get My Free Logo</span>
+            <ArrowRight />
+          </Link>
+          <p
+            className="m-sans mt-3 text-center"
+            style={{ fontSize: 13, color: 'var(--m-text-muted)' }}
+          >
+            Free for the first 2,000,000 users. No credit card, ever.
+          </p>
+        </div>
       </div>
     </section>
   )
