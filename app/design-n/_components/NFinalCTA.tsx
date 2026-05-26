@@ -47,7 +47,7 @@ export default function NFinalCTA() {
           <h2 className="m-h1 mt-3" style={{ color: 'var(--n-cta-fg, #FFFFFF)', whiteSpace: 'normal' }}>
             Your professional logo is 60 seconds away
           </h2>
-          <p className="m-sub mt-4" style={{ color: 'var(--n-cta-fg-sub, rgba(255,255,255,0.86))' }}>
+          <p className="m-sub mt-4" style={{ color: 'var(--n-cta-fg-sub, var(--m-text-muted))' }}>
             Worst case, you lose 60 seconds. Best case, you find a logo you love.
           </p>
           <Link
