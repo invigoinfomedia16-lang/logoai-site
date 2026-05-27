@@ -21,7 +21,13 @@ function formatNumber(n: number) {
   return n.toLocaleString('en-US')
 }
 
-export default function MFinalCTA() {
+type MFinalCTAProps = {
+  /** Override the eyebrow text. Pass `null` to hide the eyebrow entirely
+   *  (used by sub-pages whose content doc doesn't include it). */
+  eyebrow?: string | null
+}
+
+export default function MFinalCTA({ eyebrow = 'Get Started' }: MFinalCTAProps = {}) {
   // Live counter — shared with MHero via useLiveCounter so the
   // "{N} logos remaining" line ticks down in sync with the hero counter.
   const { remaining } = useLiveCounter()
@@ -52,12 +58,14 @@ export default function MFinalCTA() {
         }}
       >
         <div className="flex flex-col items-center" style={{ maxWidth: 780 }}>
-          <p
-            className="m-eyebrow"
-            style={{ color: 'var(--n-cta-eyebrow, var(--m-brand))' }}
-          >
-            Get Started
-          </p>
+          {eyebrow && (
+            <p
+              className="m-eyebrow"
+              style={{ color: 'var(--n-cta-eyebrow, var(--m-brand))' }}
+            >
+              {eyebrow}
+            </p>
+          )}
           <h2
             className="m-h1 mt-3"
             style={{ color: 'var(--n-cta-fg, #FFFFFF)', whiteSpace: 'normal' }}

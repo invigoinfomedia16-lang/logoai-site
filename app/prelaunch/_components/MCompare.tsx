@@ -3,6 +3,8 @@
 // Logo.AI) with the v11 prelaunch row labels — including the new "Free
 // at launch", "Free to download", and "No subscription, ever" rows.
 
+import MWordmarkIcon from './MWordmarkIcon'
+
 type Cell = true | false | string
 
 type Row = {
@@ -123,9 +125,10 @@ export default function MCompare() {
                   </span>
                 </div>
                 <div
-                  className="px-3 py-4 text-center"
+                  className="px-3 py-4 flex items-center justify-center gap-1.5"
                   style={{ background: 'var(--n-compare-logoai-bg, var(--m-brand-bg))' }}
                 >
+                  <MWordmarkIcon size={20} />
                   <span
                     style={{
                       fontFamily: 'var(--m-logo-font, var(--m-font-wordmark), serif)',

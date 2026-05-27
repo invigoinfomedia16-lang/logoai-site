@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import Link from 'next/link'
 
 // Top nav — Gallery, How It Works, Reviews, Pricing, FAQ, Blog are
@@ -77,6 +77,9 @@ type MHeaderProps = {
    *  Defaults to the launch-site "Browse Logos" set; prelaunch (/prelaunch)
    *  passes the design-l "Company" set. Pass `null` to suppress entirely. */
   dropdown?: DropdownConfig | null
+  /** Optional icon rendered to the left of the "LOGO.AI" wordmark. Prelaunch
+   *  passes <MWordmarkIcon /> so the floating MIconToggle can swap it. */
+  wordmarkIcon?: ReactNode
 }
 
 export default function MHeader({
@@ -88,6 +91,7 @@ export default function MHeader({
   hideNav = false,
   navItems,
   dropdown,
+  wordmarkIcon,
 }: MHeaderProps = {}) {
   // Use the launch-site defaults if no override was passed; allow an
   // explicit null to suppress the dropdown.
@@ -167,8 +171,11 @@ export default function MHeader({
         <div className="mx-auto w-full max-w-[1536px] flex items-center py-[16px] min-h-[68px]">
         {/* Left zone — wordmark + optional tagline (flex-1 so the center nav is truly centered) */}
         <div className="flex flex-1 items-center gap-3">
-          {/* Wordmark — matches the L design: DM Serif Display + Purple Heart dot */}
-          <a className="flex items-center gap-1.5" href={homeHref}>
+          {/* Wordmark — matches the L design: DM Serif Display + Purple Heart dot.
+              Optional wordmarkIcon renders to the left, currentColor-tinted to
+              the wordmark colour so it inherits the active theme. */}
+          <a className="flex items-center gap-2" href={homeHref} style={{ color: 'var(--m-logo-color, var(--m-ink))' }}>
+            {wordmarkIcon}
             <span
               style={{
                 fontFamily: 'var(--m-logo-font, var(--m-font-wordmark), serif)',

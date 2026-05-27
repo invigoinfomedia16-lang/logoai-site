@@ -12,6 +12,7 @@
 
 import { usePathname } from 'next/navigation'
 import MHeader from './MHeader'
+import MWordmarkIcon from './MWordmarkIcon'
 
 // v11 prelaunch nav order:
 //   Gallery · How It Works · FAQ · Blog · About · Our Story · Browse Logos ▾
@@ -20,7 +21,7 @@ const PRELAUNCH_NAV_ITEMS = [
   { label: 'How It Works', href: '#how-it-works' },
   { label: 'FAQ',          href: '#faq' },
   { label: 'Blog',         href: '#blog' },
-  { label: 'About',        href: '#about' },
+  { label: 'About',        href: '/prelaunch/about' },
   { label: 'Our Story',    href: '#our-story' },
 ]
 
@@ -48,6 +49,7 @@ export default function MSharedHeader() {
       ctaHref="/prelaunch#hero-cta"
       navItems={PRELAUNCH_NAV_ITEMS}
       dropdown={PRELAUNCH_DROPDOWN}
+      wordmarkIcon={<MWordmarkIcon size={28} />}
     />
   )
 }
