@@ -757,7 +757,7 @@ const STYLES = `
   .lp-root .uc-group:first-of-type { margin-top: 0; }
   .lp-root .uc-group-title {
     font-family: var(--serif);
-    font-size: 24px;
+    font-size: 22px;
     color: var(--text);
     margin-bottom: 28px;
     text-align: left;
@@ -1709,12 +1709,12 @@ export default function PrelaunchLanding() {
             <div className="final-cta">
               <div className="final-grid">
                 <div className="final-copy">
-                  <span className="eyebrow">Get Started</span>
+                  <span className="eyebrow">Free at launch</span>
                   <h2>Ready to Get{' '}<span className="muted">Your Free Logo?</span></h2>
                   <p className="final-counter-line">
                     <strong>1,669,349</strong> of 2,000,000 free logos left.
                   </p>
-                  <p className="final-counter-sub">330,651 people already in line · 55 days until launch.</p>
+                  <p className="final-counter-sub">330,651 people already signed up · 55 days until launch.</p>
                   <div className="progress final-progress"><div className="progress-fill" style={{ width: '16.5%' }} /></div>
                 </div>
 
