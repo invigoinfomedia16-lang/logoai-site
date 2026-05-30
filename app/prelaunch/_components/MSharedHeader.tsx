@@ -39,6 +39,11 @@ export default function MSharedHeader() {
   const pathname = usePathname()
   const isOnboarding = pathname?.startsWith('/prelaunch/start') ?? false
 
+  // The /prelaunch landing on the story-design-experiment branch ships
+  // its own self-contained nav. Skip the shared header there so the two
+  // don't stack.
+  if (pathname === '/prelaunch') return null
+
   return (
     <MHeader
       hideNav={isOnboarding}

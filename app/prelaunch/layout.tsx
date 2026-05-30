@@ -14,7 +14,6 @@ import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans, Open_Sans, DM_Serif_Display, Poppins } from 'next/font/google'
 import MSharedHeader from './_components/MSharedHeader'
-import MIconToggle from './_components/MIconToggle'
 
 export const metadata: Metadata = {
   title: 'Logo.AI — Professional logos in 60 seconds (prelaunch)',
@@ -319,9 +318,6 @@ export default function MLayout({ children }: { children: ReactNode }) {
             onboarding paths pointed at /prelaunch. */}
         <MSharedHeader />
         {children}
-        {/* Sandbox-only: minimal 2-swatch picker for the wordmark icon
-            colour (White / Purple). Remove in one line when locked. */}
-        <MIconToggle />
       </div>
     </>
   )
