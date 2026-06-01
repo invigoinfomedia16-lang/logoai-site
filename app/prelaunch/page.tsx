@@ -18,6 +18,10 @@ import MLpGallery from './_components/MLpGallery'
 import MLpMockups from './_components/MLpMockups'
 import MLpNav from './_components/MLpNav'
 import MLpStickyCTA from './_components/MLpStickyCTA'
+import MLpThemeToggle from './_components/MLpThemeToggle'
+import MLpUseCases from './_components/MLpUseCases'
+import MLpLogo from './_components/MLpLogo'
+import MLpLogoToggle from './_components/MLpLogoToggle'
 
 export const metadata: Metadata = {
   title: 'Free Logos for the First 2,000,000 Users — LOGO.AI',
@@ -26,7 +30,7 @@ export const metadata: Metadata = {
 }
 
 const STYLES = `
-  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&family=Sora:wght@400;600;700;800&family=Outfit:wght@400;500;600;700&family=Montserrat:wght@900&display=swap');
 
   .lp-root {
     --bg:           var(--lp-bg, #0a0a0c);
@@ -48,12 +52,1265 @@ const STYLES = `
     background: var(--bg);
     color: var(--text);
     font-family: var(--sans);
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
   }
   .lp-root *, .lp-root *::before, .lp-root *::after { box-sizing: border-box; }
   .lp-root ::selection { background: var(--accent); color: #fff; }
+
+  /* FIGMA THEME — flips palette to logo.ai Figma file colors:
+     #09090b page bg, #E8420D primary CTA, #FF5C2E accent. Flat fills
+     only — no hero glow/shadow port. Toggled via MLpThemeToggle which
+     adds .is-figma to .lp-root. */
+  .lp-root.is-figma {
+    --bg:           #09090b;
+    /* Elevated surfaces in Figma are translucent Desert-Storm overlays
+       on the dark bg, not flat greys. Mirrors the countdown blocks /
+       step cards in the Figma file (color/grey/91-5% + 10% border). */
+    --bg-elev:      rgba(232, 232, 230, 0.05);
+    --bg-elev-2:    rgba(232, 232, 230, 0.08);
+    --line:         rgba(232, 232, 230, 0.10);
+    --accent:       #FF5C2E;
+    --accent-deep:  #E8420D;
+    --accent-2:     #FF5C2E;
+    --accent-soft:  rgba(232, 66, 13, 0.10);
+  }
+  /* Sub-component hardcoded purple → orange (MLpGallery, MLpMockups,
+     MLpStickyCTA all live inside .lp-root). */
+  .lp-root.is-figma .lpg-pill.is-active,
+  .lp-root.is-figma .lpm-pill.is-active {
+    background: #E8420D;
+    border-color: #E8420D;
+  }
+  .lp-root.is-figma .lpg-subpill.is-active,
+  .lp-root.is-figma .lpm-subpill.is-active {
+    color: #FF5C2E;
+    border-color: #FF5C2E;
+  }
+  .lp-root.is-figma .lpg-tile:hover { border-color: #E8420D; }
+  .lp-root.is-figma .lpg-seeall:hover,
+  .lp-root.is-figma .lpm-seeall:hover,
+  .lp-root.is-figma .lpg-morebtn:hover { color: #FF5C2E; }
+  .lp-root.is-figma .lpg-arr,
+  .lp-root.is-figma .lpm-arr { color: #FF5C2E; }
+  .lp-root.is-figma .lp-sticky-cta-btn { background: #E8420D; }
+  .lp-root.is-figma .lp-sticky-cta-btn:hover { background: #FF5C2E; }
+  /* Search-input focus state — tint border + icon orange instead of
+     the default neutral gray, so the affordance matches the brand. */
+  .lp-root.is-figma .lpg-search input:focus,
+  .lp-root.is-figma .lpm-search input:focus {
+    border-color: rgba(255, 92, 46, 0.55);
+  }
+  /* Kill purple glow under the pricing card (per "no hero glow/shadow"
+     directive). Keep only the neutral depth shadow. */
+  .lp-root.is-figma .pricing-card {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  }
+  /* Hardcoded purple rgba tints inside page.tsx that don't pass through
+     the CSS variables. */
+  .lp-root.is-figma .email-form input:focus {
+    box-shadow: 0 0 0 3px rgba(232, 66, 13, 0.18);
+  }
+  .lp-root.is-figma .compare tbody td.us {
+    background: rgba(232, 66, 13, 0.05);
+  }
+
+  /* CUSTOM TYPOGRAPHY — confident-tech system using Sora (display) +
+     Outfit (UI/body). Designed for the prelaunch page rather than
+     copied from the live site. Hierarchy:
+       hero H1 → 72 / 800     (biggest moment)
+       final H2 → 52 / 800    (endpoint, bigger than section H2)
+       section H2 → 44 / 700  (consistent across sections)
+       card H3 → 22 / 700 / left
+       eyebrow → Outfit 12 / 600 / 0.15em UPPER (color leans on accent)
+       lede → Outfit 18 / 400 / 1.55
+       body → Outfit 16 / 400 / 1.65
+       nav  → Outfit 15 / 500
+     Toggled by MLpThemeToggle "Custom" which adds .is-figma-type. */
+  .lp-root.is-figma-type {
+    --serif: 'Sora', sans-serif;
+    --sans:  'Outfit', sans-serif;
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+  .lp-root.is-figma-type h1,
+  .lp-root.is-figma-type h2,
+  .lp-root.is-figma-type h3 {
+    font-family: 'Sora', sans-serif;
+  }
+  /* Hero H1 — biggest type on the page. */
+  .lp-root.is-figma-type .hero h1,
+  .lp-root.is-figma-type h1 {
+    font-size: clamp(44px, 8vw, 72px);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    text-align: center;
+  }
+  /* Final-CTA H2 ("Ready to Get Your Free Logo?") — endpoint moment,
+     bigger and bolder than a normal section H2 so it feels like the
+     close of the page. */
+  .lp-root.is-figma-type .final-cta-simple .final-h2-simple,
+  .lp-root.is-figma-type #final-cta h2 {
+    font-size: clamp(34px, 5.4vw, 52px);
+    font-weight: 800;
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    text-align: center;
+  }
+  /* Section H2s — consistent across all body sections. */
+  .lp-root.is-figma-type h2 {
+    font-size: clamp(30px, 4.6vw, 44px);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    text-align: center;
+  }
+  /* H3 — used inside cards (step cards, FAQ rows, pricing). Left-aligned
+     so the rhythm of the card reads naturally. */
+  .lp-root.is-figma-type h3 {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+    text-align: start;
+  }
+  /* Eyebrow — Outfit (not Sora) for visual variety against the display.
+     Sized small with strong tracking; color inherits the accent via
+     existing rules in the page. */
+  .lp-root.is-figma-type .eyebrow {
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  /* Hero lede — slightly bigger than section lede for the first
+     read-down moment. */
+  .lp-root.is-figma-type .hero-lede {
+    font-family: 'Outfit', sans-serif;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 1.55;
+  }
+  /* Section lede — consistent below every section H2. */
+  .lp-root.is-figma-type .lede {
+    font-family: 'Outfit', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.55;
+  }
+  /* Body paragraphs / list items. */
+  .lp-root.is-figma-type p,
+  .lp-root.is-figma-type li {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+  }
+  /* Card-body paragraphs — slightly smaller than full-width body so
+     cards don't feel text-heavy. */
+  .lp-root.is-figma-type .step p,
+  .lp-root.is-figma-type .pricing-card li,
+  .lp-root.is-figma-type .faq-a {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  /* Brand wordmark — tight Sora, paired weight with hero. */
+  .lp-root.is-figma-type .lp-brand,
+  .lp-root.is-figma-type .lp-brand .wordmark {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+
+  /* Variant E wordmark — Montserrat 900, squared rounded O's, orange
+     dot. Hidden by default. Shown only when .is-figma-type is active,
+     which also hides the original .lp-brand-icon and the default
+     .wordmark text inside both nav and footer brand blocks. */
+  .lp-root .lp-wm-custom { display: none; }
+  .lp-root.is-figma-type .lp-brand-icon { display: none; }
+  .lp-root.is-figma-type .lp-brand .wordmark,
+  .lp-root.is-figma-type .lp-footer .brand .wordmark { display: none; }
+  .lp-root.is-figma-type .lp-wm-custom {
+    display: inline-flex;
+    align-items: baseline;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: #f4f4f6;
+  }
+  .lp-root.is-figma-type .lp-wm-custom .lp-wm-o {
+    display: inline-block;
+    width: 0.6em;
+    height: 0.715em;
+    margin: 0 -0.01em;
+    vertical-align: baseline;
+  }
+  .lp-root.is-figma-type .lp-wm-custom .lp-wm-dot {
+    display: inline-block;
+    width: 0.16em;
+    height: 0.16em;
+    margin: 0 0.04em;
+    vertical-align: baseline;
+    background: #FF5C2E;
+  }
+  /* Group 3 nested-line variants — single full-width SVG. ViewBox is
+     ~431 × 108 (≈ 4:1 aspect). Height pegged near the letter cap-
+     height of the A/D/E variants so the nested wordmark reads at a
+     similar visual scale, not 2× larger. */
+  .lp-root.is-figma-type .lp-wm-custom .lp-wm-nested {
+    height: 0.85em;
+    width: auto;
+    display: block;
+    color: #f4f4f6;
+  }
+  /* Custom-mode brand sizing — nav and footer use the same wordmark
+     scale established in the original .lp-brand size. */
+  .lp-root.is-figma-type .lp-brand { font-size: 24px; gap: 0; }
+  .lp-root.is-figma-type .lp-footer .brand { font-size: 26px; gap: 0; }
+  /* Nav links — slightly bolder (500) to balance the Sora wordmark.
+     Includes the Browse Logos dropdown button so it matches the
+     other nav items instead of staying at 14/400. */
+  .lp-root.is-figma-type .lp-nav-links,
+  .lp-root.is-figma-type .lp-nav-links a,
+  .lp-root.is-figma-type .lp-dropdown > button {
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  /* Browse Logos dropdown menu — the default --bg-elev in Custom mode
+     is a 5% Desert-Storm overlay (too see-through for a floating
+     panel). Switch to a near-solid dark + backdrop blur so the menu
+     reads cleanly over any scrolling content. */
+  .lp-root.is-figma-type .lp-dropdown-menu {
+    background: rgba(20, 20, 24, 0.96);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-color: rgba(232, 232, 230, 0.12);
+  }
+  /* Mobile clamp — keep displays from overflowing tiny viewports. */
+  @media (max-width: 720px) {
+    .lp-root.is-figma-type h3 { font-size: 20px; }
+    .lp-root.is-figma-type .hero-lede { font-size: 17px; }
+    .lp-root.is-figma-type .lede { font-size: 16px; }
+  }
+
+  /* ── CUSTOM: USE CASES — icon-led tiles with hover-reveal ──────────
+     All 12 items rendered at once across the 3 stacked groups. Each
+     group's title becomes a small uppercase orange chip above its
+     band of 4 tiles. Tile shows icon + title by default. Description
+     slides up from below on hover (max-height + opacity transition). */
+  .lp-root.is-figma-type .uc-group { margin-top: 56px; }
+  .lp-root.is-figma-type .uc-group:first-of-type { margin-top: 0; }
+  .lp-root.is-figma-type .uc-group-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #f4f4f6;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0 0 18px;
+  }
+  .lp-root.is-figma-type .uc-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  .lp-root.is-figma-type .uc-card {
+    background: rgba(232, 232, 230, 0.03);
+    border: 1px solid rgba(232, 232, 230, 0.08);
+    border-radius: 16px;
+    padding: 22px 22px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow: hidden;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  .lp-root.is-figma-type .uc-card:hover {
+    background: rgba(232, 232, 230, 0.06);
+    border-color: rgba(255, 92, 46, 0.32);
+    transform: translateY(-2px);
+  }
+  .lp-root.is-figma-type .uc-card .uc-icon {
+    width: auto;
+    height: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    background: transparent;
+    color: #FF5C2E;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .lp-root.is-figma-type .uc-card h4 {
+    font-family: 'Sora', sans-serif;
+    font-size: 15.5px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+    color: #f4f4f6;
+    margin: 0;
+  }
+  /* Description always visible — non-collapsible. */
+  .lp-root.is-figma-type .uc-card p {
+    font-family: 'Outfit', sans-serif;
+    font-size: 13.5px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: #b8b8c4;
+    margin: 0;
+  }
+  /* Tablet — 2 cols per group */
+  @media (max-width: 880px) {
+    .lp-root.is-figma-type .uc-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  /* Mobile — 1 col */
+  @media (max-width: 520px) {
+    .lp-root.is-figma-type .uc-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Default: pricing wrappers are transparent for layout. The
+     non-Custom layouts treat .pricing-card as a centered flex column,
+     so the wrappers need to disappear from that flow. */
+  .lp-root .pricing-left,
+  .lp-root .pricing-right { display: contents; }
+
+  /* ── CUSTOM: PRICING split layout ──────────────────────────────────
+     Drops the card chrome. Two-column grid using the .pricing-left
+     and .pricing-right wrappers as flex columns. CTA on the left
+     uses margin-top: auto to pin itself to the bottom so the left
+     column's bottom aligns with the bottom of the benefits list on
+     the right. */
+  .lp-root.is-figma-type .pricing-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: 80px;
+    row-gap: 0;
+    align-items: stretch;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: left;
+    box-shadow: none;
+    overflow: visible;
+  }
+  .lp-root.is-figma-type .pricing-left {
+    display: flex;
+    flex-direction: column;
+  }
+  /* Right column: vertically center the eyebrow + list as a group.
+     Keeps them tight (no gap between) while the space above/below
+     balances against the taller left column. */
+  .lp-root.is-figma-type .pricing-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  /* LEFT COLUMN — price block */
+  .lp-root.is-figma-type .pricing-head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+  .lp-root.is-figma-type .pricing-head .strike {
+    font-family: 'Outfit', sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: rgba(232, 232, 230, 0.45);
+    text-decoration: line-through;
+    text-decoration-thickness: 1.5px;
+    line-height: 1.2;
+  }
+  .lp-root.is-figma-type .pricing-head .free {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(72px, 11vw, 120px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: #f4f4f6;
+  }
+  .lp-root.is-figma-type .pricing-sub {
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: #b8b8c4;
+    margin: 24px 0 0;
+    max-width: 38ch;
+  }
+  .lp-root.is-figma-type .pricing-keep {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: rgba(232, 232, 230, 0.55);
+    margin: 8px 0 0;
+  }
+  .lp-root.is-figma-type .pricing-card .pricing-divider { display: none; }
+  .lp-root.is-figma-type .pricing-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #E8420D;
+    color: #ffffff;
+    padding: 18px 32px;
+    border-radius: 999px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    width: auto;
+    align-self: flex-start;
+    min-width: 240px;
+    /* Explicit breathing room above the CTA — the right column self-
+       centers now, so margin-top: auto would collapse to 0 here. */
+    margin-top: 36px;
+  }
+  .lp-root.is-figma-type .pricing-cta:hover { background: #FF5C2E; }
+  .lp-root.is-figma-type .pricing-fine {
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    color: rgba(232, 232, 230, 0.45);
+    margin: 14px 0 0;
+    text-align: left;
+  }
+  /* RIGHT COLUMN — eyebrow + benefits */
+  .lp-root.is-figma-type .pricing-card .pl-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #FF5C2E;
+    margin: 0 0 20px;
+  }
+  .lp-root.is-figma-type .pricing-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .lp-root.is-figma-type .pricing-list li {
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    color: #b8b8c4;
+    padding-left: 36px;
+    position: relative;
+    text-align: left;
+  }
+  .lp-root.is-figma-type .pricing-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 22px;
+    height: 22px;
+    border-radius: 7px;
+    background: rgba(255, 92, 46, 0.12);
+    border: 1px solid rgba(255, 92, 46, 0.22);
+  }
+  .lp-root.is-figma-type .pricing-list li::after {
+    content: "✓";
+    position: absolute;
+    left: 5px;
+    top: 3px;
+    width: 14px;
+    height: 14px;
+    color: #FF5C2E;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 4px;
+  }
+  .lp-root.is-figma-type .pricing-list li strong {
+    color: #f4f4f6;
+    font-weight: 600;
+  }
+  /* Tablet / mobile — collapse to single column. The .pricing-left and
+     .pricing-right wrappers stack naturally. */
+  @media (max-width: 880px) {
+    .lp-root.is-figma-type .pricing-card {
+      grid-template-columns: 1fr;
+      column-gap: 0;
+      row-gap: 40px;
+    }
+    .lp-root.is-figma-type .pricing-cta {
+      width: 100%;
+      align-self: stretch;
+      margin-top: 24px;
+      min-width: 0;
+    }
+  }
+
+  /* ── CUSTOM: EARLY ACCESS / TESTIMONIALS editorial layout ──────────
+     Featured testimonial becomes a magazine-style pull-quote (no card,
+     no italics) with a giant decorative orange quote-mark above. Other
+     testimonials drop card chrome and sit in a 2-column ruled grid:
+     top border on container, right border between columns, bottom
+     border between rows (no border on the last row). */
+  .lp-root.is-figma-type .testimonial-feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 900px;
+    margin: 8px auto 72px;
+    padding: 0;
+    text-align: center;
+  }
+  .lp-root.is-figma-type .testimonial-feature::before {
+    content: "\\201C";
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: 96px;
+    line-height: 0.7;
+    color: rgba(255, 92, 46, 0.22);
+    margin: 0 0 8px;
+    order: 0;
+  }
+  .lp-root.is-figma-type .testimonial-feature blockquote {
+    font-family: 'Sora', sans-serif;
+    font-style: normal;
+    font-size: clamp(22px, 2.8vw, 30px);
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: #f4f4f6;
+    margin: 0 0 24px;
+    max-width: 32ch;
+    order: 1;
+  }
+  .lp-root.is-figma-type .testimonial-feature blockquote::before { content: none; }
+  .lp-root.is-figma-type .testimonial-feature .body {
+    font-family: 'Outfit', sans-serif;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.65;
+    color: #b8b8c4;
+    margin: 0 0 32px;
+    max-width: 60ch;
+    order: 2;
+  }
+  .lp-root.is-figma-type .testimonial-feature .t-cite-featured {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    order: 3;
+  }
+  .lp-root.is-figma-type .testimonial-feature .t-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(232, 232, 230, 0.15);
+  }
+  .lp-root.is-figma-type .testimonial-feature cite {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    color: rgba(232, 232, 230, 0.55);
+    font-style: normal;
+    text-align: left;
+  }
+  .lp-root.is-figma-type .testimonial-feature cite strong {
+    font-family: 'Sora', sans-serif;
+    color: #f4f4f6;
+    font-weight: 700;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .lp-root.is-figma-type .testimonial-feature .stars {
+    color: #FF5C2E;
+    letter-spacing: 6px;
+    font-size: 14px;
+    margin: 16px 0 0;
+    order: 4;
+  }
+
+  /* Regular testimonials — strip card chrome, ruled 2-col grid */
+  .lp-root.is-figma-type .testimonials {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-top: 1px solid rgba(232, 232, 230, 0.10);
+    margin-top: 48px;
+  }
+  .lp-root.is-figma-type .testimonial {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(232, 232, 230, 0.10);
+    border-radius: 0;
+    padding: 36px 28px;
+    gap: 16px;
+    transition: background 0.18s ease;
+  }
+  .lp-root.is-figma-type .testimonial:nth-child(even) {
+    border-left: 1px solid rgba(232, 232, 230, 0.10);
+  }
+  .lp-root.is-figma-type .testimonial:nth-last-child(-n+2) { border-bottom: 0; }
+  .lp-root.is-figma-type .testimonial:hover {
+    background: rgba(232, 232, 230, 0.025);
+    border-color: rgba(232, 232, 230, 0.10);
+  }
+  .lp-root.is-figma-type .testimonial .stars {
+    color: #FF5C2E;
+    letter-spacing: 4px;
+    font-size: 13px;
+  }
+  .lp-root.is-figma-type .testimonial blockquote {
+    font-family: 'Sora', sans-serif;
+    font-style: normal;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+    color: #f4f4f6;
+    margin: 0;
+  }
+  .lp-root.is-figma-type .testimonial blockquote::before {
+    content: "\\201C";
+    color: #FF5C2E;
+    margin-right: 4px;
+    font-weight: 800;
+  }
+  .lp-root.is-figma-type .testimonial p {
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    color: #b8b8c4;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .lp-root.is-figma-type .testimonial .t-cite {
+    padding-top: 8px;
+    align-items: center;
+  }
+  .lp-root.is-figma-type .testimonial .t-avatar {
+    width: 36px;
+    height: 36px;
+  }
+  .lp-root.is-figma-type .testimonial cite {
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    color: rgba(232, 232, 230, 0.5);
+    font-style: normal;
+  }
+  .lp-root.is-figma-type .testimonial cite strong {
+    font-family: 'Sora', sans-serif;
+    color: #f4f4f6;
+    font-weight: 700;
+    font-size: 14px;
+    display: block;
+  }
+  /* Mobile — single col, no side borders, top border between rows */
+  @media (max-width: 760px) {
+    .lp-root.is-figma-type .testimonials { grid-template-columns: 1fr; }
+    .lp-root.is-figma-type .testimonial,
+    .lp-root.is-figma-type .testimonial:nth-child(even) {
+      padding: 28px 0;
+      border-left: 0;
+    }
+    .lp-root.is-figma-type .testimonial:nth-last-child(-n+2) {
+      border-bottom: 1px solid rgba(232, 232, 230, 0.10);
+    }
+    .lp-root.is-figma-type .testimonial:last-child { border-bottom: 0; }
+  }
+
+  /* ── CUSTOM: HOW IT WORKS — horizontal timeline ────────────────────
+     Cards drop their chrome. Each step has a 72px circle badge with
+     its numeral, connected to the next step by a dashed line drawn
+     behind via ::before. Circle background matches the page bg so the
+     line cleanly hides under it. */
+  .lp-root.is-figma-type .steps {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    align-items: start;
+  }
+  .lp-root.is-figma-type .step {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    transition: none;
+  }
+  .lp-root.is-figma-type .step:hover {
+    border: 0;
+    transform: none;
+  }
+  /* Dashed connector — sits behind the circle of the NEXT step. */
+  .lp-root.is-figma-type .step:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    top: 36px;
+    left: 50%;
+    right: -50%;
+    height: 0;
+    border-top: 1.5px dashed rgba(255, 92, 46, 0.35);
+    z-index: 0;
+  }
+  .lp-root.is-figma-type .step .step-num {
+    position: relative;
+    z-index: 1;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1.5px solid rgba(255, 92, 46, 0.40);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Sora', sans-serif;
+    font-size: 24px;
+    font-weight: 800;
+    color: #FF5C2E;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+    gap: 0;
+  }
+  .lp-root.is-figma-type .step .step-num .lbl { display: none; }
+  .lp-root.is-figma-type .step h3 {
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+    color: #f4f4f6;
+    text-align: center;
+    margin: 0 0 10px;
+  }
+  .lp-root.is-figma-type .step p {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14.5px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: #b8b8c4;
+    text-align: center;
+    max-width: 28ch;
+    margin: 0 auto;
+  }
+  /* Tablet — 2-col grid; kill connector at the end of each row */
+  @media (max-width: 880px) {
+    .lp-root.is-figma-type .steps {
+      grid-template-columns: 1fr 1fr;
+      gap: 48px 24px;
+    }
+    .lp-root.is-figma-type .step:nth-child(2n)::before { display: none; }
+  }
+  /* Mobile — single col, vertical dashed connector under each circle */
+  @media (max-width: 520px) {
+    .lp-root.is-figma-type .steps {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .lp-root.is-figma-type .step:not(:last-child)::before {
+      display: block;
+      top: 72px;
+      left: 50%;
+      right: auto;
+      width: 0;
+      height: 40px;
+      border-top: 0;
+      border-left: 1.5px dashed rgba(255, 92, 46, 0.35);
+    }
+  }
+
+  /* ── CUSTOM: HOW WE COMPARE — winner-pillar table ──────────────────
+     Keeps the data table but elevates the LOGO.AI ("us") column as a
+     visual pillar with orange border, soft tint, rounded top/bottom,
+     and a floating "BEST" badge above the header. Other columns are
+     muted so the contrast is obvious at a glance. */
+  .lp-root.is-figma-type .compare-wrap {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    overflow: visible;
+    padding-top: 18px;     /* room for the BEST badge */
+  }
+  .lp-root.is-figma-type .compare {
+    border-collapse: separate;
+    border-spacing: 0;
+    font-family: 'Outfit', sans-serif;
+  }
+  .lp-root.is-figma-type .compare thead th {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(232, 232, 230, 0.10);
+    padding: 18px 16px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(232, 232, 230, 0.4);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .lp-root.is-figma-type .compare thead th.us {
+    color: #FF5C2E;
+    background: rgba(255, 92, 46, 0.08);
+    border-top: 1.5px solid rgba(255, 92, 46, 0.45);
+    border-left: 1.5px solid rgba(255, 92, 46, 0.45);
+    border-right: 1.5px solid rgba(255, 92, 46, 0.45);
+    border-bottom: 1.5px solid rgba(255, 92, 46, 0.20);
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    position: relative;
+    width: 28%;
+  }
+  .lp-root.is-figma-type .compare thead th.us::before {
+    content: "BEST";
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #E8420D;
+    color: #ffffff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    padding: 6px 14px;
+    border-radius: 999px;
+    white-space: nowrap;
+    line-height: 1;
+  }
+  .lp-root.is-figma-type .compare tbody td {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(232, 232, 230, 0.08);
+    padding: 18px 16px;
+    color: rgba(232, 232, 230, 0.5);
+    font-size: 14.5px;
+    text-align: center;
+  }
+  .lp-root.is-figma-type .compare tbody td:first-child {
+    color: #f4f4f6;
+    font-weight: 500;
+    text-align: left;
+  }
+  .lp-root.is-figma-type .compare tbody td.us {
+    background: rgba(255, 92, 46, 0.06);
+    border-left: 1.5px solid rgba(255, 92, 46, 0.45);
+    border-right: 1.5px solid rgba(255, 92, 46, 0.45);
+    color: #f4f4f6;
+    font-weight: 600;
+  }
+  .lp-root.is-figma-type .compare tbody tr:last-child td { border-bottom: 0; }
+  .lp-root.is-figma-type .compare tbody tr:last-child td.us {
+    border-bottom: 1.5px solid rgba(255, 92, 46, 0.45);
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+  }
+  /* Yes / no / maybe — bright on us, muted on the others */
+  .lp-root.is-figma-type .compare .yes {
+    color: rgba(255, 92, 46, 0.50);
+    font-weight: 700;
+  }
+  .lp-root.is-figma-type .compare td.us .yes { color: #FF5C2E; }
+  .lp-root.is-figma-type .compare .no { color: rgba(232, 232, 230, 0.18); }
+  .lp-root.is-figma-type .compare .maybe {
+    color: rgba(232, 232, 230, 0.4);
+    font-style: italic;
+    font-size: 13px;
+  }
+  .lp-root.is-figma-type .compare-fine {
+    color: rgba(232, 232, 230, 0.45);
+    font-size: 13px;
+    text-align: center;
+    margin-top: 24px;
+  }
+  /* Mobile — tighter cells, smaller badge */
+  @media (max-width: 720px) {
+    .lp-root.is-figma-type .compare thead th { padding: 14px 8px; font-size: 10px; }
+    .lp-root.is-figma-type .compare tbody td { padding: 14px 8px; font-size: 13px; }
+    .lp-root.is-figma-type .compare thead th.us::before {
+      top: -11px;
+      font-size: 9px;
+      padding: 4px 10px;
+      letter-spacing: 0.18em;
+    }
+  }
+
+  /* ── CUSTOM: HERO — twin urgency counters as a single centered row ─
+     Keeps the existing centered hero. The two counter <p> elements
+     (.hero-counter-main "1,669,349 of 2M remaining" + .hero-counter-sub
+     "55 DAYS UNTIL LAUNCH") collapse onto a single line separated by
+     a dot. The days line becomes an orange chip for emphasis. */
+  .lp-root.is-figma-type .form-card .fine-tight {
+    margin-bottom: 28px;
+  }
+  .lp-root.is-figma-type .hero-counter-main,
+  .lp-root.is-figma-type .hero-counter-sub {
+    display: inline-block;
+    margin: 0;
+    vertical-align: middle;
+  }
+  .lp-root.is-figma-type .hero-counter-main {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(232, 232, 230, 0.60);
+    line-height: 1.4;
+  }
+  .lp-root.is-figma-type .hero-counter-main strong {
+    font-family: 'Sora', sans-serif;
+    color: #FF5C2E;
+    font-weight: 700;
+  }
+  .lp-root.is-figma-type .hero-counter-main::after {
+    content: "\\00B7";
+    display: inline-block;
+    margin: 0 14px;
+    color: rgba(232, 232, 230, 0.30);
+    font-size: 16px;
+    line-height: 1;
+    vertical-align: middle;
+  }
+  .lp-root.is-figma-type .hero-counter-sub {
+    font-family: 'Outfit', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: #FF5C2E;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: rgba(255, 92, 46, 0.10);
+    border: 1px solid rgba(255, 92, 46, 0.25);
+    padding: 5px 12px;
+    border-radius: 999px;
+    line-height: 1;
+  }
+  /* Mobile — counters stack: hide separator dot, drop sub below */
+  @media (max-width: 520px) {
+    .lp-root.is-figma-type .hero-counter-main { display: block; }
+    .lp-root.is-figma-type .hero-counter-main::after { content: none; }
+    .lp-root.is-figma-type .hero-counter-sub { margin-top: 14px; }
+  }
+
+  /* ── CUSTOM: FAQ — 2-col grid with row-major flow ──────────────────
+     Items pair up across the grid (1|2, 3|4, 5|6…). Each row stretches
+     to its tallest item so closed-state symmetry is automatic and
+     2-line questions don't drift their neighbours. With the exclusive
+     accordion (name="faq") only one item can be open at a time, so
+     at most one row has dead space — predictable, not chaotic. */
+  .lp-root.is-figma-type .faq-list {
+    max-width: 1080px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 56px;
+    row-gap: 0;
+    align-items: start;
+  }
+  .lp-root.is-figma-type .faq-item {
+    border-top: 1px solid rgba(232, 232, 230, 0.10);
+    border-bottom: 0;
+  }
+  /* Bottom border on the last item of each column */
+  .lp-root.is-figma-type .faq-item:nth-last-child(-n+2) {
+    border-bottom: 1px solid rgba(232, 232, 230, 0.10);
+  }
+  .lp-root.is-figma-type .faq-item summary {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.35;
+    color: #f4f4f6;
+    padding: 20px 0;
+    gap: 18px;
+  }
+  .lp-root.is-figma-type .faq-item summary::after {
+    color: #FF5C2E;
+    font-size: 22px;
+  }
+  .lp-root.is-figma-type .faq-item summary:hover { color: #FF5C2E; }
+  .lp-root.is-figma-type .faq-answer {
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    color: #b8b8c4;
+    padding: 0 0 22px;
+    max-width: none;
+  }
+  /* Mobile — single column */
+  @media (max-width: 720px) {
+    .lp-root.is-figma-type .faq-list {
+      grid-template-columns: 1fr;
+      max-width: 820px;
+    }
+    .lp-root.is-figma-type .faq-item {
+      border-bottom: 0;
+    }
+    .lp-root.is-figma-type .faq-item:last-child {
+      border-bottom: 1px solid rgba(232, 232, 230, 0.10);
+    }
+  }
+
+  /* ── CUSTOM: BLOG — 1 featured + 3 mini cards (4 posts) ────────────
+     Featured card lives on the left and spans all 3 rows. Three
+     horizontal mini-cards (image left, title+desc right) stack in
+     col 2, one per row — each row sized to 1/3 of the featured so
+     the mini stack fits the same vertical extent. */
+  .lp-root.is-figma-type .blog-grid {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: 18px;
+    align-items: stretch;
+  }
+  /* Featured card — col 1, spans all 3 rows */
+  .lp-root.is-figma-type .blog-card:first-child {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    background: rgba(232, 232, 230, 0.03);
+    border: 1px solid rgba(232, 232, 230, 0.10);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .lp-root.is-figma-type .blog-card:first-child:hover {
+    border-color: rgba(255, 92, 46, 0.32);
+    transform: translateY(-2px);
+  }
+  .lp-root.is-figma-type .blog-card:first-child .blog-thumb {
+    aspect-ratio: auto;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+  .lp-root.is-figma-type .blog-card:first-child .blog-body {
+    padding: 28px 32px 32px;
+  }
+  .lp-root.is-figma-type .blog-card:first-child .blog-body h3 {
+    font-family: 'Sora', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.22;
+    letter-spacing: -0.015em;
+    color: #f4f4f6;
+    margin: 0 0 12px;
+  }
+  .lp-root.is-figma-type .blog-card:first-child .blog-body p {
+    font-family: 'Outfit', sans-serif;
+    font-size: 15.5px;
+    line-height: 1.55;
+    color: #b8b8c4;
+    margin: 0;
+  }
+  /* Mini cards — horizontal layout, one per row in col 2 */
+  .lp-root.is-figma-type .blog-card:not(:first-child) {
+    background: rgba(232, 232, 230, 0.03);
+    border: 1px solid rgba(232, 232, 230, 0.10);
+    border-radius: 14px;
+    display: grid;
+    grid-template-columns: 40% 1fr;
+    align-items: stretch;
+    overflow: hidden;
+    min-height: 0;
+  }
+  .lp-root.is-figma-type .blog-card:not(:first-child):hover {
+    border-color: rgba(255, 92, 46, 0.32);
+    transform: translateY(-2px);
+  }
+  .lp-root.is-figma-type .blog-card:not(:first-child) .blog-thumb {
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 0;
+  }
+  .lp-root.is-figma-type .blog-card:not(:first-child) .blog-body {
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 0;
+  }
+  .lp-root.is-figma-type .blog-card:not(:first-child) .blog-body h3 {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+    color: #f4f4f6;
+    margin: 0 0 6px;
+  }
+  .lp-root.is-figma-type .blog-card:not(:first-child) .blog-body p {
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #b8b8c4;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  /* Tablet/mobile — single column, all cards revert to vertical */
+  @media (max-width: 880px) {
+    .lp-root.is-figma-type .blog-grid {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      gap: 18px;
+    }
+    .lp-root.is-figma-type .blog-card:first-child {
+      grid-column: auto;
+      grid-row: auto;
+    }
+    .lp-root.is-figma-type .blog-card:first-child .blog-thumb {
+      aspect-ratio: 16 / 10;
+      flex: none;
+    }
+  }
+  @media (max-width: 520px) {
+    .lp-root.is-figma-type .blog-card:not(:first-child) {
+      grid-template-columns: 1fr;
+    }
+    .lp-root.is-figma-type .blog-card:not(:first-child) .blog-thumb {
+      aspect-ratio: 16 / 10;
+      height: auto;
+    }
+  }
+
+  /* ── CUSTOM: FINAL CTA — spotlight card ────────────────────────────
+     Wraps the existing centered Final CTA in a tinted card with an
+     orange border and a soft top-down radial gradient. Closing-moment
+     visual weight — no drop-shadow / glow (per user's "no hero glow"
+     rule), just a flat tinted card. */
+  .lp-root.is-figma-type .final-cta-simple {
+    max-width: 820px;
+    padding: 64px 56px;
+    border: 1.5px solid rgba(255, 92, 46, 0.30);
+    border-radius: 24px;
+    background:
+      radial-gradient(ellipse at top, rgba(255, 92, 46, 0.10) 0%, rgba(255, 92, 46, 0) 60%),
+      rgba(232, 232, 230, 0.03);
+  }
+  /* Mobile — tighter padding, smaller radius */
+  @media (max-width: 720px) {
+    .lp-root.is-figma-type .final-cta-simple {
+      padding: 44px 24px;
+      border-radius: 18px;
+    }
+  }
+
+  /* ── CUSTOM: TOP NAV — Figma-style edge-to-edge bar ────────────────
+     Matches the Figma file's nav: solid #09090b background, edge-to-
+     edge, hairline border underneath. Sticks to top on scroll
+     (inherited from base) — no condense behavior. */
+  .lp-root.is-figma-type .lp-nav {
+    background: var(--bg);
+    border-bottom: 1px solid rgba(232, 232, 230, 0.10);
+  }
+
+  /* ── CUSTOM: FOOTER — brand strip on top + 4-col link grid below ───
+     Top strip: brand wordmark + tagline aligned horizontally. Below:
+     8 link sections flow as a 4-col grid (2 rows). No empty masthead
+     column — every region carries weight. */
+  .lp-root.is-figma-type .lp-footer .wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+  .lp-root.is-figma-type .lp-footer .footer-top {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 0;
+    padding-bottom: 32px;
+  }
+  .lp-root.is-figma-type .lp-footer .footer-top .brand {
+    font-family: 'Sora', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.015em;
+    color: #f4f4f6;
+    gap: 10px;
+  }
+  /* The .lp-brand-icon is hidden in Custom mode, so no SVG sizing
+     override is needed here — the .lp-wm-o SVGs inside .lp-wm-custom
+     size themselves via em-relative width/height. */
+  .lp-root.is-figma-type .lp-footer .footer-top .tag {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    color: rgba(232, 232, 230, 0.55);
+    margin: 0;
+    line-height: 1.4;
+    max-width: none;
+  }
+  .lp-root.is-figma-type .lp-footer .footer-cols {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px 32px;
+    margin-bottom: 0;
+  }
+  .lp-root.is-figma-type .lp-footer .footer-cols h5 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #f4f4f6;
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  .lp-root.is-figma-type .lp-footer .footer-cols a {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    color: rgba(232, 232, 230, 0.55);
+    line-height: 1.6;
+  }
+  .lp-root.is-figma-type .lp-footer .footer-cols a:hover { color: #f4f4f6; }
+  .lp-root.is-figma-type .lp-footer .footer-cols li { margin-bottom: 10px; }
+  .lp-root.is-figma-type .lp-footer .footer-bottom {
+    border-top: 0;
+    padding-top: 8px;
+  }
+  /* Tablet — link grid drops to 2 cols, brand strip wraps gracefully */
+  @media (max-width: 880px) {
+    .lp-root.is-figma-type .lp-footer .footer-cols {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 520px) {
+    .lp-root.is-figma-type .lp-footer .footer-cols {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+
+  /* Hero/final email-form CTA is intentionally NOT overridden — it
+     inherits the same sizing/font as the Figma color toggle (per user
+     request: "hero CTA same as Figma toggle"). Only the smaller pills
+     pick up Outfit so nav text stays consistent with body. */
+  .lp-root.is-figma-type .lp-cta-pill,
+  .lp-root.is-figma-type .lp-mobile-cta,
+  .lp-root.is-figma-type .lp-sticky-cta-btn {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14.08px;
+    font-weight: 600;
+    line-height: 21.12px;
+  }
+  /* Mobile clamp — keep the hero from blowing past the viewport. */
+  @media (max-width: 720px) {
+    .lp-root.is-figma-type .hero h1,
+    .lp-root.is-figma-type h1 { font-size: clamp(40px, 11vw, 76.8px); }
+    .lp-root.is-figma-type h2 { font-size: clamp(28px, 7vw, 41.6px); }
+  }
 
   /* NAV — sticky, opaque. MSharedHeader is skipped on this exact path
      by MSharedHeader.tsx, so this is the only nav rendered. */
@@ -63,9 +1320,9 @@ const STYLES = `
     border-bottom: 1px solid var(--line);
   }
   .lp-root .lp-nav-inner {
-    max-width: none;
-    margin: 0;
-    padding: 16px clamp(20px, 4vw, 56px);
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 16px clamp(20px, 3vw, 40px);
     display: flex; align-items: center; gap: 32px;
   }
   .lp-root .lp-brand {
@@ -110,16 +1367,17 @@ const STYLES = `
   .lp-root .lp-dropdown:hover > button .chev { transform: rotate(180deg); }
   .lp-root .lp-dropdown-menu {
     position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-    margin-top: 12px;
+    margin-top: 10px;
     background: var(--bg-elev);
     border: 1px solid var(--line);
     border-radius: 10px;
-    padding: 8px 0;
+    padding: 6px 0;
     min-width: 168px;
     list-style: none;
     opacity: 0; visibility: hidden;
     transition: opacity .15s ease, visibility 0s linear .15s;
-    box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+    box-shadow: 0 16px 40px -8px rgba(0,0,0,0.65), 0 0 0 1px rgba(0,0,0,0.4);
+    z-index: 60;
   }
   .lp-root .lp-dropdown:hover .lp-dropdown-menu {
     opacity: 1; visibility: visible;
@@ -140,7 +1398,7 @@ const STYLES = `
     font-weight: 600;
     font-size: 14px;
     padding: 10px 18px;
-    border-radius: 10px;
+    border-radius: 999px;
     text-decoration: none;
     transition: transform .15s, background .2s;
   }
@@ -214,7 +1472,7 @@ const STYLES = `
     font-weight: 600;
     font-size: 16px;
     padding: 14px 24px;
-    border-radius: 10px;
+    border-radius: 999px;
     margin-top: 18px;
     transition: background 0.2s;
   }
@@ -236,13 +1494,13 @@ const STYLES = `
     margin: 0 auto;
     padding: 0 var(--gutter);
   }
-  .lp-root section { padding: 88px 0; }
-  @media (max-width: 720px) { .lp-root section { padding: 56px 0; } }
+  .lp-root section { padding: 100px 0; }
+  @media (max-width: 720px) { .lp-root section { padding: 64px 0; } }
 
   .lp-root .eyebrow {
     font-family: var(--sans);
-    font-size: 14px;
-    letter-spacing: 0.7px;
+    font-size: 13px;
+    letter-spacing: 0.6px;
     text-transform: uppercase;
     color: var(--accent);
     font-weight: 600;
@@ -254,10 +1512,10 @@ const STYLES = `
     font-weight: 400;
     letter-spacing: -0.5px;
   }
-  .lp-root h1 { font-size: clamp(56px, 8vw, 96px); line-height: 1.02; }
-  .lp-root h2 { font-size: clamp(42px, 5.6vw, 70px); line-height: 1.08; margin-top: 18px; }
-  .lp-root h3 { font-size: clamp(26px, 2.8vw, 32px); line-height: 1.25; }
-  .lp-root h1 .muted, .lp-root h2 .muted, .lp-root h3 .muted { color: var(--text-3); }
+  .lp-root h1 { font-size: clamp(40px, 6vw, 68px); line-height: 1.02; }
+  .lp-root h2 { font-size: clamp(30px, 4.2vw, 46px); line-height: 1.08; margin-top: 18px; }
+  .lp-root h3 { font-size: clamp(20px, 2.2vw, 26px); line-height: 1.25; }
+  .lp-root h1 .muted, .lp-root h2 .muted, .lp-root h3 .muted { color: inherit; }
 
   /* H1/H2 collapse the editorial 2-line splits into one line; the muted
      span gets a leading non-breaking space so adjacent words don't fuse. */
@@ -268,7 +1526,7 @@ const STYLES = `
 
   .lp-root p { color: var(--text-2); max-width: 62ch; margin-left: auto; margin-right: auto; }
   .lp-root p strong { color: var(--text); font-weight: 600; }
-  .lp-root .lede { color: var(--text-2); font-size: 22px; max-width: 60ch; margin-left: auto; margin-right: auto; }
+  .lp-root .lede { color: var(--text-2); font-size: 19px; max-width: 60ch; margin-left: auto; margin-right: auto; }
 
   /* Section heads: centered eyebrow + h2 + lede stack. */
   .lp-root .sec-head { margin-bottom: 48px; text-align: center; }
@@ -325,18 +1583,18 @@ const STYLES = `
 
   /* ============ HERO ============ */
   .lp-root .hero {
-    padding: 72px 0 90px;
+    padding: 100px 0;
     position: relative;
     overflow: hidden;
     text-align: center;
   }
   .lp-root .hero .eyebrow { margin-bottom: 28px; }
   .lp-root .hero h1 { margin-left: auto; margin-right: auto; }
-  .lp-root .hero h1 .muted { color: var(--text-3); }
+  .lp-root .hero h1 .muted { color: inherit; }
   .lp-root .hero-lede {
     margin: 28px auto 0;
     color: var(--text-2);
-    font-size: 22px;
+    font-size: 19px;
     max-width: 52ch;
   }
   .lp-root .hero .form-card { margin-left: auto; margin-right: auto; text-align: center; }
@@ -357,13 +1615,56 @@ const STYLES = `
     padding: 0;
     position: relative;
   }
-  /* Inside the Final CTA, the form card keeps its boxed treatment for
-     contrast against the band wrapper. */
-  .lp-root .final-cta .form-card {
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 32px;
+  /* Final CTA — simple centered stack. Spacing mirrors the hero CTA:
+       H2 → 28px → counter → 56px → form → 32px + divider → fine */
+  .lp-root .final-cta-simple {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+    text-align: center;
+  }
+  .lp-root .final-cta-simple .final-h2-simple {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(28px, 3.6vw, 42px);
+    line-height: 1.08;
+    letter-spacing: -0.5px;
+    margin: 0;
+    color: var(--text);
+    text-align: center;
+  }
+  .lp-root .final-cta-simple .final-counter-line {
+    font-family: var(--serif);
+    font-size: clamp(17px, 1.9vw, 21px);
+    color: var(--text-2);
+    margin: 28px auto 0;
+    max-width: none;
+  }
+  .lp-root .final-cta-simple .final-counter-line strong { color: var(--accent); font-weight: 400; }
+  .lp-root .final-cta-simple .final-form-row { margin-top: 56px; }
+  .lp-root .final-cta-simple .final-fine-simple {
+    margin-top: 24px;
+    color: var(--text-3);
+    font-size: 13px;
+    line-height: 1.7;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .lp-root .final-cta-simple .final-fine-simple strong {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-block;
+    margin-bottom: 18px;
+  }
+
+  /* Final CTA form — uses the same inline .email-form treatment as the
+     hero (rounded rectangles, side-by-side). Just constrains the width
+     so it doesn't span the full content column. */
+  .lp-root .final-form-row {
+    max-width: 540px;
+    margin: 0 auto;
   }
   .lp-root .stat-line {
     font-family: var(--serif);
@@ -378,7 +1679,7 @@ const STYLES = `
 
   .lp-root .hero-counter-main {
     font-family: var(--serif);
-    font-size: clamp(20px, 2.2vw, 24px);
+    font-size: clamp(17px, 1.9vw, 21px);
     line-height: 1.35;
     color: var(--text);
     max-width: none;
@@ -463,15 +1764,22 @@ const STYLES = `
     .lp-root .cta-stats { grid-template-columns: 1fr; gap: 18px; }
   }
 
-  .lp-root .email-form { display: flex; flex-direction: column; gap: 10px; }
+  .lp-root .email-form {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: stretch;
+  }
   .lp-root .email-form input {
+    flex: 1;
+    min-width: 0;
     background: var(--bg);
     border: 1px solid var(--line);
     color: var(--text);
-    padding: 15px 18px;
-    border-radius: 10px;
+    padding: 15px 22px;
+    border-radius: 999px;
     font-family: var(--sans);
-    font-size: 19px;
+    font-size: 17px;
     outline: none;
     transition: border-color .2s, box-shadow .2s;
   }
@@ -484,15 +1792,20 @@ const STYLES = `
     background: var(--accent-deep);
     color: #fff;
     border: 0;
-    padding: 16px 22px;
-    border-radius: 10px;
+    padding: 15px 26px;
+    border-radius: 999px;
     font-weight: 600;
-    font-size: 19px;
+    font-size: 17px;
     cursor: pointer;
     font-family: var(--sans);
-    margin-top: 4px;
     transition: background .2s, transform .15s;
     display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  @media (max-width: 560px) {
+    .lp-root .email-form { flex-direction: column; gap: 10px; }
+    .lp-root .email-form button { width: 100%; }
   }
   .lp-root .email-form button:hover { background: var(--accent); transform: translateY(-1px); }
   .lp-root .email-form button .arr { transition: transform .2s; }
@@ -636,7 +1949,7 @@ const STYLES = `
     text-transform: uppercase;
     color: var(--text-3);
   }
-  .lp-root .step h3 { font-size: 22px; line-height: 1.25; margin-bottom: 10px; }
+  .lp-root .step h3 { margin-bottom: 10px; }
   .lp-root .step p { color: var(--text-2); font-size: 14.5px; margin: 0; }
 
   .lp-root .privacy-line {
@@ -714,7 +2027,7 @@ const STYLES = `
   }
   .lp-root .testimonial:hover { border-color: var(--text-3); }
   .lp-root .stars {
-    color: var(--accent);
+    color: var(--text);
     letter-spacing: 4px;
     font-size: 14px;
   }
@@ -778,7 +2091,7 @@ const STYLES = `
   }
   .lp-root .uc-card:hover { border-color: var(--text-3); transform: translateY(-2px); }
   .lp-root .uc-icon {
-    color: var(--text-2);
+    color: var(--accent);
     display: inline-flex; align-items: center; justify-content: center;
     margin-bottom: 14px;
   }
@@ -824,7 +2137,7 @@ const STYLES = `
   }
   .lp-root .pricing-head .free {
     font-family: var(--serif);
-    font-size: 64px;
+    font-size: 56px;
     color: var(--accent);
     line-height: 1;
   }
@@ -892,7 +2205,7 @@ const STYLES = `
     background: var(--accent-deep);
     color: #fff;
     padding: 16px 28px;
-    border-radius: 10px;
+    border-radius: 999px;
     font-weight: 600;
     font-size: 16px;
     text-decoration: none;
@@ -1011,6 +2324,10 @@ const STYLES = `
     gap: 22px;
   }
   @media (max-width: 880px) { .lp-root .blog-grid { grid-template-columns: 1fr; } }
+  /* BLOG_CARDS holds 5 posts so the Custom layout has enough material.
+     In Purple/Figma modes the legacy 3-col grid only renders the first
+     three; the extras stay hidden unless .is-figma-type is active. */
+  .lp-root:not(.is-figma-type) .blog-card:nth-child(n+4) { display: none; }
   .lp-root .blog-card {
     background: var(--bg-elev);
     border: 1px solid var(--line);
@@ -1047,12 +2364,12 @@ const STYLES = `
     color: var(--text-2);
     font-weight: 600;
     font-size: 15px;
-    text-decoration: none;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
     transition: color 0.2s;
   }
-  .lp-root .blog-cta span { color: var(--accent); transition: transform 0.2s; }
-  .lp-root .blog-cta:hover { color: var(--text); }
-  .lp-root .blog-cta:hover span { transform: translateX(3px); }
+  .lp-root .blog-cta:hover { color: var(--accent); }
 
   /* ============ FINAL CTA ============ */
   .lp-root .final-cta {
@@ -1080,7 +2397,9 @@ const STYLES = `
     font-size: clamp(30px, 3.4vw, 42px);
     line-height: 1.15;
   }
-  .lp-root .final-copy h2 .muted { color: var(--text-3); }
+  .lp-root .final-copy h2 br { display: inline; }
+  .lp-root .final-copy h2 .muted::before { content: none; }
+  .lp-root .final-copy h2 .muted { color: inherit; }
   .lp-root .final-copy p { color: var(--text-2); margin-top: 18px; max-width: 42ch; }
   .lp-root .final-counter-line {
     font-family: var(--serif);
@@ -1150,9 +2469,9 @@ const STYLES = `
   .lp-root .lp-footer {
     border-top: 1px solid var(--line);
     background: var(--bg);
-    padding: 72px 0 32px;
+    padding: 100px 0 32px;
     color: var(--text-2);
-    margin-top: 72px;
+    margin-top: 0;
   }
   .lp-root .footer-top {
     margin-bottom: 56px;
@@ -1404,6 +2723,12 @@ const BLOG_CARDS = [
     img: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=500&fit=crop&auto=format&q=70',
     alt: 'Restaurant interior with signage',
   },
+  {
+    title: 'Wordmark vs. icon: which logo style fits your brand?',
+    desc: 'When to pick a name-only mark, a symbol, or both — with examples that work.',
+    img: 'https://images.unsplash.com/photo-1481487196290-c152efe083f5?w=800&h=500&fit=crop&auto=format&q=70',
+    alt: 'Wood type letterpress blocks arranged on a desk',
+  },
 ]
 
 const FOOTER_COLUMNS: { title: string; links: string[] }[] = [
@@ -1457,9 +2782,8 @@ export default function PrelaunchLanding() {
               </p>
 
               <p className="hero-counter-main">
-                <strong>1,669,349</strong> logos remaining
+                <strong>1,669,349</strong> of 2,000,000 logos remaining
               </p>
-              <div className="progress hero-progress"><div className="progress-fill" style={{ width: '83.5%' }} /></div>
               <p className="hero-counter-sub">55 DAYS UNTIL LAUNCH</p>
             </div>
           </div>
@@ -1563,20 +2887,7 @@ export default function PrelaunchLanding() {
               <h2>Use your logo everywhere<br /><span className="muted">your brand goes</span></h2>
               <p className="lede">Your logo is the face of your business. Here&rsquo;s where you&rsquo;ll put yours.</p>
             </div>
-            {USE_CASE_GROUPS.map((g) => (
-              <div key={g.group} className="uc-group">
-                <div className="uc-group-title">{g.group}</div>
-                <div className="uc-grid">
-                  {g.items.map(({ Icon, t, d }) => (
-                    <div key={t} className="uc-card">
-                      <span className="uc-icon"><Icon size={20} strokeWidth={1.6} /></span>
-                      <h4>{t}</h4>
-                      <p>{d}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+            <MLpUseCases />
           </div>
         </section>
 
@@ -1593,24 +2904,28 @@ export default function PrelaunchLanding() {
               </p>
             </div>
             <div className="pricing-card">
-              <div className="pricing-head">
-                <span className="strike">$49</span>
-                <span className="free">Free</span>
+              <div className="pricing-left">
+                <div className="pricing-head">
+                  <span className="strike">$49</span>
+                  <span className="free">Free</span>
+                </div>
+                <p className="pricing-sub">Free for the first 2,000,000 users — no subscription, no credit card, no catch.</p>
+                <p className="pricing-keep">100% yours to keep forever.</p>
+
+                <div className="pricing-divider" />
+
+                <a href="#hero-cta" className="pricing-cta">Get My Free Logo <span>→</span></a>
+                <p className="pricing-fine">Free for the first 2,000,000 users. No credit card, ever.</p>
               </div>
-              <p className="pricing-sub">Free for the first 2,000,000 users — no subscription, no credit card, no catch.</p>
-              <p className="pricing-keep">100% yours to keep forever.</p>
 
-              <div className="pricing-divider" />
-
-              <p className="pl-title">What you get — free</p>
-              <ul className="pricing-list">
-                {PRICING_BENEFITS.map((b, i) => (
-                  <li key={i}>{b.txt}</li>
-                ))}
-              </ul>
-
-              <a href="#hero-cta" className="pricing-cta">Get My Free Logo <span>→</span></a>
-              <p className="pricing-fine">Free for the first 2,000,000 users. No credit card, ever.</p>
+              <div className="pricing-right">
+                <p className="pl-title">What you get — free</p>
+                <ul className="pricing-list">
+                  {PRICING_BENEFITS.map((b, i) => (
+                    <li key={i}>{b.txt}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </section>
@@ -1659,11 +2974,11 @@ export default function PrelaunchLanding() {
             <div className="sec-head">
               <span className="eyebrow">FAQ</span>
               <h2>Your questions,<br /><span className="muted">answered</span></h2>
-              <p className="lede">Everything you need to know before you sign up.</p>
+              <p className="lede">Everything you need to know before you sign up for your free logo.</p>
             </div>
             <div className="faq-list">
               {FAQ_ITEMS.map((f, i) => (
-                <details key={i} className="faq-item">
+                <details key={i} className="faq-item" name="faq">
                   <summary>{f.q}</summary>
                   <p className="faq-answer">{f.a}</p>
                 </details>
@@ -1696,7 +3011,7 @@ export default function PrelaunchLanding() {
               ))}
             </div>
             <div>
-              <a className="blog-cta" href="#">See all posts <span>→</span></a>
+              <a className="blog-cta" href="#">See all posts</a>
             </div>
           </div>
         </section>
@@ -1705,32 +3020,19 @@ export default function PrelaunchLanding() {
 
         {/* ============ 11. FINAL CTA ============ */}
         <section id="final-cta">
-          <div className="final-cta-wrap">
-            <div className="final-cta">
-              <div className="final-grid">
-                <div className="final-copy">
-                  <span className="eyebrow">Free at launch</span>
-                  <h2>Ready to Get{' '}<span className="muted">Your Free Logo?</span></h2>
-                  <p className="final-counter-line">
-                    <strong>1,669,349</strong> of 2,000,000 free logos left.
-                  </p>
-                  <p className="final-counter-sub">330,651 people already signed up · 55 days until launch.</p>
-                  <div className="progress final-progress"><div className="progress-fill" style={{ width: '16.5%' }} /></div>
-                </div>
-
-                <div className="form-card">
-                  <div className="email-form">
-                    <input id="final-email" type="email" placeholder="Enter your email" aria-label="Enter your email" required />
-                    <button type="button">Get My Free Logo <span className="arr">→</span></button>
-                  </div>
-
-                  <p className="fine">
-                    <strong>No spam. No credit card. Just a free logo.</strong><br />
-                    We&rsquo;ll email you the moment we go live so you can generate your free logo.
-                  </p>
-                </div>
-              </div>
+          <div className="final-cta-simple">
+            <h2 className="final-h2-simple">Ready to Get Your Free Logo?</h2>
+            <p className="final-counter-line">
+              <strong>1,669,349</strong> left out of 2,000,000. Don&rsquo;t miss out.
+            </p>
+            <div className="email-form final-form-row">
+              <input id="final-email" type="email" placeholder="Enter your email" aria-label="Enter your email" required />
+              <button type="button">Get My Free Logo <span className="arr">→</span></button>
             </div>
+            <p className="fine final-fine-simple">
+              <strong>No spam. No credit card. Just a free logo.</strong><br />
+              We&rsquo;ll email you the moment we go live so you can generate your free logo.
+            </p>
           </div>
         </section>
       </main>
@@ -1739,15 +3041,16 @@ export default function PrelaunchLanding() {
       <footer className="lp-footer">
         <div className="wrap">
           <div className="footer-top">
-            <div className="brand">
-              <span className="lp-brand-icon">
-                <svg width="34" height="34" viewBox="0 0 200 200" fill="none" aria-hidden>
+            <div className="brand" aria-label="LOGO.AI">
+              <span className="lp-brand-icon" aria-hidden>
+                <svg width="34" height="34" viewBox="0 0 200 200" fill="none">
                   <circle cx="100" cy="100" r="81.25" stroke="currentColor" strokeWidth="6.25"  fill="none" opacity="0.5" />
                   <circle cx="100" cy="100" r="50"    stroke="currentColor" strokeWidth="11.25" fill="none" opacity="0.75" />
                   <circle cx="100" cy="100" r="18.75" stroke="currentColor" strokeWidth="18.75" fill="none" />
                 </svg>
               </span>
-              <span>LOGO<span className="dot">.</span>AI</span>
+              <span className="wordmark" aria-hidden>LOGO<span className="dot">.</span>AI</span>
+              <MLpLogo />
             </div>
             <p className="tag">Free logos for the first 2,000,000 users</p>
           </div>
@@ -1777,6 +3080,8 @@ export default function PrelaunchLanding() {
       </footer>
 
       <MLpStickyCTA />
+      <MLpThemeToggle />
+      <MLpLogoToggle />
     </div>
   )
 }

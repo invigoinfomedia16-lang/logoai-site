@@ -91,15 +91,12 @@ export default function MLpGallery() {
           className="lpg-seeall"
           onClick={() => setShowAll((v) => !v)}
         >
-          {showAll ? 'Show fewer' : (
-            <>See all {CATEGORIES.length} industries <span className="lpg-arr">→</span></>
-          )}
+          {showAll ? 'Show fewer' : `See all ${CATEGORIES.length} industries`}
         </button>
       )}
 
       {!trimmedQuery && subs.length > 0 && (
         <div className="lpg-subwrap">
-          <p className="lpg-shown-label">Browse:</p>
           <div className="lpg-subpills">
             <button
               type="button"
@@ -146,9 +143,7 @@ export default function MLpGallery() {
         <div className="lpg-more">
           <p className="lpg-count">Showing {shown.length} of {images.length}</p>
           <button type="button" className="lpg-morebtn" onClick={() => setExpanded((v) => !v)}>
-            {expanded ? 'Show fewer' : (
-              <>Show {images.length - INITIAL} more logos <span className="lpg-arr">→</span></>
-            )}
+            {expanded ? 'Show fewer' : `Show ${images.length - INITIAL} more logos`}
           </button>
         </div>
       )}
@@ -179,8 +174,8 @@ const STYLES = `
     border: 1px solid #2a2a32;
     color: #f4f4f6;
     padding: 12px 16px 12px 44px;
-    border-radius: 10px;
-    font-family: 'DM Sans', system-ui, sans-serif;
+    border-radius: 999px;
+    font-family: var(--sans, 'DM Sans', system-ui, sans-serif);
     font-size: 15px;
     line-height: 20px;
     outline: none;
@@ -202,13 +197,16 @@ const STYLES = `
     border: 0;
     padding: 4px 0;
     color: #b8b8c4;
-    font-family: 'DM Sans', system-ui, sans-serif;
+    font-family: var(--sans, 'DM Sans', system-ui, sans-serif);
     font-size: 13.5px;
     font-weight: 500;
     cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
     transition: color 0.15s ease;
   }
-  .lpg-seeall:hover { color: #f4f4f6; }
+  .lpg-seeall:hover { color: #a855f7; }
 
   .lpg-pills, .lpg-subpills {
     display: flex; flex-wrap: wrap; gap: 10px;
@@ -223,7 +221,7 @@ const STYLES = `
     width: 100%;
   }
   .lpg-shown-label {
-    font-family: 'DM Sans', system-ui, sans-serif;
+    font-family: var(--sans, 'DM Sans', system-ui, sans-serif);
     font-size: 13.5px;
     font-weight: 600;
     color: #b8b8c4;
@@ -250,8 +248,8 @@ const STYLES = `
     border: 1px solid #2a2a32;
     color: #b8b8c4;
     padding: 9px 16px;
-    border-radius: 10px;
-    font-family: 'DM Sans', system-ui, sans-serif;
+    border-radius: 999px;
+    font-family: var(--sans, 'DM Sans', system-ui, sans-serif);
     font-size: 13.5px;
     font-weight: 500;
     cursor: pointer;
@@ -261,9 +259,9 @@ const STYLES = `
   }
   .lpg-pill:hover { border-color: #7e7e8c; color: #f4f4f6; }
   .lpg-pill.is-active {
-    background: rgba(255,255,255,0.08);
-    border-color: rgba(255,255,255,0.45);
-    color: #f4f4f6;
+    background: #7c3aed;
+    border-color: #7c3aed;
+    color: #ffffff;
     font-weight: 600;
   }
 
@@ -272,8 +270,8 @@ const STYLES = `
     border: 1px solid #2a2a32;
     color: #7e7e8c;
     padding: 6px 12px;
-    border-radius: 10px;
-    font-family: 'DM Sans', system-ui, sans-serif;
+    border-radius: 999px;
+    font-family: var(--sans, 'DM Sans', system-ui, sans-serif);
     font-size: 12px;
     font-weight: 500;
     cursor: pointer;
@@ -283,8 +281,8 @@ const STYLES = `
   }
   .lpg-subpill:hover { color: #f4f4f6; border-color: #7e7e8c; }
   .lpg-subpill.is-active {
-    color: #f4f4f6;
-    border-color: #f4f4f6;
+    color: #a855f7;
+    border-color: #a855f7;
     background: transparent;
     font-weight: 600;
   }
@@ -335,17 +333,18 @@ const STYLES = `
   }
   .lpg-morebtn {
     background: transparent;
-    border: 1px solid #2a2a32;
+    border: 0;
+    padding: 4px 0;
     color: #b8b8c4;
-    padding: 10px 22px;
-    border-radius: 10px;
-    font-family: 'DM Sans', system-ui, sans-serif;
+    font-family: var(--sans, 'DM Sans', system-ui, sans-serif);
     font-size: 13.5px;
     font-weight: 500;
-    letter-spacing: 0.2px;
     cursor: pointer;
-    transition: all 0.15s ease;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+    transition: color 0.15s ease;
   }
-  .lpg-morebtn:hover { border-color: #7e7e8c; color: #f4f4f6; }
-  .lpg-arr { color: #a855f7; margin-left: 4px; }
+  .lpg-morebtn:hover { color: #a855f7; }
+  .lpg-arr { color: #a855f7; margin-right: 4px; }
 `

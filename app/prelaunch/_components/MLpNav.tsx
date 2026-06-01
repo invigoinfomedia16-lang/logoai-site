@@ -7,6 +7,7 @@
 // experimental design ships the same mobile UX as the Vercel site.
 
 import { useEffect, useState } from 'react'
+import MLpLogo from './MLpLogo'
 
 const NAV_ITEMS = [
   { label: 'Gallery',      href: '#gallery' },
@@ -52,15 +53,16 @@ export default function MLpNav() {
     <>
       <nav className="lp-nav">
         <div className="lp-nav-inner">
-          <a className="lp-brand" href="#hero-cta">
-            <span className="lp-brand-icon">
-              <svg width="30" height="30" viewBox="0 0 200 200" fill="none" aria-hidden>
+          <a className="lp-brand" href="#hero-cta" aria-label="LOGO.AI">
+            <span className="lp-brand-icon" aria-hidden>
+              <svg width="30" height="30" viewBox="0 0 200 200" fill="none">
                 <circle cx="100" cy="100" r="81.25" stroke="currentColor" strokeWidth="6.25"  fill="none" opacity="0.5" />
                 <circle cx="100" cy="100" r="50"    stroke="currentColor" strokeWidth="11.25" fill="none" opacity="0.75" />
                 <circle cx="100" cy="100" r="18.75" stroke="currentColor" strokeWidth="18.75" fill="none" />
               </svg>
             </span>
-            <span className="wordmark">LOGO<span className="dot">.</span>AI</span>
+            <span className="wordmark" aria-hidden>LOGO<span className="dot">.</span>AI</span>
+            <MLpLogo />
           </a>
 
           {/* Desktop nav links */}
