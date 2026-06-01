@@ -33,10 +33,18 @@ const VARIANT_LABELS: { key: WmVariant; label: string }[] = [
 export default function MLpLogoToggle() {
   const [variant, setVariant] = useState<WmVariant>(DEFAULT_WM)
   const [isCustom, setIsCustom] = useState(false)
+  // `closed` hides the toggle entirely. Press Shift+L to reopen, or
+  // append ?dev=1 to force it visible.
+  const [closed, setClosed] = useState(false)
+  const [forceShow, setForceShow] = useState(false)
 
   useEffect(() => {
     const saved = (typeof window !== 'undefined' && window.localStorage.getItem(STORAGE_KEY)) as WmVariant | null
     if (saved && (WM_VARIANTS as string[]).includes(saved)) setVariant(saved)
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search)
+      if (params.get('dev') === '1') setForceShow(true)
+    }
   }, [])
 
   useEffect(() => {
@@ -56,7 +64,22 @@ export default function MLpLogoToggle() {
     return () => obs.disconnect()
   }, [])
 
+  // Shift+L toggles visibility of this widget.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.shiftKey && (e.key === 'L' || e.key === 'l') && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        const tag = (e.target as HTMLElement | null)?.tagName
+        if (tag === 'INPUT' || tag === 'TEXTAREA') return
+        e.preventDefault()
+        setClosed((c) => !c)
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
   if (!isCustom) return null
+  if (closed && !forceShow) return null
 
   return (
     <>
@@ -75,6 +98,15 @@ export default function MLpLogoToggle() {
             </button>
           ))}
         </div>
+        <button
+          type="button"
+          className="lp-wm-toggle-close"
+          aria-label="Hide logo toggle (Shift+L to reopen)"
+          title="Hide (Shift+L to reopen)"
+          onClick={() => setClosed(true)}
+        >
+          ×
+        </button>
       </div>
     </>
   )
@@ -130,6 +162,20 @@ const STYLES = `
     background: #E8420D;
     color: #ffffff;
   }
+  .lp-wm-toggle-close {
+    background: transparent;
+    color: #7e7e8c;
+    border: 0;
+    padding: 0 4px;
+    margin-left: 2px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: color 0.15s ease;
+  }
+  .lp-wm-toggle-close:hover { color: #f4f4f6; }
   @media (max-width: 900px) {
     .lp-wm-toggle-grid { grid-template-columns: repeat(4, auto); }
   }

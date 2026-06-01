@@ -25,11 +25,19 @@ const MODES: { key: Mode; label: string }[] = [
 
 export default function MLpThemeToggle() {
   const [mode, setMode] = useState<Mode>('purple')
+  // `closed` hides the toggle entirely. Press Shift+T to reopen, or
+  // append ?dev=1 to the URL to force the toggle to stay visible.
+  const [closed, setClosed] = useState(false)
+  const [forceShow, setForceShow] = useState(false)
 
   useEffect(() => {
     const saved = (typeof window !== 'undefined' && window.localStorage.getItem(STORAGE_KEY)) as Mode | null
     // Migrate any legacy 'figma' value to 'purple' since that segment is gone.
     if (saved === 'custom' || saved === 'purple') setMode(saved)
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search)
+      if (params.get('dev') === '1') setForceShow(true)
+    }
   }, [])
 
   useEffect(() => {
@@ -40,6 +48,22 @@ export default function MLpThemeToggle() {
     root.classList.toggle('is-figma-type', mode === 'custom')
     try { window.localStorage.setItem(STORAGE_KEY, mode) } catch {}
   }, [mode])
+
+  // Shift+T toggles visibility of this widget.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.shiftKey && (e.key === 'T' || e.key === 't') && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        const tag = (e.target as HTMLElement | null)?.tagName
+        if (tag === 'INPUT' || tag === 'TEXTAREA') return
+        e.preventDefault()
+        setClosed((c) => !c)
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  if (closed && !forceShow) return null
 
   const accentMode: 'orange' | 'neutral' = mode === 'purple' ? 'neutral' : 'orange'
 
@@ -57,6 +81,15 @@ export default function MLpThemeToggle() {
             {m.label}
           </button>
         ))}
+        <button
+          type="button"
+          className="lp-theme-close"
+          aria-label="Hide theme toggle (Shift+T to reopen)"
+          title="Hide (Shift+T to reopen)"
+          onClick={() => setClosed(true)}
+        >
+          ×
+        </button>
       </div>
     </>
   )
@@ -101,6 +134,19 @@ const STYLES = `
     background: #E8420D;
     color: #ffffff;
   }
+  .lp-theme-close {
+    background: transparent;
+    color: #7e7e8c;
+    border: 0;
+    padding: 0 6px 0 4px;
+    margin-left: 2px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.15s ease;
+  }
+  .lp-theme-close:hover { color: #f4f4f6; }
 
   /* Lift above the mobile sticky CTA when present */
   @media (max-width: 767px) {
