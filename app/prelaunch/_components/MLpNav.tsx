@@ -42,6 +42,19 @@ const DROPDOWNS: { label: string; items: { label: string; href: string }[] }[] =
 
 export default function MLpNav() {
   const [open, setOpen] = useState(false)
+  // Track which dropdown sections are expanded inside the mobile panel.
+  // Independent (not exclusive) — multiple can be open at once. Reset when
+  // the panel itself closes so it always re-opens collapsed.
+  const [expanded, setExpanded] = useState<Set<string>>(new Set())
+
+  const toggleSection = (label: string) => {
+    setExpanded((prev) => {
+      const next = new Set(prev)
+      if (next.has(label)) next.delete(label)
+      else next.add(label)
+      return next
+    })
+  }
 
   // Lock body scroll while the mobile panel is open.
   useEffect(() => {
@@ -57,6 +70,11 @@ export default function MLpNav() {
     const onResize = () => { if (window.innerWidth >= 768) setOpen(false) }
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
+  }, [open])
+
+  // When the panel closes, collapse every section so the next open starts clean.
+  useEffect(() => {
+    if (!open) setExpanded(new Set())
   }, [open])
 
   return (
@@ -118,16 +136,31 @@ export default function MLpNav() {
                 {n.label}
               </a>
             ))}
-            {DROPDOWNS.map((dd) => (
-              <div key={dd.label}>
-                <div className="lp-mobile-section">{dd.label}</div>
-                {dd.items.map((d) => (
-                  <a key={d.label} href={d.href} onClick={() => setOpen(false)} className="lp-mobile-link lp-mobile-sublink">
-                    {d.label}
-                  </a>
-                ))}
-              </div>
-            ))}
+            {DROPDOWNS.map((dd) => {
+              const isOpen = expanded.has(dd.label)
+              return (
+                <div key={dd.label} className="lp-mobile-accordion">
+                  <button
+                    type="button"
+                    className="lp-mobile-section-btn"
+                    aria-expanded={isOpen ? 'true' : 'false'}
+                    onClick={() => toggleSection(dd.label)}
+                  >
+                    <span className="lp-mobile-section">{dd.label}</span>
+                    <span className={`lp-mobile-chev${isOpen ? ' is-open' : ''}`} aria-hidden>
+                      <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M3 4.5 L6 7.5 L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                  </button>
+                  {isOpen && dd.items.map((d) => (
+                    <a key={d.label} href={d.href} onClick={() => setOpen(false)} className="lp-mobile-link lp-mobile-sublink">
+                      {d.label}
+                    </a>
+                  ))}
+                </div>
+              )
+            })}
             <a href="#hero-cta" onClick={() => setOpen(false)} className="lp-mobile-cta">
               Get My Free Logo
             </a>

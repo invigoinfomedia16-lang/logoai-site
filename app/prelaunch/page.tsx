@@ -1563,16 +1563,41 @@ const STYLES = `
   }
   .lp-root .lp-mobile-link:hover { color: var(--accent-2); }
   .lp-root .lp-mobile-sublink { padding-left: 16px; font-size: 15px; color: var(--text-2); }
-  .lp-root .lp-mobile-section {
+
+  /* Accordion section header (tap-to-expand for Company / Browse Logos
+     on mobile). The button owns the row layout + border; the inner
+     .lp-mobile-section span keeps the small-caps label styling. */
+  .lp-root .lp-mobile-section-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 16px 0;
+    cursor: pointer;
+    font-family: var(--sans);
+    text-align: left;
     color: var(--text-3);
+    transition: color 0.15s;
+  }
+  .lp-root .lp-mobile-section-btn:hover { color: var(--text); }
+  .lp-root .lp-mobile-section {
+    color: inherit;
     font-family: var(--sans);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    padding: 18px 0 8px;
-    border-bottom: 1px solid var(--line);
   }
+  .lp-root .lp-mobile-chev {
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+    transition: transform 0.2s ease;
+  }
+  .lp-root .lp-mobile-chev.is-open { transform: rotate(180deg); }
   .lp-root .lp-mobile-cta {
     display: inline-flex; align-items: center; justify-content: center;
     background: var(--accent-deep);
