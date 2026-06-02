@@ -62,8 +62,9 @@ const STYLES = `
 
   /* FIGMA THEME — flips palette to logo.ai Figma file colors:
      #09090b page bg, #E8420D primary CTA, #FF5C2E accent. Flat fills
-     only — no hero glow/shadow port. Toggled via MLpThemeToggle which
-     adds .is-figma to .lp-root. */
+     only — no hero glow/shadow port. .is-figma is now hard-coded on the
+     .lp-root wrapper (the theme toggle that used to flip it has been
+     removed — the prelaunch site ships this palette permanently). */
   .lp-root.is-figma {
     --bg:           #09090b;
     /* Elevated surfaces in Figma are translucent Desert-Storm overlays
@@ -128,7 +129,8 @@ const STYLES = `
        lede → Outfit 18 / 400 / 1.55
        body → Outfit 16 / 400 / 1.65
        nav  → Outfit 15 / 500
-     Toggled by MLpThemeToggle "Custom" which adds .is-figma-type. */
+     .is-figma-type is now hard-coded on the .lp-root wrapper (the
+     typography toggle that used to flip it has been removed). */
   .lp-root.is-figma-type {
     --serif: 'Sora', sans-serif;
     --sans:  'Outfit', sans-serif;
@@ -236,10 +238,11 @@ const STYLES = `
     letter-spacing: -0.015em;
   }
 
-  /* Variant E wordmark — Montserrat 900, squared rounded O's, orange
-     dot. Hidden by default. Shown only when .is-figma-type is active,
-     which also hides the original .lp-brand-icon and the default
-     .wordmark text inside both nav and footer brand blocks. */
+  /* Wordmark — Montserrat 900 with a small squared dot, orange tint.
+     .is-figma-type is now permanent, so this is the only wordmark
+     style rendered; the .is-figma-type scoping is kept as-is to avoid
+     a wide CSS rename. .lp-brand-icon and the plain .wordmark text
+     inside the nav/footer brand blocks are hidden in this state. */
   .lp-root .lp-wm-custom { display: none; }
   .lp-root.is-figma-type .lp-brand-icon { display: none; }
   .lp-root.is-figma-type .lp-brand .wordmark,
@@ -2971,7 +2974,7 @@ function CompareCell({ c, isUs, label }: { c: Cell; isUs?: boolean; label: strin
 
 export default function PrelaunchLanding() {
   return (
-    <div className="lp-root is-figma is-figma-type" data-wm="a-white">
+    <div className="lp-root is-figma is-figma-type">
       <style dangerouslySetInnerHTML={{ __html: STYLES }} />
 
       <MLpNav />

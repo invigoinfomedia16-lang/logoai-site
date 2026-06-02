@@ -11,7 +11,7 @@ import MLpStickyCTA from './MLpStickyCTA'
 
 export default function MLpSubpageShell({ children }: { children: ReactNode }) {
   return (
-    <div className="lp-root is-figma is-figma-type" data-wm="a-white">
+    <div className="lp-root is-figma is-figma-type">
       <style dangerouslySetInnerHTML={{ __html: SHELL_STYLES }} />
       <MLpNav />
       {children}
