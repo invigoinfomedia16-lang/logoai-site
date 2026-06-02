@@ -105,8 +105,10 @@ const SHELL_STYLES = `
   .lp-root .lp-nav-links a,
   .lp-root .lp-dropdown > button { font-size: 13px; }
   /* Items INSIDE a dropdown menu should NOT inherit the nav-level
-     ALL-CAPS treatment — they're menu items, not headers. */
-  .lp-root .lp-dropdown-menu a {
+     ALL-CAPS treatment — they're menu items, not headers. Same rule
+     on the mobile hamburger accordion sublinks. */
+  .lp-root .lp-dropdown-menu a,
+  .lp-root .lp-mobile-sublink {
     font-family: 'Outfit', sans-serif;
     font-size: 14px;
     font-weight: 500;

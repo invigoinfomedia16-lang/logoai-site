@@ -301,8 +301,10 @@ const STYLES = `
      are children of .lp-nav-links via the dropdown markup, so they'd
      inherit the ALL-CAPS treatment by default. Override back to
      sentence case + slightly larger so they read as menu items
-     rather than a second row of nav-level headers. */
-  .lp-root.is-figma-type .lp-dropdown-menu a {
+     rather than a second row of nav-level headers. Same rule on the
+     mobile hamburger accordion sublinks. */
+  .lp-root.is-figma-type .lp-dropdown-menu a,
+  .lp-root.is-figma-type .lp-mobile-sublink {
     font-family: 'Outfit', sans-serif;
     font-size: 14px;
     font-weight: 500;
