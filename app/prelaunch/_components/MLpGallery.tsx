@@ -262,13 +262,21 @@ const STYLES = `
 
     /* When "See all N industries" is tapped (or a search is active),
        drop the horizontal scroll and let the chips wrap to multiple
-       rows so every industry is visible at once. */
+       rows so every industry is visible at once. Also shrink the
+       chips so 65 of them fit comfortably without the section
+       feeling overwhelming. */
     .lpg-pills[data-expanded="true"] {
       flex-wrap: wrap;
       overflow-x: visible;
       padding-bottom: 0;
+      gap: 6px;
     }
-    .lpg-pills[data-expanded="true"] .lpg-pill { flex-shrink: 1; }
+    .lpg-pills[data-expanded="true"] .lpg-pill {
+      flex-shrink: 1;
+      padding: 6px 12px;
+      font-size: 12px;
+      letter-spacing: 0.1px;
+    }
   }
 
   .lpg-pill {
