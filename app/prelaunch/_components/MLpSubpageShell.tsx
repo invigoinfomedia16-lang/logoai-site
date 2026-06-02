@@ -88,6 +88,23 @@ const SHELL_STYLES = `
   }
   .lp-root .lp-nav-links a:hover { color: var(--text); }
 
+  /* Nav typography — ALL CAPS with light tracking, on both desktop and
+     mobile so the casing doesn't flip at the breakpoint. CTA pills
+     stay in title case (handled separately below). */
+  .lp-root .lp-nav-links,
+  .lp-root .lp-nav-links a,
+  .lp-root .lp-dropdown > button,
+  .lp-root .lp-mobile-link,
+  .lp-root .lp-mobile-section {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .lp-root .lp-nav-links,
+  .lp-root .lp-nav-links a,
+  .lp-root .lp-dropdown > button { font-size: 13px; }
+
   .lp-root .lp-dropdown { position: relative; }
   .lp-root .lp-dropdown > button {
     background: none; border: none; padding: 0;

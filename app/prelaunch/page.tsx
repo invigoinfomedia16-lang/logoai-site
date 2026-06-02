@@ -294,6 +294,17 @@ const STYLES = `
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
+  /* Mobile hamburger panel — keep the same ALL CAPS casing as desktop
+     so the nav doesn't flip between sentence-case and uppercase when
+     the viewport crosses the breakpoint. Font-size stays at the
+     mobile-tap-target 16px; only the typographic treatment matches. */
+  .lp-root.is-figma-type .lp-mobile-link,
+  .lp-root.is-figma-type .lp-mobile-section {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
   /* Top nav uses the base layout — brand pinned to the left of the
      1440px content band, links flex-centered between (via base
      .lp-nav-links flex:1 + justify-content:center), CTA on the
