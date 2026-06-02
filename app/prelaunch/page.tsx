@@ -297,6 +297,18 @@ const STYLES = `
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
+  /* But the items INSIDE a dropdown menu (Company → About Us etc.)
+     are children of .lp-nav-links via the dropdown markup, so they'd
+     inherit the ALL-CAPS treatment by default. Override back to
+     sentence case + slightly larger so they read as menu items
+     rather than a second row of nav-level headers. */
+  .lp-root.is-figma-type .lp-dropdown-menu a {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: normal;
+  }
   /* Mobile hamburger panel — keep the same ALL CAPS casing as desktop
      so the nav doesn't flip between sentence-case and uppercase when
      the viewport crosses the breakpoint. Font-size stays at the

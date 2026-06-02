@@ -104,6 +104,15 @@ const SHELL_STYLES = `
   .lp-root .lp-nav-links,
   .lp-root .lp-nav-links a,
   .lp-root .lp-dropdown > button { font-size: 13px; }
+  /* Items INSIDE a dropdown menu should NOT inherit the nav-level
+     ALL-CAPS treatment — they're menu items, not headers. */
+  .lp-root .lp-dropdown-menu a {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: normal;
+  }
 
   .lp-root .lp-dropdown { position: relative; }
   .lp-root .lp-dropdown > button {
