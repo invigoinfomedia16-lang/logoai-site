@@ -22,6 +22,7 @@ import MLpUseCases from './_components/MLpUseCases'
 import MLpLogo from './_components/MLpLogo'
 import MLpHeroCounter from './_components/MLpHeroCounter'
 import MLpCountdownBadge from './_components/MLpCountdownBadge'
+import MLpEmailForm from './_components/MLpEmailForm'
 
 export const metadata: Metadata = {
   title: 'Free Logos for the First 2,000,000 Users — LOGO.AI',
@@ -2907,10 +2908,7 @@ export default function PrelaunchLanding() {
             </p>
 
             <div className="form-card" style={{ marginTop: 56, maxWidth: 620, marginLeft: 'auto', marginRight: 'auto' }}>
-              <div className="email-form">
-                <input id="hero-email" type="email" placeholder="Enter your email" aria-label="Enter your email" required />
-                <button type="button">Get My Free Logo <span className="arr">→</span></button>
-              </div>
+              <MLpEmailForm variant="hero" />
 
               <p className="fine fine-tight">
                 <strong>No spam. No credit card. Just a free logo.</strong><br />
@@ -3158,10 +3156,7 @@ export default function PrelaunchLanding() {
             <p className="final-lede">
               Hundreds of thousands have already claimed theirs. Get yours before they&rsquo;re gone.
             </p>
-            <div className="email-form final-form-row">
-              <input id="final-email" type="email" placeholder="Enter your email" aria-label="Enter your email" required />
-              <button type="button">Get My Free Logo <span className="arr">→</span></button>
-            </div>
+            <MLpEmailForm variant="final" />
             <p className="fine final-fine-simple">
               <strong>No spam. No credit card. Just a free logo.</strong><br />
               We&rsquo;ll email you the moment we go live so you can generate your free logo.
