@@ -9,11 +9,14 @@
 import { useEffect, useState } from 'react'
 import MLpLogo from './MLpLogo'
 
+// Use absolute /prelaunch#section paths so the section anchors keep
+// working from subpages (e.g. /prelaunch/about). On the main /prelaunch
+// page Next.js still treats them as same-page hash jumps.
 const NAV_ITEMS = [
-  { label: 'Gallery',      href: '#gallery' },
-  { label: 'How It Works', href: '#how-it-works' },
-  { label: "Who's It For", href: '#' },
-  { label: 'FAQ',          href: '#faq' },
+  { label: 'Gallery',      href: '/prelaunch#gallery' },
+  { label: 'How It Works', href: '/prelaunch#how-it-works' },
+  { label: "Who's It For", href: '/prelaunch#who-its-for' },
+  { label: 'FAQ',          href: '/prelaunch#faq' },
 ]
 
 const DROPDOWNS: { label: string; items: { label: string; href: string }[] }[] = [
@@ -81,7 +84,7 @@ export default function MLpNav() {
     <>
       <nav className="lp-nav">
         <div className="lp-nav-inner">
-          <a className="lp-brand" href="#hero-cta" aria-label="LOGO.AI">
+          <a className="lp-brand" href="/prelaunch#hero-cta" aria-label="LOGO.AI">
             <MLpLogo />
           </a>
 
@@ -110,7 +113,7 @@ export default function MLpNav() {
           </ul>
 
           {/* Desktop CTA */}
-          <a href="#hero-cta" className="lp-cta-pill lp-cta-desktop">Get My Free Logo</a>
+          <a href="/prelaunch#hero-cta" className="lp-cta-pill lp-cta-desktop">Get My Free Logo</a>
 
           {/* Mobile hamburger */}
           <button
@@ -161,7 +164,7 @@ export default function MLpNav() {
                 </div>
               )
             })}
-            <a href="#hero-cta" onClick={() => setOpen(false)} className="lp-mobile-cta">
+            <a href="/prelaunch#hero-cta" onClick={() => setOpen(false)} className="lp-mobile-cta">
               Get My Free Logo
             </a>
           </div>
