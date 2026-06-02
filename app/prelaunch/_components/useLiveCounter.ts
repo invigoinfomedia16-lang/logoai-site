@@ -12,7 +12,6 @@ import {
   LAUNCH_DATE,
   getLogosRemaining,
   getLogosClaimed,
-  getDaysUntilLaunch,
 } from '@/data'
 
 export type LiveCounter = {
@@ -38,7 +37,6 @@ function readAll(): LiveCounter {
   return {
     remaining: getLogosRemaining(),
     claimed: getLogosClaimed(),
-    days: getDaysUntilLaunch(),
     ...readCountdown(),
   }
 }
