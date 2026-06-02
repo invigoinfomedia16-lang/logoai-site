@@ -2,13 +2,16 @@
 
 // MLpEmailForm — shared email form used in the hero + Final CTA. On
 // submit it validates the email shape and swaps the form for a
-// success card ("You're on the list…"). NOT wired to a backend yet —
-// the email lives only in local state; nothing is sent anywhere. This
-// gives users feedback during prelaunch; a real waitlist provider
-// (Resend / Supabase / Mailchimp) can be layered in later without
+// success card ("You're on the list…"). The submitted state is shared
+// across every instance on the page via useEmailSignup, so submitting
+// the hero form also swaps the Final CTA's form into the success
+// state (and vice versa). NOT wired to a backend yet — the email
+// lives only in sessionStorage; nothing is sent anywhere. A real
+// waitlist provider can be layered in inside onSubmit later without
 // touching the markup at the call sites.
 
 import { useState, type FormEvent } from 'react'
+import { submitSignup, useEmailSignup } from './useEmailSignup'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -21,9 +24,9 @@ export default function MLpEmailForm({
   variant?: Variant
   buttonLabel?: string
 }) {
+  const { submitted } = useEmailSignup()
   const [email, setEmail] = useState('')
   const [error, setError] = useState('')
-  const [submitted, setSubmitted] = useState(false)
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -33,7 +36,7 @@ export default function MLpEmailForm({
       return
     }
     setError('')
-    setSubmitted(true)
+    submitSignup(trimmed)
   }
 
   if (submitted) {
