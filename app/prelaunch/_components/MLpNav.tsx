@@ -9,14 +9,15 @@
 import { useEffect, useState } from 'react'
 import MLpLogo from './MLpLogo'
 
-// Use absolute /prelaunch#section paths so the section anchors keep
-// working from subpages (e.g. /prelaunch/about). On the main /prelaunch
-// page Next.js still treats them as same-page hash jumps.
+// Gallery, How It Works, Who's It For, and FAQ each get their own
+// dedicated page (currently placeholders). Sections of the same name
+// still live on the main /prelaunch page — the nav points to the
+// dedicated routes so the URL is meaningful + linkable.
 const NAV_ITEMS = [
-  { label: 'Gallery',      href: '/prelaunch#gallery' },
-  { label: 'How It Works', href: '/prelaunch#how-it-works' },
-  { label: "Who's It For", href: '/prelaunch#who-its-for' },
-  { label: 'FAQ',          href: '/prelaunch#faq' },
+  { label: 'Gallery',      href: '/prelaunch/gallery' },
+  { label: 'How It Works', href: '/prelaunch/how-it-works' },
+  { label: "Who's It For", href: '/prelaunch/who-its-for' },
+  { label: 'FAQ',          href: '/prelaunch/faq' },
 ]
 
 const DROPDOWNS: { label: string; items: { label: string; href: string }[] }[] = [
