@@ -12,23 +12,33 @@ import MLpLogo from './MLpLogo'
 const NAV_ITEMS = [
   { label: 'Gallery',      href: '#gallery' },
   { label: 'How It Works', href: '#how-it-works' },
-  { label: 'FAQ',          href: '#faq' },
-  { label: 'Blog',         href: '#blog' },
-  { label: 'About',        href: '/prelaunch/about' },
-  { label: 'Our Story',    href: '/prelaunch/our-story' },
   { label: "Who's It For", href: '#' },
-  { label: 'Why LOGO.AI',  href: '#' },
+  { label: 'FAQ',          href: '#faq' },
 ]
 
-const DROPDOWN = {
-  label: 'Browse Logos',
-  items: [
-    { label: 'By Industry', href: '#' },
-    { label: 'By Style',    href: '#' },
-    { label: 'By Symbol',   href: '#' },
-    { label: 'By Color',    href: '#' },
-  ],
-}
+const DROPDOWNS: { label: string; items: { label: string; href: string }[] }[] = [
+  {
+    label: 'Company',
+    items: [
+      { label: 'About Us',        href: '/prelaunch/about' },
+      { label: 'Our Story',       href: '/prelaunch/our-story' },
+      { label: 'Team',            href: '#' },
+      { label: 'Why LOGO.AI',     href: '#' },
+      { label: 'Manifesto',       href: '#' },
+      { label: 'Press',           href: '#' },
+      { label: 'Contact Support', href: '#' },
+    ],
+  },
+  {
+    label: 'Browse Logos',
+    items: [
+      { label: 'By Industry', href: '#' },
+      { label: 'By Style',    href: '#' },
+      { label: 'By Symbol',   href: '#' },
+      { label: 'By Color',    href: '#' },
+    ],
+  },
+]
 
 export default function MLpNav() {
   const [open, setOpen] = useState(false)
@@ -54,14 +64,6 @@ export default function MLpNav() {
       <nav className="lp-nav">
         <div className="lp-nav-inner">
           <a className="lp-brand" href="#hero-cta" aria-label="LOGO.AI">
-            <span className="lp-brand-icon" aria-hidden>
-              <svg width="30" height="30" viewBox="0 0 200 200" fill="none">
-                <circle cx="100" cy="100" r="81.25" stroke="currentColor" strokeWidth="6.25"  fill="none" opacity="0.5" />
-                <circle cx="100" cy="100" r="50"    stroke="currentColor" strokeWidth="11.25" fill="none" opacity="0.75" />
-                <circle cx="100" cy="100" r="18.75" stroke="currentColor" strokeWidth="18.75" fill="none" />
-              </svg>
-            </span>
-            <span className="wordmark" aria-hidden>LOGO<span className="dot">.</span>AI</span>
             <MLpLogo />
           </a>
 
@@ -70,21 +72,23 @@ export default function MLpNav() {
             {NAV_ITEMS.map((n) => (
               <li key={n.label}><a href={n.href}>{n.label}</a></li>
             ))}
-            <li className="lp-dropdown">
-              <button type="button">
-                {DROPDOWN.label}
-                <span className="chev" aria-hidden>
-                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-                    <path d="M3 4.5 L6 7.5 L9 4.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-              </button>
-              <ul className="lp-dropdown-menu">
-                {DROPDOWN.items.map((d) => (
-                  <li key={d.label}><a href={d.href}>{d.label}</a></li>
-                ))}
-              </ul>
-            </li>
+            {DROPDOWNS.map((dd) => (
+              <li key={dd.label} className="lp-dropdown">
+                <button type="button">
+                  {dd.label}
+                  <span className="chev" aria-hidden>
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
+                      <path d="M3 4.5 L6 7.5 L9 4.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
+                </button>
+                <ul className="lp-dropdown-menu">
+                  {dd.items.map((d) => (
+                    <li key={d.label}><a href={d.href}>{d.label}</a></li>
+                  ))}
+                </ul>
+              </li>
+            ))}
           </ul>
 
           {/* Desktop CTA */}
@@ -114,11 +118,15 @@ export default function MLpNav() {
                 {n.label}
               </a>
             ))}
-            <div className="lp-mobile-section">{DROPDOWN.label}</div>
-            {DROPDOWN.items.map((d) => (
-              <a key={d.label} href={d.href} onClick={() => setOpen(false)} className="lp-mobile-link lp-mobile-sublink">
-                {d.label}
-              </a>
+            {DROPDOWNS.map((dd) => (
+              <div key={dd.label}>
+                <div className="lp-mobile-section">{dd.label}</div>
+                {dd.items.map((d) => (
+                  <a key={d.label} href={d.href} onClick={() => setOpen(false)} className="lp-mobile-link lp-mobile-sublink">
+                    {d.label}
+                  </a>
+                ))}
+              </div>
             ))}
             <a href="#hero-cta" onClick={() => setOpen(false)} className="lp-mobile-cta">
               Get My Free Logo

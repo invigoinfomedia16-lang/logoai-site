@@ -7,6 +7,7 @@
 // (if) this design wins we'll wire it into the layout properly.
 
 import type { Metadata } from 'next'
+import MLpRemainingCount from '../_components/MLpRemainingCount'
 
 export const metadata: Metadata = {
   title: 'Our Story — LOGO.AI',
@@ -863,7 +864,7 @@ export default function OurStoryPage() {
           <p className="cta-eyebrow">2,000,000 free logos at launch</p>
           <div className="counter-badge">
             <span className="dot"></span>
-            1,669,349 spots remaining — don&apos;t miss yours
+            <MLpRemainingCount /> spots remaining — don&apos;t miss yours
           </div>
           <h2>Get a Professional Logo.<br />Completely Free.</h2>
           <p>We&apos;ll email you the moment we go live so you can generate your free logo.</p>

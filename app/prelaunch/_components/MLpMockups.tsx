@@ -69,7 +69,7 @@ export default function MLpMockups() {
       {visibleCats.length === 0 ? (
         <p className="lpm-empty">No industries match &ldquo;{query}&rdquo;. Try a different term.</p>
       ) : (
-        <div className="lpm-pills">
+        <div className="lpm-pills" data-expanded={showAll || !!trimmedQuery}>
           {visibleCats.map((c) => {
             const active = c.key === cat
             return (
@@ -245,6 +245,16 @@ const STYLES = `
     .lpm-pills::-webkit-scrollbar,
     .lpm-subpills::-webkit-scrollbar { display: none; }
     .lpm-pill, .lpm-subpill { flex-shrink: 0; }
+
+    /* When the user taps "See all N industries" (or is searching), drop
+       the horizontal scroll and let the pills wrap to multiple rows so
+       every chip is visible at once. */
+    .lpm-pills[data-expanded="true"] {
+      flex-wrap: wrap;
+      overflow-x: visible;
+      padding-bottom: 0;
+    }
+    .lpm-pills[data-expanded="true"] .lpm-pill { flex-shrink: 1; }
   }
 
   .lpm-pill {

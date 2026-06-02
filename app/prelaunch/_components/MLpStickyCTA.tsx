@@ -111,11 +111,11 @@ const STYLES = `
     width: 100%;
     background: #7c3aed;
     color: #ffffff;
-    border-radius: 10px;
+    border-radius: 999px;
     font-family: var(--sans, 'DM Sans', system-ui, sans-serif);
     font-weight: 600;
     font-size: 16px;
-    padding: 14px 24px;
+    padding: 16px 24px;
     text-decoration: none;
     transition: background 0.2s ease;
   }

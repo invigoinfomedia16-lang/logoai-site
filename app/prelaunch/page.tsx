@@ -18,10 +18,10 @@ import MLpGallery from './_components/MLpGallery'
 import MLpMockups from './_components/MLpMockups'
 import MLpNav from './_components/MLpNav'
 import MLpStickyCTA from './_components/MLpStickyCTA'
-import MLpThemeToggle from './_components/MLpThemeToggle'
 import MLpUseCases from './_components/MLpUseCases'
 import MLpLogo from './_components/MLpLogo'
-import MLpLogoToggle from './_components/MLpLogoToggle'
+import MLpHeroCounter from './_components/MLpHeroCounter'
+import MLpCountdownBadge from './_components/MLpCountdownBadge'
 
 export const metadata: Metadata = {
   title: 'Free Logos for the First 2,000,000 Users — LOGO.AI',
@@ -140,15 +140,25 @@ const STYLES = `
   .lp-root.is-figma-type h3 {
     font-family: 'Sora', sans-serif;
   }
-  /* Hero H1 — biggest type on the page. */
+  /* Hero H1 — biggest type on the page. Clamp floor pinned at 34px so
+     "Get Your Free Logo" always fits on a single line down to ~320px
+     viewports. Hard-wrap is enforced by the .h1-line nowrap span as
+     belt-and-suspenders, keeping the heading at exactly 2 rows. */
   .lp-root.is-figma-type .hero h1,
   .lp-root.is-figma-type h1 {
-    font-size: clamp(44px, 8vw, 72px);
+    font-size: clamp(34px, 7.5vw, 72px);
     font-weight: 800;
     line-height: 1.04;
     letter-spacing: -0.03em;
     text-align: center;
   }
+  .lp-root.is-figma-type .hero h1 .h1-line {
+    white-space: nowrap;
+    display: inline-block;
+  }
+  /* Re-enable the BR inside the hero h1 — the global .lp-root h1 br
+     display:none rule suppresses it by default. */
+  .lp-root .hero h1 br { display: inline; }
   /* Final-CTA H2 ("Ready to Get Your Free Logo?") — endpoint moment,
      bigger and bolder than a normal section H2 so it feels like the
      close of the page. */
@@ -271,16 +281,23 @@ const STYLES = `
      scale established in the original .lp-brand size. */
   .lp-root.is-figma-type .lp-brand { font-size: 24px; gap: 0; }
   .lp-root.is-figma-type .lp-footer .brand { font-size: 26px; gap: 0; }
-  /* Nav links — slightly bolder (500) to balance the Sora wordmark.
-     Includes the Browse Logos dropdown button so it matches the
-     other nav items instead of staying at 14/400. */
+  /* Nav links + Browse Logos dropdown button — ALL CAPS with light
+     tracking. CTA pill stays in title case (per user direction) so
+     it reads as an action rather than nav furniture. */
   .lp-root.is-figma-type .lp-nav-links,
   .lp-root.is-figma-type .lp-nav-links a,
   .lp-root.is-figma-type .lp-dropdown > button {
     font-family: 'Outfit', sans-serif;
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
   }
+  /* Top nav uses the base layout — brand pinned to the left of the
+     1440px content band, links flex-centered between (via base
+     .lp-nav-links flex:1 + justify-content:center), CTA on the
+     right. No Custom-mode overrides needed here; only the uppercase
+     typography for the link text. */
   /* Browse Logos dropdown menu — the default --bg-elev in Custom mode
      is a 5% Desert-Storm overlay (too see-through for a floating
      panel). Switch to a near-solid dark + backdrop blur so the menu
@@ -636,7 +653,7 @@ const STYLES = `
     margin-bottom: 2px;
   }
   .lp-root.is-figma-type .testimonial-feature .stars {
-    color: #FF5C2E;
+    color: rgba(232, 232, 230, 0.55);
     letter-spacing: 6px;
     font-size: 14px;
     margin: 16px 0 0;
@@ -669,7 +686,7 @@ const STYLES = `
     border-color: rgba(232, 232, 230, 0.10);
   }
   .lp-root.is-figma-type .testimonial .stars {
-    color: #FF5C2E;
+    color: rgba(232, 232, 230, 0.55);
     letter-spacing: 4px;
     font-size: 13px;
   }
@@ -949,19 +966,68 @@ const STYLES = `
     }
   }
 
-  /* ── CUSTOM: HERO — twin urgency counters as a single centered row ─
-     Keeps the existing centered hero. The two counter <p> elements
-     (.hero-counter-main "1,669,349 of 2M remaining" + .hero-counter-sub
-     "55 DAYS UNTIL LAUNCH") collapse onto a single line separated by
-     a dot. The days line becomes an orange chip for emphasis. */
+  /* ── CUSTOM: HERO — live countdown badge + counter block ──────────
+     1) .hero-urgency  — orange pill at top of hero with D:H:M timer
+     2) .hero-counter-block — counter line + progress bar + tagline,
+        reused in both hero and final CTA via MLpHeroCounter.
+     All values come from the shared useLiveCounter hook. */
+  .lp-root.is-figma-type .hero .wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   .lp-root.is-figma-type .form-card .fine-tight {
     margin-bottom: 28px;
   }
-  .lp-root.is-figma-type .hero-counter-main,
-  .lp-root.is-figma-type .hero-counter-sub {
+  /* Top countdown — plain text line with a live dot. Stripped of
+     chip chrome / uppercase / bold so the WORLD'S BEST AI LOGO
+     GENERATOR eyebrow below reads as the primary element. The orange
+     dot stays as a tiny accent to preserve the "live" cue. */
+  .lp-root.is-figma-type .hero-urgency {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 0;
+    color: rgba(232, 232, 230, 0.55);
+    padding: 0;
+    border-radius: 0;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    line-height: 1;
+    margin: 0 auto 20px;
+    font-variant-numeric: tabular-nums;
+  }
+  /* Live pulsing dot — reused by the countdown badge */
+  .lp-root.is-figma-type .hero-counter-dot {
     display: inline-block;
-    margin: 0;
-    vertical-align: middle;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #FF5C2E;
+    box-shadow: 0 0 0 0 rgba(255, 92, 46, 0.55);
+    animation: heroLiveDot 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  @keyframes heroLiveDot {
+    0%   { box-shadow: 0 0 0 0   rgba(255, 92, 46, 0.55); }
+    70%  { box-shadow: 0 0 0 9px rgba(255, 92, 46, 0); }
+    100% { box-shadow: 0 0 0 0   rgba(255, 92, 46, 0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lp-root.is-figma-type .hero-counter-dot { animation: none; }
+  }
+
+  /* Live counter block — counter line + progress bar + tagline */
+  .lp-root.is-figma-type .hero-counter-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    max-width: 520px;
+    margin: 0 auto;
   }
   .lp-root.is-figma-type .hero-counter-main {
     font-family: 'Outfit', sans-serif;
@@ -969,39 +1035,82 @@ const STYLES = `
     font-weight: 500;
     color: rgba(232, 232, 230, 0.60);
     line-height: 1.4;
+    margin: 0;
+    text-align: center;
   }
   .lp-root.is-figma-type .hero-counter-main strong {
     font-family: 'Sora', sans-serif;
     color: #FF5C2E;
     font-weight: 700;
+    font-variant-numeric: tabular-nums;
   }
-  .lp-root.is-figma-type .hero-counter-main::after {
-    content: "\\00B7";
-    display: inline-block;
-    margin: 0 14px;
-    color: rgba(232, 232, 230, 0.30);
-    font-size: 16px;
-    line-height: 1;
-    vertical-align: middle;
-  }
-  .lp-root.is-figma-type .hero-counter-sub {
-    font-family: 'Outfit', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    color: #FF5C2E;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    background: rgba(255, 92, 46, 0.10);
-    border: 1px solid rgba(255, 92, 46, 0.25);
-    padding: 5px 12px;
+  /* Progress bar — orange fill, dark grey track */
+  .lp-root.is-figma-type .hero-progress {
+    width: 100%;
+    height: 6px;
     border-radius: 999px;
-    line-height: 1;
+    background: rgba(232, 232, 230, 0.10);
+    overflow: hidden;
+    margin: 4px 0 2px;
   }
-  /* Mobile — counters stack: hide separator dot, drop sub below */
-  @media (max-width: 520px) {
-    .lp-root.is-figma-type .hero-counter-main { display: block; }
-    .lp-root.is-figma-type .hero-counter-main::after { content: none; }
-    .lp-root.is-figma-type .hero-counter-sub { margin-top: 14px; }
+  .lp-root.is-figma-type .hero-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #E8420D, #FF5C2E);
+    border-radius: 999px;
+    transition: width 0.4s ease;
+  }
+  .lp-root.is-figma-type .hero-progress-label {
+    font-family: 'Outfit', sans-serif;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: rgba(232, 232, 230, 0.50);
+    margin: 0;
+    text-align: center;
+  }
+  .lp-root.is-figma-type .hero-progress-label strong {
+    font-family: 'Sora', sans-serif;
+    color: rgba(232, 232, 230, 0.85);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .lp-root.is-figma-type .hero-counter-tagline {
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(232, 232, 230, 0.45);
+    margin: 4px 0 0;
+    text-align: center;
+    letter-spacing: 0.2px;
+  }
+  /* Final-CTA eyebrow ("While Spots Last") — matches the section
+     eyebrow treatment (Outfit 12 / 600 / uppercase tracked). */
+  .lp-root.is-figma-type .final-eyebrow {
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #FF5C2E;
+    margin: 0 auto 18px;
+    display: block;
+    text-align: center;
+  }
+  /* Final-CTA lede — supporting sentence under the H2. Mirrors the
+     .hero-lede treatment (Outfit 18 / 400 / muted Desert Storm). */
+  .lp-root.is-figma-type .final-lede {
+    font-family: 'Outfit', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: #b8b8c4;
+    margin: 18px auto 0;
+    text-align: center;
+    max-width: 56ch;
+  }
+  /* Counter block sits below the fine print (mirrors hero placement).
+     36px gap above so it doesn't crowd the fine print. */
+  .lp-root.is-figma-type .final-cta-simple .hero-counter-block {
+    margin-top: 36px;
   }
 
   /* ── CUSTOM: FAQ — 2-col grid with row-major flow ──────────────────
@@ -1192,8 +1301,8 @@ const STYLES = `
      visual weight — no drop-shadow / glow (per user's "no hero glow"
      rule), just a flat tinted card. */
   .lp-root.is-figma-type .final-cta-simple {
-    max-width: 820px;
-    padding: 64px 56px;
+    max-width: 1040px;
+    padding: 72px 80px;
     border: 1.5px solid rgba(255, 92, 46, 0.30);
     border-radius: 24px;
     background:
@@ -1305,10 +1414,10 @@ const STYLES = `
     font-weight: 600;
     line-height: 21.12px;
   }
-  /* Mobile clamp — keep the hero from blowing past the viewport. */
+  /* Mobile h2 clamp — h1 base clamp already handles the hero across
+     all viewports (the old h1 override here was broken — its 76.8px
+     max made mobile bigger than desktop). */
   @media (max-width: 720px) {
-    .lp-root.is-figma-type .hero h1,
-    .lp-root.is-figma-type h1 { font-size: clamp(40px, 11vw, 76.8px); }
     .lp-root.is-figma-type h2 { font-size: clamp(28px, 7vw, 41.6px); }
   }
 
@@ -2745,14 +2854,14 @@ const FOOTER_COLUMNS: { title: string; links: string[] }[] = [
 function CompareCell({ c, isUs }: { c: Cell; isUs?: boolean }) {
   const cls = isUs ? 'us' : ''
   if (c.type === 'yes') return <td className={cls}><span className="yes">✓</span></td>
-  if (c.type === 'no')  return <td className={cls}><span className="no">—</span></td>
+  if (c.type === 'no')  return <td className={cls}><span className="no">×</span></td>
   if (c.type === 'maybe') return <td className={cls}><span className="maybe">{c.v}</span></td>
   return <td className={cls}>{c.v}</td>
 }
 
 export default function PrelaunchLanding() {
   return (
-    <div className="lp-root">
+    <div className="lp-root is-figma is-figma-type" data-wm="a-white">
       <style dangerouslySetInnerHTML={{ __html: STYLES }} />
 
       <MLpNav />
@@ -2761,13 +2870,14 @@ export default function PrelaunchLanding() {
         {/* ============ 1. HERO ============ */}
         <header className="hero" id="hero-cta">
           <div className="wrap">
+            <MLpCountdownBadge />
             <span className="eyebrow">World&rsquo;s Best AI Logo Generator</span>
             <h1>
-              Get Your Free Logo<br />
-              <span className="muted">in Seconds</span>
+              <span className="h1-line">Get Your Free Logo</span><br />
+              <span className="h1-line muted">in Seconds</span>
             </h1>
             <p className="hero-lede">
-              Free logo for the first 2,000,000 users. Join now to claim yours at launch.
+              Free logo for the first 2,000,000 users. Claim your spot now.
             </p>
 
             <div className="form-card" style={{ marginTop: 56, maxWidth: 620, marginLeft: 'auto', marginRight: 'auto' }}>
@@ -2781,10 +2891,7 @@ export default function PrelaunchLanding() {
                 We&rsquo;ll email you the moment we go live so you can generate your free logo.
               </p>
 
-              <p className="hero-counter-main">
-                <strong>1,669,349</strong> of 2,000,000 logos remaining
-              </p>
-              <p className="hero-counter-sub">55 DAYS UNTIL LAUNCH</p>
+              <MLpHeroCounter tagline="Going fast. Don't miss yours." />
             </div>
           </div>
         </header>
@@ -3022,8 +3129,8 @@ export default function PrelaunchLanding() {
         <section id="final-cta">
           <div className="final-cta-simple">
             <h2 className="final-h2-simple">Ready to Get Your Free Logo?</h2>
-            <p className="final-counter-line">
-              <strong>1,669,349</strong> left out of 2,000,000. Don&rsquo;t miss out.
+            <p className="final-lede">
+              Hundreds of thousands have already claimed theirs. Get yours before they&rsquo;re gone.
             </p>
             <div className="email-form final-form-row">
               <input id="final-email" type="email" placeholder="Enter your email" aria-label="Enter your email" required />
@@ -3033,6 +3140,10 @@ export default function PrelaunchLanding() {
               <strong>No spam. No credit card. Just a free logo.</strong><br />
               We&rsquo;ll email you the moment we go live so you can generate your free logo.
             </p>
+            <MLpHeroCounter
+              framing="claimed"
+              tagline="Don't miss yours."
+            />
           </div>
         </section>
       </main>
@@ -3042,14 +3153,6 @@ export default function PrelaunchLanding() {
         <div className="wrap">
           <div className="footer-top">
             <div className="brand" aria-label="LOGO.AI">
-              <span className="lp-brand-icon" aria-hidden>
-                <svg width="34" height="34" viewBox="0 0 200 200" fill="none">
-                  <circle cx="100" cy="100" r="81.25" stroke="currentColor" strokeWidth="6.25"  fill="none" opacity="0.5" />
-                  <circle cx="100" cy="100" r="50"    stroke="currentColor" strokeWidth="11.25" fill="none" opacity="0.75" />
-                  <circle cx="100" cy="100" r="18.75" stroke="currentColor" strokeWidth="18.75" fill="none" />
-                </svg>
-              </span>
-              <span className="wordmark" aria-hidden>LOGO<span className="dot">.</span>AI</span>
               <MLpLogo />
             </div>
             <p className="tag">Free logos for the first 2,000,000 users</p>
@@ -3080,8 +3183,6 @@ export default function PrelaunchLanding() {
       </footer>
 
       <MLpStickyCTA />
-      <MLpThemeToggle />
-      <MLpLogoToggle />
     </div>
   )
 }
