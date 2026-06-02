@@ -233,6 +233,9 @@ const STYLES = `
     margin: 0;
   }
   @media (max-width: 720px) {
+    /* Smaller chips on mobile across the board so the section reads
+       compact and matches MLpGallery. Size stays consistent between
+       collapsed and expanded states so there's no jump on toggle. */
     .lpm-pills, .lpm-subpills {
       flex-wrap: nowrap;
       overflow-x: auto;
@@ -241,10 +244,16 @@ const STYLES = `
       -ms-overflow-style: none;
       -webkit-overflow-scrolling: touch;
       padding-bottom: 4px;
+      gap: 6px;
     }
     .lpm-pills::-webkit-scrollbar,
     .lpm-subpills::-webkit-scrollbar { display: none; }
     .lpm-pill, .lpm-subpill { flex-shrink: 0; }
+    .lpm-pill {
+      padding: 6px 12px;
+      font-size: 12px;
+      letter-spacing: 0.1px;
+    }
 
     /* When the user taps "See all N industries" (or is searching), drop
        the horizontal scroll and let the pills wrap to multiple rows so

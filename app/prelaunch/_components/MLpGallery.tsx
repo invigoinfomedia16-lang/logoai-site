@@ -247,6 +247,10 @@ const STYLES = `
     margin: 0;
   }
   @media (max-width: 720px) {
+    /* Smaller chips on mobile across the board so the popular row +
+       the expanded 65-row don't feel cramped. Applied at the default
+       mobile state (not only when expanded) so toggling between
+       collapsed / expanded doesn't cause a size-change jump. */
     .lpg-pills, .lpg-subpills {
       flex-wrap: nowrap;
       overflow-x: auto;
@@ -255,28 +259,27 @@ const STYLES = `
       -ms-overflow-style: none;
       -webkit-overflow-scrolling: touch;
       padding-bottom: 4px;
+      gap: 6px;
     }
     .lpg-pills::-webkit-scrollbar,
     .lpg-subpills::-webkit-scrollbar { display: none; }
     .lpg-pill, .lpg-subpill { flex-shrink: 0; }
-
-    /* When "See all N industries" is tapped (or a search is active),
-       drop the horizontal scroll and let the chips wrap to multiple
-       rows so every industry is visible at once. Also shrink the
-       chips so 65 of them fit comfortably without the section
-       feeling overwhelming. */
-    .lpg-pills[data-expanded="true"] {
-      flex-wrap: wrap;
-      overflow-x: visible;
-      padding-bottom: 0;
-      gap: 6px;
-    }
-    .lpg-pills[data-expanded="true"] .lpg-pill {
-      flex-shrink: 1;
+    .lpg-pill {
       padding: 6px 12px;
       font-size: 12px;
       letter-spacing: 0.1px;
     }
+
+    /* When "See all N industries" is tapped (or a search is active),
+       drop the horizontal scroll and let the chips wrap to multiple
+       rows so every industry is visible at once. Size stays the same
+       as collapsed so the section doesn't visibly jump on toggle. */
+    .lpg-pills[data-expanded="true"] {
+      flex-wrap: wrap;
+      overflow-x: visible;
+      padding-bottom: 0;
+    }
+    .lpg-pills[data-expanded="true"] .lpg-pill { flex-shrink: 1; }
   }
 
   .lpg-pill {
