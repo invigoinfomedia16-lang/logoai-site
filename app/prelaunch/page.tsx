@@ -969,84 +969,16 @@ const STYLES = `
     text-align: center;
     margin-top: 24px;
   }
-  /* Mobile — morph the 4-col comparison table into a stack of cards.
-     A horizontal-scroll table on a phone is unreadable, so the thead
-     hides, each row turns into a bordered card, and every body cell
-     shows its column label (via data-label attr) on the left with the
-     value on the right. The LOGO.AI cell stays highlighted via .us
-     so the closing-row pitch is still visually obvious. */
+  /* Mobile — tighter cells, smaller badge. Table stays a horizontal
+     4-col layout (user preferred this over a card-stack rewrite). */
   @media (max-width: 720px) {
-    .lp-root.is-figma-type .compare,
-    .lp-root.is-figma-type .compare tbody,
-    .lp-root.is-figma-type .compare tr,
-    .lp-root.is-figma-type .compare td {
-      display: block;
-      width: 100%;
-    }
-    .lp-root.is-figma-type .compare thead { display: none; }
-    .lp-root.is-figma-type .compare {
-      border-spacing: 0;
-    }
-    .lp-root.is-figma-type .compare tr {
-      border: 1px solid rgba(232, 232, 230, 0.10);
-      border-radius: 14px;
-      padding: 16px 18px;
-      margin-bottom: 12px;
-      background: transparent;
-    }
-    /* Highlight the row's first cell as a card title */
-    .lp-root.is-figma-type .compare tbody td:first-child {
-      font-family: 'Sora', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      color: #f4f4f6;
-      text-align: left;
-      padding: 0 0 12px;
-      margin: 0 0 12px;
-      border: 0;
-      border-bottom: 1px solid rgba(232, 232, 230, 0.10);
-    }
-    /* Comparison cells — label on the left, value on the right */
-    .lp-root.is-figma-type .compare tbody td {
-      position: relative;
-      padding: 8px 0 8px 0;
-      border: 0;
-      text-align: right;
-      font-size: 14px;
-      color: rgba(232, 232, 230, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-    .lp-root.is-figma-type .compare tbody td::before {
-      content: attr(data-label);
-      font-family: 'Outfit', sans-serif;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(232, 232, 230, 0.45);
-      text-align: left;
-      flex-shrink: 0;
-    }
-    /* LOGO.AI row inside each card — keep orange tint + bright value */
-    .lp-root.is-figma-type .compare tbody td.us {
-      background: rgba(255, 92, 46, 0.06);
-      border: 1px solid rgba(255, 92, 46, 0.30);
-      border-radius: 10px;
-      padding: 10px 14px;
-      margin-top: 6px;
-      color: #f4f4f6;
-      font-weight: 600;
-    }
-    .lp-root.is-figma-type .compare tbody td.us::before {
-      color: #FF5C2E;
-    }
-    /* Strip the desktop "us"-column rounded corners & connecting borders */
-    .lp-root.is-figma-type .compare tbody tr:last-child td.us {
-      border: 1px solid rgba(255, 92, 46, 0.30);
-      border-radius: 10px;
+    .lp-root.is-figma-type .compare thead th { padding: 14px 8px; font-size: 10px; }
+    .lp-root.is-figma-type .compare tbody td { padding: 14px 8px; font-size: 13px; }
+    .lp-root.is-figma-type .compare thead th.us::before {
+      top: -11px;
+      font-size: 9px;
+      padding: 4px 10px;
+      letter-spacing: 0.18em;
     }
   }
 
@@ -2961,15 +2893,12 @@ const FOOTER_COLUMNS: { title: string; links: string[] }[] = [
   { title: 'Legal',              links: ['Terms of Use', 'Privacy Policy', 'Refund Policy', 'Security Policy', 'Commercial License', 'Cookie Policy'] },
 ]
 
-function CompareCell({ c, isUs, label }: { c: Cell; isUs?: boolean; label: string }) {
+function CompareCell({ c, isUs }: { c: Cell; isUs?: boolean }) {
   const cls = isUs ? 'us' : ''
-  // data-label drives the mobile card-flip view: under 720px the table
-  // morphs into stacked cards and each cell shows its column name to
-  // the left of the value (see .compare td::before in the mobile CSS).
-  if (c.type === 'yes') return <td className={cls} data-label={label}><span className="yes">✓</span></td>
-  if (c.type === 'no')  return <td className={cls} data-label={label}><span className="no">×</span></td>
-  if (c.type === 'maybe') return <td className={cls} data-label={label}><span className="maybe">{c.v}</span></td>
-  return <td className={cls} data-label={label}>{c.v}</td>
+  if (c.type === 'yes') return <td className={cls}><span className="yes">✓</span></td>
+  if (c.type === 'no')  return <td className={cls}><span className="no">×</span></td>
+  if (c.type === 'maybe') return <td className={cls}><span className="maybe">{c.v}</span></td>
+  return <td className={cls}>{c.v}</td>
 }
 
 export default function PrelaunchLanding() {
@@ -3171,9 +3100,9 @@ export default function PrelaunchLanding() {
                   {COMPARE_ROWS.map((r) => (
                     <tr key={r.row}>
                       <td>{r.row}</td>
-                      <CompareCell c={r.freelance} label="Freelance Designer" />
-                      <CompareCell c={r.ai}        label="Other AI Tools" />
-                      <CompareCell c={r.us}        label="LOGO.AI" isUs />
+                      <CompareCell c={r.freelance} />
+                      <CompareCell c={r.ai} />
+                      <CompareCell c={r.us} isUs />
                     </tr>
                   ))}
                 </tbody>

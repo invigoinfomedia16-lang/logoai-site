@@ -6,7 +6,7 @@
 // branch. No search field, no "see all" toggle — the experiment keeps the
 // gallery focused on the pill row + grid.
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import { CATEGORIES, getCategoryImages, getSubCategories } from '@/data'
 
@@ -17,6 +17,11 @@ const HIDDEN_COUNT = CATEGORIES.length - POPULAR.length
 const ALL_KEY = '__all__'
 
 export default function MLpGallery() {
+  // Root ref — when the user collapses the expanded industry chips,
+  // the chip block shrinks dramatically and their current scroll
+  // position lands inside the next section (How It Works). After
+  // collapsing we scroll the gallery back into view.
+  const rootRef = useRef<HTMLDivElement>(null)
   const [cat, setCat] = useState<string>(POPULAR[0]?.key ?? 'restaurant')
   const subs = useMemo(() => getSubCategories(cat), [cat])
   // Default to the "All" pseudo-sub-pill so the user sees the broad
@@ -47,8 +52,21 @@ export default function MLpGallery() {
     return active ? [active, ...base] : base
   }, [trimmedQuery, showAll, cat])
 
+  const handleToggleShowAll = () => {
+    const collapsing = showAll
+    setShowAll((v) => !v)
+    if (collapsing) {
+      // Wait one frame so the DOM has reflowed at the smaller height
+      // before scrolling — otherwise the browser scrolls to the
+      // pre-collapse position of the gallery root, which is too high.
+      requestAnimationFrame(() => {
+        rootRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
+    }
+  }
+
   return (
-    <div className="lpg">
+    <div className="lpg" ref={rootRef}>
       <style dangerouslySetInnerHTML={{ __html: STYLES }} />
 
       <div className="lpg-search">
@@ -68,7 +86,7 @@ export default function MLpGallery() {
       {visibleCats.length === 0 ? (
         <p className="lpg-empty">No industries match &ldquo;{query}&rdquo;. Try a different term.</p>
       ) : (
-        <div className="lpg-pills">
+        <div className="lpg-pills" data-expanded={showAll || !!trimmedQuery}>
           {visibleCats.map((c) => {
             const active = c.key === cat
             return (
@@ -89,7 +107,7 @@ export default function MLpGallery() {
         <button
           type="button"
           className="lpg-seeall"
-          onClick={() => setShowAll((v) => !v)}
+          onClick={handleToggleShowAll}
         >
           {showAll ? 'Show fewer' : `See all ${CATEGORIES.length} industries`}
         </button>
@@ -241,6 +259,16 @@ const STYLES = `
     .lpg-pills::-webkit-scrollbar,
     .lpg-subpills::-webkit-scrollbar { display: none; }
     .lpg-pill, .lpg-subpill { flex-shrink: 0; }
+
+    /* When "See all N industries" is tapped (or a search is active),
+       drop the horizontal scroll and let the chips wrap to multiple
+       rows so every industry is visible at once. */
+    .lpg-pills[data-expanded="true"] {
+      flex-wrap: wrap;
+      overflow-x: visible;
+      padding-bottom: 0;
+    }
+    .lpg-pills[data-expanded="true"] .lpg-pill { flex-shrink: 1; }
   }
 
   .lpg-pill {
