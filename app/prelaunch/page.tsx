@@ -1565,8 +1565,9 @@ const STYLES = `
   .lp-root .lp-mobile-sublink { padding-left: 16px; font-size: 15px; color: var(--text-2); }
 
   /* Accordion section header (tap-to-expand for Company / Browse Logos
-     on mobile). The button owns the row layout + border; the inner
-     .lp-mobile-section span keeps the small-caps label styling. */
+     on mobile). Styled to read as a peer of the regular nav links —
+     same colour, size, and casing — with a chevron on the right to
+     signal the accordion affordance. */
   .lp-root .lp-mobile-section-btn {
     display: flex;
     align-items: center;
@@ -1575,28 +1576,25 @@ const STYLES = `
     background: transparent;
     border: 0;
     border-bottom: 1px solid var(--line);
-    padding: 16px 0;
+    padding: 14px 0;
     cursor: pointer;
     font-family: var(--sans);
     text-align: left;
-    color: var(--text-3);
+    color: var(--text);
     transition: color 0.15s;
-  }
-  @media (hover: hover) {
-    .lp-root .lp-mobile-section-btn:hover { color: var(--text); }
   }
   .lp-root .lp-mobile-section {
     color: inherit;
     font-family: var(--sans);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
   }
   .lp-root .lp-mobile-chev {
     display: inline-flex;
     align-items: center;
-    color: inherit;
+    color: var(--text-3);
     transition: transform 0.2s ease;
   }
   .lp-root .lp-mobile-chev.is-open { transform: rotate(180deg); }
