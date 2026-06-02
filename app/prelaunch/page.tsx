@@ -1552,6 +1552,7 @@ const STYLES = `
     flex-direction: column;
   }
   .lp-root .lp-mobile-link {
+    display: block;
     color: var(--text);
     text-decoration: none;
     font-family: var(--sans);
