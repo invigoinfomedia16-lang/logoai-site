@@ -1,13 +1,14 @@
-// MLpSubpageShell — the lp-root wrapper, nav, theme tokens, and sticky
-// CTA bundled into one shell for prelaunch SUBPAGES (about, our-story,
-// gallery, how-it-works, who-its-for, faq, etc.). The styles come from
-// MLpNavStyles — the single source of truth shared with the main
-// /prelaunch/page.tsx — so any nav/theme/wordmark change lifts every
-// page in lockstep with no manual hunt for parallel locations.
+// MLpSubpageShell — the full chrome (nav, footer, sticky CTA, shared
+// theme tokens, typography, layout primitives) bundled into one shell
+// for every prelaunch SUBPAGE. Drop content inside <MLpSubpageShell>
+// and use the same .wrap / .sec-head / .eyebrow / h2 / .lede / p
+// classes the home page uses — the page automatically inherits the
+// home-page visual system.
 
 import type { ReactNode } from 'react'
 import MLpNav from './MLpNav'
 import MLpStickyCTA from './MLpStickyCTA'
+import MLpFooter from './MLpFooter'
 import { MLP_NAV_STYLES } from './MLpNavStyles'
 
 export default function MLpSubpageShell({ children }: { children: ReactNode }) {
@@ -16,6 +17,7 @@ export default function MLpSubpageShell({ children }: { children: ReactNode }) {
       <style dangerouslySetInnerHTML={{ __html: MLP_NAV_STYLES }} />
       <MLpNav />
       {children}
+      <MLpFooter />
       <MLpStickyCTA />
     </div>
   )

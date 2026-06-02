@@ -1,18 +1,10 @@
-// Our Story — long-form editorial in the new MLp visual language.
-// Content from Logo_AI_OurStory_v16.docx. Sections (in order):
-//   1. Hero — eyebrow + italic display headline
-//   2. The Problem — narrative + closing pull-quote
-//   3. Where We Started — two brothers, three decades
-//   4. The Turning Point — late 2023, "stop prompting, start teaching"
-//   5. How We Built It — methodology + 3-stat row
-//   6. Where We Are Now — closing
-//   7. Also worth reading — cross-links
-//   8. Final CTA — same live counter + email form as the main page
+// Our Story — long-form editorial. Uses the SAME building blocks as
+// the home page (.wrap container, .sec-head, .eyebrow, h2, .lede,
+// body p) so it reads as a proper subpage of /prelaunch. The shell
+// (nav, footer, sticky CTA, typography, theme tokens) all come from
+// <MLpSubpageShell> — this file owns content only, not chrome.
 //
-// Layout: single editorial column (max 680px body, headlines wider).
-// All chrome — nav, sticky CTA, theme tokens — comes from
-// <MLpSubpageShell>, which pulls from MLpNavStyles. Nothing nav-shaped
-// belongs in this file.
+// Content from Logo_AI_OurStory_v16.docx.
 
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -31,177 +23,219 @@ export default function OurStoryPage() {
     <MLpSubpageShell>
       <style dangerouslySetInnerHTML={{ __html: STYLES }} />
 
-      <main className="os-root">
+      <main>
         {/* ─── HERO ─────────────────────────────────────────────── */}
         <section className="os-hero">
-          <span className="os-eyebrow">Our Story</span>
-          <h1 className="os-h1">
-            Thirty years of building things.<br />
-            One problem that never got fixed.<br />
-            <span className="os-h1-accent">So we fixed it.</span>
-          </h1>
-        </section>
-
-        {/* ─── 1. THE PROBLEM ─────────────────────────────────── */}
-        <section className="os-section">
-          <span className="os-section-num">01 — The Problem</span>
-          <h2 className="os-h2">Every founder hits the same wall.</h2>
-          <div className="os-body">
-            <p>You have a business idea. You&rsquo;re ready to move. And then &mdash; the logo.</p>
-            <p>You have two options. Neither is good.</p>
-            <p>
-              You hire a designer. Three to six weeks. Rounds of revisions. A final result that might
-              be great, might be fine, might be neither &mdash; and you won&rsquo;t know until you&rsquo;ve
-              spent $5,000 to $20,000 to find out.
-            </p>
-            <p>
-              Or you use a DIY logo maker. Fast and cheap. But the output looks like it. The same 400
-              shapes, reshuffled into slightly different configurations. Your logo ends up looking
-              like ten thousand others &mdash; because it&rsquo;s made from the same parts.
-            </p>
-          </div>
-          <blockquote className="os-quote">
-            For thirty years, those were the only two options.<br />
-            Nobody fixed it. <span className="os-quote-accent">So we did.</span>
-          </blockquote>
-        </section>
-
-        {/* ─── 2. WHERE WE STARTED ──────────────────────────────── */}
-        <section className="os-section">
-          <span className="os-section-num">02 — Where We Started</span>
-          <h2 className="os-h2">Two brothers. Early internet.</h2>
-          <div className="os-body">
-            <p>
-              Flash-based e-greeting cards &mdash; among the first of their kind. Nobody told them it
-              would work. It became one of the most visited greeting platforms on the web.
-            </p>
-            <p>
-              They spent the next three decades building companies across media, education,
-              productivity, and e-commerce. Multiple exits. Billions of users. They also built AI
-              long before AI was a buzzword &mdash; chatbots, game opponents that adapted to how you
-              played, recommendation engines, algorithmic trading systems, early computer vision.
-            </p>
-            <p>
-              And through all of it, every company they built or backed ran into the same thing:
-              getting a logo was always slower, harder, and more expensive than it needed to be.
-            </p>
-            <p>
-              They kept a mental note. That note turned into a grudge. That grudge turned into
-              LOGO.AI.
-            </p>
-          </div>
-        </section>
-
-        {/* ─── 3. THE TURNING POINT ─────────────────────────────── */}
-        <section className="os-section">
-          <span className="os-section-num">03 — The Turning Point</span>
-          <h2 className="os-h2">Late 2023.</h2>
-          <div className="os-body">
-            <p>AI was writing code, generating photorealistic images, composing music.</p>
-            <p>
-              The founders asked the obvious question: why can&rsquo;t it design a professional logo?
-            </p>
-            <p>
-              They tried every tool they could find. All of them produced the same thing &mdash;
-              warped text, random symbols, no understanding of what a brand actually is. The problem
-              wasn&rsquo;t that AI couldn&rsquo;t do it. The problem was that nobody had taught it
-              properly. The tools were generating. They weren&rsquo;t designing.
-            </p>
-            <p>That was the unlock.</p>
-          </div>
-          <blockquote className="os-quote">
-            Stop trying to prompt AI into designing a logo.<br />
-            <span className="os-quote-accent">Start teaching it how design actually works.</span>
-          </blockquote>
-        </section>
-
-        {/* ─── 4. HOW WE BUILT IT ───────────────────────────────── */}
-        <section className="os-section">
-          <span className="os-section-num">04 — How We Built It</span>
-          <h2 className="os-h2">We trained the AI the way a design school trains a student.</h2>
-          <div className="os-body">
-            <p>
-              Color theory. Typography. Negative space. Visual hierarchy. The structural logic
-              behind logos that have stood for decades. Not a library of pre-made assets to remix.
-              Real design principles.
-            </p>
-            <p>
-              Our benchmark: a professional designer, shown the output blind, can&rsquo;t tell it
-              from human work. Not sometimes. Every time.
-            </p>
-            <p>We went back many times. Then one day, we stopped going back.</p>
-          </div>
-
-          <div className="os-stats" role="list">
-            <div className="os-stat" role="listitem">
-              <span className="os-stat-num">2.5 yrs</span>
-              <span className="os-stat-label">of R&amp;D</span>
-            </div>
-            <div className="os-stat" role="listitem">
-              <span className="os-stat-num">100,000+</span>
-              <span className="os-stat-label">logos analyzed</span>
-            </div>
-            <div className="os-stat" role="listitem">
-              <span className="os-stat-num">16 people</span>
-              <span className="os-stat-label">across 4 countries</span>
+          <div className="wrap">
+            <div className="sec-head">
+              <span className="eyebrow">Our Story</span>
+              <h1>
+                Thirty years of building things.<br />
+                One problem that never got fixed.<br />
+                <span className="muted">So we fixed it.</span>
+              </h1>
             </div>
           </div>
+        </section>
 
-          <div className="os-body">
-            <p>
-              The domain name &mdash; LOGO.AI &mdash; waited until the product deserved it. We
-              didn&rsquo;t buy it to look credible. We bought it after the product proved it had
-              earned the name.
-            </p>
+        <hr className="rule" />
+
+        {/* ─── 01. THE PROBLEM ───────────────────────────────────── */}
+        <section>
+          <div className="wrap">
+            <div className="sec-head">
+              <span className="eyebrow">01 — The Problem</span>
+              <h2>Every founder hits<br /><span className="muted">the same wall.</span></h2>
+            </div>
+            <div className="os-prose">
+              <p>You have a business idea. You&rsquo;re ready to move. And then &mdash; the logo.</p>
+              <p>You have two options. Neither is good.</p>
+              <p>
+                You hire a designer. Three to six weeks. Rounds of revisions. A final result that
+                might be great, might be fine, might be neither &mdash; and you won&rsquo;t know until
+                you&rsquo;ve spent $5,000 to $20,000 to find out.
+              </p>
+              <p>
+                Or you use a DIY logo maker. Fast and cheap. But the output looks like it. The same
+                400 shapes, reshuffled into slightly different configurations. Your logo ends up
+                looking like ten thousand others &mdash; because it&rsquo;s made from the same parts.
+              </p>
+              <p className="os-callout">
+                For thirty years, those were the only two options. Nobody fixed it. <strong>So we did.</strong>
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* ─── 5. WHERE WE ARE NOW ──────────────────────────────── */}
-        <section className="os-section">
-          <span className="os-section-num">05 — Where We Are Now</span>
-          <h2 className="os-h2">A logo in under 60 seconds. Designed from scratch. Every time.</h2>
-          <div className="os-body">
-            <p>
-              And the logo is just the start. We&rsquo;re building toward a world where your entire
-              brand identity &mdash; colors, typography, business cards, social assets &mdash; is
-              ready before your coffee gets cold.
-            </p>
+        <hr className="rule" />
+
+        {/* ─── 02. WHERE WE STARTED ──────────────────────────────── */}
+        <section>
+          <div className="wrap">
+            <div className="sec-head">
+              <span className="eyebrow">02 — Where We Started</span>
+              <h2>Two brothers.<br /><span className="muted">Early internet.</span></h2>
+            </div>
+            <div className="os-prose">
+              <p>
+                Flash-based e-greeting cards &mdash; among the first of their kind. Nobody told them
+                it would work. It became one of the most visited greeting platforms on the web.
+              </p>
+              <p>
+                They spent the next three decades building companies across media, education,
+                productivity, and e-commerce. Multiple exits. Billions of users. They also built AI
+                long before AI was a buzzword &mdash; chatbots, game opponents that adapted to how you
+                played, recommendation engines, algorithmic trading systems, early computer vision.
+              </p>
+              <p>
+                And through all of it, every company they built or backed ran into the same thing:
+                getting a logo was always slower, harder, and more expensive than it needed to be.
+              </p>
+              <p>
+                They kept a mental note. That note turned into a grudge. That grudge turned into
+                LOGO.AI.
+              </p>
+            </div>
           </div>
-          <p className="os-closer">
-            The problem took thirty years to fix.<br />
-            <span className="os-closer-accent">The fix takes sixty seconds to use.</span>
-          </p>
         </section>
+
+        <hr className="rule" />
+
+        {/* ─── 03. THE TURNING POINT ─────────────────────────────── */}
+        <section>
+          <div className="wrap">
+            <div className="sec-head">
+              <span className="eyebrow">03 — The Turning Point</span>
+              <h2>Late 2023.<br /><span className="muted">An obvious question.</span></h2>
+            </div>
+            <div className="os-prose">
+              <p>AI was writing code, generating photorealistic images, composing music.</p>
+              <p>
+                The founders asked the obvious question: why can&rsquo;t it design a professional
+                logo?
+              </p>
+              <p>
+                They tried every tool they could find. All of them produced the same thing &mdash;
+                warped text, random symbols, no understanding of what a brand actually is. The
+                problem wasn&rsquo;t that AI couldn&rsquo;t do it. The problem was that nobody had
+                taught it properly. The tools were generating. They weren&rsquo;t designing.
+              </p>
+              <p>That was the unlock.</p>
+              <p className="os-callout">
+                Stop trying to prompt AI into designing a logo. <strong>Start teaching it how design actually works.</strong>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <hr className="rule" />
+
+        {/* ─── 04. HOW WE BUILT IT ───────────────────────────────── */}
+        <section>
+          <div className="wrap">
+            <div className="sec-head">
+              <span className="eyebrow">04 — How We Built It</span>
+              <h2>We trained the AI<br /><span className="muted">like a design student.</span></h2>
+            </div>
+            <div className="os-prose">
+              <p>
+                Color theory. Typography. Negative space. Visual hierarchy. The structural logic
+                behind logos that have stood for decades. Not a library of pre-made assets to remix.
+                Real design principles.
+              </p>
+              <p>
+                Our benchmark: a professional designer, shown the output blind, can&rsquo;t tell it
+                from human work. Not sometimes. Every time.
+              </p>
+              <p>We went back many times. Then one day, we stopped going back.</p>
+            </div>
+
+            <div className="os-stats" role="list">
+              <div className="os-stat" role="listitem">
+                <strong>2.5 yrs</strong>
+                <span>of R&amp;D</span>
+              </div>
+              <div className="os-stat" role="listitem">
+                <strong>100,000+</strong>
+                <span>logos analyzed</span>
+              </div>
+              <div className="os-stat" role="listitem">
+                <strong>16 people</strong>
+                <span>across 4 countries</span>
+              </div>
+            </div>
+
+            <div className="os-prose">
+              <p>
+                The domain name &mdash; LOGO.AI &mdash; waited until the product deserved it. We
+                didn&rsquo;t buy it to look credible. We bought it after the product proved it had
+                earned the name.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <hr className="rule" />
+
+        {/* ─── 05. WHERE WE ARE NOW ──────────────────────────────── */}
+        <section>
+          <div className="wrap">
+            <div className="sec-head">
+              <span className="eyebrow">05 — Where We Are Now</span>
+              <h2>A logo in under 60 seconds.<br /><span className="muted">Designed from scratch. Every time.</span></h2>
+            </div>
+            <div className="os-prose">
+              <p>
+                And the logo is just the start. We&rsquo;re building toward a world where your entire
+                brand identity &mdash; colors, typography, business cards, social assets &mdash; is
+                ready before your coffee gets cold.
+              </p>
+              <p className="os-callout">
+                The problem took thirty years to fix. <strong>The fix takes sixty seconds to use.</strong>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <hr className="rule" />
 
         {/* ─── ALSO WORTH READING ───────────────────────────────── */}
-        <section className="os-also">
-          <span className="os-eyebrow">Also worth reading</span>
-          <ul className="os-also-list">
-            <li>
-              <Link href="/prelaunch#who-its-for">
-                <span className="os-arr">&rarr;</span> Meet the Team
-              </Link>
-            </li>
-            <li>
-              <Link href="/prelaunch">
-                <span className="os-arr">&rarr;</span> Why LOGO.AI
-              </Link>
-            </li>
-          </ul>
+        <section>
+          <div className="wrap">
+            <div className="sec-head">
+              <span className="eyebrow">Also worth reading</span>
+            </div>
+            <ul className="os-also-list">
+              <li>
+                <Link href="/prelaunch#who-its-for">
+                  Meet the Team <span className="os-arr">&rarr;</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/prelaunch">
+                  Why LOGO.AI <span className="os-arr">&rarr;</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
         </section>
 
-        {/* ─── FINAL CTA ────────────────────────────────────────── */}
-        <section className="os-cta">
-          <h2 className="os-cta-h2">Get a Professional Logo. Completely Free.</h2>
-          <p className="os-cta-lede">
-            Hundreds of thousands have already claimed theirs. Get yours before they&rsquo;re gone.
-          </p>
-          <MLpEmailForm variant="final" />
-          <p className="os-cta-fine">
-            <strong>No spam. No credit card. Just a free logo.</strong><br />
-            We&rsquo;ll email you the moment we go live so you can generate your free logo.
-          </p>
-          <MLpHeroCounter framing="remaining" tagline="Don't miss yours." />
+        <hr className="rule" />
+
+        {/* ─── FINAL CTA — same shape as the home page ───────────── */}
+        <section>
+          <div className="final-cta-simple">
+            <h2 className="final-h2-simple">Ready to Get Your Free Logo?</h2>
+            <p className="final-lede">
+              Hundreds of thousands have already claimed theirs. Get yours before they&rsquo;re gone.
+            </p>
+            <MLpEmailForm variant="final" />
+            <p className="fine final-fine-simple">
+              <strong>No spam. No credit card. Just a free logo.</strong><br />
+              We&rsquo;ll email you the moment we go live so you can generate your free logo.
+            </p>
+            <MLpHeroCounter framing="claimed" tagline="Don't miss yours." />
+          </div>
         </section>
       </main>
     </MLpSubpageShell>
@@ -209,111 +243,71 @@ export default function OurStoryPage() {
 }
 
 const STYLES = `
-  .os-root {
-    max-width: 760px;
-    margin: 0 auto;
-    padding: clamp(64px, 9vw, 120px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px);
-    color: #f4f4f6;
-  }
+  /* The shell + MLP_NAV_STYLES provides .wrap, sec-head, h1/h2, eyebrow,
+     lede, p, footer, etc. — same as the home page. This file only adds
+     the patterns that are UNIQUE to the Our Story narrative: prose
+     stack, callout, stats row, "also" list, and the Final CTA card. */
 
-  /* ── HERO ────────────────────────────────────────────────────── */
-  .os-hero {
-    text-align: center;
-    margin-bottom: clamp(72px, 11vw, 140px);
-  }
-  .os-eyebrow {
-    display: inline-block;
-    font-family: 'Outfit', sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #FF5C2E;
-    margin-bottom: 28px;
-  }
-  .os-h1 {
-    font-family: 'DM Serif Display', Georgia, serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: clamp(34px, 5.4vw, 56px);
-    line-height: 1.16;
-    letter-spacing: -0.015em;
-    color: #f4f4f6;
-    margin: 0 auto;
-    max-width: 22ch;
-  }
-  .os-h1-accent { color: #FF5C2E; }
+  /* Hero — slim down the top padding so the eyebrow + h1 read as the
+     page opener, not lost in a section gap. */
+  .os-hero { padding-top: clamp(64px, 9vw, 120px); padding-bottom: clamp(36px, 5vw, 60px); }
 
-  /* ── SECTIONS ────────────────────────────────────────────────── */
-  .os-section {
-    margin: clamp(64px, 9vw, 120px) auto;
-    max-width: 680px;
+  /* Long-form prose — slightly narrower than the default .lp-root p
+     max-width so the line length stays comfortably readable. */
+  .os-prose {
+    max-width: 660px;
+    margin: 0 auto;
+    text-align: left;
   }
-  .os-section-num {
-    display: inline-block;
-    font-family: 'Outfit', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: rgba(232, 232, 230, 0.45);
-    margin-bottom: 20px;
-  }
-  .os-h2 {
-    font-family: 'Sora', sans-serif;
-    font-weight: 800;
-    font-size: clamp(28px, 4.2vw, 40px);
-    line-height: 1.1;
-    letter-spacing: -0.025em;
-    color: #f4f4f6;
-    margin: 0 0 28px;
-    max-width: 22ch;
-  }
-  .os-body p {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(16px, 1.6vw, 18px);
-    line-height: 1.65;
-    color: rgba(232, 232, 230, 0.78);
+  .os-prose p {
     margin: 0 0 22px;
+    font-size: clamp(16px, 1.6vw, 18px);
+    line-height: 1.7;
+    color: rgba(232, 232, 230, 0.78);
+    max-width: none;
   }
 
-  /* ── PULL QUOTES ─────────────────────────────────────────────── */
-  .os-quote {
-    margin: clamp(36px, 5vw, 56px) 0 0;
-    padding: 24px 0 0;
-    border-top: 1.5px solid rgba(255, 92, 46, 0.30);
-    font-family: 'DM Serif Display', Georgia, serif;
-    font-style: italic;
-    font-size: clamp(22px, 3vw, 30px);
-    line-height: 1.25;
-    color: #f4f4f6;
-    letter-spacing: -0.01em;
+  /* Callout — emphasis line at the end of a section. Orange hairline
+     above, Sora 600. NOT italic, NOT serif. */
+  .os-prose .os-callout {
+    margin: 28px 0 0;
+    padding: 22px 0 0;
+    border-top: 1.5px solid rgba(255, 92, 46, 0.35);
+    font-family: 'Sora', sans-serif;
+    font-weight: 600;
+    font-size: clamp(20px, 2.4vw, 24px);
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: rgba(244, 244, 246, 0.82);
   }
-  .os-quote-accent { color: #FF5C2E; }
+  .os-prose .os-callout strong { color: #FF5C2E; font-weight: 700; }
 
-  /* ── STATS ROW ───────────────────────────────────────────────── */
+  /* Stats row — 3-col, orange Sora numbers, muted labels */
   .os-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin: clamp(40px, 6vw, 64px) 0;
+    gap: 32px;
+    margin: 56px auto;
+    max-width: 660px;
     padding: 32px 0;
     border-top: 1px solid rgba(232, 232, 230, 0.10);
     border-bottom: 1px solid rgba(232, 232, 230, 0.10);
+    text-align: left;
   }
   .os-stat {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
+    gap: 6px;
   }
-  .os-stat-num {
-    font-family: 'DM Serif Display', Georgia, serif;
-    font-size: clamp(22px, 3vw, 32px);
-    color: #FF5C2E;
+  .os-stat strong {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: clamp(22px, 2.8vw, 28px);
     line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: #FF5C2E;
   }
-  .os-stat-label {
+  .os-stat span {
     font-family: 'Outfit', sans-serif;
     font-size: 13px;
     font-weight: 500;
@@ -324,49 +318,39 @@ const STYLES = `
     .os-stats { grid-template-columns: 1fr; gap: 18px; padding: 24px 0; }
   }
 
-  /* ── CLOSER ──────────────────────────────────────────────────── */
-  .os-closer {
-    margin: clamp(36px, 5vw, 56px) 0 0;
-    font-family: 'DM Serif Display', Georgia, serif;
-    font-style: italic;
-    font-size: clamp(22px, 3vw, 30px);
-    line-height: 1.25;
-    color: #f4f4f6;
-    letter-spacing: -0.01em;
-  }
-  .os-closer-accent { color: #FF5C2E; }
-
-  /* ── ALSO WORTH READING ──────────────────────────────────────── */
-  .os-also {
-    margin: clamp(72px, 11vw, 140px) auto;
-    max-width: 680px;
-  }
+  /* "Also worth reading" list */
   .os-also-list {
     list-style: none;
-    margin: 18px 0 0;
+    margin: 0 auto;
     padding: 0;
+    max-width: 660px;
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
+    text-align: left;
   }
   .os-also-list a {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    font-family: 'DM Serif Display', Georgia, serif;
-    font-size: clamp(22px, 3vw, 28px);
+    gap: 14px;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: clamp(20px, 2.4vw, 26px);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
     color: #f4f4f6;
     text-decoration: none;
-    transition: color 0.15s ease, transform 0.2s ease;
+    transition: color .15s, transform .2s;
   }
   .os-also-list a:hover { color: #FF5C2E; transform: translateX(4px); }
   .os-arr { color: #FF5C2E; }
 
-  /* ── FINAL CTA ───────────────────────────────────────────────── */
-  .os-cta {
-    margin: clamp(72px, 11vw, 140px) auto 0;
-    max-width: 680px;
-    padding: clamp(48px, 7vw, 72px) clamp(20px, 4vw, 56px);
+  /* Final CTA card — copy of the home page's .final-cta-simple
+     treatment so the closing moment matches exactly. */
+  .final-cta-simple {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 72px 80px;
     border: 1.5px solid rgba(255, 92, 46, 0.30);
     border-radius: 24px;
     background:
@@ -374,27 +358,24 @@ const STYLES = `
       rgba(232, 232, 230, 0.03);
     text-align: center;
   }
-  .os-cta-h2 {
+  .final-h2-simple {
     font-family: 'Sora', sans-serif;
     font-weight: 800;
-    font-size: clamp(28px, 4.2vw, 40px);
-    line-height: 1.1;
+    font-size: clamp(34px, 5.4vw, 52px);
+    line-height: 1.08;
     letter-spacing: -0.025em;
     color: #f4f4f6;
     margin: 0 0 18px;
-    max-width: 18ch;
-    margin-left: auto;
-    margin-right: auto;
   }
-  .os-cta-lede {
+  .final-lede {
     font-family: 'Outfit', sans-serif;
     font-size: clamp(16px, 1.8vw, 18px);
     line-height: 1.55;
     color: rgba(232, 232, 230, 0.78);
     margin: 0 auto 28px;
-    max-width: 52ch;
+    max-width: 56ch;
   }
-  .os-cta-fine {
+  .final-cta-simple .fine {
     font-family: 'Outfit', sans-serif;
     font-size: 14px;
     line-height: 1.55;
@@ -402,6 +383,9 @@ const STYLES = `
     margin: 16px auto 0;
     max-width: 50ch;
   }
-  .os-cta-fine strong { color: #f4f4f6; font-weight: 600; }
-  .os-cta .hero-counter-block { margin-top: 28px; }
+  .final-cta-simple .fine strong { color: #f4f4f6; font-weight: 600; }
+  .final-cta-simple .hero-counter-block { margin-top: 28px; }
+  @media (max-width: 720px) {
+    .final-cta-simple { padding: 44px 24px; border-radius: 18px; }
+  }
 `

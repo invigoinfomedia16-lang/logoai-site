@@ -275,23 +275,217 @@ export const MLP_NAV_STYLES = `
     .lp-root .lp-mobile-panel { display: flex; }
   }
 
-  /* ── WORDMARK — Montserrat 900 with a square dot. ───────────────── */
-  .lp-root .lp-wm-custom {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    letter-spacing: -0.025em;
+  /* ── LAYOUT PRIMITIVES — same .wrap / section / .sec-head pattern
+     the home page uses. Subpages render their content using these
+     same class names so they share the rhythm. */
+  .lp-root .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+  .lp-root section { padding: 100px 0; text-align: center; }
+  @media (max-width: 720px) { .lp-root section { padding: 64px 0; } }
+  .lp-root .sec-head { margin-bottom: 48px; text-align: center; }
+  .lp-root .sec-head .eyebrow { margin-bottom: 22px; }
+  .lp-root .sec-head h2 { margin-top: 0; margin-left: auto; margin-right: auto; }
+  .lp-root .sec-head .lede { margin-top: 18px; }
+  .lp-root .rule {
+    height: 0; margin: 0; border: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  /* ── SHARED TYPOGRAPHY — same as the home page. Page-specific
+     content (hero, pricing, gallery, etc.) lives in /prelaunch/page.tsx,
+     but every page reads the same h1/h2/h3, eyebrow, lede, body
+     treatments from here. */
+  .lp-root h1, .lp-root h2, .lp-root h3 {
+    text-align: center;
+    margin-top: 0;
+  }
+  .lp-root h1 {
+    font-family: 'Sora', sans-serif;
+    font-weight: 800;
+    font-size: clamp(34px, 7.5vw, 72px);
+    line-height: 1.04;
+    letter-spacing: -0.03em;
     color: var(--text);
+  }
+  .lp-root h2 {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: clamp(30px, 4.6vw, 44px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+  .lp-root h3 {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 1.3;
+    letter-spacing: -0.005em;
+    color: var(--text);
+  }
+  .lp-root h1 .muted,
+  .lp-root h2 .muted,
+  .lp-root h3 .muted { color: rgba(232, 232, 230, 0.42); }
+
+  .lp-root .eyebrow {
+    display: inline-block;
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .lp-root .lede {
+    font-family: 'Outfit', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--text-2);
+    max-width: 60ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .lp-root .hero-lede {
+    font-family: 'Outfit', sans-serif;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--text-2);
+  }
+
+  .lp-root p {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 400;
+    color: var(--text-2);
+    max-width: 62ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .lp-root li { font-family: 'Outfit', sans-serif; font-weight: 400; }
+  .lp-root p strong { color: var(--text); font-weight: 600; }
+
+  /* ── FOOTER ──────────────────────────────────────────────────── */
+  .lp-root .lp-footer {
+    border-top: 1px solid var(--line);
+    background: var(--bg);
+    padding: 100px 0 32px;
+    color: var(--text-2);
+  }
+  .lp-root .lp-footer .wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    text-align: left;
+  }
+  .lp-root .lp-footer .footer-top {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding-bottom: 32px;
+  }
+  .lp-root .lp-footer .footer-top .brand {
+    font-family: 'Sora', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.015em;
+    color: #f4f4f6;
     display: inline-flex;
     align-items: center;
+    gap: 10px;
+  }
+  .lp-root .lp-footer .footer-top .tag {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    color: rgba(232, 232, 230, 0.55);
+    margin: 0;
+    line-height: 1.4;
+    max-width: none;
+  }
+  .lp-root .lp-footer .footer-cols {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px 32px;
+  }
+  @media (max-width: 880px) {
+    .lp-root .lp-footer .footer-cols { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 520px) {
+    .lp-root .lp-footer .footer-cols { grid-template-columns: 1fr; gap: 32px; }
+  }
+  .lp-root .lp-footer .footer-cols h5 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #f4f4f6;
+    text-transform: uppercase;
+    margin: 0 0 16px;
+  }
+  .lp-root .lp-footer .footer-cols ul { list-style: none; padding: 0; margin: 0; }
+  .lp-root .lp-footer .footer-cols li { margin-bottom: 10px; }
+  .lp-root .lp-footer .footer-cols a {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    color: rgba(232, 232, 230, 0.55);
+    line-height: 1.6;
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .lp-root .lp-footer .footer-cols a:hover { color: #f4f4f6; }
+  .lp-root .lp-footer .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-top: 8px;
+  }
+  .lp-root .lp-footer .footer-bottom .badges {
+    display: flex; flex-wrap: wrap; gap: 22px;
+    font-size: 12px;
+    color: rgba(232, 232, 230, 0.55);
+  }
+  .lp-root .lp-footer .footer-bottom .badges span {
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .lp-root .lp-footer .footer-bottom .badges span svg { color: var(--accent); }
+  .lp-root .lp-footer .footer-bottom .copy {
+    font-size: 12px;
+    color: rgba(232, 232, 230, 0.55);
+  }
+
+  /* ── WORDMARK — Montserrat 900 with a small square dot. ──────────
+     Sits at the text baseline, NOT vertically centered, so the dot
+     reads as part of the "LOGO•AI" wordmark rather than floating
+     mid-line. The .lp-brand-icon and the plain .wordmark fallback
+     text are hidden in this state. */
+  .lp-root .lp-brand-icon { display: none; }
+  .lp-root .lp-brand .wordmark,
+  .lp-root .lp-footer .brand .wordmark { display: none; }
+  .lp-root .lp-wm-custom {
+    display: inline-flex;
+    align-items: baseline;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.04em;
     line-height: 1;
     font-size: 24px;
+    color: var(--text);
   }
   .lp-root .lp-wm-dot {
     display: inline-block;
-    width: 0.2em;
-    height: 0.2em;
-    background: currentColor;
-    margin: 0 0.05em;
-    transform: translateY(0.05em);
+    width: 0.16em;
+    height: 0.16em;
+    margin: 0 0.04em;
+    vertical-align: baseline;
+    background: #FF5C2E;
   }
 `
