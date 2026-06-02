@@ -1582,7 +1582,9 @@ const STYLES = `
     color: var(--text-3);
     transition: color 0.15s;
   }
-  .lp-root .lp-mobile-section-btn:hover { color: var(--text); }
+  @media (hover: hover) {
+    .lp-root .lp-mobile-section-btn:hover { color: var(--text); }
+  }
   .lp-root .lp-mobile-section {
     color: inherit;
     font-family: var(--sans);
