@@ -23,6 +23,7 @@ import MLpLogo from './_components/MLpLogo'
 import MLpHeroCounter from './_components/MLpHeroCounter'
 import MLpCountdownBadge from './_components/MLpCountdownBadge'
 import MLpEmailForm from './_components/MLpEmailForm'
+import { MLP_NAV_STYLES } from './_components/MLpNavStyles'
 
 export const metadata: Metadata = {
   title: 'Free Logos for the First 2,000,000 Users — LOGO.AI',
@@ -30,8 +31,18 @@ export const metadata: Metadata = {
     "World's best AI logo generator. Free at launch. Join now to claim yours.",
 }
 
+// SINGLE SOURCE OF TRUTH for nav / dropdown / mobile-panel / wordmark /
+// theme tokens lives in MLpNavStyles.ts and is prepended to STYLES
+// below. Updates to that file automatically lift every prelaunch page
+// (main + subpages via MLpSubpageShell) — do NOT duplicate any nav
+// rule down here. Theme tokens are also defined in MLpNavStyles; the
+// .lp-root block below is page-specific overrides only.
 const STYLES = `
-  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&family=Sora:wght@400;600;700;800&family=Outfit:wght@400;500;600;700&family=Montserrat:wght@900&display=swap');
+  ${MLP_NAV_STYLES}
+
+  /* Page-specific extras below — anything NOT covered by MLP_NAV_STYLES.
+     Local tokens are still defined to preserve any page-only adjustments;
+     they cascade after the shared module so they win on the main page. */
 
   .lp-root {
     --bg:           var(--lp-bg, #0a0a0c);
