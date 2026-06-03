@@ -239,15 +239,14 @@ const STYLES = `
   }
   .lpg-seeall:hover { color: #FF5C2E; }
 
-  /* "Show N more logos" — primary load-more action. Pill with subtle
-     elevated bg + hairline border so it reads as a button. */
+  /* "Show N more logos" — outlined pill (border only, no bg fill). */
   .lpg-morebtn {
     align-self: center;
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(232, 232, 230, 0.04);
-    border: 1px solid rgba(232, 232, 230, 0.14);
+    background: transparent;
+    border: 1px solid rgba(232, 232, 230, 0.18);
     padding: 10px 20px 10px 22px;
     border-radius: 999px;
     color: #f4f4f6;
@@ -256,11 +255,10 @@ const STYLES = `
     font-weight: 500;
     cursor: pointer;
     text-decoration: none;
-    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    transition: border-color 0.15s ease, color 0.15s ease;
   }
   .lpg-morebtn:hover {
-    background: rgba(255, 92, 46, 0.06);
-    border-color: rgba(255, 92, 46, 0.45);
+    border-color: rgba(255, 92, 46, 0.55);
     color: #FF5C2E;
   }
 
@@ -364,12 +362,20 @@ const STYLES = `
     transition: all 0.15s ease;
     white-space: nowrap;
   }
-  .lpg-subpill:hover { color: #FF5C2E; border-color: rgba(255, 92, 46, 0.55); }
+  /* Hierarchy with the main category pill above:
+       Main pill active = SOLID orange fill + white text (primary).
+       Sub pill active = OUTLINE + tinted bg (secondary — quieter).
+     Hover state (orange border, transparent bg) stays distinguishable
+     from active (orange border + tint bg + bold). */
+  .lpg-subpill:hover {
+    color: #FF5C2E;
+    border-color: rgba(255, 92, 46, 0.55);
+  }
   .lpg-subpill.is-active {
-    color: #a855f7;
-    border-color: #a855f7;
-    background: transparent;
-    font-weight: 600;
+    background: rgba(255, 92, 46, 0.10);
+    border-color: #FF5C2E;
+    color: #FF5C2E;
+    font-weight: 700;
   }
 
   .lpg-grid {

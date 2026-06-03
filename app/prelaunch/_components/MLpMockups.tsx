@@ -142,18 +142,20 @@ export default function MLpMockups() {
             style={{ opacity: i === slide ? 1 : 0, zIndex: i === slide ? 1 : 0 }}
           />
         ))}
+      </div>
 
-        <div className="lpm-dots" aria-hidden>
-          {images.map((_, i) => (
-            <button
-              key={i}
-              type="button"
-              className={`lpm-dot${i === slide ? ' is-active' : ''}`}
-              onClick={() => setSlide(i)}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
-        </div>
+      {/* Dots live BELOW the carousel image, not overlaid on it.
+          Smaller + no backdrop pill — bare on the page bg. */}
+      <div className="lpm-dots" aria-hidden>
+        {images.map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            className={`lpm-dot${i === slide ? ' is-active' : ''}`}
+            onClick={() => setSlide(i)}
+            aria-label={`Go to slide ${i + 1}`}
+          />
+        ))}
       </div>
     </div>
   )
@@ -316,12 +318,20 @@ const STYLES = `
     transition: all 0.15s ease;
     white-space: nowrap;
   }
-  .lpm-subpill:hover { color: #FF5C2E; border-color: rgba(255, 92, 46, 0.55); }
+  /* Hierarchy with the main category pill above:
+       Main pill active = SOLID orange fill + white text (primary).
+       Sub pill active = OUTLINE + tinted bg (secondary — quieter).
+     Hover (orange border, transparent bg) stays distinguishable from
+     active (orange border + tint bg + bold). */
+  .lpm-subpill:hover {
+    color: #FF5C2E;
+    border-color: rgba(255, 92, 46, 0.55);
+  }
   .lpm-subpill.is-active {
-    color: #a855f7;
-    border-color: #a855f7;
-    background: transparent;
-    font-weight: 600;
+    background: rgba(255, 92, 46, 0.10);
+    border-color: #FF5C2E;
+    color: #FF5C2E;
+    font-weight: 700;
   }
 
   .lpm-frame {
@@ -339,34 +349,34 @@ const STYLES = `
     transition: opacity 0.7s ease;
   }
 
+  /* Dots sit BELOW the carousel frame in an outlined pill container —
+     same treatment as the "Show N more logos" button so both UI
+     affordances feel like part of one system. */
   .lpm-dots {
-    position: absolute;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
     gap: 8px;
-    z-index: 2;
-    padding: 8px 12px;
-    background: rgba(10, 10, 12, 0.55);
+    margin: 18px auto 0;
+    padding: 8px 14px;
+    background: transparent;
+    border: 1px solid rgba(232, 232, 230, 0.18);
     border-radius: 999px;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
   }
   .lpm-dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     padding: 0;
     border-radius: 50%;
     border: 0;
-    background: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.25);
     cursor: pointer;
     transition: background 0.2s, transform 0.2s, width 0.3s;
   }
-  .lpm-dot:hover { background: rgba(255, 255, 255, 0.65); }
+  .lpm-dot:hover { background: rgba(255, 255, 255, 0.55); }
   .lpm-dot.is-active {
     background: #FF5C2E;
-    width: 22px;
+    width: 16px;
     border-radius: 999px;
   }
 

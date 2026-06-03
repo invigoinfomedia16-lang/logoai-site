@@ -2427,7 +2427,6 @@ export default function PrelaunchLanding() {
           </div>
         </header>
 
-        <hr className="rule" />
 
         {/* ============ 2. GALLERY ============ */}
         <section id="gallery">
@@ -2441,7 +2440,6 @@ export default function PrelaunchLanding() {
           </div>
         </section>
 
-        <hr className="rule" />
 
         {/* ============ 3. MOCKUPS ============ */}
         <section id="mockups">
@@ -2455,7 +2453,6 @@ export default function PrelaunchLanding() {
           </div>
         </section>
 
-        <hr className="rule" />
 
         {/* ============ 4. HOW IT WORKS ============ */}
         <section id="how-it-works">
@@ -2478,7 +2475,6 @@ export default function PrelaunchLanding() {
           </div>
         </section>
 
-        <hr className="rule" />
 
         {/* ============ 5. TESTIMONIALS ============ */}
         <section>
@@ -2515,7 +2511,6 @@ export default function PrelaunchLanding() {
           </div>
         </section>
 
-        <hr className="rule" />
 
         {/* ============ 6. USE CASES ============ */}
         <section>
@@ -2529,7 +2524,6 @@ export default function PrelaunchLanding() {
           </div>
         </section>
 
-        <hr className="rule" />
 
         {/* ============ 7. PRICING ============ */}
         <section>
@@ -2568,7 +2562,6 @@ export default function PrelaunchLanding() {
           </div>
         </section>
 
-        <hr className="rule" />
 
         {/* ============ 8. COMPARE ============ */}
         <section>
@@ -2604,7 +2597,6 @@ export default function PrelaunchLanding() {
           </div>
         </section>
 
-        <hr className="rule" />
 
         {/* ============ 9. FAQ ============ */}
         <section id="faq">
@@ -2625,7 +2617,6 @@ export default function PrelaunchLanding() {
           </div>
         </section>
 
-        <hr className="rule" />
 
         {/* ============ 10. BLOG ============ */}
         <section id="blog">
@@ -2654,7 +2645,6 @@ export default function PrelaunchLanding() {
           </div>
         </section>
 
-        <hr className="rule" />
 
         {/* ============ 11. FINAL CTA ============ */}
         <section id="final-cta">

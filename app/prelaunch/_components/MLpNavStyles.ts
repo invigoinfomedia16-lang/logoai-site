@@ -285,6 +285,7 @@ export const MLP_NAV_STYLES = `
   }
   .lp-root section { padding: 100px 0; text-align: center; }
   @media (max-width: 720px) { .lp-root section { padding: 64px 0; } }
+
   .lp-root .sec-head { margin-bottom: 48px; text-align: center; }
   .lp-root .sec-head .eyebrow { margin-bottom: 22px; }
   .lp-root .sec-head h2 { margin-top: 0; margin-left: auto; margin-right: auto; }
