@@ -31,7 +31,7 @@ export const MLP_NAV_STYLES = `
     --bg-elev:      rgba(232, 232, 230, 0.05);
     --bg-elev-2:    rgba(232, 232, 230, 0.08);
     --line:         rgba(232, 232, 230, 0.10);
-    --text:         #f4f4f6;
+    --text:         #E8E8E6;
     --text-2:       #b8b8c4;
     --text-3:       #7e7e8c;
     --accent:       #FF5C2E;
@@ -397,7 +397,7 @@ export const MLP_NAV_STYLES = `
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.015em;
-    color: #f4f4f6;
+    color: var(--text);
     display: inline-flex;
     align-items: center;
     gap: 10px;
@@ -426,7 +426,7 @@ export const MLP_NAV_STYLES = `
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.18em;
-    color: #f4f4f6;
+    color: var(--text);
     text-transform: uppercase;
     margin: 0 0 16px;
   }
@@ -479,7 +479,7 @@ export const MLP_NAV_STYLES = `
     letter-spacing: -0.04em;
     line-height: 1;
     font-size: 24px;
-    color: var(--text);
+    color: #E8E8E6;
   }
   .lp-root .lp-wm-dot {
     display: inline-block;

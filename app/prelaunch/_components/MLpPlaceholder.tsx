@@ -63,7 +63,7 @@ const STYLES = `
     font-weight: 800;
     line-height: 1.04;
     letter-spacing: -0.03em;
-    color: #f4f4f6;
+    color: var(--text);
     margin: 0 0 28px;
   }
   .lp-placeholder-h1 .muted { color: rgba(244, 244, 246, 0.42); }

@@ -221,7 +221,7 @@ const STYLES = `
     height: 0.85em;
     width: auto;
     display: block;
-    color: #f4f4f6;
+    color: var(--text);
   }
   /* Footer brand sits at 26px (vs nav's 24px from MLpNavStyles). */
   .lp-root.is-figma-type .lp-footer .brand { font-size: 26px; gap: 0; }
@@ -256,7 +256,7 @@ const STYLES = `
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #f4f4f6;
+    color: var(--text);
     background: transparent;
     border: 0;
     padding: 0;
@@ -301,7 +301,7 @@ const STYLES = `
     font-weight: 700;
     line-height: 1.3;
     letter-spacing: -0.005em;
-    color: #f4f4f6;
+    color: var(--text);
     margin: 0;
   }
   /* Description always visible — non-collapsible. */
@@ -384,7 +384,7 @@ const STYLES = `
     font-weight: 800;
     line-height: 0.95;
     letter-spacing: -0.04em;
-    color: #f4f4f6;
+    color: var(--text);
   }
   .lp-root.is-figma-type .pricing-sub {
     font-family: 'Outfit', sans-serif;
@@ -486,7 +486,7 @@ const STYLES = `
     padding-top: 4px;
   }
   .lp-root.is-figma-type .pricing-list li strong {
-    color: #f4f4f6;
+    color: var(--text);
     font-weight: 600;
   }
   /* Tablet / mobile — collapse to single column. The .pricing-left and
@@ -537,7 +537,7 @@ const STYLES = `
     font-weight: 600;
     line-height: 1.3;
     letter-spacing: -0.01em;
-    color: #f4f4f6;
+    color: var(--text);
     margin: 0 0 24px;
     max-width: 32ch;
     order: 1;
@@ -574,7 +574,7 @@ const STYLES = `
   }
   .lp-root.is-figma-type .testimonial-feature cite strong {
     font-family: 'Sora', sans-serif;
-    color: #f4f4f6;
+    color: var(--text);
     font-weight: 700;
     font-size: 16px;
     display: block;
@@ -630,7 +630,7 @@ const STYLES = `
     font-weight: 700;
     line-height: 1.3;
     letter-spacing: -0.005em;
-    color: #f4f4f6;
+    color: var(--text);
     margin: 0;
   }
   .lp-root.is-figma-type .testimonial blockquote::before {
@@ -662,7 +662,7 @@ const STYLES = `
   }
   .lp-root.is-figma-type .testimonial cite strong {
     font-family: 'Sora', sans-serif;
-    color: #f4f4f6;
+    color: var(--text);
     font-weight: 700;
     font-size: 14px;
     display: block;
@@ -744,7 +744,7 @@ const STYLES = `
     font-weight: 700;
     line-height: 1.3;
     letter-spacing: -0.005em;
-    color: #f4f4f6;
+    color: var(--text);
     text-align: center;
     margin: 0 0 10px;
   }
@@ -852,7 +852,7 @@ const STYLES = `
     text-align: center;
   }
   .lp-root.is-figma-type .compare tbody td:first-child {
-    color: #f4f4f6;
+    color: var(--text);
     font-weight: 500;
     text-align: left;
   }
@@ -860,7 +860,7 @@ const STYLES = `
     background: rgba(255, 92, 46, 0.06);
     border-left: 1.5px solid rgba(255, 92, 46, 0.45);
     border-right: 1.5px solid rgba(255, 92, 46, 0.45);
-    color: #f4f4f6;
+    color: var(--text);
     font-weight: 600;
   }
   .lp-root.is-figma-type .compare tbody tr:last-child td { border-bottom: 0; }
@@ -922,12 +922,12 @@ const STYLES = `
     align-items: center;
     gap: 10px;
     background: transparent;
-    border: 0;
-    color: rgba(232, 232, 230, 0.65);
-    padding: 0;
-    border-radius: 0;
+    border: 1px solid rgba(232, 232, 230, 0.18);
+    color: rgba(232, 232, 230, 0.75);
+    padding: 8px 18px;
+    border-radius: 999px;
     font-family: 'Outfit', sans-serif;
-    font-size: 14.5px;
+    font-size: 14px;
     font-weight: 500;
     letter-spacing: 0;
     text-transform: none;
@@ -960,7 +960,7 @@ const STYLES = `
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    max-width: 520px;
+    max-width: 360px;
     margin: 0 auto;
   }
   /* Hero context: give the counter block breathing room after the
@@ -1081,7 +1081,7 @@ const STYLES = `
     font-weight: 700;
     font-size: 17px;
     line-height: 1.35;
-    color: #f4f4f6;
+    color: var(--text);
     padding: 20px 0;
     gap: 18px;
   }
@@ -1153,7 +1153,7 @@ const STYLES = `
     font-weight: 700;
     line-height: 1.22;
     letter-spacing: -0.015em;
-    color: #f4f4f6;
+    color: var(--text);
     margin: 0 0 12px;
   }
   .lp-root.is-figma-type .blog-card:first-child .blog-body p {
@@ -1196,7 +1196,7 @@ const STYLES = `
     font-weight: 700;
     line-height: 1.3;
     letter-spacing: -0.005em;
-    color: #f4f4f6;
+    color: var(--text);
     margin: 0 0 6px;
   }
   .lp-root.is-figma-type .blog-card:not(:first-child) .blog-body p {

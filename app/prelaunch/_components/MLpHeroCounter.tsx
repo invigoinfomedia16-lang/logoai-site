@@ -40,7 +40,7 @@ export default function MLpHeroCounter({
     <div className="hero-counter-block">
       <style dangerouslySetInnerHTML={{ __html: COUNTER_STYLES }} />
       <p className="hero-counter-main">
-        <strong>{count.toLocaleString()}</strong> of 2,000,000 {label}
+        <strong>{count.toLocaleString('en-US')}</strong> of 2,000,000 {label}
       </p>
       <div
         className="hero-progress"
@@ -63,7 +63,7 @@ const COUNTER_STYLES = `
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    max-width: 520px;
+    max-width: 360px;
     margin: 0 auto;
   }
   .hero-counter-main {

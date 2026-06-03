@@ -109,7 +109,7 @@ const FORM_STYLES = `
        near-black) and reads as an interactive surface. */
     background: rgba(232, 232, 230, 0.04);
     border: 1px solid rgba(232, 232, 230, 0.14);
-    color: #f4f4f6;
+    color: var(--text);
     padding: 15px 22px;
     border-radius: 999px;
     font-family: 'DM Sans', system-ui, sans-serif;
@@ -189,7 +189,7 @@ const SUCCESS_STYLES = `
     font-family: var(--sans, 'DM Sans', system-ui, sans-serif);
   }
   .lp-form-success-text strong {
-    color: var(--text, #f4f4f6);
+    color: var(--text, var(--text));
     font-weight: 600;
     font-size: 16px;
     line-height: 1.3;

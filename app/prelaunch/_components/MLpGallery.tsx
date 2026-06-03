@@ -200,7 +200,7 @@ const STYLES = `
     width: 100%;
     background: #141418;
     border: 1px solid #2a2a32;
-    color: #f4f4f6;
+    color: var(--text);
     padding: 12px 16px 12px 44px;
     border-radius: 999px;
     font-family: var(--sans, 'DM Sans', system-ui, sans-serif);
@@ -249,7 +249,7 @@ const STYLES = `
     border: 1px solid rgba(232, 232, 230, 0.18);
     padding: 10px 20px 10px 22px;
     border-radius: 999px;
-    color: #f4f4f6;
+    color: var(--text);
     font-family: 'Outfit', sans-serif;
     font-size: 13.5px;
     font-weight: 500;
