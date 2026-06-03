@@ -588,12 +588,15 @@ const STYLES = `
     order: 4;
   }
 
-  /* Regular testimonials — strip card chrome, ruled 2-col grid */
+  /* Regular testimonials — strip card chrome, ruled 2-col grid.
+     Container now has both top AND bottom borders to close the grid
+     as a contained block (was open at the bottom previously). */
   .lp-root.is-figma-type .testimonials {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0;
     border-top: 1px solid rgba(232, 232, 230, 0.10);
+    border-bottom: 1px solid rgba(232, 232, 230, 0.10);
     margin-top: 48px;
   }
   .lp-root.is-figma-type .testimonial {
@@ -608,6 +611,8 @@ const STYLES = `
   .lp-root.is-figma-type .testimonial:nth-child(even) {
     border-left: 1px solid rgba(232, 232, 230, 0.10);
   }
+  /* Last row has no internal border — the container's border-bottom
+     closes the grid instead, so there's no double-line at the edge. */
   .lp-root.is-figma-type .testimonial:nth-last-child(-n+2) { border-bottom: 0; }
   .lp-root.is-figma-type .testimonial:hover {
     background: rgba(232, 232, 230, 0.025);
