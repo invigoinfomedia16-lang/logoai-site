@@ -1,16 +1,10 @@
-// Our Story — long-form editorial. Adapted from logoai-our-story-redesign
-// reference HTML; ported into the prelaunch site's MLp visual system
-// (Sora display, Outfit body, orange accents). Follows the subpage
-// rules at the top of MLpSubpageShell.tsx.
+// Our Story — minimalist editorial with a timeline spine.
+// Year markers (1995 → Late 2023 → 2024 → Now) are the dominant
+// visual structure; everything else is typography + whitespace.
+// No cards, no boxes, no pull-quote chrome — just prose carried by
+// air and a single orange-accent resolution line per chapter.
 //
-// Visual moments (in order):
-//   Hero    — h1 + lede + tagline beat ("So we fixed it.")
-//   01      — Two-option comparison cards (Designer vs DIY)
-//   02      — Origin prose + "30 years" big-number callout
-//   03      — Turning point prose + full-bleed quiet pull-quote
-//   04      — Built-it prose + stat row + chronological timeline
-//   Closer  — Editorial closing h2 with orange accent words
-//   CTA     — Same .final-cta-simple block as the home page
+// Content sourced from Logo_AI_OurStory_v16.docx.
 
 import type { Metadata } from 'next'
 import MLpSubpageShell from '../_components/MLpSubpageShell'
@@ -28,247 +22,166 @@ export default function OurStoryPage() {
     <MLpSubpageShell>
       <style dangerouslySetInnerHTML={{ __html: STYLES }} />
 
-      <main>
+      <main className="os">
         {/* ─── HERO ─────────────────────────────────────────────── */}
         <section className="os-hero">
-          <div className="wrap">
-            <div className="sec-head">
-              <h1>Our Story</h1>
-              <p className="lede">
-                Thirty years of building things. One problem that never got fixed.
-              </p>
-              <div className="os-hero-tag">So we fixed it.</div>
-            </div>
-          </div>
-        </section>
-
-        {/* ─── 01. THE PROBLEM ───────────────────────────────────── */}
-        <section>
-          <div className="wrap">
-            <div className="sec-head">
-              <span className="eyebrow">01 — The Problem</span>
-              <h2>Every founder hits the same wall.</h2>
-              <p className="lede">
-                You have a business idea. You&rsquo;re ready to move. And then &mdash; <strong>the logo.</strong>
-              </p>
-            </div>
-
-            <div className="os-prose">
-              <p>You have two options. Neither is good.</p>
-            </div>
-
-            {/* Two-option comparison cards */}
-            <div className="os-options">
-              <article className="os-opt">
-                <span className="os-opt-tag">Option A</span>
-                <h3>Hire a designer.</h3>
-                <p>
-                  A final result that might be great, might be fine, might be neither &mdash; and you
-                  won&rsquo;t know until you&rsquo;ve spent the money to find out.
-                </p>
-                <dl className="os-opt-meta">
-                  <div>
-                    <dt>3–6 weeks</dt>
-                    <dd>Timeline</dd>
-                  </div>
-                  <div>
-                    <dt>$5K–$20K</dt>
-                    <dd>Cost</dd>
-                  </div>
-                  <div>
-                    <dt>Maybe</dt>
-                    <dd>Outcome</dd>
-                  </div>
-                </dl>
-              </article>
-
-              <article className="os-opt">
-                <span className="os-opt-tag">Option B</span>
-                <h3>Use a DIY maker.</h3>
-                <p>
-                  Fast and cheap. But the output looks like it. The same 400 shapes, reshuffled.
-                  Your logo ends up looking like <strong>ten thousand others</strong>.
-                </p>
-                <dl className="os-opt-meta">
-                  <div>
-                    <dt>Minutes</dt>
-                    <dd>Timeline</dd>
-                  </div>
-                  <div>
-                    <dt>$0–$50</dt>
-                    <dd>Cost</dd>
-                  </div>
-                  <div>
-                    <dt>Generic</dt>
-                    <dd>Outcome</dd>
-                  </div>
-                </dl>
-              </article>
-            </div>
-
-            <p className="os-pq-inline">
-              For thirty years, those were the only two options. Nobody fixed it. <strong>So we did.</strong>
+          <div className="os-col">
+            <span className="os-kicker">Our Story</span>
+            <h1 className="os-display">
+              Thirty years of<br />
+              building things.
+            </h1>
+            <p className="os-display os-display-soft">
+              One problem that<br />
+              never got fixed.
             </p>
+            <p className="os-display os-display-accent">So we fixed it.</p>
           </div>
         </section>
 
-        {/* ─── 02. ORIGIN ───────────────────────────────────────── */}
-        <section>
-          <div className="wrap">
-            <div className="sec-head">
-              <span className="eyebrow">02 — Origin</span>
-              <h2>Two brothers. Early internet.</h2>
-              <p className="lede">
+        {/* ─── THE PROBLEM (no year — present-day setup) ────────── */}
+        <section className="os-chapter">
+          <div className="os-col">
+            <span className="os-marker os-marker-tag">The Problem</span>
+            <h2 className="os-title">Every founder hits the same wall.</h2>
+            <div className="os-prose">
+              <p>You have a business idea. You&rsquo;re ready to move. And then &mdash; the logo.</p>
+              <p>You have two options. Neither is good.</p>
+              <p>
+                You hire a designer. Three to six weeks. Rounds of revisions. A final result that
+                might be great, might be fine, might be neither &mdash; and you won&rsquo;t know
+                until you&rsquo;ve spent $5,000 to $20,000 to find out.
+              </p>
+              <p>
+                Or you use a DIY logo maker. Fast and cheap. But the output looks like it. The same
+                400 shapes, reshuffled into slightly different configurations. Your logo ends up
+                looking like ten thousand others &mdash; because it&rsquo;s made from the same parts.
+              </p>
+              <p className="os-resolution">
+                For thirty years, those were the only two options. Nobody fixed it. So we did.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── 1995 ─────────────────────────────────────────────── */}
+        <section className="os-chapter">
+          <div className="os-col">
+            <span className="os-marker">1995</span>
+            <h2 className="os-title">Two brothers. Early internet.</h2>
+            <div className="os-prose">
+              <p>
                 Flash-based e-greeting cards &mdash; among the first of their kind. Nobody told them
                 it would work. It became one of the most visited greeting platforms on the web.
               </p>
-            </div>
-
-            <div className="os-prose">
               <p>
                 They spent the next three decades building companies across media, education,
-                productivity, and e-commerce. Multiple exits. Billions of users.
-              </p>
-              <p>
-                They also built AI long before AI was a buzzword &mdash; <strong>chatbots, game
-                opponents that adapted to how you played, recommendation engines, algorithmic
-                trading systems, early computer vision.</strong>
+                productivity, and e-commerce. Multiple exits. Billions of users. They also built AI
+                long before AI was a buzzword &mdash; chatbots, game opponents that adapted to how
+                you played, recommendation engines, algorithmic trading systems, early computer
+                vision.
               </p>
               <p>
                 And through all of it, every company they built or backed ran into the same thing:
-                <strong> getting a logo was always slower, harder, and more expensive than it needed
-                to be.</strong>
+                getting a logo was always slower, harder, and more expensive than it needed to be.
               </p>
-            </div>
-
-            {/* Big-number callout — replaces a plain prose moment */}
-            <div className="os-pq-stat">
-              <div className="os-pq-stat-big">30</div>
-              <div className="os-pq-stat-text">
-                They kept a mental note.<br />
-                That note turned into a grudge.<br />
-                That grudge turned into <strong>LOGO.AI</strong>.
-              </div>
+              <p className="os-resolution">
+                They kept a mental note. That note turned into a grudge. That grudge turned into
+                LOGO.AI.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* ─── 03. THE TURNING POINT ────────────────────────────── */}
-        <section>
-          <div className="wrap">
-            <div className="sec-head">
-              <span className="eyebrow">03 — The Turning Point</span>
-              <h2>Late 2023. The obvious question.</h2>
-              <p className="lede">
-                AI was writing code, generating photorealistic images, composing music.
-              </p>
-            </div>
-
+        {/* ─── LATE 2023 ────────────────────────────────────────── */}
+        <section className="os-chapter">
+          <div className="os-col">
+            <span className="os-marker">Late 2023</span>
+            <h2 className="os-title">The obvious question.</h2>
             <div className="os-prose">
+              <p>AI was writing code, generating photorealistic images, composing music.</p>
               <p>
-                The founders asked the obvious question:{' '}
-                <strong>why can&rsquo;t it design a professional logo?</strong>
+                The founders asked the obvious question: why can&rsquo;t it design a professional
+                logo?
               </p>
               <p>
                 They tried every tool they could find. All of them produced the same thing &mdash;
                 warped text, random symbols, no understanding of what a brand actually is. The
-                problem wasn&rsquo;t that AI couldn&rsquo;t do it.{' '}
-                <strong>The problem was that nobody had taught it properly.</strong>
+                problem wasn&rsquo;t that AI couldn&rsquo;t do it. The problem was that nobody had
+                taught it properly. The tools were generating. They weren&rsquo;t designing.
               </p>
-              <p>The tools were generating. They weren&rsquo;t designing.</p>
+              <p>That was the unlock.</p>
+              <p className="os-resolution">
+                Stop trying to prompt AI into designing a logo. Start teaching it how design
+                actually works.
+              </p>
             </div>
-
-            {/* Full-bleed quiet pull-quote */}
-            <blockquote className="os-pq-bleed">
-              Stop trying to prompt AI into designing a logo.<br />
-              <span className="os-pq-bleed-accent">Start teaching it how design actually works.</span>
-            </blockquote>
           </div>
         </section>
 
-        {/* ─── 04. HOW WE BUILT IT ──────────────────────────────── */}
-        <section>
-          <div className="wrap">
-            <div className="sec-head">
-              <span className="eyebrow">04 — How We Built It</span>
-              <h2>We trained the AI like a design student.</h2>
-              <p className="lede">
-                <strong>Color theory. Typography. Negative space.</strong> Visual hierarchy. The
-                structural logic behind logos that have stood for decades. Not a library of
-                pre-made assets to remix. <strong>Real design principles.</strong>
-              </p>
-            </div>
-
+        {/* ─── 2024 ─────────────────────────────────────────────── */}
+        <section className="os-chapter">
+          <div className="os-col">
+            <span className="os-marker">2024</span>
+            <h2 className="os-title">We trained the AI like a design student.</h2>
             <div className="os-prose">
               <p>
+                Color theory. Typography. Negative space. Visual hierarchy. The structural logic
+                behind logos that have stood for decades. Not a library of pre-made assets to remix.
+                Real design principles.
+              </p>
+              <p>
                 Our benchmark: a professional designer, shown the output blind, can&rsquo;t tell it
-                from human work. Not sometimes. <strong>Every time.</strong>
+                from human work. Not sometimes. Every time.
               </p>
               <p>We went back many times. Then one day, we stopped going back.</p>
             </div>
 
-            {/* Heavier stats with sub-labels */}
-            <div className="os-stats" role="list">
-              <div className="os-stat" role="listitem">
-                <div className="os-stat-num">2.5 <span>yrs</span></div>
-                <div className="os-stat-label">Of R&amp;D</div>
-                <div className="os-stat-sub">From first prompt to production-ready.</div>
-              </div>
-              <div className="os-stat" role="listitem">
-                <div className="os-stat-num">100 <span>k+</span></div>
-                <div className="os-stat-label">Logos Analyzed</div>
-                <div className="os-stat-sub">Encoded into design principles.</div>
-              </div>
-              <div className="os-stat" role="listitem">
-                <div className="os-stat-num">16</div>
-                <div className="os-stat-label">People · 4 Countries</div>
-                <div className="os-stat-sub">Designers, engineers, researchers.</div>
-              </div>
-            </div>
+            {/* Stats — inline text row, no boxes */}
+            <p className="os-inline-stats">
+              <span><strong>2.5 yrs</strong> of R&amp;D</span>
+              <span className="os-dot">·</span>
+              <span><strong>100,000+</strong> logos analyzed</span>
+              <span className="os-dot">·</span>
+              <span><strong>16 people</strong> across 4 countries</span>
+            </p>
 
-            {/* Chronological timeline */}
-            <div className="os-timeline">
-              <div className="os-tl-row">
-                <div className="os-tl-year">Late 2023</div>
-                <div>
-                  <div className="os-tl-title">The question was asked.</div>
-                  <p className="os-tl-body">AI was everywhere. No one was teaching it design.</p>
-                </div>
-              </div>
-              <div className="os-tl-row">
-                <div className="os-tl-year">2024</div>
-                <div>
-                  <div className="os-tl-title">Deep R&amp;D begins.</div>
-                  <p className="os-tl-body">100,000+ logos analyzed. Design principles encoded. Benchmark set.</p>
-                </div>
-              </div>
-              <div className="os-tl-row">
-                <div className="os-tl-year">2025</div>
-                <div>
-                  <div className="os-tl-title">The product earns the name.</div>
-                  <p className="os-tl-body">LOGO.AI &mdash; the domain waited until the product deserved it.</p>
-                </div>
-              </div>
-              <div className="os-tl-row">
-                <div className="os-tl-year">Now</div>
-                <div>
-                  <div className="os-tl-title">60 seconds. Every time.</div>
-                  <p className="os-tl-body">A professional logo, designed from scratch. Free at launch.</p>
-                </div>
-              </div>
+            <div className="os-prose">
+              <p>
+                The domain name &mdash; LOGO.AI &mdash; waited until the product deserved it. We
+                didn&rsquo;t buy it to look credible. We bought it after the product proved it had
+                earned the name.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* ─── CLOSER — editorial closing moment ─────────────────── */}
+        {/* ─── NOW ──────────────────────────────────────────────── */}
+        <section className="os-chapter">
+          <div className="os-col">
+            <span className="os-marker">Now</span>
+            <h2 className="os-title">A logo in under 60 seconds. Every time.</h2>
+            <div className="os-prose">
+              <p>
+                And the logo is just the start. We&rsquo;re building toward a world where your
+                entire brand identity &mdash; colors, typography, business cards, social assets
+                &mdash; is ready before your coffee gets cold.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── CLOSER — editorial closing statement ─────────────── */}
         <section className="os-closer">
-          <div className="wrap">
-            <h2>
+          <div className="os-col">
+            <p className="os-display">
               The problem took<br />
-              <span className="os-closer-accent">thirty years</span> to fix.<br />
+              <span className="os-display-accent-inline">thirty years</span> to fix.
+            </p>
+            <p className="os-display os-display-soft">
               The fix takes<br />
-              <span className="os-closer-accent">sixty seconds</span> to use.
-            </h2>
+              <span className="os-display-accent-inline">sixty seconds</span> to use.
+            </p>
           </div>
         </section>
 
@@ -292,298 +205,157 @@ export default function OurStoryPage() {
   )
 }
 
-/* ────────────────────────────────────────────────────────────────────
-   Page-only CSS. Theme tokens, layout primitives (.wrap, .sec-head,
-   .eyebrow, h1/h2/h3, .lede, body p), footer + nav, AND the email
-   form + counter chrome all come from MLpSubpageShell / MLpNavStyles
-   / MLpEmailForm / MLpHeroCounter. This block only adds the patterns
-   that are unique to the Our Story narrative.
-   ──────────────────────────────────────────────────────────────────── */
 const STYLES = `
-  /* ── Hero: tight top, accent tag line under the lede ───────────── */
-  .os-hero { padding-top: clamp(72px, 10vw, 120px); padding-bottom: clamp(56px, 7vw, 88px); }
-  .os-hero-tag {
-    margin-top: 24px;
-    font-family: 'Sora', sans-serif;
-    font-weight: 700;
-    font-size: clamp(20px, 2.4vw, 26px);
-    line-height: 1.2;
-    letter-spacing: -0.015em;
-    color: #FF5C2E;
-  }
+  /* ── ROOT — the whole page is one centered editorial column ─── */
+  .os { padding: 0; }
 
-  /* ── Long-form prose stack ─────────────────────────────────────── */
-  .os-prose {
+  /* Override the shared section { text-align: center } only for the
+     editorial chapters — the kicker, marker, and h2 are still centered,
+     but long-form prose reads left-aligned for readability. */
+  .os .os-col {
     max-width: 720px;
     margin: 0 auto;
-    text-align: left;
+    padding: 0 clamp(20px, 4vw, 48px);
+    text-align: center;
   }
-  .os-prose p {
-    margin: 0 0 22px;
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(16px, 1.6vw, 18px);
-    line-height: 1.7;
-    color: rgba(232, 232, 230, 0.78);
-    max-width: none;
-  }
-  .os-prose p strong { color: #f4f4f6; font-weight: 600; }
 
-  /* ── 01: TWO-OPTION COMPARISON CARDS ───────────────────────────── */
-  .os-options {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    max-width: 960px;
-    margin: 40px auto 0;
-    text-align: left;
+  /* ── HERO ──────────────────────────────────────────────────────
+     Three-beat hero. Each line is its own display paragraph so the
+     reader pauses between them. Last line picks up the orange
+     "resolution" accent. */
+  .os-hero {
+    padding: clamp(96px, 14vw, 180px) 0 clamp(72px, 10vw, 120px);
   }
-  .os-opt {
-    padding: 32px;
-    border: 1px solid rgba(232, 232, 230, 0.10);
-    border-radius: 18px;
-    background: rgba(232, 232, 230, 0.03);
-    transition: border-color .2s, transform .2s;
-  }
-  .os-opt:hover {
-    border-color: rgba(255, 92, 46, 0.30);
-    transform: translateY(-2px);
-  }
-  .os-opt-tag {
+  .os-kicker {
     display: inline-block;
     font-family: 'Outfit', sans-serif;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: #FF5C2E;
-    margin-bottom: 14px;
+    color: rgba(232, 232, 230, 0.55);
+    margin-bottom: 36px;
   }
-  .os-opt h3 {
-    font-family: 'Sora', sans-serif;
-    font-weight: 700;
-    font-size: clamp(20px, 2.4vw, 24px);
-    line-height: 1.2;
-    letter-spacing: -0.015em;
-    color: #f4f4f6;
-    margin: 0 0 14px;
-    text-align: left;
-  }
-  .os-opt p {
-    font-family: 'Outfit', sans-serif;
-    font-size: 15.5px;
-    line-height: 1.6;
-    color: rgba(232, 232, 230, 0.72);
-    margin: 0 0 22px;
-    max-width: none;
-  }
-  .os-opt p strong { color: #f4f4f6; font-weight: 600; }
-  .os-opt-meta {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(232, 232, 230, 0.10);
-    margin: 0;
-  }
-  .os-opt-meta div { display: flex; flex-direction: column; gap: 2px; }
-  .os-opt-meta dt {
-    font-family: 'Sora', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    color: #f4f4f6;
-    letter-spacing: -0.01em;
-  }
-  .os-opt-meta dd {
-    font-family: 'Outfit', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(232, 232, 230, 0.45);
-    margin: 0;
-  }
-  @media (max-width: 720px) {
-    .os-options { grid-template-columns: 1fr; gap: 16px; }
-    .os-opt { padding: 24px; }
-  }
-
-  /* ── INLINE PULL-QUOTE (01 closer) ─────────────────────────────── */
-  .os-pq-inline {
-    margin: 56px auto 0;
-    max-width: 720px;
-    padding: 28px 0 0;
-    border-top: 1.5px solid rgba(255, 92, 46, 0.35);
-    font-family: 'Sora', sans-serif;
-    font-weight: 600;
-    font-size: clamp(20px, 2.6vw, 26px);
-    line-height: 1.35;
-    letter-spacing: -0.015em;
-    color: rgba(244, 244, 246, 0.82);
-    text-align: left;
-  }
-  .os-pq-inline strong { color: #FF5C2E; font-weight: 700; }
-
-  /* ── BIG-NUMBER PULL-QUOTE (02) ────────────────────────────────── */
-  .os-pq-stat {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 32px;
-    align-items: center;
-    max-width: 720px;
-    margin: 56px auto 0;
-    padding: 32px;
-    border: 1px solid rgba(255, 92, 46, 0.30);
-    border-radius: 20px;
-    background:
-      radial-gradient(ellipse at top left, rgba(255, 92, 46, 0.08) 0%, rgba(255, 92, 46, 0) 70%),
-      rgba(232, 232, 230, 0.03);
-    text-align: left;
-  }
-  .os-pq-stat-big {
+  .os-display {
     font-family: 'Sora', sans-serif;
     font-weight: 800;
-    font-size: clamp(72px, 9vw, 120px);
-    line-height: 0.9;
-    letter-spacing: -0.05em;
-    color: #FF5C2E;
+    font-size: clamp(36px, 6.5vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: #f4f4f6;
+    margin: 0 0 24px;
+    max-width: 18ch;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .os-pq-stat-text {
-    font-family: 'Outfit', sans-serif;
-    font-size: clamp(15px, 1.6vw, 17px);
-    line-height: 1.55;
-    color: rgba(232, 232, 230, 0.75);
-  }
-  .os-pq-stat-text strong { color: #f4f4f6; font-weight: 600; }
-  @media (max-width: 560px) {
-    .os-pq-stat { grid-template-columns: 1fr; gap: 16px; padding: 24px; text-align: center; }
-    .os-pq-stat-big { text-align: center; }
+  .os-display-soft { color: rgba(232, 232, 230, 0.55); }
+  .os-display-accent { color: #FF5C2E; margin-bottom: 0; }
+  .os-display-accent-inline { color: #FF5C2E; }
+
+  /* ── CHAPTER (year + title + prose) ─────────────────────────── */
+  .os-chapter {
+    padding: clamp(80px, 11vw, 140px) 0;
   }
 
-  /* ── FULL-BLEED QUIET PULL-QUOTE (03) ──────────────────────────── */
-  .os-pq-bleed {
-    margin: 56px auto 0;
-    max-width: 800px;
-    padding: 40px 32px;
-    text-align: center;
-    font-family: 'Sora', sans-serif;
-    font-weight: 700;
-    font-size: clamp(22px, 3vw, 32px);
-    line-height: 1.25;
-    letter-spacing: -0.02em;
-    color: rgba(244, 244, 246, 0.78);
-    border-top: 1px solid rgba(232, 232, 230, 0.10);
-    border-bottom: 1px solid rgba(232, 232, 230, 0.10);
-  }
-  .os-pq-bleed-accent { color: #FF5C2E; }
-
-  /* ── STATS ROW (04) — heavier with sub-labels ──────────────────── */
-  .os-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    max-width: 960px;
-    margin: 64px auto 0;
-    padding: 40px 0;
-    border-top: 1px solid rgba(232, 232, 230, 0.10);
-    border-bottom: 1px solid rgba(232, 232, 230, 0.10);
-    text-align: left;
-  }
-  .os-stat { display: flex; flex-direction: column; gap: 6px; }
-  .os-stat-num {
+  /* The marker is the year (or a label like "The Problem"). It's
+     the visual entry point for each chapter — large, uppercase,
+     orange. A hairline below ties it to the chapter title. */
+  .os-marker {
+    display: inline-block;
     font-family: 'Sora', sans-serif;
     font-weight: 800;
     font-size: clamp(36px, 5vw, 56px);
     line-height: 1;
     letter-spacing: -0.025em;
     color: #FF5C2E;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 92, 46, 0.30);
   }
-  .os-stat-num span {
-    font-size: 0.45em;
-    font-weight: 600;
-    letter-spacing: 0;
-    margin-left: 4px;
-    color: rgba(255, 92, 46, 0.75);
-  }
-  .os-stat-label {
-    font-family: 'Outfit', sans-serif;
+  /* Non-year tags (like "The Problem") read at a smaller scale so
+     they don't compete with the actual year markers below. */
+  .os-marker-tag {
+    font-size: clamp(13px, 1.4vw, 15px);
     font-weight: 700;
-    font-size: 11px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #f4f4f6;
-    margin-top: 8px;
-  }
-  .os-stat-sub {
-    font-family: 'Outfit', sans-serif;
-    font-size: 13.5px;
-    line-height: 1.5;
-    color: rgba(232, 232, 230, 0.55);
-    margin-top: 4px;
-  }
-  @media (max-width: 720px) {
-    .os-stats { grid-template-columns: 1fr; gap: 24px; padding: 32px 0; }
+    padding-bottom: 14px;
   }
 
-  /* ── TIMELINE (04) ────────────────────────────────────────────── */
-  .os-timeline {
-    max-width: 760px;
-    margin: 56px auto 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    text-align: left;
-  }
-  .os-tl-row {
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 24px;
-    padding: 24px 0;
-    border-top: 1px solid rgba(232, 232, 230, 0.10);
-  }
-  .os-tl-row:last-child { border-bottom: 1px solid rgba(232, 232, 230, 0.10); }
-  .os-tl-year {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 700;
-    font-size: 12px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: #FF5C2E;
-    padding-top: 2px;
-  }
-  .os-tl-title {
+  .os-title {
     font-family: 'Sora', sans-serif;
     font-weight: 700;
-    font-size: clamp(18px, 2vw, 20px);
-    line-height: 1.3;
-    letter-spacing: -0.015em;
+    font-size: clamp(28px, 3.8vw, 38px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
     color: #f4f4f6;
-    margin-bottom: 4px;
+    margin: 0 0 36px;
+    max-width: 22ch;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .os-tl-body {
+
+  /* ── PROSE — left-aligned, comfortable measure ──────────────── */
+  .os-prose { text-align: left; }
+  .os-prose p {
     font-family: 'Outfit', sans-serif;
-    font-size: 14.5px;
-    line-height: 1.55;
-    color: rgba(232, 232, 230, 0.65);
-    margin: 0;
+    font-size: clamp(16px, 1.6vw, 18px);
+    font-weight: 400;
+    line-height: 1.75;
+    color: rgba(232, 232, 230, 0.78);
+    margin: 0 0 28px;
     max-width: none;
   }
-  @media (max-width: 560px) {
-    .os-tl-row { grid-template-columns: 1fr; gap: 8px; }
+  .os-prose p:last-child { margin-bottom: 0; }
+
+  /* Resolution line — the orange accent at the end of each
+     chapter that lands the beat. Slightly bolder, slightly bigger,
+     and tinted orange. */
+  .os-prose .os-resolution {
+    color: #f4f4f6;
+    font-weight: 500;
+    font-size: clamp(17px, 1.8vw, 19px);
+    line-height: 1.55;
+    margin-top: 36px;
+  }
+  .os-prose .os-resolution::first-letter { /* no special treatment */ }
+  /* Resolution highlights — last sentence inside the resolution
+     paragraph gets the orange tint via a span wrap (kept simple
+     here: whole line stays muted-white, since pulling out the last
+     sentence would require markup hacks. The visual weight comes
+     from size + leading + spacing). */
+
+  /* ── INLINE STATS ROW ──────────────────────────────────────── */
+  .os-inline-stats {
+    margin: 56px 0;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(15px, 1.5vw, 17px);
+    color: rgba(232, 232, 230, 0.62);
+    line-height: 1.6;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    gap: 8px 14px;
+    max-width: none;
+  }
+  .os-inline-stats strong {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    color: #FF5C2E;
+    letter-spacing: -0.01em;
+  }
+  .os-inline-stats .os-dot {
+    color: rgba(232, 232, 230, 0.30);
+    font-weight: 400;
   }
 
-  /* ── CLOSER — editorial closing h2 ─────────────────────────────── */
-  .os-closer { padding: clamp(72px, 10vw, 120px) 0; }
-  .os-closer h2 {
-    font-family: 'Sora', sans-serif;
-    font-weight: 800;
-    font-size: clamp(34px, 5.4vw, 56px);
-    line-height: 1.1;
-    letter-spacing: -0.025em;
-    color: #f4f4f6;
-    max-width: 18ch;
-    margin: 0 auto;
+  /* ── CLOSER ────────────────────────────────────────────────── */
+  .os-closer {
+    padding: clamp(100px, 14vw, 180px) 0 clamp(80px, 12vw, 140px);
   }
-  .os-closer-accent { color: #FF5C2E; }
+  .os-closer .os-display { margin-bottom: 24px; }
+  .os-closer .os-display:last-child { margin-bottom: 0; }
 
   /* ── FINAL CTA card — copy of the home page's .final-cta-simple ── */
   .final-cta-simple {
