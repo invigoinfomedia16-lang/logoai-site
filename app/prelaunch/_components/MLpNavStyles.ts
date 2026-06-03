@@ -22,10 +22,8 @@ export const MLP_NAV_STYLES = `
   @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&family=Sora:wght@400;600;700;800&family=Outfit:wght@400;500;600;700&family=Montserrat:wght@900&display=swap');
 
   /* ── THEME TOKENS ─────────────────────────────────────────────────
-     The prelaunch site is locked to a single palette (Custom +
-     Figma orange). The .is-figma / .is-figma-type modifier classes
-     are kept on the wrapper for historical CSS specificity reasons
-     but are always present — no longer a toggle. */
+     The prelaunch site is locked to a single palette (dark bg + orange
+     accents). Rules below apply directly to .lp-root. */
   .lp-root {
     --bg:           #09090b;
     --bg-elev:      rgba(232, 232, 230, 0.05);
@@ -53,8 +51,8 @@ export const MLP_NAV_STYLES = `
   }
   .lp-root *, .lp-root *::before, .lp-root *::after { box-sizing: border-box; }
   .lp-root ::selection { background: var(--accent); color: #fff; }
-  .lp-root.is-figma .lp-sticky-cta-btn { background: #E8420D; }
-  .lp-root.is-figma .lp-sticky-cta-btn:hover { background: #FF5C2E; }
+  .lp-root.lp-sticky-cta-btn { background: #E8420D; }
+  .lp-root.lp-sticky-cta-btn:hover { background: #FF5C2E; }
 
   /* ── NAV ──────────────────────────────────────────────────────── */
   .lp-root .lp-nav {

@@ -98,7 +98,7 @@ import { MLP_NAV_STYLES } from './MLpNavStyles'
 
 export default function MLpSubpageShell({ children }: { children: ReactNode }) {
   return (
-    <div className="lp-root is-figma is-figma-type">
+    <div className="lp-root">
       <style dangerouslySetInnerHTML={{ __html: MLP_NAV_STYLES }} />
       <MLpNav />
       {children}
