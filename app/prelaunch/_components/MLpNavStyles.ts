@@ -89,7 +89,7 @@ export const MLP_NAV_STYLES = `
     transition: color .2s;
     white-space: nowrap;
   }
-  .lp-root .lp-nav-links a:hover { color: var(--text); }
+  .lp-root .lp-nav-links a:hover { color: var(--accent); }
 
   /* ── NAV TYPOGRAPHY ─────────────────────────────────────────────
      One rule covers both desktop nav links AND the mobile hamburger
@@ -131,7 +131,7 @@ export const MLP_NAV_STYLES = `
     display: inline-flex; align-items: center; gap: 6px;
     transition: color .2s;
   }
-  .lp-root .lp-dropdown:hover > button { color: var(--text); }
+  .lp-root .lp-dropdown:hover > button { color: var(--accent); }
   .lp-root .lp-dropdown > button .chev { display: inline-flex; transition: transform .2s; }
   .lp-root .lp-dropdown:hover > button .chev { transform: rotate(180deg); }
   .lp-root .lp-dropdown-menu {
@@ -157,7 +157,7 @@ export const MLP_NAV_STYLES = `
     display: block; padding: 8px 18px;
     color: var(--text-2);
   }
-  .lp-root .lp-dropdown-menu a:hover { color: var(--text); }
+  .lp-root .lp-dropdown-menu a:hover { color: var(--accent); }
 
   /* ── CTA PILL ──────────────────────────────────────────────────── */
   .lp-root .lp-cta-pill {
@@ -439,7 +439,7 @@ export const MLP_NAV_STYLES = `
     text-decoration: none;
     transition: color .2s;
   }
-  .lp-root .lp-footer .footer-cols a:hover { color: #f4f4f6; }
+  .lp-root .lp-footer .footer-cols a:hover { color: var(--accent); }
   .lp-root .lp-footer .footer-bottom {
     display: flex;
     flex-wrap: wrap;

@@ -41,54 +41,9 @@ const STYLES = `
   ${MLP_NAV_STYLES}
 
   /* Page-specific extras below — anything NOT covered by MLP_NAV_STYLES.
-     Local tokens are still defined to preserve any page-only adjustments;
-     they cascade after the shared module so they win on the main page. */
+     Theme tokens (--bg, --accent, etc.), the box-sizing reset, and
+     ::selection live in MLpNavStyles. Don't redefine them here. */
 
-  .lp-root {
-    --bg:           var(--lp-bg, #0a0a0c);
-    --bg-elev:      #141418;
-    --bg-elev-2:    #1c1c22;
-    --line:         #2a2a32;
-    --text:         #f4f4f6;
-    --text-2:       #b8b8c4;
-    --text-3:       #7e7e8c;
-    --accent:       #a855f7;
-    --accent-deep:  #7c3aed;
-    --accent-2:     #c084fc;
-    --accent-soft:  rgba(168, 85, 247, 0.12);
-    --serif:        'DM Serif Display', Georgia, serif;
-    --sans:         'DM Sans', system-ui, sans-serif;
-    --maxw:         1180px;
-    --gutter:       clamp(20px, 4vw, 48px);
-
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    font-size: 16px;
-    line-height: 1.65;
-    -webkit-font-smoothing: antialiased;
-  }
-  .lp-root *, .lp-root *::before, .lp-root *::after { box-sizing: border-box; }
-  .lp-root ::selection { background: var(--accent); color: #fff; }
-
-  /* FIGMA THEME — flips palette to logo.ai Figma file colors:
-     #09090b page bg, #E8420D primary CTA, #FF5C2E accent. Flat fills
-     only — no hero glow/shadow port. .is-figma is now hard-coded on the
-     .lp-root wrapper (the theme toggle that used to flip it has been
-     removed — the prelaunch site ships this palette permanently). */
-  .lp-root.is-figma {
-    --bg:           #09090b;
-    /* Elevated surfaces in Figma are translucent Desert-Storm overlays
-       on the dark bg, not flat greys. Mirrors the countdown blocks /
-       step cards in the Figma file (color/grey/91-5% + 10% border). */
-    --bg-elev:      rgba(232, 232, 230, 0.05);
-    --bg-elev-2:    rgba(232, 232, 230, 0.08);
-    --line:         rgba(232, 232, 230, 0.10);
-    --accent:       #FF5C2E;
-    --accent-deep:  #E8420D;
-    --accent-2:     #FF5C2E;
-    --accent-soft:  rgba(232, 66, 13, 0.10);
-  }
   /* Sub-component hardcoded purple → orange (MLpGallery, MLpMockups,
      MLpStickyCTA all live inside .lp-root). */
   .lp-root.is-figma .lpg-pill.is-active,
@@ -249,24 +204,11 @@ const STYLES = `
     letter-spacing: -0.015em;
   }
 
-  /* Wordmark — Montserrat 900 with a small squared dot, orange tint.
-     .is-figma-type is now permanent, so this is the only wordmark
-     style rendered; the .is-figma-type scoping is kept as-is to avoid
-     a wide CSS rename. .lp-brand-icon and the plain .wordmark text
-     inside the nav/footer brand blocks are hidden in this state. */
-  .lp-root .lp-wm-custom { display: none; }
-  .lp-root.is-figma-type .lp-brand-icon { display: none; }
-  .lp-root.is-figma-type .lp-brand .wordmark,
-  .lp-root.is-figma-type .lp-footer .brand .wordmark { display: none; }
-  .lp-root.is-figma-type .lp-wm-custom {
-    display: inline-flex;
-    align-items: baseline;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    letter-spacing: -0.04em;
-    line-height: 1;
-    color: #f4f4f6;
-  }
+  /* Wordmark Montserrat 900 + dot + brand-icon hide + nav typography
+     all live in MLpNavStyles. Below: only page.tsx-specific tweaks. */
+
+  /* .lp-wm-o squared O variants — unique sizing for Group A logos.
+     Not in MLpNavStyles since it's a wordmark-mode-specific glyph. */
   .lp-root.is-figma-type .lp-wm-custom .lp-wm-o {
     display: inline-block;
     width: 0.6em;
@@ -274,74 +216,20 @@ const STYLES = `
     margin: 0 -0.01em;
     vertical-align: baseline;
   }
-  .lp-root.is-figma-type .lp-wm-custom .lp-wm-dot {
-    display: inline-block;
-    width: 0.16em;
-    height: 0.16em;
-    margin: 0 0.04em;
-    vertical-align: baseline;
-    background: #FF5C2E;
-  }
-  /* Group 3 nested-line variants — single full-width SVG. ViewBox is
-     ~431 × 108 (≈ 4:1 aspect). Height pegged near the letter cap-
-     height of the A/D/E variants so the nested wordmark reads at a
-     similar visual scale, not 2× larger. */
+  /* Group 3 nested-line wordmark variants — single full-width SVG. */
   .lp-root.is-figma-type .lp-wm-custom .lp-wm-nested {
     height: 0.85em;
     width: auto;
     display: block;
     color: #f4f4f6;
   }
-  /* Custom-mode brand sizing — nav and footer use the same wordmark
-     scale established in the original .lp-brand size. */
-  .lp-root.is-figma-type .lp-brand { font-size: 24px; gap: 0; }
+  /* Footer brand sits at 26px (vs nav's 24px from MLpNavStyles). */
   .lp-root.is-figma-type .lp-footer .brand { font-size: 26px; gap: 0; }
-  /* Nav links + Browse Logos dropdown button — ALL CAPS with light
-     tracking. CTA pill stays in title case (per user direction) so
-     it reads as an action rather than nav furniture. */
-  .lp-root.is-figma-type .lp-nav-links,
-  .lp-root.is-figma-type .lp-nav-links a,
-  .lp-root.is-figma-type .lp-dropdown > button {
-    font-family: 'Outfit', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-  /* But the items INSIDE a dropdown menu (Company → About Us etc.)
-     are children of .lp-nav-links via the dropdown markup, so they'd
-     inherit the ALL-CAPS treatment by default. Override back to
-     sentence case + slightly larger so they read as menu items
-     rather than a second row of nav-level headers. Same rule on the
-     mobile hamburger accordion sublinks. */
-  .lp-root.is-figma-type .lp-dropdown-menu a,
-  .lp-root.is-figma-type .lp-mobile-sublink {
-    font-family: 'Outfit', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    text-transform: none;
-    letter-spacing: normal;
-  }
-  /* Mobile hamburger panel — keep the same ALL CAPS casing as desktop
-     so the nav doesn't flip between sentence-case and uppercase when
-     the viewport crosses the breakpoint. Font-size stays at the
-     mobile-tap-target 16px; only the typographic treatment matches. */
-  .lp-root.is-figma-type .lp-mobile-link,
-  .lp-root.is-figma-type .lp-mobile-section {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-  /* Top nav uses the base layout — brand pinned to the left of the
-     1440px content band, links flex-centered between (via base
-     .lp-nav-links flex:1 + justify-content:center), CTA on the
-     right. No Custom-mode overrides needed here; only the uppercase
-     typography for the link text. */
-  /* Browse Logos dropdown menu — the default --bg-elev in Custom mode
-     is a 5% Desert-Storm overlay (too see-through for a floating
-     panel). Switch to a near-solid dark + backdrop blur so the menu
-     reads cleanly over any scrolling content. */
+
+  /* Polished dropdown bg — the MLpNavStyles default uses --bg-elev
+     (5% Desert Storm overlay, slightly see-through). On the main
+     page the dropdown floats over scrolling content; bump to a more
+     solid dark + backdrop blur so it reads cleanly. */
   .lp-root.is-figma-type .lp-dropdown-menu {
     background: rgba(20, 20, 24, 0.96);
     backdrop-filter: blur(14px);
@@ -1027,19 +915,19 @@ const STYLES = `
   .lp-root.is-figma-type .hero-urgency {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     background: transparent;
     border: 0;
-    color: rgba(232, 232, 230, 0.55);
+    color: rgba(232, 232, 230, 0.65);
     padding: 0;
     border-radius: 0;
     font-family: 'Outfit', sans-serif;
-    font-size: 13px;
-    font-weight: 400;
+    font-size: 14.5px;
+    font-weight: 500;
     letter-spacing: 0;
     text-transform: none;
     line-height: 1;
-    margin: 0 auto 20px;
+    margin: 0 auto 32px;
     font-variant-numeric: tabular-nums;
   }
   /* Live pulsing dot — reused by the countdown badge */
@@ -1069,6 +957,13 @@ const STYLES = `
     gap: 10px;
     max-width: 520px;
     margin: 0 auto;
+  }
+  /* Hero context: give the counter block breathing room after the
+     fine print so it reads as its own "live momentum" moment, not as
+     a trailing footer to the email-form copy. The final-CTA card has
+     its own 36px rule lower down — keep that path untouched. */
+  .lp-root.is-figma-type .form-card .hero-counter-block {
+    margin-top: 36px;
   }
   .lp-root.is-figma-type .hero-counter-main {
     font-family: 'Outfit', sans-serif;
@@ -1358,103 +1253,8 @@ const STYLES = `
     }
   }
 
-  /* ── CUSTOM: TOP NAV — Figma-style edge-to-edge bar ────────────────
-     Matches the Figma file's nav: solid #09090b background, edge-to-
-     edge, hairline border underneath. Sticks to top on scroll
-     (inherited from base) — no condense behavior. */
-  .lp-root.is-figma-type .lp-nav {
-    background: var(--bg);
-    border-bottom: 1px solid rgba(232, 232, 230, 0.10);
-  }
-
-  /* ── CUSTOM: FOOTER — brand strip on top + 4-col link grid below ───
-     Top strip: brand wordmark + tagline aligned horizontally. Below:
-     8 link sections flow as a 4-col grid (2 rows). No empty masthead
-     column — every region carries weight. */
-  .lp-root.is-figma-type .lp-footer .wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 48px;
-  }
-  .lp-root.is-figma-type .lp-footer .footer-top {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 0;
-    padding-bottom: 32px;
-  }
-  .lp-root.is-figma-type .lp-footer .footer-top .brand {
-    font-family: 'Sora', sans-serif;
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.015em;
-    color: #f4f4f6;
-    gap: 10px;
-  }
-  /* The .lp-brand-icon is hidden in Custom mode, so no SVG sizing
-     override is needed here — the .lp-wm-o SVGs inside .lp-wm-custom
-     size themselves via em-relative width/height. */
-  .lp-root.is-figma-type .lp-footer .footer-top .tag {
-    font-family: 'Outfit', sans-serif;
-    font-size: 14px;
-    color: rgba(232, 232, 230, 0.55);
-    margin: 0;
-    line-height: 1.4;
-    max-width: none;
-  }
-  .lp-root.is-figma-type .lp-footer .footer-cols {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px 32px;
-    margin-bottom: 0;
-  }
-  .lp-root.is-figma-type .lp-footer .footer-cols h5 {
-    font-family: 'Outfit', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    color: #f4f4f6;
-    text-transform: uppercase;
-    margin: 0 0 16px;
-  }
-  .lp-root.is-figma-type .lp-footer .footer-cols a {
-    font-family: 'Outfit', sans-serif;
-    font-size: 14px;
-    color: rgba(232, 232, 230, 0.55);
-    line-height: 1.6;
-  }
-  .lp-root.is-figma-type .lp-footer .footer-cols a:hover { color: #f4f4f6; }
-  .lp-root.is-figma-type .lp-footer .footer-cols li { margin-bottom: 10px; }
-  .lp-root.is-figma-type .lp-footer .footer-bottom {
-    border-top: 0;
-    padding-top: 8px;
-  }
-  /* Tablet — link grid drops to 2 cols, brand strip wraps gracefully */
-  @media (max-width: 880px) {
-    .lp-root.is-figma-type .lp-footer .footer-cols {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media (max-width: 520px) {
-    .lp-root.is-figma-type .lp-footer .footer-cols {
-      grid-template-columns: 1fr;
-      gap: 32px;
-    }
-  }
-
-  /* Hero/final email-form CTA is intentionally NOT overridden — it
-     inherits the same sizing/font as the Figma color toggle (per user
-     request: "hero CTA same as Figma toggle"). Only the smaller pills
-     pick up Outfit so nav text stays consistent with body. */
-  .lp-root.is-figma-type .lp-cta-pill,
-  .lp-root.is-figma-type .lp-mobile-cta,
-  .lp-root.is-figma-type .lp-sticky-cta-btn {
-    font-family: 'Outfit', sans-serif;
-    font-size: 14.08px;
-    font-weight: 600;
-    line-height: 21.12px;
-  }
+  /* TOP NAV background / FOOTER grid + typography / nav-pill sizing —
+     all duplicates of MLpNavStyles. Stripped. */
   /* Mobile h2 clamp — h1 base clamp already handles the hero across
      all viewports (the old h1 override here was broken — its 76.8px
      max made mobile bigger than desktop). */
@@ -1462,207 +1262,8 @@ const STYLES = `
     .lp-root.is-figma-type h2 { font-size: clamp(28px, 7vw, 41.6px); }
   }
 
-  /* NAV — sticky, opaque. MSharedHeader is skipped on this exact path
-     by MSharedHeader.tsx, so this is the only nav rendered. */
-  .lp-root .lp-nav {
-    position: sticky; top: 0; z-index: 50;
-    background: var(--bg);
-    border-bottom: 1px solid var(--line);
-  }
-  .lp-root .lp-nav-inner {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 16px clamp(20px, 3vw, 40px);
-    display: flex; align-items: center; gap: 32px;
-  }
-  .lp-root .lp-brand {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-family: var(--serif);
-    font-size: 24px;
-    font-weight: 400;
-    color: var(--text);
-    text-decoration: none;
-    margin-right: 8px;
-  }
-  .lp-brand-icon { display: inline-flex; align-items: center; }
-  .lp-root .lp-brand .wordmark { letter-spacing: 0.01em; }
-  .lp-root .lp-brand .dot { color: var(--text); }
-  .lp-root .lp-nav-links {
-    display: flex; gap: 22px; flex: 1; list-style: none; margin: 0; padding: 0;
-    font-size: 14px; color: var(--text-2);
-    align-items: center;
-    justify-content: center;
-  }
-  .lp-root .lp-nav-links a {
-    color: var(--text-2);
-    text-decoration: none;
-    transition: color .2s;
-    white-space: nowrap;
-  }
-  .lp-root .lp-nav-links a:hover { color: var(--text); }
-
-  /* Browse Logos dropdown */
-  .lp-root .lp-dropdown { position: relative; }
-  .lp-root .lp-dropdown > button {
-    background: none; border: none; padding: 0;
-    color: var(--text-2);
-    font-family: var(--sans);
-    font-size: 14px;
-    cursor: pointer;
-    display: inline-flex; align-items: center; gap: 6px;
-    transition: color .2s;
-  }
-  .lp-root .lp-dropdown:hover > button { color: var(--text); }
-  .lp-root .lp-dropdown > button .chev { display: inline-flex; transition: transform .2s; }
-  .lp-root .lp-dropdown:hover > button .chev { transform: rotate(180deg); }
-  .lp-root .lp-dropdown-menu {
-    position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-    margin-top: 10px;
-    background: var(--bg-elev);
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 6px 0;
-    min-width: 168px;
-    list-style: none;
-    opacity: 0; visibility: hidden;
-    transition: opacity .15s ease, visibility 0s linear .15s;
-    box-shadow: 0 16px 40px -8px rgba(0,0,0,0.65), 0 0 0 1px rgba(0,0,0,0.4);
-    z-index: 60;
-  }
-  .lp-root .lp-dropdown:hover .lp-dropdown-menu {
-    opacity: 1; visibility: visible;
-    transition: opacity .15s ease;
-  }
-  .lp-root .lp-dropdown-menu li { display: block; }
-  .lp-root .lp-dropdown-menu a {
-    display: block; padding: 8px 18px;
-    color: var(--text-2); font-size: 14px;
-  }
-  .lp-root .lp-dropdown-menu a:hover { color: var(--text); }
-
-  .lp-root .lp-cta-pill {
-    display: inline-flex; align-items: center; justify-content: center;
-    white-space: nowrap;
-    background: var(--accent-deep);
-    color: #fff;
-    font-weight: 600;
-    font-size: 14px;
-    padding: 10px 18px;
-    border-radius: 999px;
-    text-decoration: none;
-    transition: transform .15s, background .2s;
-  }
-  .lp-root .lp-cta-pill:hover { background: var(--accent); transform: translateY(-1px); }
-
-  /* Hamburger — hidden on desktop, shown on mobile. */
-  .lp-root .lp-burger {
-    display: none;
-    background: transparent;
-    border: 0;
-    padding: 0;
-    width: 40px; height: 40px;
-    align-items: center; justify-content: center;
-    cursor: pointer;
-    color: var(--text);
-    margin-left: auto;
-  }
-  .lp-root .lp-burger-icon {
-    position: relative;
-    display: inline-flex; flex-direction: column;
-    width: 22px; height: 16px;
-    justify-content: space-between;
-  }
-  .lp-root .lp-burger-icon span {
-    display: block;
-    width: 100%; height: 1.5px;
-    background: currentColor;
-    border-radius: 2px;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-    transform-origin: center;
-  }
-  .lp-root .lp-burger-icon.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .lp-root .lp-burger-icon.is-open span:nth-child(2) { opacity: 0; }
-  .lp-root .lp-burger-icon.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  /* Mobile slide-down panel. */
-  .lp-root .lp-mobile-panel {
-    display: none;
-    border-top: 1px solid var(--line);
-    background: var(--bg);
-    padding: 16px var(--gutter) 24px;
-    flex-direction: column;
-  }
-  .lp-root .lp-mobile-link {
-    display: block;
-    color: var(--text);
-    text-decoration: none;
-    font-family: var(--sans);
-    font-size: 16px;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--line);
-    transition: color 0.15s;
-  }
-  .lp-root .lp-mobile-link:hover { color: var(--accent-2); }
-  .lp-root .lp-mobile-sublink { padding-left: 16px; font-size: 15px; color: var(--text-2); }
-
-  /* Accordion section header (tap-to-expand for Company / Browse Logos
-     on mobile). Styled to read as a peer of the regular nav links —
-     same colour, size, and casing — with a chevron on the right to
-     signal the accordion affordance. */
-  .lp-root .lp-mobile-section-btn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    background: transparent;
-    border: 0;
-    border-bottom: 1px solid var(--line);
-    padding: 14px 0;
-    cursor: pointer;
-    font-family: var(--sans);
-    text-align: left;
-    color: var(--text);
-    transition: color 0.15s;
-  }
-  .lp-root .lp-mobile-section {
-    color: inherit;
-    font-family: var(--sans);
-    font-size: 16px;
-    font-weight: 400;
-    letter-spacing: normal;
-    text-transform: none;
-  }
-  .lp-root .lp-mobile-chev {
-    display: inline-flex;
-    align-items: center;
-    color: var(--text-3);
-    transition: transform 0.2s ease;
-  }
-  .lp-root .lp-mobile-chev.is-open { transform: rotate(180deg); }
-  .lp-root .lp-mobile-cta {
-    display: inline-flex; align-items: center; justify-content: center;
-    background: var(--accent-deep);
-    color: #fff;
-    text-decoration: none;
-    font-family: var(--sans);
-    font-weight: 600;
-    font-size: 16px;
-    padding: 14px 24px;
-    border-radius: 999px;
-    margin-top: 18px;
-    transition: background 0.2s;
-  }
-  .lp-root .lp-mobile-cta:hover { background: var(--accent); }
-
-  @media (max-width: 880px) {
-    .lp-root .lp-nav-links { gap: 14px; font-size: 13px; }
-  }
-  @media (max-width: 767px) {
-    .lp-root .lp-nav-links,
-    .lp-root .lp-cta-desktop { display: none; }
-    .lp-root .lp-burger { display: inline-flex; }
-    .lp-root .lp-mobile-panel { display: flex; }
-  }
+  /* NAV / DROPDOWN / BURGER / MOBILE PANEL CSS — all lives in
+     MLpNavStyles. Anything nav-related belongs there, not here. */
 
   /* LAYOUT */
   .lp-root .wrap {
@@ -1853,27 +1454,9 @@ const STYLES = `
   .lp-root .stat-line .sep { color: var(--text-3); margin: 0 6px; }
   .lp-root .stat-line .pct { color: var(--text-2); }
 
-  .lp-root .hero-counter-main {
-    font-family: var(--serif);
-    font-size: clamp(17px, 1.9vw, 21px);
-    line-height: 1.35;
-    color: var(--text);
-    max-width: none;
-    margin: 40px 0 16px;
-  }
-  .lp-root .hero-counter-main strong { color: var(--accent); font-weight: 400; }
-  .lp-root .hero-progress {
-    max-width: 280px;
-    margin: 0 auto 18px;
-  }
-  .lp-root .hero-counter-sub {
-    font-family: var(--sans);
-    font-size: 11px;
-    letter-spacing: 2.4px;
-    color: var(--text-3);
-    max-width: none;
-    margin: 0;
-  }
+  /* .hero-counter-* CSS lives inside MLpHeroCounter (self-contained).
+     The is-figma-type overrides for the hero context still live below
+     and win via specificity. */
 
   .lp-root .progress {
     height: 4px;
@@ -1940,52 +1523,7 @@ const STYLES = `
     .lp-root .cta-stats { grid-template-columns: 1fr; gap: 18px; }
   }
 
-  .lp-root .email-form {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    align-items: stretch;
-  }
-  .lp-root .email-form input {
-    flex: 1;
-    min-width: 0;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    color: var(--text);
-    padding: 15px 22px;
-    border-radius: 999px;
-    font-family: var(--sans);
-    font-size: 17px;
-    outline: none;
-    transition: border-color .2s, box-shadow .2s;
-  }
-  .lp-root .email-form input::placeholder { color: var(--text-3); }
-  .lp-root .email-form input:focus {
-    border-color: var(--accent-deep);
-    box-shadow: 0 0 0 3px rgba(124,58,237,0.18);
-  }
-  .lp-root .email-form button {
-    background: var(--accent-deep);
-    color: #fff;
-    border: 0;
-    padding: 15px 26px;
-    border-radius: 999px;
-    font-weight: 600;
-    font-size: 17px;
-    cursor: pointer;
-    font-family: var(--sans);
-    transition: background .2s, transform .15s;
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  @media (max-width: 560px) {
-    .lp-root .email-form { flex-direction: column; gap: 10px; }
-    .lp-root .email-form button { width: 100%; }
-  }
-  .lp-root .email-form button:hover { background: var(--accent); transform: translateY(-1px); }
-  .lp-root .email-form button .arr { transition: transform .2s; }
-  .lp-root .email-form button:hover .arr { transform: translateX(3px); }
+  /* .email-form CSS lives inside MLpEmailForm (self-contained). */
 
   .lp-root .fine {
     margin-top: 32px;
@@ -2641,78 +2179,7 @@ const STYLES = `
     font-weight: 700;
   }
 
-  /* ============ FOOTER ============ */
-  .lp-root .lp-footer {
-    border-top: 1px solid var(--line);
-    background: var(--bg);
-    padding: 100px 0 32px;
-    color: var(--text-2);
-    margin-top: 0;
-  }
-  .lp-root .footer-top {
-    margin-bottom: 56px;
-    text-align: left;
-  }
-  .lp-root .footer-top .tag { margin: 8px 0 0; max-width: none; }
-  .lp-root .footer-top .brand {
-    font-family: var(--serif);
-    font-size: 26px;
-    font-weight: 400;
-    color: var(--text);
-    display: inline-flex; align-items: center; gap: 10px;
-  }
-  .lp-root .footer-top .brand .dot { color: var(--text); }
-  .lp-root .footer-top .tag {
-    color: var(--text-3);
-    font-size: 14px;
-    margin-top: 8px;
-  }
-  .lp-root .footer-cols {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 48px 32px;
-    margin-bottom: 56px;
-  }
-  @media (max-width: 880px) { .lp-root .footer-cols { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 520px) { .lp-root .footer-cols { grid-template-columns: 1fr; } }
-  .lp-root .footer-cols h5 {
-    font-family: var(--sans);
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text);
-    font-weight: 600;
-    margin: 0 0 20px;
-  }
-  .lp-root .footer-cols ul { list-style: none; padding: 0; margin: 0; }
-  .lp-root .footer-cols li { margin-bottom: 12px; }
-  .lp-root .footer-cols a {
-    color: var(--text-2);
-    text-decoration: none;
-    font-size: 14px;
-    transition: color .2s;
-  }
-  .lp-root .footer-cols a:hover { color: var(--text); }
-  .lp-root .footer-bottom {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    padding-top: 28px;
-    border-top: 1px solid var(--line);
-  }
-  .lp-root .footer-bottom .badges {
-    display: flex; flex-wrap: wrap;
-    gap: 22px;
-    font-size: 12px;
-    color: var(--text-3);
-  }
-  .lp-root .footer-bottom .badges span {
-    display: inline-flex; align-items: center; gap: 8px;
-  }
-  .lp-root .footer-bottom .badges span svg { color: var(--accent); }
-  .lp-root .footer-bottom .copy { font-size: 12px; color: var(--text-3); }
+  /* FOOTER CSS — all lives in MLpNavStyles. */
 `
 
 const STEPS = [

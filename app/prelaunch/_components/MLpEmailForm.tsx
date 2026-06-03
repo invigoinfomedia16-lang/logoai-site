@@ -92,11 +92,72 @@ export default function MLpEmailForm({
 }
 
 const FORM_STYLES = `
+  /* Self-contained form styling so MLpEmailForm renders correctly on
+     every page (main /prelaunch + every subpage via MLpSubpageShell).
+     Previously these lived only in page.tsx, so subpage forms showed
+     up as default browser inputs/buttons. */
+  .email-form {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: stretch;
+  }
+  .email-form input {
+    flex: 1;
+    min-width: 0;
+    /* Elevated tint so the input lifts off the page bg (which is also
+       near-black) and reads as an interactive surface. */
+    background: rgba(232, 232, 230, 0.04);
+    border: 1px solid rgba(232, 232, 230, 0.14);
+    color: #f4f4f6;
+    padding: 15px 22px;
+    border-radius: 999px;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 17px;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .email-form input::placeholder { color: #7e7e8c; }
+  .email-form input:focus {
+    border-color: #E8420D;
+    box-shadow: 0 0 0 3px rgba(232, 66, 13, 0.18);
+  }
+  .email-form button {
+    background: #E8420D;
+    color: #fff;
+    border: 0;
+    padding: 15px 26px;
+    border-radius: 999px;
+    /* Match the input font-size so the pill heights line up and the
+       button reads as a peer of the input, not a smaller nav-pill. */
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    cursor: pointer;
+    transition: background .2s, transform .15s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .email-form button:hover {
+    background: #FF5C2E;
+    transform: translateY(-1px);
+  }
+  .email-form button .arr { transition: transform .2s; }
+  .email-form button:hover .arr { transform: translateX(3px); }
+  @media (max-width: 560px) {
+    .email-form { flex-direction: column; gap: 10px; }
+    .email-form button { width: 100%; }
+  }
+
   .email-form .lp-form-error {
     flex-basis: 100%;
     margin: 8px 0 0;
     color: #ff8b6b;
-    font-family: var(--sans, 'DM Sans', system-ui, sans-serif);
+    font-family: 'DM Sans', system-ui, sans-serif;
     font-size: 13px;
     text-align: left;
   }

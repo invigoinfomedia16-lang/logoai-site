@@ -110,6 +110,11 @@ export default function MLpGallery() {
           onClick={handleToggleShowAll}
         >
           {showAll ? 'Show fewer' : `See all ${CATEGORIES.length} industries`}
+          <span className={`lpg-chev${showAll ? ' is-open' : ''}`} aria-hidden>
+            <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
+              <path d="M3 4.5 L6 7.5 L9 4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
         </button>
       )}
 
@@ -162,6 +167,11 @@ export default function MLpGallery() {
           <p className="lpg-count">Showing {shown.length} of {images.length}</p>
           <button type="button" className="lpg-morebtn" onClick={() => setExpanded((v) => !v)}>
             {expanded ? 'Show fewer' : `Show ${images.length - INITIAL} more logos`}
+            <span className={`lpg-chev${expanded ? ' is-open' : ''}`} aria-hidden>
+              <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
+                <path d="M3 4.5 L6 7.5 L9 4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
           </button>
         </div>
       )}
@@ -209,22 +219,58 @@ const STYLES = `
     padding: 8px 0;
   }
 
+  /* "See all N industries" — quiet plain-text affordance (secondary
+     filter expansion). No pill, no background. */
   .lpg-seeall {
     align-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     background: transparent;
     border: 0;
     padding: 4px 0;
     color: #b8b8c4;
-    font-family: var(--sans, 'DM Sans', system-ui, sans-serif);
+    font-family: 'Outfit', sans-serif;
     font-size: 13.5px;
     font-weight: 500;
     cursor: pointer;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    text-decoration-thickness: 1px;
+    text-decoration: none;
     transition: color 0.15s ease;
   }
-  .lpg-seeall:hover { color: #a855f7; }
+  .lpg-seeall:hover { color: #FF5C2E; }
+
+  /* "Show N more logos" — primary load-more action. Pill with subtle
+     elevated bg + hairline border so it reads as a button. */
+  .lpg-morebtn {
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(232, 232, 230, 0.04);
+    border: 1px solid rgba(232, 232, 230, 0.14);
+    padding: 10px 20px 10px 22px;
+    border-radius: 999px;
+    color: #f4f4f6;
+    font-family: 'Outfit', sans-serif;
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+  .lpg-morebtn:hover {
+    background: rgba(255, 92, 46, 0.06);
+    border-color: rgba(255, 92, 46, 0.45);
+    color: #FF5C2E;
+  }
+
+  .lpg-chev {
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+    transition: transform 0.2s ease;
+  }
+  .lpg-chev.is-open { transform: rotate(180deg); }
 
   .lpg-pills, .lpg-subpills {
     display: flex; flex-wrap: wrap; gap: 10px;
@@ -296,7 +342,7 @@ const STYLES = `
     transition: all 0.15s ease;
     white-space: nowrap;
   }
-  .lpg-pill:hover { border-color: #7e7e8c; color: #f4f4f6; }
+  .lpg-pill:hover { border-color: rgba(255, 92, 46, 0.55); color: #FF5C2E; }
   .lpg-pill.is-active {
     background: #7c3aed;
     border-color: #7c3aed;
@@ -318,7 +364,7 @@ const STYLES = `
     transition: all 0.15s ease;
     white-space: nowrap;
   }
-  .lpg-subpill:hover { color: #f4f4f6; border-color: #7e7e8c; }
+  .lpg-subpill:hover { color: #FF5C2E; border-color: rgba(255, 92, 46, 0.55); }
   .lpg-subpill.is-active {
     color: #a855f7;
     border-color: #a855f7;
@@ -370,20 +416,8 @@ const STYLES = `
     font-size: 13px;
     margin: 0;
   }
-  .lpg-morebtn {
-    background: transparent;
-    border: 0;
-    padding: 4px 0;
-    color: #b8b8c4;
-    font-family: var(--sans, 'DM Sans', system-ui, sans-serif);
-    font-size: 13.5px;
-    font-weight: 500;
-    cursor: pointer;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    text-decoration-thickness: 1px;
-    transition: color 0.15s ease;
-  }
-  .lpg-morebtn:hover { color: #a855f7; }
-  .lpg-arr { color: #a855f7; margin-right: 4px; }
+  /* .lpg-morebtn shares the pill styling defined alongside .lpg-seeall
+     above. Keeping the arrow util in case any other call site still
+     references it (no current usage). */
+  .lpg-arr { color: #FF5C2E; margin-right: 4px; }
 `

@@ -38,6 +38,7 @@ export default function MLpHeroCounter({
 
   return (
     <div className="hero-counter-block">
+      <style dangerouslySetInnerHTML={{ __html: COUNTER_STYLES }} />
       <p className="hero-counter-main">
         <strong>{count.toLocaleString()}</strong> of 2,000,000 {label}
       </p>
@@ -52,3 +53,55 @@ export default function MLpHeroCounter({
     </div>
   )
 }
+
+// Self-contained styling so this component renders the same on
+// /prelaunch and every subpage (main page used to provide these
+// styles inline; subpages now get them from the component itself).
+const COUNTER_STYLES = `
+  .hero-counter-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .hero-counter-main {
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(232, 232, 230, 0.60);
+    line-height: 1.4;
+    margin: 0;
+    text-align: center;
+  }
+  .hero-counter-main strong {
+    font-family: 'Sora', sans-serif;
+    color: #FF5C2E;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .hero-progress {
+    width: 100%;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(232, 232, 230, 0.10);
+    overflow: hidden;
+    margin: 4px 0 2px;
+  }
+  .hero-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #E8420D, #FF5C2E);
+    border-radius: 999px;
+    transition: width 0.4s ease;
+  }
+  .hero-counter-tagline {
+    font-family: 'Outfit', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(232, 232, 230, 0.45);
+    margin: 4px 0 0;
+    text-align: center;
+    letter-spacing: 0.2px;
+  }
+`

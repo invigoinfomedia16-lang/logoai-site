@@ -36,7 +36,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} ${sora.variable}`}>
-      <body className="font-inter bg-[#0D0D0D] text-white overflow-x-hidden">
+      <body className="font-inter bg-[#09090b] text-white overflow-x-hidden">
         {children}
       </body>
     </html>

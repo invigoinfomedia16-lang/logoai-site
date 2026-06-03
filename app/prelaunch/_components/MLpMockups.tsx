@@ -93,6 +93,11 @@ export default function MLpMockups() {
           onClick={() => setShowAll((v) => !v)}
         >
           {showAll ? 'Show fewer' : `See all ${CATEGORIES.length} industries`}
+          <span className={`lpm-chev${showAll ? ' is-open' : ''}`} aria-hidden>
+            <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
+              <path d="M3 4.5 L6 7.5 L9 4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </span>
         </button>
       )}
 
@@ -194,23 +199,32 @@ const STYLES = `
     padding: 8px 0;
   }
 
+  /* Plain text + chevron — matches the gallery's .lpg-seeall treatment. */
   .lpm-seeall {
     align-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     background: transparent;
     border: 0;
     padding: 4px 0;
     color: #b8b8c4;
-    font-family: var(--sans, 'DM Sans', system-ui, sans-serif);
+    font-family: 'Outfit', sans-serif;
     font-size: 13.5px;
     font-weight: 500;
     cursor: pointer;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    text-decoration-thickness: 1px;
+    text-decoration: none;
     transition: color 0.15s ease;
   }
-  .lpm-seeall:hover { color: #a855f7; }
-  .lpm-arr { color: #a855f7; margin-right: 4px; }
+  .lpm-seeall:hover { color: #FF5C2E; }
+  .lpm-chev {
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+    transition: transform 0.2s ease;
+  }
+  .lpm-chev.is-open { transform: rotate(180deg); }
+  .lpm-arr { color: #FF5C2E; margin-right: 4px; }
 
   .lpm-pills, .lpm-subpills {
     display: flex; flex-wrap: wrap; gap: 10px;
@@ -280,7 +294,7 @@ const STYLES = `
     transition: all 0.15s ease;
     white-space: nowrap;
   }
-  .lpm-pill:hover { border-color: #7e7e8c; color: #f4f4f6; }
+  .lpm-pill:hover { border-color: rgba(255, 92, 46, 0.55); color: #FF5C2E; }
   .lpm-pill.is-active {
     background: #7c3aed;
     border-color: #7c3aed;
@@ -302,7 +316,7 @@ const STYLES = `
     transition: all 0.15s ease;
     white-space: nowrap;
   }
-  .lpm-subpill:hover { color: #f4f4f6; border-color: #7e7e8c; }
+  .lpm-subpill:hover { color: #FF5C2E; border-color: rgba(255, 92, 46, 0.55); }
   .lpm-subpill.is-active {
     color: #a855f7;
     border-color: #a855f7;
@@ -327,7 +341,7 @@ const STYLES = `
 
   .lpm-dots {
     position: absolute;
-    bottom: 18px;
+    bottom: 28px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -351,7 +365,7 @@ const STYLES = `
   }
   .lpm-dot:hover { background: rgba(255, 255, 255, 0.65); }
   .lpm-dot.is-active {
-    background: #f4f4f6;
+    background: #FF5C2E;
     width: 22px;
     border-radius: 999px;
   }
