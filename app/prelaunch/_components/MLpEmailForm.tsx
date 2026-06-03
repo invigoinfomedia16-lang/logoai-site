@@ -101,6 +101,11 @@ const FORM_STYLES = `
     flex-direction: row;
     gap: 8px;
     align-items: stretch;
+    /* Explicit width: 100% pins the form to its parent's width in
+       every browser. Without this, Firefox sometimes renders <form>
+       at shrink-to-fit width in flex/grid contexts, which makes the
+       form narrower than Chrome at the same viewport. */
+    width: 100%;
   }
   .email-form input {
     flex: 1;

@@ -2419,7 +2419,7 @@ export default function PrelaunchLanding() {
               Free logo for the first 2,000,000 users. Claim your spot now.
             </p>
 
-            <div className="form-card" style={{ marginTop: 56, maxWidth: 620, marginLeft: 'auto', marginRight: 'auto' }}>
+            <div className="form-card" style={{ marginTop: 56, width: '100%', maxWidth: 620, marginLeft: 'auto', marginRight: 'auto' }}>
               <MLpEmailForm variant="hero" />
 
               <p className="fine fine-tight">
