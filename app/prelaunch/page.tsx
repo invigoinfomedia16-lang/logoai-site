@@ -687,29 +687,21 @@ const STYLES = `
     max-width: 28ch;
     margin: 0 auto;
   }
-  /* Tablet — 2-col grid; kill connector at the end of each row */
+  /* Tablet — 2-col grid; drop connectors entirely (horizontal lines
+     don't translate when steps stack). The numbered circles + stacking
+     already convey sequence. */
   @media (max-width: 880px) {
     .lp-root.is-figma-type .steps {
       grid-template-columns: 1fr 1fr;
       gap: 48px 24px;
     }
-    .lp-root.is-figma-type .step:nth-child(2n)::before { display: none; }
+    .lp-root.is-figma-type .step:not(:last-child)::before { display: none; }
   }
-  /* Mobile — single col, vertical dashed connector under each circle */
+  /* Mobile — single col, no connector. */
   @media (max-width: 520px) {
     .lp-root.is-figma-type .steps {
       grid-template-columns: 1fr;
       gap: 40px;
-    }
-    .lp-root.is-figma-type .step:not(:last-child)::before {
-      display: block;
-      top: 72px;
-      left: 50%;
-      right: auto;
-      width: 0;
-      height: 40px;
-      border-top: 0;
-      border-left: 1.5px dashed rgba(255, 92, 46, 0.35);
     }
   }
 
