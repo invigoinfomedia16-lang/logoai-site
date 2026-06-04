@@ -24,6 +24,7 @@ import MLpHeroCounter from './_components/MLpHeroCounter'
 import MLpCountdownBadge from './_components/MLpCountdownBadge'
 import MLpEmailForm from './_components/MLpEmailForm'
 import MLpPricingClassic from './_components/MLpPricingClassic'
+import MLpRevealOnScroll from './_components/MLpRevealOnScroll'
 import { MLP_NAV_STYLES } from './_components/MLpNavStyles'
 
 export const metadata: Metadata = {
@@ -2068,6 +2069,48 @@ const STYLES = `
     font-weight: 600 !important;
   }
 
+  /* REVEAL-ON-SCROLL — initial hidden state. MLpRevealOnScroll adds
+     the lp-reveal class to every target, then swaps in is-in-view
+     once the element crosses the viewport. ~640ms ease-out feels
+     calm without being slow. Stagger via nth-child for elements
+     that sit inside a grid container (card sets, steps). */
+  .lp-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 800ms cubic-bezier(0.22, 1, 0.36, 1),
+                transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .lp-reveal.is-in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Stagger card siblings — second card waits 90ms after the first,
+     third 180ms, fourth 270ms. Caps at 4 since longer waits feel slow. */
+  .lp-root.is-figma-type .uc-groups-wrap > .uc-group.lp-reveal:nth-child(2),
+  .lp-root.is-figma-type .testimonials > .testimonial.lp-reveal:nth-child(2),
+  .lp-root.is-figma-type .blog-grid > .blog-card.lp-reveal:nth-child(2),
+  .lp-root.is-figma-type .steps > .step.lp-reveal:nth-child(2) {
+    transition-delay: 90ms;
+  }
+  .lp-root.is-figma-type .uc-groups-wrap > .uc-group.lp-reveal:nth-child(3),
+  .lp-root.is-figma-type .testimonials > .testimonial.lp-reveal:nth-child(3),
+  .lp-root.is-figma-type .blog-grid > .blog-card.lp-reveal:nth-child(3),
+  .lp-root.is-figma-type .steps > .step.lp-reveal:nth-child(3) {
+    transition-delay: 180ms;
+  }
+  .lp-root.is-figma-type .steps > .step.lp-reveal:nth-child(4) {
+    transition-delay: 270ms;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lp-reveal,
+    .lp-reveal.is-in-view {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
   /* NAV WORDMARK — Sarpanch 900 with square dot. */
   .mlp-wordmark-text {
     font-family: 'Sarpanch', sans-serif !important;
@@ -2865,6 +2908,7 @@ export default function PrelaunchLanding() {
       </footer>
 
       <MLpStickyCTA />
+      <MLpRevealOnScroll />
     </div>
   )
 }
