@@ -16,3 +16,6 @@ tests/**/*.png
 .env
 .env.local
 .env*.local
+
+# TypeScript incremental build cache
+*.tsbuildinfo

@@ -46,7 +46,7 @@ const GROUPS: { group: string; items: UseCase[] }[] = [
 
 export default function MLpUseCases() {
   return (
-    <>
+    <div className="uc-groups-wrap">
       {GROUPS.map((g) => (
         <div key={g.group} className="uc-group">
           <div className="uc-group-title">{g.group}</div>
@@ -61,6 +61,6 @@ export default function MLpUseCases() {
           </div>
         </div>
       ))}
-    </>
+    </div>
   )
 }

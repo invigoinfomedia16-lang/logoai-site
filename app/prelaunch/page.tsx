@@ -23,6 +23,7 @@ import MLpLogo from './_components/MLpLogo'
 import MLpHeroCounter from './_components/MLpHeroCounter'
 import MLpCountdownBadge from './_components/MLpCountdownBadge'
 import MLpEmailForm from './_components/MLpEmailForm'
+import MLpPricingClassic from './_components/MLpPricingClassic'
 import { MLP_NAV_STYLES } from './_components/MLpNavStyles'
 
 export const metadata: Metadata = {
@@ -39,6 +40,15 @@ export const metadata: Metadata = {
 // .lp-root block below is page-specific overrides only.
 const STYLES = `
   ${MLP_NAV_STYLES}
+
+  /* ══════════════════════════════════════════════════════════════
+     PRELAUNCH DESIGN
+     The canonical live-design rules live in the LIVE DESIGN — FINAL
+     CASCADE GUARD block at the bottom of this stylesheet (search for
+     "FINAL CASCADE GUARD"). The guard sits after every legacy rule
+     so it always wins, and it's the single source of truth for
+     spacing, type, colour, card chrome, and section layouts.
+     ══════════════════════════════════════════════════════════════ */
 
   /* Page-specific extras below — anything NOT covered by MLP_NAV_STYLES.
      Theme tokens (--bg, --accent, etc.), the box-sizing reset, and
@@ -505,88 +515,7 @@ const STYLES = `
     }
   }
 
-  /* ── CUSTOM: EARLY ACCESS / TESTIMONIALS editorial layout ──────────
-     Featured testimonial becomes a magazine-style pull-quote (no card,
-     no italics) with a giant decorative orange quote-mark above. Other
-     testimonials drop card chrome and sit in a 2-column ruled grid:
-     top border on container, right border between columns, bottom
-     border between rows (no border on the last row). */
-  .lp-root.is-figma-type .testimonial-feature {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 900px;
-    margin: 8px auto 72px;
-    padding: 0;
-    text-align: center;
-  }
-  .lp-root.is-figma-type .testimonial-feature::before {
-    content: "\\201C";
-    font-family: 'Sora', sans-serif;
-    font-weight: 800;
-    font-size: 96px;
-    line-height: 0.7;
-    color: rgba(255, 92, 46, 0.22);
-    margin: 0 0 8px;
-    order: 0;
-  }
-  .lp-root.is-figma-type .testimonial-feature blockquote {
-    font-family: 'Sora', sans-serif;
-    font-style: normal;
-    font-size: clamp(22px, 2.8vw, 30px);
-    font-weight: 600;
-    line-height: 1.3;
-    letter-spacing: -0.01em;
-    color: var(--text);
-    margin: 0 0 24px;
-    max-width: 32ch;
-    order: 1;
-  }
-  .lp-root.is-figma-type .testimonial-feature blockquote::before { content: none; }
-  .lp-root.is-figma-type .testimonial-feature .body {
-    font-family: 'Outfit', sans-serif;
-    font-size: 17px;
-    font-weight: 400;
-    line-height: 1.65;
-    color: #b8b8c4;
-    margin: 0 0 32px;
-    max-width: 60ch;
-    order: 2;
-  }
-  .lp-root.is-figma-type .testimonial-feature .t-cite-featured {
-    display: inline-flex;
-    align-items: center;
-    gap: 14px;
-    order: 3;
-  }
-  .lp-root.is-figma-type .testimonial-feature .t-avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 1px solid rgba(232, 232, 230, 0.15);
-  }
-  .lp-root.is-figma-type .testimonial-feature cite {
-    font-family: 'Outfit', sans-serif;
-    font-size: 14px;
-    color: rgba(232, 232, 230, 0.55);
-    font-style: normal;
-    text-align: left;
-  }
-  .lp-root.is-figma-type .testimonial-feature cite strong {
-    font-family: 'Sora', sans-serif;
-    color: var(--text);
-    font-weight: 700;
-    font-size: 16px;
-    display: block;
-    margin-bottom: 2px;
-  }
-  .lp-root.is-figma-type .testimonial-feature .stars {
-    color: rgba(232, 232, 230, 0.55);
-    letter-spacing: 6px;
-    font-size: 14px;
-    margin: 16px 0 0;
-    order: 4;
-  }
+  /* Testimonial-feature pull-quote is hidden via the cascade guard. */
 
   /* Regular testimonials — strip card chrome, ruled 2-col grid.
      Container now has both top AND bottom borders to close the grid
@@ -924,15 +853,15 @@ const STYLES = `
     background: transparent;
     border: 1px solid rgba(232, 232, 230, 0.18);
     color: rgba(232, 232, 230, 0.75);
-    padding: 8px 18px;
+    padding: 6px 14px;
     border-radius: 999px;
     font-family: 'Outfit', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0;
-    text-transform: none;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     line-height: 1;
-    margin: 0 auto 32px;
+    margin: 0 auto 48px;
     font-variant-numeric: tabular-nums;
   }
   /* Live pulsing dot — reused by the countdown badge */
@@ -1112,129 +1041,7 @@ const STYLES = `
     }
   }
 
-  /* ── CUSTOM: BLOG — 1 featured + 3 mini cards (4 posts) ────────────
-     Featured card lives on the left and spans all 3 rows. Three
-     horizontal mini-cards (image left, title+desc right) stack in
-     col 2, one per row — each row sized to 1/3 of the featured so
-     the mini stack fits the same vertical extent. */
-  .lp-root.is-figma-type .blog-grid {
-    display: grid;
-    grid-template-columns: 1.35fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    gap: 18px;
-    align-items: stretch;
-  }
-  /* Featured card — col 1, spans all 3 rows */
-  .lp-root.is-figma-type .blog-card:first-child {
-    grid-column: 1;
-    grid-row: 1 / span 3;
-    background: rgba(232, 232, 230, 0.03);
-    border: 1px solid rgba(232, 232, 230, 0.10);
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  .lp-root.is-figma-type .blog-card:first-child:hover {
-    border-color: rgba(255, 92, 46, 0.32);
-    transform: translateY(-2px);
-  }
-  .lp-root.is-figma-type .blog-card:first-child .blog-thumb {
-    aspect-ratio: auto;
-    flex: 1 1 auto;
-    min-height: 0;
-  }
-  .lp-root.is-figma-type .blog-card:first-child .blog-body {
-    padding: 28px 32px 32px;
-  }
-  .lp-root.is-figma-type .blog-card:first-child .blog-body h3 {
-    font-family: 'Sora', sans-serif;
-    font-size: 26px;
-    font-weight: 700;
-    line-height: 1.22;
-    letter-spacing: -0.015em;
-    color: var(--text);
-    margin: 0 0 12px;
-  }
-  .lp-root.is-figma-type .blog-card:first-child .blog-body p {
-    font-family: 'Outfit', sans-serif;
-    font-size: 15.5px;
-    line-height: 1.55;
-    color: #b8b8c4;
-    margin: 0;
-  }
-  /* Mini cards — horizontal layout, one per row in col 2 */
-  .lp-root.is-figma-type .blog-card:not(:first-child) {
-    background: rgba(232, 232, 230, 0.03);
-    border: 1px solid rgba(232, 232, 230, 0.10);
-    border-radius: 14px;
-    display: grid;
-    grid-template-columns: 40% 1fr;
-    align-items: stretch;
-    overflow: hidden;
-    min-height: 0;
-  }
-  .lp-root.is-figma-type .blog-card:not(:first-child):hover {
-    border-color: rgba(255, 92, 46, 0.32);
-    transform: translateY(-2px);
-  }
-  .lp-root.is-figma-type .blog-card:not(:first-child) .blog-thumb {
-    aspect-ratio: auto;
-    height: 100%;
-    min-height: 0;
-  }
-  .lp-root.is-figma-type .blog-card:not(:first-child) .blog-body {
-    padding: 16px 18px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 0;
-  }
-  .lp-root.is-figma-type .blog-card:not(:first-child) .blog-body h3 {
-    font-family: 'Sora', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 1.3;
-    letter-spacing: -0.005em;
-    color: var(--text);
-    margin: 0 0 6px;
-  }
-  .lp-root.is-figma-type .blog-card:not(:first-child) .blog-body p {
-    font-family: 'Outfit', sans-serif;
-    font-size: 13px;
-    line-height: 1.5;
-    color: #b8b8c4;
-    margin: 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  /* Tablet/mobile — single column, all cards revert to vertical */
-  @media (max-width: 880px) {
-    .lp-root.is-figma-type .blog-grid {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto;
-      gap: 18px;
-    }
-    .lp-root.is-figma-type .blog-card:first-child {
-      grid-column: auto;
-      grid-row: auto;
-    }
-    .lp-root.is-figma-type .blog-card:first-child .blog-thumb {
-      aspect-ratio: 16 / 10;
-      flex: none;
-    }
-  }
-  @media (max-width: 520px) {
-    .lp-root.is-figma-type .blog-card:not(:first-child) {
-      grid-template-columns: 1fr;
-    }
-    .lp-root.is-figma-type .blog-card:not(:first-child) .blog-thumb {
-      aspect-ratio: 16 / 10;
-      height: auto;
-    }
-  }
+  /* Blog layout is defined in the FINAL CASCADE GUARD at the bottom. */
 
   /* ── CUSTOM: FINAL CTA — spotlight card ────────────────────────────
      Wraps the existing centered Final CTA in a tinted card with an
@@ -1405,16 +1212,7 @@ const STYLES = `
     padding: 0 var(--gutter);
     text-align: center;
   }
-  .lp-root .final-cta-simple .final-h2-simple {
-    font-family: var(--serif);
-    font-weight: 400;
-    font-size: clamp(28px, 3.6vw, 42px);
-    line-height: 1.08;
-    letter-spacing: -0.5px;
-    margin: 0;
-    color: var(--text);
-    text-align: center;
-  }
+  /* .final-h2-simple typography is defined in the cascade guard. */
   .lp-root .final-cta-simple .final-counter-line {
     font-family: var(--serif);
     font-size: clamp(17px, 1.9vw, 21px);
@@ -2185,6 +1983,397 @@ const STYLES = `
   }
 
   /* FOOTER CSS — all lives in MLpNavStyles. */
+
+  /* ══════════════════════════════════════════════════════════════
+     LIVE DESIGN — FINAL CASCADE GUARD
+     ════════════════════════════════════════════════════════════════
+     When the alt design was promoted to the live design, the
+     html.lp-design-alt prefix was stripped from every rule. That
+     dropped the alt rules to plain .lp-root specificity — equal to
+     the legacy rules below in the file, which then won on source
+     order. This block sits AFTER everything so the live design's
+     spacing / type / colour decisions win regardless of where the
+     legacy rules sit. Edit live values HERE; the upper block is the
+     authoring source but this is what actually paints. */
+
+  /* SECTION RHYTHM */
+  .lp-root.is-figma-type section { padding: 90px 0 !important; }
+  @media (max-width: 720px) {
+    .lp-root.is-figma-type section { padding: 64px 0 !important; }
+  }
+  .lp-root.is-figma-type .hero { padding: 90px 0 !important; }
+  @media (max-width: 720px) {
+    .lp-root.is-figma-type .hero { padding: 64px 0 !important; }
+  }
+  .lp-root.is-figma-type .hero .hero-urgency { margin-bottom: 32px !important; }
+  .lp-root.is-figma-type .hero .eyebrow { margin-bottom: 32px !important; }
+  .lp-root.is-figma-type .hero h1 { margin-bottom: 0 !important; }
+  .lp-root.is-figma-type .hero-lede { margin-top: 32px !important; }
+  .lp-root.is-figma-type .hero-grid { margin-top: 72px !important; gap: 64px !important; }
+  @media (max-width: 960px) {
+    .lp-root.is-figma-type .hero-grid { margin-top: 56px !important; gap: 40px !important; }
+  }
+  .lp-root.is-figma-type .sec-head { margin-bottom: 56px !important; }
+  .lp-root.is-figma-type .final-cta-simple { padding-top: 90px !important; padding-bottom: 90px !important; }
+
+  /* TYPE SCALE — eyebrow + lede + section h2 */
+  .lp-root.is-figma-type .eyebrow {
+    font-size: 11px !important;
+    letter-spacing: 0.18em !important;
+    text-transform: uppercase !important;
+  }
+  .lp-root.is-figma-type .lede,
+  .lp-root.is-figma-type .sec-head .lede,
+  .lp-root.is-figma-type .hero-lede {
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    line-height: 1.55 !important;
+    color: rgba(232, 232, 230, 0.72) !important;
+    max-width: 56ch !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .lp-root.is-figma-type section h2 {
+    font-size: clamp(30px, 4.6vw, 44px) !important;
+    letter-spacing: -0.022em !important;
+  }
+  /* Final CTA H2 — align to section H2 (was clamp(28,3.6vw,42) DM serif). */
+  .lp-root.is-figma-type .final-cta-simple .final-h2-simple {
+    font-family: 'Sora', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: clamp(30px, 4.6vw, 44px) !important;
+    letter-spacing: -0.022em !important;
+    line-height: 1.08 !important;
+  }
+  /* How It Works step title + description — sits one tier above
+     card-title so the four steps read as confident, not tiny labels. */
+  .lp-root.is-figma-type .step h3 {
+    font-family: 'Sora', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 18px !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.01em !important;
+    color: var(--text) !important;
+  }
+  .lp-root.is-figma-type .step p {
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 15px !important;
+    line-height: 1.55 !important;
+    color: rgba(232, 232, 230, 0.70) !important;
+  }
+
+  /* COLOUR — accent only on CTAs + eyebrows. Counter numbers neutral. */
+  .lp-root.is-figma-type .stat-line strong,
+  .lp-root.is-figma-type .final-cta-simple .final-counter-line strong,
+  .lp-root.is-figma-type .hero-counter-main strong {
+    color: var(--text) !important;
+    font-weight: 600 !important;
+  }
+  /* Pricing "100% yours to keep forever" line — neutral, 90% white. */
+  .lp-root .pricing-card-classic .pcc-keep {
+    color: rgba(232, 232, 230, 0.90) !important;
+    font-weight: 600 !important;
+  }
+
+  /* NAV WORDMARK — Sarpanch 900 with square dot. */
+  .mlp-wordmark-text {
+    font-family: 'Sarpanch', sans-serif !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.06em !important;
+  }
+  .mlp-wordmark-dot {
+    display: inline-block !important;
+    width: 0.15em !important;
+    height: 0.15em !important;
+    background: var(--text, #E8E8E6) !important;
+    vertical-align: baseline !important;
+    margin: 0 0.03em !important;
+    color: transparent !important;
+    overflow: hidden !important;
+    line-height: 0 !important;
+  }
+
+  /* BLOG — 3-col equal grid, image on top, body below. Override the
+     legacy "1.35fr 1fr" featured+minis layout. Hide cards 4+. */
+  .lp-root.is-figma-type .blog-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-rows: auto !important;
+    gap: 24px !important;
+    max-width: 1180px;
+  }
+  @media (max-width: 880px) {
+    .lp-root.is-figma-type .blog-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+  .lp-root.is-figma-type .blog-card,
+  .lp-root.is-figma-type .blog-card:first-child,
+  .lp-root.is-figma-type .blog-card:not(:first-child) {
+    grid-column: auto !important;
+    grid-row: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+    background: rgba(232, 232, 230, 0.03) !important;
+    border: 1px solid rgba(232, 232, 230, 0.10) !important;
+    border-radius: 16px !important;
+    overflow: hidden;
+    text-decoration: none;
+    transition: border-color .2s, transform .2s;
+  }
+  /* Hide cards 4+ — defined AFTER the display:flex reset above so
+     source order makes display:none win at equal specificity. The
+     chained .blog-grid selector also bumps specificity by one. */
+  .lp-root.is-figma-type .blog-grid .blog-card:nth-child(n+4) {
+    display: none !important;
+  }
+  .lp-root.is-figma-type .blog-card:hover,
+  .lp-root.is-figma-type .blog-card:first-child:hover {
+    border-color: rgba(255, 92, 46, 0.32) !important;
+    transform: translateY(-2px);
+  }
+  .lp-root.is-figma-type .blog-card .blog-thumb,
+  .lp-root.is-figma-type .blog-card:first-child .blog-thumb,
+  .lp-root.is-figma-type .blog-card:not(:first-child) .blog-thumb {
+    aspect-ratio: 16/10 !important;
+    width: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+  }
+  .lp-root.is-figma-type .blog-card .blog-body,
+  .lp-root.is-figma-type .blog-card:first-child .blog-body,
+  .lp-root.is-figma-type .blog-card:not(:first-child) .blog-body {
+    padding: 22px 22px 24px !important;
+    display: block !important;
+  }
+  .lp-root.is-figma-type .blog-card h3,
+  .lp-root.is-figma-type .blog-card:first-child h3,
+  .lp-root.is-figma-type .blog-card:not(:first-child) .blog-body h3 {
+    font-family: 'Sora', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 16px !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.01em !important;
+    color: var(--text) !important;
+    margin: 0 0 6px !important;
+  }
+  .lp-root.is-figma-type .blog-card p,
+  .lp-root.is-figma-type .blog-card:first-child p,
+  .lp-root.is-figma-type .blog-card:not(:first-child) .blog-body p {
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 14.5px !important;
+    line-height: 1.55 !important;
+    color: rgba(232, 232, 230, 0.65) !important;
+    margin: 0 !important;
+    -webkit-line-clamp: unset !important;
+    display: block !important;
+    overflow: visible !important;
+  }
+
+  /* FAQ — single column, max-width capped for editorial readability. */
+  .lp-root.is-figma-type .faq-list {
+    grid-template-columns: 1fr !important;
+    column-gap: 0 !important;
+    max-width: 820px !important;
+    margin: 0 auto !important;
+  }
+  .lp-root.is-figma-type .faq-item:nth-last-child(-n+2) {
+    border-bottom: 0;
+  }
+  .lp-root.is-figma-type .faq-item:last-child {
+    border-bottom: 1px solid rgba(232, 232, 230, 0.10);
+  }
+
+  /* TESTIMONIALS — hide the magazine-style featured pull-quote,
+     show grid testimonials as 2-up bordered cards. */
+  .lp-root.is-figma-type .testimonial-feature {
+    display: none !important;
+  }
+  .lp-root.is-figma-type .testimonials {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 24px !important;
+    margin-top: 0 !important;
+    border: 0 !important;
+  }
+  .lp-root.is-figma-type .testimonial {
+    border: 1px solid rgba(232, 232, 230, 0.10) !important;
+    border-radius: 16px !important;
+    padding: 40px 36px !important;
+    background: rgba(232, 232, 230, 0.03) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+    transition: border-color .2s;
+  }
+  .lp-root.is-figma-type .testimonial:hover {
+    border-color: rgba(255, 92, 46, 0.32) !important;
+  }
+  .lp-root.is-figma-type .testimonial .stars {
+    color: rgba(255, 92, 46, 0.55) !important;
+    font-size: 13px !important;
+    letter-spacing: 4px !important;
+    margin: 0 !important;
+  }
+  .lp-root.is-figma-type .testimonial blockquote {
+    font-family: 'Sora', sans-serif !important;
+    font-weight: 600 !important;
+    font-style: normal !important;
+    font-size: clamp(16px, 1.4vw, 18px) !important;
+    line-height: 1.4 !important;
+    letter-spacing: -0.01em !important;
+    color: rgba(232, 232, 230, 0.88) !important;
+    margin: 0 !important;
+  }
+  .lp-root.is-figma-type .testimonial blockquote::before { content: none !important; }
+  .lp-root.is-figma-type .testimonial .body {
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 14.5px !important;
+    line-height: 1.65 !important;
+    color: rgba(232, 232, 230, 0.65) !important;
+    margin: 0 !important;
+  }
+  .lp-root.is-figma-type .testimonial cite {
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 13.5px !important;
+    color: rgba(232, 232, 230, 0.55) !important;
+    font-style: normal !important;
+    margin-top: auto !important;
+    padding-top: 8px !important;
+  }
+  .lp-root.is-figma-type .testimonial cite strong {
+    font-family: 'Sora', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    color: var(--text) !important;
+    display: block !important;
+    margin-bottom: 2px !important;
+  }
+  @media (max-width: 720px) {
+    .lp-root.is-figma-type .testimonials {
+      grid-template-columns: 1fr !important;
+    }
+    .lp-root.is-figma-type .testimonial {
+      padding: 32px 24px !important;
+    }
+  }
+
+  /* USE CASES — category-card pattern. Each group becomes a card,
+     3-col wide with viewport breakout, vertical list of sub-items
+     inside (icon + title + description rows). */
+  .lp-root.is-figma-type .uc-groups-wrap {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 24px !important;
+    width: calc(100vw - 40px);
+    max-width: 1400px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  @media (max-width: 880px) {
+    .lp-root.is-figma-type .uc-groups-wrap {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+  @media (max-width: 720px) {
+    .lp-root.is-figma-type .uc-groups-wrap {
+      grid-template-columns: 1fr !important;
+      gap: 20px !important;
+      width: 100% !important;
+      left: auto !important;
+      transform: none !important;
+    }
+  }
+  .lp-root.is-figma-type .uc-group {
+    background: rgba(232, 232, 230, 0.03) !important;
+    border: 1px solid rgba(232, 232, 230, 0.10) !important;
+    border-radius: 16px !important;
+    padding: 40px 36px !important;
+    margin-top: 0 !important;
+    text-align: left !important;
+    transition: border-color .2s;
+  }
+  .lp-root.is-figma-type .uc-group:hover {
+    border-color: rgba(255, 92, 46, 0.32) !important;
+  }
+  .lp-root.is-figma-type .uc-group-title {
+    font-family: 'Sora', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 24px !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.018em !important;
+    color: var(--text) !important;
+    text-transform: none !important;
+    margin: 0 0 28px !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+  }
+  .lp-root.is-figma-type .uc-group .uc-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 22px !important;
+    grid-template-columns: none !important;
+  }
+  .lp-root.is-figma-type .uc-card {
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    display: grid !important;
+    grid-template-columns: 36px 1fr !important;
+    grid-template-rows: auto auto !important;
+    column-gap: 14px !important;
+    row-gap: 4px !important;
+    align-items: start !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .lp-root.is-figma-type .uc-card:hover {
+    background: transparent !important;
+    border: 0 !important;
+    transform: none !important;
+  }
+  .lp-root.is-figma-type .uc-card .uc-icon {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 10px !important;
+    background: rgba(255, 92, 46, 0.08) !important;
+    color: #FF5C2E !important;
+    border: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    grid-column: 1 !important;
+    grid-row: 1 / -1 !important;
+    flex-shrink: 0 !important;
+  }
+  .lp-root.is-figma-type .uc-card h4 {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 15px !important;
+    line-height: 1.35 !important;
+    letter-spacing: 0 !important;
+    color: var(--text) !important;
+    margin: 0 !important;
+    text-align: left !important;
+  }
+  .lp-root.is-figma-type .uc-card p {
+    grid-column: 2 !important;
+    grid-row: 2 !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 13.5px !important;
+    line-height: 1.55 !important;
+    color: rgba(232, 232, 230, 0.62) !important;
+    margin: 0 !important;
+    text-align: left !important;
+  }
 `
 
 const STEPS = [
@@ -2540,30 +2729,8 @@ export default function PrelaunchLanding() {
                 A freelance designer costs $1,500+. Other AI tools charge $20–$96/year. We&rsquo;re giving ours away free to the first 2,000,000 users.
               </p>
             </div>
-            <div className="pricing-card">
-              <div className="pricing-left">
-                <div className="pricing-head">
-                  <span className="strike">$49</span>
-                  <span className="free">Free</span>
-                </div>
-                <p className="pricing-sub">Free for the first 2,000,000 users — no subscription, no credit card, no catch.</p>
-                <p className="pricing-keep">100% yours to keep forever.</p>
-
-                <div className="pricing-divider" />
-
-                <a href="#hero-cta" className="pricing-cta">Get My Free Logo <span>→</span></a>
-                <p className="pricing-fine">Free for the first 2,000,000 users. No credit card, ever.</p>
-              </div>
-
-              <div className="pricing-right">
-                <p className="pl-title">What you get — free</p>
-                <ul className="pricing-list">
-                  {PRICING_BENEFITS.map((b, i) => (
-                    <li key={i}>{b.txt}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            {/* Single-card centered pricing layout. */}
+            <MLpPricingClassic benefits={PRICING_BENEFITS} />
           </div>
         </section>
 

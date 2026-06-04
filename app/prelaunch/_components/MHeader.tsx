@@ -177,6 +177,7 @@ export default function MHeader({
           <a className="flex items-center gap-2" href={homeHref} style={{ color: 'var(--m-logo-color, var(--m-ink))' }}>
             {wordmarkIcon}
             <span
+              className="mlp-wordmark-text"
               style={{
                 fontFamily: 'var(--m-logo-font, var(--m-font-wordmark), serif)',
                 fontSize: 'var(--m-logo-size, 26px)',
@@ -187,7 +188,7 @@ export default function MHeader({
                 whiteSpace: 'nowrap',
               }}
             >
-              LOGO<span style={{ color: 'var(--m-logo-color, var(--m-brand))' }}>.</span>AI
+              LOGO<span className="mlp-wordmark-dot" style={{ color: 'var(--m-logo-color, var(--m-brand))' }}>.</span>AI
             </span>
           </a>
           {tagline && (

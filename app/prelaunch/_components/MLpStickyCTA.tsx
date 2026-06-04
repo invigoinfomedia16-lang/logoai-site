@@ -112,7 +112,7 @@ const STYLES = `
     background: #7c3aed;
     color: #ffffff;
     border-radius: 999px;
-    font-family: var(--sans, 'DM Sans', system-ui, sans-serif);
+    font-family: 'Outfit', system-ui, sans-serif;
     font-weight: 600;
     font-size: 16px;
     padding: 16px 24px;
